@@ -1,0 +1,31 @@
+*{box-sizing: border-box;}
+
+body {
+	background-color: lightsalmon;
+	margin: 0;
+}
+
+a {
+	margin: 10px;
+	padding: 5px;
+	font-family: sans-serif;
+	text-decoration: none;
+	border-style: solid;
+	border-radius: 10%;
+	border-width: 2px;
+	border-color: black;
+	background-color: white;
+}
+
+.game_div {
+	padding: 200px;
+	background-color: lightblue;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.game_div .choice_button{
+	margin: 10px;
+}

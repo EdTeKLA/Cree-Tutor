@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html>
+	{% load static %}
+
+	{% block styles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'lettergame/css/style.css' %}" />
+	{% endblock %}
+
+	<body>
+
+		<div class="gamelinks">
+			<a href="{% url 'lettergame:whichgame' 'single' %}" >Single letter game</a>
+			<a href="{% url 'lettergame:whichgame' 'double' %}" >Letter pair game</a>
+			<a>Sound syllable game</a>
+		</div>
+
+	</body>
+
+</html>

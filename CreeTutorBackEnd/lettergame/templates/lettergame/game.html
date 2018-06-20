@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+	{% load static %}
+
+	{% block styles %}
+	 <link rel="stylesheet" type="text/css" href="{% static 'lettergame/css/gamestyle.css' %}" />
+  {% endblock %}
+
+		<meta charset="utf-8">
+		{% block title %}
+      <title>Learn Cree</title>
+    {% endblock %}
+
+	{% block content %}
+    <a href="{% url 'lettergame:index' %}">Home</a>
+
+    <div class="game_div">
+
+    	<audio controls controlsList="nodownload">
+				<source src="{% static ''%}{{sound.sound}}" type="audio/wav">
+					Your browser does not support the sound type
+			</audio>
+
+    	<form class="options" action="{% url 'lettergame:whichgame' game %}" method="post">
+			{% csrf_token %}
+			   <input class="hidden" type="hidden" id="{{ sound.name }}" name= "correct_r" value="{{ sound.name }}" />
+
+         {% for letter in letters %}
+					<input class="choice_button" type="radio" id="{{ letter.name }}" name= "user_r" value="{{ letter.name }}" required/>
+					<label for="{{letter.name}}">{{ letter.name }}</label><br />
+			   {% endfor %}
+
+         <input type="submit" value="submit" />
+		  </form>
+		 </div>
+	{% endblock content %}
+
+</html>
