@@ -8,6 +8,7 @@ Information on Plains Cree:
   * Is primarily spoken in Alberta and Saskatchewan but is also spoken in Manitoba and Montana<sup>1</sup>.
   * It is a polysynthetic language<sup>2</sup>.
   
+Uses Django 2.0.5
 
 #### References
   1. https://en.wikipedia.org/wiki/Plains_Cree
