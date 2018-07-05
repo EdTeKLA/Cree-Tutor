@@ -1,0 +1,1184 @@
+acimosis	acimosis+N+AN+Sg
+acimosis	atim+N+AN+Der/Dim+N+AN+Sg
+
+akâmaskîhk	akâmaskiy+N+IN+Loc
+akâmaskîhk	akâmaskîhk+Ipc
+
+akâmihk	PV/ako+âmîw+V+AI+Imp+Imm+2Pl
+akâmihk	PV/ako+âmîw+V+AI+Cnj+Prs+X+3Sg
+akâmihk	akâmihk+Ipc
+
+amiskwâciwaskahikan	amiskwâciwaskahikan	+?
+
+anohc	anohc+Ipc
+anohc	anohc+Ipc+Err/Orth
+
+apsis	apsis	+?
+
+api	apiw+V+AI+Imp+Imm+2Sg
+
+apik	apiw+V+AI+Imp+Imm+2Pl
+apik	apiw+V+AI+Cnj+Prs+X+3Sg
+
+apitân	apiw+V+AI+Imp+Imm+12Pl
+
+apiw	apiw+V+AI+Ind+Prs+3Sg
+
+apiyiwa	apiw+V+AI+Ind+Prs+4Sg/Pl
+
+askipwawâ	askipwâwi+N+IN+Pl
+
+askipwâwa	askipwâwi+N+IN+Pl
+
+atâwêwikamik	atâwêwikamik+N+IN+Sg
+
+atâwêwikamikwa	atâwêwikamik+N+IN+Pl
+
+atâwêwikamiwa	atâwêwikamiwa	+?
+
+atim	atim+N+AN+Sg
+atim	atimêw+V+TA+Imp+Imm+2Sg+3SgO
+
+atimwak	atim+N+AN+Pl
+
+atoskê	atoskêw+V+AI+Imp+Imm+2Sg
+
+awâsis	awâsis+N+AN+Sg
+
+awîna	awîna+Pron+Interr+Sg
+
+ayamihcikê	ayamihcikêw+V+AI+Imp+Imm+2Sg
+
+ayamihcikêw	ayamihcikêw+V+AI+Ind+Prs+3Sg
+
+ayamihcikêyiwa	ayamihcikêw+V+AI+Ind+Prs+4Sg/Pl
+
+ayapi	RdplW+apiw+V+AI+Imp+Imm+2Sg
+ayapi	PV/ayi+apiw+V+AI+Imp+Imm+2Sg
+
+âkayâsîmowin	âkayâsîmowin+N+IN+Sg
+
+âkâyâsiw	âkayâsîw+N+AN+Sg
+
+âpokosîs	âpokosîs	+?
+
+âta	âta+Ipc
+
+âtiht	âtiht+Ipc
+
+âwas	awas+Ipc
+
+âyiman	âyiman+N+IN+Sg
+âyiman	âyiman+V+II+Ind+Prs+3Sg
+
+cacâstapiwêw	cacâstapiwêw+V+AI+Ind+Prs+3Sg
+
+cakêk	cakêk	+?
+
+cêhcapiwinisa	kêhtê-apiwin+N+IN+Der/Dim+N+IN+Pl
+cêhcapiwinisa	cêhcapiwinis+N+IN+Pl
+cêhcapiwinisa	têhtapiwin+N+AN+Der/Dim+N+AN+Sg+Obv
+cêhcapiwinisa	têhtapiwin+N+IN+Der/Dim+N+IN+Pl
+
+cêskwa	cêskwa+Ipc
+
+cikêmâ	cikêmâ+Ipc
+
+cîki	kiki+Ipc
+cîki	-îki+N+IN+Sg+Px2Sg
+cîki	cîki+Ipc
+
+cîscayisîpwâkanis	cîscayisîpwâkanis+N+IN+Sg
+
+cîscaysîpwâkanis	cîscaysîpwâkanis	+?
+
+cohkâp	côhkâp+N+AN+Sg
+
+côcô	côcô	+?
+
+êhapit	PV/e+apiw+V+AI+Cnj+Prs+3Sg
+
+êhapiyan	PV/e+apiw+V+AI+Cnj+Prs+2Sg
+êhapiyan	PV/e+apiw+V+AI+Cnj+Prs+1Sg
+
+êhapiyân	PV/e+apiw+V+AI+Cnj+Prs+2Sg
+êhapiyân	PV/e+apiw+V+AI+Cnj+Prs+1Sg
+
+êhapiyit	PV/e+apiw+V+AI+Cnj+Prs+4Sg/Pl
+
+êhayamihcikêt	PV/e+ayamihcikêw+V+AI+Cnj+Prs+3Sg
+
+êhayamihcikêyan	PV/e+ayamihcikêw+V+AI+Cnj+Prs+2Sg
+êhayamihcikêyan	PV/e+ayamihcikêw+V+AI+Cnj+Prs+1Sg
+
+êhayamihcikêyâhk	PV/e+ayamihcikêw+V+AI+Cnj+Prs+1Pl
+êhayamihcikêyâhk	PV/e+ayamihcikêw+V+AI+Cnj+Prs+12Pl
+
+êhayamihcikêyân	PV/e+ayamihcikêw+V+AI+Cnj+Prs+2Sg
+êhayamihcikêyân	PV/e+ayamihcikêw+V+AI+Cnj+Prs+1Sg
+
+êhayamihcikêyit	PV/e+ayamihcikêw+V+AI+Cnj+Prs+4Sg/Pl
+
+êhâ	êha+Ipc
+êhâ	êha+Ipc+Err/Orth
+
+êhohpiyan	PV/e+ohpîw+V+AI+Cnj+Prs+2Sg
+êhohpiyan	PV/e+ohpîw+V+AI+Cnj+Prs+1Sg
+
+êhohpît	PV/e+ohpîw+V+AI+Cnj+Prs+3Sg
+
+êhohpîyân	PV/e+ohpîw+V+AI+Cnj+Prs+2Sg
+êhohpîyân	PV/e+ohpîw+V+AI+Cnj+Prs+1Sg
+
+êhohpîyit	PV/e+ohpîw+V+AI+Cnj+Prs+4Sg/Pl
+
+êhopîyâhk	PV/e+PV/o+pîwan+V+II+Cnj+Prs+3Sg
+
+êkîwêcik	PV/e+kîwêw+V+AI+Cnj+Prs+3Pl
+
+êkîwêt	PV/e+kîwêw+V+AI+Cnj+Prs+3Sg
+
+
+êkîwêyan	PV/e+kîwêw+V+AI+Cnj+Prs+2Sg
+êkîwêyan	PV/e+kîwêw+V+AI+Cnj+Prs+1Sg
+
+êkîwêyâhk	PV/e+kîwêw+V+AI+Cnj+Prs+1Pl
+êkîwêyâhk	PV/e+kîwêw+V+AI+Cnj+Prs+12Pl
+
+êkîwêyân	PV/e+kîwêw+V+AI+Cnj+Prs+2Sg
+êkîwêyân	PV/e+kîwêw+V+AI+Cnj+Prs+1Sg
+
+êkîwêyêk	PV/e+kîwêw+V+AI+Cnj+Prs+2Pl
+
+êkîwêyit	PV/e+kîwêw+V+AI+Cnj+Prs+4Sg/Pl
+
+êkosi	êkosi+Ipc
+
+êkwa	êkwa+Ipc
+
+êmasinahikêcik	PV/e+masinahikêw+V+AI+Cnj+Prs+3Pl
+
+êmasinahikêt	PV/e+masinahikêw+V+AI+Cnj+Prs+3Sg
+
+êmasinahikêyahk	PV/e+masinahikêw+V+AI+Cnj+Prs+1Pl
+êmasinahikêyahk	PV/e+masinahikêw+V+AI+Cnj+Prs+12Pl
+
+êmasinahikêyan	PV/e+masinahikêw+V+AI+Cnj+Prs+2Sg
+êmasinahikêyan	PV/e+masinahikêw+V+AI+Cnj+Prs+1Sg
+
+êmasinahikêyân	PV/e+masinahikêw+V+AI+Cnj+Prs+2Sg
+êmasinahikêyân	PV/e+masinahikêw+V+AI+Cnj+Prs+1Sg
+
+êmasinahikêyêk	PV/e+masinahikêw+V+AI+Cnj+Prs+2Pl
+
+êmâtocik	PV/e+mâtow+V+AI+Cnj+Prs+3Pl
+
+êmâtot	PV/e+mâtow+V+AI+Cnj+Prs+3Sg
+
+êmâtoyahk	PV/e+mâtow+V+AI+Cnj+Prs+1Pl
+êmâtoyahk	PV/e+mâtow+V+AI+Cnj+Prs+12Pl
+
+êmâtoyan	PV/e+mâtow+V+AI+Cnj+Prs+2Sg
+êmâtoyan	PV/e+mâtow+V+AI+Cnj+Prs+1Sg
+
+êmâtoyân	PV/e+mâtow+V+AI+Cnj+Prs+2Sg
+êmâtoyân	PV/e+mâtow+V+AI+Cnj+Prs+1Sg
+
+êmâtoyêk	PV/e+mâtow+V+AI+Cnj+Prs+2Pl
+
+êmêtawêt	PV/e+mêtawêw+V+AI+Cnj+Prs+3Sg
+
+êmêtawêyan	PV/e+mêtawêw+V+AI+Cnj+Prs+2Sg
+êmêtawêyan	PV/e+mêtawêw+V+AI+Cnj+Prs+1Sg
+
+êmêtawêyâhk	PV/e+mêtawêw+V+AI+Cnj+Prs+1Pl
+êmêtawêyâhk	PV/e+mêtawêw+V+AI+Cnj+Prs+12Pl
+
+êmêtawêyân	PV/e+mêtawêw+V+AI+Cnj+Prs+2Sg
+êmêtawêyân	PV/e+mêtawêw+V+AI+Cnj+Prs+1Sg
+
+êmêtawêyit	PV/e+mêtawêw+V+AI+Cnj+Prs+4Sg/Pl
+
+êmihkwânis	êmihkwânis+N+AN+Sg
+êmihkwânis	êmihkwân+N+AN+Der/Dim+N+AN+Sg
+
+êminihkwêt	PV/e+minihkwêw+V+AI+Cnj+Prs+3Sg
+
+êminihkwêyahk	PV/e+minihkwêw+V+AI+Cnj+Prs+1Pl
+êminihkwêyahk	PV/e+minihkwêw+V+AI+Cnj+Prs+12Pl
+
+êminihkwêyan	PV/e+minihkwêw+V+AI+Cnj+Prs+2Sg
+êminihkwêyan	PV/e+minihkwêw+V+AI+Cnj+Prs+1Sg
+
+êminihkwêyân	PV/e+minihkwêw+V+AI+Cnj+Prs+2Sg
+êminihkwêyân	PV/e+minihkwêw+V+AI+Cnj+Prs+1Sg
+
+êminihkwêyêk	PV/e+minihkwêw+V+AI+Cnj+Prs+2Pl
+
+êmîcisocik	PV/e+mîcisow+V+AI+Cnj+Prs+3Pl
+
+êmîcisot	PV/e+mîcisow+V+AI+Cnj+Prs+3Sg
+
+êmîcisoyahk	PV/e+mîcisow+V+AI+Cnj+Prs+1Pl
+êmîcisoyahk	PV/e+mîcisow+V+AI+Cnj+Prs+12Pl
+
+êmîcisoyan	PV/e+mîcisow+V+AI+Cnj+Prs+2Sg
+êmîcisoyan	PV/e+mîcisow+V+AI+Cnj+Prs+1Sg
+
+êmîcisoyâhk	PV/e+mîcisow+V+AI+Cnj+Prs+1Pl
+êmîcisoyâhk	PV/e+mîcisow+V+AI+Cnj+Prs+12Pl
+
+êmîcisoyân	PV/e+mîcisow+V+AI+Cnj+Prs+2Sg
+êmîcisoyân	PV/e+mîcisow+V+AI+Cnj+Prs+1Sg
+
+êmîcisoyêk	PV/e+mîcisow+V+AI+Cnj+Prs+2Pl
+
+ênikamocik	PV/e+nikamow+V+AI+Cnj+Prs+3Pl
+
+ênikamot	PV/e+nikamow+V+AI+Cnj+Prs+3Sg
+
+ênikamoyahk	PV/e+nikamow+V+AI+Cnj+Prs+1Pl
+ênikamoyahk	PV/e+nikamow+V+AI+Cnj+Prs+12Pl
+
+ênikamoyan	PV/e+nikamow+V+AI+Cnj+Prs+2Sg
+ênikamoyan	PV/e+nikamow+V+AI+Cnj+Prs+1Sg
+
+ênikamoyân	PV/e+nikamow+V+AI+Cnj+Prs+2Sg
+ênikamoyân	PV/e+nikamow+V+AI+Cnj+Prs+1Sg
+
+ênikamoyêk	PV/e+nikamow+V+AI+Cnj+Prs+2Pl
+
+ênipâcik	PV/e+nipâw+V+AI+Cnj+Prs+3Pl
+
+ênipât	PV/e+nipâw+V+AI+Cnj+Prs+3Sg
+
+ênipâyahk	PV/e+nipâw+V+AI+Cnj+Prs+1Pl
+ênipâyahk	PV/e+nipâw+V+AI+Cnj+Prs+12Pl
+
+ênipâyan	PV/e+nipâw+V+AI+Cnj+Prs+2Sg
+ênipâyan	PV/e+nipâw+V+AI+Cnj+Prs+1Sg
+
+ênipâyân	PV/e+nipâw+V+AI+Cnj+Prs+2Sg
+ênipâyân	PV/e+nipâw+V+AI+Cnj+Prs+1Sg
+
+ênipâyêk	PV/e+nipâw+V+AI+Cnj+Prs+2Pl
+
+ênipâyit	PV/e+nipâw+V+AI+Cnj+Prs+4Sg/Pl
+ênipâyit	PV/e+nîpawiw+V+AI+Cnj+Prs+3Sg
+
+ênîmihitot	PV/e+nîmihitow+V+AI+Cnj+Prs+3Sg
+
+ênîmihitoyan	PV/e+nîmihitow+V+AI+Cnj+Prs+2Sg
+ênîmihitoyan	PV/e+nîmihitow+V+AI+Cnj+Prs+1Sg
+
+ênîmihitoyân	PV/e+nîmihitow+V+AI+Cnj+Prs+2Sg
+ênîmihitoyân	PV/e+nîmihitow+V+AI+Cnj+Prs+1Sg
+
+ênîmihitoyit	PV/e+nîmihitow+V+AI+Cnj+Prs+4Sg/Pl
+
+ênîpawit	PV/e+nîpawiw+V+AI+Cnj+Prs+3Sg
+ênîpawit	PV/e+nipâw+V+AI+Cnj+Prs+4Sg/Pl
+
+ênîpawiyan	PV/e+nîpawiw+V+AI+Cnj+Prs+2Sg
+ênîpawiyan	PV/e+nîpawiw+V+AI+Cnj+Prs+1Sg
+
+ênîpawiyân	PV/e+nîpawiw+V+AI+Cnj+Prs+2Sg
+ênîpawiyân	PV/e+nîpawiw+V+AI+Cnj+Prs+1Sg
+
+êpahpiyit	PV/e+pâhpiw+V+AI+Cnj+Prs+4Sg/Pl
+
+êpâhpit	PV/e+pâhpiw+V+AI+Cnj+Prs+3Sg
+
+êpâhpiyan	PV/e+pâhpiw+V+AI+Cnj+Prs+2Sg
+êpâhpiyan	PV/e+pâhpiw+V+AI+Cnj+Prs+1Sg
+
+êpâhpiyâhk	PV/e+RdplS+pîwan+V+II+Cnj+Prs+3Sg
+êpâhpiyâhk	PV/e+pâhpiw+V+AI+Cnj+Prs+1Pl
+êpâhpiyâhk	PV/e+pâhpiw+V+AI+Cnj+Prs+12Pl
+
+êpâhpiyân	PV/e+pâhpiw+V+AI+Cnj+Prs+2Sg
+êpâhpiyân	PV/e+pâhpiw+V+AI+Cnj+Prs+1Sg
+
+êpihtwâyan	PV/e+pîhtwâw+V+AI+Cnj+Prs+2Sg
+êpihtwâyan	PV/e+pîhtwâw+V+AI+Cnj+Prs+1Sg
+
+êpihtwâyit	PV/e+pîhtwâw+V+AI+Cnj+Prs+4Sg/Pl
+
+êpimohtêcik	PV/e+pimohtêw+V+AI+Cnj+Prs+3Pl
+
+êpimohtêt	PV/e+pimohtêw+V+AI+Cnj+Prs+3Sg
+
+êpimohtêyahk	PV/e+pimohtêw+V+AI+Cnj+Prs+1Pl
+êpimohtêyahk	PV/e+pimohtêw+V+AI+Cnj+Prs+12Pl
+
+êpimohtêyan	PV/e+pimohtêw+V+AI+Cnj+Prs+2Sg
+êpimohtêyan	PV/e+pimohtêw+V+AI+Cnj+Prs+1Sg
+
+êpimohtêyâhk	PV/e+pimohtêw+V+AI+Cnj+Prs+1Pl
+êpimohtêyâhk	PV/e+pimohtêw+V+AI+Cnj+Prs+12Pl
+
+êpimohtêyân	PV/e+pimohtêw+V+AI+Cnj+Prs+2Sg
+êpimohtêyân	PV/e+pimohtêw+V+AI+Cnj+Prs+1Sg
+
+êpimohtêyêk	PV/e+pimohtêw+V+AI+Cnj+Prs+2Pl
+
+êpîhtwât	PV/e+pîhtwâw+V+AI+Cnj+Prs+3Sg
+
+êpîhtwâyâhk	PV/e+pîhtwâw+V+AI+Cnj+Prs+1Pl
+êpîhtwâyâhk	PV/e+pîhtwâw+V+AI+Cnj+Prs+12Pl
+
+êpîhtwâyân	PV/e+pîhtwâw+V+AI+Cnj+Prs+2Sg
+êpîhtwâyân	PV/e+pîhtwâw+V+AI+Cnj+Prs+1Sg
+
+êpîkiskwêcik	PV/e+pîkiskwêw+V+AI+Cnj+Prs+3Pl
+
+êpîkiskwêt	PV/e+pîkiskwêw+V+AI+Cnj+Prs+3Sg
+
+êpîkiskwêyahk	PV/e+pîkiskwêw+V+AI+Cnj+Prs+1Pl
+êpîkiskwêyahk	PV/e+pîkiskwêw+V+AI+Cnj+Prs+12Pl
+
+êpîkiskwêyâhk	PV/e+pîkiskwêw+V+AI+Cnj+Prs+1Pl
+êpîkiskwêyâhk	PV/e+pîkiskwêw+V+AI+Cnj+Prs+12Pl
+
+êpîkiskwêyân	PV/e+pîkiskwêw+V+AI+Cnj+Prs+2Sg
+êpîkiskwêyân	PV/e+pîkiskwêw+V+AI+Cnj+Prs+1Sg
+
+êpîkiskwêyêk	PV/e+pîkiskwêw+V+AI+Cnj+Prs+2Pl
+
+êpîkiskwêyan	PV/e+pîkiskwêw+V+AI+Cnj+Prs+2Sg
+êpîkiskwêyan	PV/e+pîkiskwêw+V+AI+Cnj+Prs+1Sg
+
+êsâkihiht	PV/e+sâkihêw+V+TA+Cnj+Prs+X+3Sg
+
+êsâkihit	PV/e+sâkihêw+V+TA+Cnj+Prs+3Sg+1SgO
+
+isîyihkâs	isîyihkâs	+?
+
+isîyihkâso	isiyihkâsow+V+AI+Imp+Imm+2Sg
+
+isîyihkâta	isiyihkâtam+V+TI+Imp+Imm+2Sg
+isîyihkâta	isiyihkâtâw+V+TI+Imp+Imm+2Sg
+
+isîyihkâtêw	isiyihkâtêw+V+TA+Ind+Prs+3Sg+4Sg/PlO
+isîyihkâtêw	isiyihkâtêw+V+II+Ind+Prs+3Sg
+
+iskwêsis	iskwêw+N+AN+Der/Dim+N+AN+Sg
+iskwêsis	iskwêsis+N+AN+Sg
+
+iskwêw	iskwêw+N+AN+Sg
+
+itamaciho	itamaciho	+?
+
+itohtê	itohtêw+V+AI+Imp+Imm+2Sg
+
+itwê	itwêw+V+AI+Imp+Imm+2Sg
+
+ka	ka+Ipc
+ka	kâ+Ipc
+
+kayâs	kayâs+Ipc
+
+kihtwâm	kîhtwâm+Ipc
+
+kikîwân	kîwêw+V+AI+Ind+Prs+2Sg
+
+kikîwânâwâw	kîwêw+V+AI+Ind+Prs+2Pl
+
+kikot	mikot+N+IN+Sg+Px2Sg
+
+kimasinahikân	masinahikêw+V+AI+Ind+Prs+2Sg
+kimasinahikân	masinahikan+N+IN+Sg+Px2Sg
+
+kimasinahikânaw	masinahikêw+V+AI+Ind+Prs+12Pl
+
+kimasinahikânâwâw	masinahikêw+V+AI+Ind+Prs+2Pl
+
+kimâton	mâtow+V+AI+Ind+Prs+2Sg
+
+kimâtonaw	mâtow+V+AI+Ind+Prs+12Pl
+
+kimâtonâwâw	mâtow+V+AI+Ind+Prs+2Pl
+
+kimêtawân	mêtawêw+V+AI+Ind+Prs+2Sg
+
+kiminihkwân	minihkwêw+V+AI+Ind+Prs+2Sg
+
+kiminihkwânaw	minihkwêw+V+AI+Ind+Prs+12Pl
+
+kiminihkwânâwâw	minihkwêw+V+AI+Ind+Prs+2Pl
+
+kimîcison	mîcisow+V+AI+Ind+Prs+2Sg
+
+kimîcisonaw	mîcisow+V+AI+Ind+Prs+12Pl
+
+kimîcisonâwâw	mîcisow+V+AI+Ind+Prs+2Pl
+
+kinikamon	nikamow+V+AI+Ind+Prs+2Sg
+kinikamon	kînikamon+V+II+Ind+Prs+3Sg
+kinikamon	nikamon+N+IN+Sg+Px2Sg
+
+kinikamonaw	nikamow+V+AI+Ind+Prs+12Pl
+
+kinikamonâwâw	nikamow+V+AI+Ind+Prs+2Pl
+
+kinipân	nipâw+V+AI+Ind+Prs+2Sg
+
+kinipânaw	nipâw+V+AI+Ind+Prs+12Pl
+
+kinipânâwâw	nipâw+V+AI+Ind+Prs+2Pl
+
+kinîmihiton	nîmihitow+V+AI+Ind+Prs+2Sg
+
+kinîpawin	nîpawiw+V+AI+Ind+Prs+2Sg
+kinîpawin	nipâwin+N+IN+Sg+Px2Sg
+
+kinosêw	kinosêw+N+AN+Sg
+
+kipâhpin	pâhpiw+V+AI+Ind+Prs+2Sg
+
+kipihtwân	pîhtwâw+V+AI+Ind+Prs+2Sg
+
+kipimohtân	pimohtêw+V+AI+Ind+Prs+2Sg
+
+kipimohtânaw	pimohtêw+V+AI+Ind+Prs+12Pl
+
+kipimohtânâwâw	pimohtêw+V+AI+Ind+Prs+2Pl
+
+kipîkiskwânaw	pîkiskwêw+V+AI+Ind+Prs+12Pl
+
+kipîkiskwânâwâw	pîkiskwêw+V+AI+Ind+Prs+2Pl
+
+kipîkiskwân	pîkiskwêw+V+AI+Ind+Prs+2Sg
+
+kiskinohamâkosi	kiskinohamâkosiw+V+AI+Imp+Imm+2Sg
+
+kiskîsik	kiskisiw+V+AI+Imp+Imm+2Pl
+kiskîsik	kiskisiw+V+AI+Cnj+Prs+X+3Sg
+kiskîsik	kîskisin+V+AI+Cnj+Prs+X
+kiskîsik	kîskisin+V+AI+Cnj+Prs+X+3Sg
+kiskîsik	miskîsik+N+IN+Sg+Px2Sg
+
+kitapin	PV/ta+apiw+V+AI+Ind+Prs+2Sg
+kitapin	apiw+V+AI+Ind+Prs+2Sg
+
+kitayamihcikân	PV/kita+PV/wa+mihkiw+V+AI+Imp+Del+2Sg
+kitayamihcikân	ayamihcikêw+V+AI+Ind+Prs+2Sg
+
+kitohpîn	PV/kita+ohpinêw+V+TA+Imp+Imm+2Sg+3SgO
+kitohpîn	PV/ta+ohpîw+V+AI+Ind+Prs+2Sg
+kitohpîn	ohpîw+V+AI+Ind+Prs+2Sg
+
+kitôn	mitôn+N+IN+Sg+Px2Sg
+
+kîhtawakay	mihtawakay+N+IN+Sg+Px2Sg
+
+kîkwây	kîkway+N+IN+Sg
+kîkwây	kîkway+N+AN+Sg
+kîkwây	kîkwây+Pron+Interr+Pl
+kîkwây	kîkwây+Pron+Interr+Sg
+
+kîscakâsa	mîscakâsa+N+IN+Pl+Px2Sg
+
+kîsta	kîsta+Pron+Pers+2Sg+Incl
+
+kîstanaw	kîstanaw+Pron+Pers+12Pl+Incl
+
+kîstawâw	kîstawâw+Pron+Pers+2Pl+Incl
+
+kîwê	kîwêw+V+AI+Imp+Imm+2Sg
+
+kîwêk	kîwêw+V+AI+Imp+Imm+2Pl
+kîwêk	kîwêw+V+AI+Cnj+Prs+X+3Sg
+
+kîwêtân	kîwêw+V+AI+Imp+Imm+12Pl
+
+kîwêw	kîwêw+V+AI+Ind+Prs+3Sg
+
+kîwêwak	kîwêw+V+AI+Ind+Prs+3Pl
+kîwêwak	kîwêw+V+AI+Cnj+Prs+1Pl
+kîwêwak	kîwêw+V+AI+Cnj+Prs+12Pl
+
+kîwêyiwa	kîwêw+V+AI+Ind+Prs+4Sg/Pl
+
+kîya	kiya+Pron+Pers+2Sg
+kîya	-îwa+N+AN+Sg+Px2Sg
+
+kîyanaw	kiyânaw+Pron+Pers+12Pl
+
+kîyawâw	PV/kiye+ayâwêw+V+TA+Imp+Imm+2Sg+3SgO
+kîyawâw	PV/kiyi+ayâwêw+V+TA+Imp+Imm+2Sg+3SgO
+kîyawâw	PV/kiye+ayâw+V+AI+Ind+Prs+3Sg
+kîyawâw	PV/kiye+ayâw+V+TI+Ind+Prs+3Sg
+kîyawâw	PV/kiye+ayâw+V+II+Ind+Prs+3Sg
+kîyawâw	PV/kiyi+ayâw+V+AI+Ind+Prs+3Sg
+kîyawâw	PV/kiyi+ayâw+V+TI+Ind+Prs+3Sg
+kîyawâw	PV/kiyi+ayâw+V+II+Ind+Prs+3Sg
+kîyawâw	kiyawâw+Pron+Pers+2Pl
+
+kôhkôs	kohkôs+N+AN+Sg
+
+kôhkôsak	kohkôs+N+AN+Pl
+kôhkôsak	PV/ke+PV/oh+PV/ke+osam+V+TI+Cnj+Prs+3Sg
+
+kôhkôsis	kohkôs+N+AN+Der/Dim+N+AN+Sg
+kôhkôsis	kohkôsis+N+AN+Sg
+
+kôhkôsowîyan	PV/ke+PV/oh+PV/ke+osôwiw+V+AI+Cnj+Prs+2Sg
+kôhkôsowîyan	PV/ke+PV/oh+PV/ke+osôwiw+V+AI+Cnj+Prs+1Sg
+
+kôhkôsowîyin	kohkôsi-wiyin+N+IN+Sg
+kôhkôsowîyin	kohkôsiwiyin+N+IN+Sg
+kôhkôsowîyin	kohkôsiwiyâs+Err/Orth+N+IN+Sg
+
+ma	mâ+Ipc
+
+mahtâminak	mahtâmin+N+AN+Pl
+
+masinahikê	masinahikêw+V+AI+Imp+Imm+2Sg
+
+masinahikêtân	masinahikêw+V+AI+Imp+Imm+12Pl
+
+masinahikêw	masinahikêw+V+AI+Ind+Prs+3Sg
+
+masinahikêwak	masinahikêw+V+AI+Ind+Prs+3Pl
+masinahikêwak	masinahikêw+V+AI+Cnj+Prs+1Pl
+masinahikêwak	masinahikêw+V+AI+Cnj+Prs+12Pl
+
+maskihkiwâpohk	maskihkîwâpoy+N+IN+Loc
+
+maskihkiwâpoy	maskihkîwâpoy+N+IN+Sg
+
+maskisin	maskisin+N+IN+Sg
+maskisin	PV/maski+sînêw+V+TA+Imp+Imm+2Sg+3SgO
+
+maskisina	maskisin+N+IN+Pl
+maskisina	PV/maski+isinam+V+TI+Imp+Imm+2Sg
+maskisina	PV/maski+sînam+V+TI+Imp+Imm+2Sg
+
+maskisinihk	maskisin+N+IN+Loc
+maskisinihk	maskisiniw+V+AI+Imp+Imm+2Pl
+maskisinihk	PV/maski+sînêw+V+TA+Imp+Imm+2Pl+1SgO
+maskisinihk	PV/maski+sînêw+V+TA+Imp+Imm+2Pl+3SgO
+maskisinihk	PV/maski+sînêw+V+TA+Imp+Imm+2Sg+3PlO
+maskisinihk	PV/maski+sînêw+V+TA+Ind+Prs+4Sg/Pl+3SgO
+maskisinihk	maskisiniw+V+AI+Cnj+Prs+X+3Sg
+
+maskisinisa	maskisin+N+IN+Der/Dim+N+IN+Pl
+maskisinisa	maskisinis+N+IN+Pl
+
+matahminak	matahminak	+?
+
+mâka	mâka+Ipc
+
+mâmaskâc	RdplW+mâskâw+V+II+Cnj+Prs+3Sg
+mâmaskâc	mâmaskâc+Ipc
+
+mâto	mâtow+V+AI+Imp+Imm+2Sg
+
+mâtow	mâtow+V+AI+Ind+Prs+3Sg
+
+mâtowak	mâtow+V+AI+Ind+Prs+3Pl
+mâtowak	mâtow+V+AI+Cnj+Prs+1Pl
+mâtowak	mâtow+V+AI+Cnj+Prs+12Pl
+
+mêtawê	mêtawêw+V+AI+Imp+Imm+2Sg
+
+mêtawêtân	mêtawêw+V+AI+Imp+Imm+12Pl
+
+mêtawêw	mêtawêw+V+AI+Ind+Prs+3Sg
+
+mêtawêyiwa	mêtawêw+V+AI+Ind+Prs+4Sg/Pl
+
+micihciy	micihciy+N+IN+Sg
+
+micihciya	micihciy+N+IN+Pl
+
+micihcîsa	micihciy+N+IN+Der/Dim+N+IN+Pl
+micihcîsa	micihcîs+N+IN+Pl
+
+mickciy	mickciy	+?
+
+mikot	mikot+N+IN+Sg
+
+mikota	mikot+N+IN+Pl
+
+minihkwê	minihkwêw+V+AI+Imp+Imm+2Sg
+
+minihkwêk	minihkwêw+V+AI+Imp+Imm+2Pl
+minihkwêk	minihkwêw+V+AI+Cnj+Prs+X+3Sg
+
+minihkwêw	minihkwêw+V+AI+Ind+Prs+3Sg
+
+minihkwêwîyâkanis	minihkwêwiyâkanis+N+IN+Sg
+
+minôs	minôs+N+AN+Sg
+
+minôsak	minôs+N+AN+Pl
+
+mistêhtapiwin	mistêhtapiwin	+?
+
+misatâwêwikamik	misi-atâwêwikamik+N+IN+Sg
+misatâwêwikamik	misâtâwewikamik+N+IN+Sg
+
+miscakasa	mîscakâsa+N+IN+Pl
+
+misicisa	misi-cîsa+N+AN+Sg+Obv
+misicisa	misi-cîsa+N+AN+Sg
+misicisa	misi-tiy+N+IN+Der/Dim+N+IN+Pl
+misicisa	misit+N+IN+Der/Dim+N+IN+Pl
+misicisa	misicis+N+IN+Pl
+
+misiminihkwêwîyâkan	misi-minihkwêwiyâkan+N+IN+Sg
+
+misiminôsak	misi-minôs+N+AN+Pl
+
+misimôhkomân	misi-môhkomân+N+IN+Sg
+
+misit	PV/misi+itêw+V+TA+Imp+Imm+2Sg+3SgO
+misit	mîsîw+V+AI+Cnj+Prs+3Sg
+misit	misit+Ipc
+misit	misit+N+IN+Sg
+
+misita	PV/misi+itam+V+TI+Imp+Imm+2Sg
+misita	misit+N+IN+Pl
+
+misitihk	misi-tiy+N+IN+Loc
+misitihk	PV/misi+itêw+V+TA+Imp+Imm+2Pl+1SgO
+misitihk	PV/misi+itêw+V+TA+Imp+Imm+2Pl+3SgO
+misitihk	PV/misi+itêw+V+TA+Imp+Imm+2Sg+3PlO
+misitihk	PV/misi+itêw+V+TA+Ind+Prs+4Sg/Pl+3SgO
+misitihk	misit+N+IN+Loc
+
+miskâcisa	miskât+N+IN+Der/Dim+N+IN+Pl
+
+miskât	miskât+N+IN+Sg
+
+miskâta	miskât+N+IN+Pl
+
+miskîsik	miskîsik+N+IN+Sg
+
+miskîsikwa	miskîsik+N+IN+Pl
+
+mispiton	mispiton+N+IN+Sg
+
+mispitona	mispiton+N+IN+Pl
+
+mistahi	mistahi+Ipc
+
+mistaskipwâwa	mistaskipwâwa	+?
+
+mistatim	mistatim+N+AN+Sg
+
+mistatimwak	mistatim+N+AN+Pl
+
+mistikinosêw	mistikinosêw	+?
+
+mistikwan	mistikwân+N+IN+Sg
+
+mistikwân	mistikwân+N+IN+Sg
+
+mistikwâna	mistikwân+N+IN+Pl
+
+mistimaskisina	mistimaskisina	+?
+
+mitawakay	mitawakay	+?
+
+mitôn	mitoni+Ipc+Err/Orth
+mitôn	mitôn+N+IN+Sg
+
+mitôna	mitôn+N+IN+Pl
+
+mitônihk	mitôn+N+IN+Loc
+
+mîciso	mîcisow+V+AI+Imp+Imm+2Sg
+
+mîcisok	mîcisow+V+AI+Imp+Imm+2Pl
+mîcisok	mîcisow+V+AI+Cnj+Prs+X+3Sg
+
+mîcisow	mikisiw+N+AN+Sg
+mîcisow	mîcisow+V+AI+Ind+Prs+3Sg
+
+mîcisowak	mikisiw+N+AN+Pl
+mîcisowak	mîcisow+V+AI+Ind+Prs+3Pl
+mîcisowak	mîcisow+V+AI+Cnj+Prs+1Pl
+mîcisowak	mîcisow+V+AI+Cnj+Prs+12Pl
+
+mîcimapoy	mîcimâpoy+N+IN+Sg
+
+mîcimâpoy	mîcimâpoy+N+IN+Sg
+
+mîhtawakay	mihtawakay+N+IN+Sg
+
+mîhtawakaya	mihtawakay+N+IN+Pl
+
+mîhtawakâhk	mihtawakay+N+IN+Loc
+
+mîpit	mîpit+N+IN+Sg
+
+mîscakâsa	mîscakâsa+N+IN+Pl
+
+mîyomaciho	PV/miyo+macihow+V+AI+Imp+Imm+2Sg
+
+mîywâsin	miywâsin+N+IN+Sg
+mîywâsin	miywâsin+V+II+Ind+Prs+3Sg
+
+mostos	mostos+N+AN+Sg
+
+mostoswak	mostos+N+AN+Pl
+
+môhkomanis	môhkomân+N+IN+Der/Dim+N+IN+Sg
+môhkomanis	môhkomânis+N+IN+Sg
+
+môhkomân	môhkomân+N+IN+Sg
+
+môhkomâna	môhkomân+N+IN+Pl
+
+mônîyâw	môniyâw+N+AN+Sg
+
+napêw	nâpêw+N+AN+Sg
+
+nâpêsis	nâpê-esa+N+AN+Der/Dim+N+AN+Sg
+nâpêsis	nâpê-êsa+N+AN+Der/Dim+N+AN+Sg
+nâpêsis	nâpê-êsis+N+AN+Sg
+nâpêsis	nâpêw+N+AN+Der/Dim+N+AN+Sg
+nâpêsis	nâpêsis+N+AN+Sg
+
+nâpêw	nâpêw+N+AN+Sg
+
+nâspic	nâspic+Ipc
+
+nêhiyaw	nêhiyaw+N+AN+Sg
+
+nêhiyawê	nêhiyawêw+V+AI+Imp+Imm+2Sg
+
+nêhiyawêwin	nêhiyawêwin+N+IN+Sg
+
+nêstosi	nêstosiw+V+AI+Imp+Imm+2Sg
+
+nicawâsimisak	-awâsimis+N+AN+Pl+Px1Sg
+
+nicihciya	micihciy+N+IN+Pl+Px1Sg
+
+nihtâ	nihtâ	+?
+
+nikamo	nikamow+V+AI+Imp+Imm+2Sg
+
+nikamok	nikamow+V+AI+Imp+Imm+2Pl
+nikamok	nikamow+V+AI+Cnj+Prs+X+3Sg
+
+nikamotân	nikamow+V+AI+Imp+Imm+12Pl
+
+nikamow	nikamow+V+AI+Ind+Prs+3Sg
+
+nikamowak	nikamow+V+AI+Ind+Prs+3Pl
+nikamowak	nikamow+V+AI+Cnj+Prs+1Pl
+nikamowak	nikamow+V+AI+Cnj+Prs+12Pl
+
+nikâwiy	-kâwiy+N+AN+Sg+Px1Sg
+
+nikîwân	kîwêw+V+AI+Ind+Prs+1Sg
+
+nikîwânân	kîwêw+V+AI+Ind+Prs+1Pl
+
+nikosis	-kosis+N+AN+Sg+Px1Sg
+
+nimasinahikân	masinahikêw+V+AI+Ind+Prs+1Sg
+nimasinahikân	masinahikan+N+IN+Sg+Px1Sg
+
+nimâton	mâtow+V+AI+Ind+Prs+1Sg
+
+nimêtawân	mêtawêw+V+AI+Ind+Prs+1Sg
+
+nimêtawânân	mêtawêw+V+AI+Ind+Prs+1Pl
+
+niminihkwân	minihkwêw+V+AI+Ind+Prs+1Sg
+
+nimîcison	PV/nimi+kîsônêw+V+TA+Imp+Imm+2Sg+3SgO
+nimîcison	mîcisow+V+AI+Ind+Prs+1Sg
+
+nimîcisonân	mîcisow+V+AI+Ind+Prs+1Pl
+
+nimosôm	-mosôm+N+AN+Sg+Px1Sg
+nimosôm	môswa+N+AN+Sg+Px1Sg
+
+ninêkihikwak	ninêkihikwak	+?
+
+ninikamon	nikamow+V+AI+Ind+Prs+1Sg
+ninikamon	nikamon+N+IN+Sg+Px1Sg
+
+ninipân	nipâw+V+AI+Ind+Prs+1Sg
+
+ninîmihiton	nîmihitow+V+AI+Ind+Prs+1Sg
+
+ninîpawin	nîpawiw+V+AI+Ind+Prs+1Sg
+ninîpawin	nipâwin+N+IN+Sg+Px1Sg
+
+nipâ	nipâw+V+AI+Imp+Imm+2Sg
+
+nipâhpin	pâhpiw+V+AI+Ind+Prs+1Sg
+
+nipâhpinân	pâhpiw+V+AI+Ind+Prs+1Pl
+
+nipâtân	nipâw+V+AI+Imp+Imm+12Pl
+
+nipâw	nipâw+V+AI+Ind+Prs+3Sg
+
+nipâwak	nipâw+V+AI+Ind+Prs+3Pl
+nipâwak	nipâw+V+AI+Cnj+Prs+1Pl
+nipâwak	nipâw+V+AI+Cnj+Prs+12Pl
+
+nipâyiwa	nipâw+V+AI+Ind+Prs+4Sg/Pl
+
+nipimohtân	pimohtêw+V+AI+Ind+Prs+1Sg
+
+nipimohtânan	pimohtêw+V+AI+Ind+Prs+1Pl
+
+nipîhtwân	pîhtwâw+V+AI+Ind+Prs+1Sg
+
+nipîhtwânân	pîhtwâw+V+AI+Ind+Prs+1Pl
+
+nipîkiskwân	pîkiskwêw+V+AI+Ind+Prs+1Sg
+
+nipîkiskwânân	pîkiskwêw+V+AI+Ind+Prs+1Pl
+
+nipîy	nipiy+N+IN+Sg
+nipîy	nîpiy+N+IN+Sg
+nipîy	nipiw+V+AI+Ind+Prs+3Sg
+
+nisita	PV/niso+itam+V+TI+Imp+Imm+2Sg
+nisita	misit+N+IN+Pl+Px1Sg
+
+nisitohta	nisitohtam+V+TI+Imp+Imm+2Sg
+
+niskâta	miskât+N+IN+Pl+Px1Sg
+
+nispitona	mispiton+N+IN+Pl+Px1Sg
+
+nistawêyim	nistawêyimêw+V+TA+Imp+Imm+2Sg+3SgO
+
+nistikwân	mistikwân+N+IN+Sg+Px1Sg
+
+nitapin	PV/ta+apiw+V+AI+Ind+Prs+1Sg
+nitapin	apiw+V+AI+Ind+Prs+1Sg
+
+nitawêyihta	nitawêyihtam+V+TI+Imp+Imm+2Sg
+
+nitawêyim	nitawêyimêw+V+TA+Imp+Imm+2Sg+3SgO
+
+nitayamihcikân	ayamihcikêw+V+AI+Ind+Prs+1Sg
+
+nitayamihcikânân	ayamihcikêw+V+AI+Ind+Prs+1Pl
+
+nitânis	-tânis+N+AN+Sg+Px1Sg
+
+nitâwasimisak	nitâwasimisak	+?
+
+nitohpîn	PV/ta+ohpîw+V+AI+Ind+Prs+1Sg
+nitohpîn	ohpîw+V+AI+Ind+Prs+1Sg
+
+nitohpînân	PV/ta+ohpîw+V+AI+Ind+Prs+1Pl
+nitohpînân	ohpîw+V+AI+Ind+Prs+1Pl
+
+nitohta	nitohtam+V+TI+Imp+Imm+2Sg
+
+nitôtêm	-tôtêm+N+AN+Sg+Px1Sg
+
+Niwînikamon	nikamow+V+AI+Ind+Fut+Int+1Sg
+
+nîmihito	nîmihitow+V+AI+Imp+Imm+2Sg
+
+nîmihitok	nîmihitow+V+AI+Imp+Imm+2Pl
+nîmihitok	nîmihitow+V+AI+Cnj+Prs+X+3Sg
+
+nîmihitotân	nîmihitow+V+AI+Imp+Imm+12Pl
+
+nîmihitow	nîmihitow+V+AI+Ind+Prs+3Sg
+
+nîmihitoyiwa	nîmihitow+V+AI+Ind+Prs+4Sg/Pl
+
+nîpawi	nîpawiw+V+AI+Imp+Imm+2Sg
+
+nîpawik	nîpawiw+V+AI+Imp+Imm+2Pl
+nîpawik	nîpawiw+V+AI+Cnj+Prs+X+3Sg
+
+nîpawitân	nîpawiw+V+AI+Imp+Imm+12Pl
+
+nîpawiw	nîpawiw+V+AI+Ind+Prs+3Sg
+
+nîpit	PV/nipa+itêw+V+TA+Imp+Imm+2Sg+3SgO
+nîpit	nipiw+V+AI+Cnj+Prs+3Sg
+nîpit	mîpit+N+IN+Sg+Px1Sg
+
+nîpîy	nîpiy+N+IN+Sg
+nîpîy	nipiy+N+IN+Sg
+nîpîy	nipiw+V+AI+Ind+Prs+3Sg
+
+nîsosâp	nîsosâp+Ipc
+nîsosâp	nîsosâp+Num+Ipc
+
+nîsta	nîsta+Pron+Pers+1Sg+Incl
+
+nîstanân	nîstanân+Pron+Pers+1Pl+Incl
+
+nîtisânak	-tisân+N+AN+Pl+Px1Sg
+
+nîya	niya+Pron+Pers+1Sg
+nîya	niyâ+Ipc
+nîya	-îwa+N+AN+Sg+Px1Sg
+
+nîyanân	niyanân+Pron+Pers+1Pl
+nîyanân	niyânan+Num+Ipc
+
+nîyânan	niyânan+Num+Ipc
+nîyânan	niyanân+Pron+Pers+1Pl
+
+nohtâwiy	-ohtâwiy+N+AN+Sg+Px1Sg
+
+nohtê	nohtê	+?
+
+nohtêkatê	nôhtêkatêw+V+AI+Imp+Imm+2Sg
+nohtêkatê	nôhtêhkatêw+V+AI+Imp+Imm+2Sg
+
+nohtêkwasi	nôhtêkwasiw+V+AI+Imp+Imm+2Sg
+nohtêkwasi	nôhtêhkwasiw+V+AI+Imp+Imm+2Sg
+
+nôhkom	-ohkom+N+AN+Sg+Px1Sg
+
+nôsisimak	-ôsisim+N+AN+Pl+Px1Sg
+
+ocihciya	micihciy+N+IN+Pl+Px3Sg
+
+ohci	ohcîw+V+AI+Imp+Imm+2Sg
+ohci	ohci+Ipc
+
+ohpî	ohpîw+V+AI+Imp+Imm+2Sg
+
+ohpîk	ohpîw+V+AI+Imp+Imm+2Pl
+ohpîk	ohpîw+V+AI+Cnj+Prs+X+3Sg
+ohpîk	ohpîw+V+II+Cnj+Prs+3Sg
+
+ohpîw	ohpîw+V+AI+Ind+Prs+3Sg
+ohpîw	ohpîw+V+II+Ind+Prs+3Sg
+
+ohpîyiwa	ohpîw+V+AI+Ind+Prs+4Sg/Pl
+ohpîyiwa	ohpîw+V+II+Ind+Prs+4Pl
+
+ohtâwîmâw	ohtâwîmâw+N+AN+Sg
+ohtâwîmâw	-ohtâwiy+N+AN+Sg
+ohtâwîmâw	ohtâwîmêw+V+TA+Ind+Prs+X+3Sg
+
+okâwîmâw	okâwîmâw+N+AN+Sg
+okâwîmâw	okâwîmêw+V+TA+Ind+Prs+X+3Sg
+okâwîmâw	-kâwiy+N+AN+Sg
+
+okot	mikot+N+IN+Sg+Px3Sg
+
+onêkihikomâw	onekihikomâw+N+AN+Sg
+
+osita	misit+N+IN+Pl+Px3Sg
+
+oskâta	miskât+N+IN+Pl+Px3Sg
+
+oskâtâskwak	oskâtâsk+N+AN+Pl
+
+ospitona	mispiton+N+IN+Pl+Px3Sg
+
+ôcênas	ôcênâs+N+IN+Sg
+ôcênas	ôtênaw+N+IN+Der/Dim+N+IN+Sg
+
+ôcênâs	ôcênâs+N+IN+Sg
+ôcênâs	ôtênaw+N+IN+Der/Dim+N+IN+Sg
+
+ôhô	ôhô	+?
+
+ôtênaw	ôtênaw+N+IN+Sg
+
+pahkwêsikan	pahkwêsikan+N+AN+Sg
+pahkwêsikan	pahkwêsiw+V+AI+Imp+Del+2Sg
+
+pahpiyiwa	pâhpiw+V+AI+Ind+Prs+4Sg/Pl
+
+papêskomina	papêskomina+N+IN+Pl
+papêskomina	papêskomina+N+IN+Sg
+
+pâhpi	pâhpiw+V+AI+Imp+Imm+2Sg
+
+pâhpiw	pâhpiw+V+AI+Ind+Prs+3Sg
+
+pê	pê	+?
+
+pêtâ	pêtâw+V+TI+Imp+Imm+2Sg
+
+pêyakwan	PV/pe+PV/wa+akwânêw+V+TA+Imp+Imm+2Sg+3SgO
+pêyakwan	pêyakwan+V+II+Ind+Prs+3Sg
+pêyakwan	PV/pe+PV/wa+âhkwan+V+II+Ind+Prs+3Sg
+pêyakwan	pêyakwan+Ipc
+
+picikwâs	picikwâs+N+AN+Sg
+
+pihtokwê	pîhtokwêw+V+AI+Imp+Imm+2Sg
+
+pihtwâ	pîhtwâw+V+AI+Imp+Imm+2Sg
+
+pihtwâyiwa	pîhtwâw+V+AI+Ind+Prs+4Sg/Pl
+
+pimohtê	pimohtêw+V+AI+Imp+Imm+2Sg
+
+pimohtêk	pimohtêw+V+AI+Imp+Imm+2Pl
+pimohtêk	pimohtêw+V+AI+Cnj+Prs+X+3Sg
+pimohtêk	PV/pimi+ohtêw+V+II+Cnj+Prs+3Sg
+
+pimohtêtân	pimohtêw+V+AI+Imp+Imm+12Pl
+
+pimohtêw	pimohtêw+V+AI+Ind+Prs+3Sg
+pimohtêw	PV/pimi+ohtêw+V+II+Ind+Prs+3Sg
+
+pimohtêwak	pimohtêw+V+AI+Ind+Prs+3Pl
+pimohtêwak	pimohtêw+V+AI+Cnj+Prs+1Pl
+pimohtêwak	pimohtêw+V+AI+Cnj+Prs+12Pl
+
+pitamâ	pitamâ+Ipc
+
+pîhtwâw	pîhtwâw+V+AI+Ind+Prs+3Sg
+
+pîkiskwâs	pîkiskwâs	+?
+
+pîkiskwê	pîkiskwêw+V+AI+Imp+Imm+2Sg
+
+pîkiskwêwak	pîkiskwêw+V+AI+Ind+Prs+3Pl
+pîkiskwêwak	pîkiskwêw+V+AI+Cnj+Prs+1Pl
+pîkiskwêwak	pîkiskwêw+V+AI+Cnj+Prs+12Pl
+
+pîkiskwêw	pîkiskwêw+V+AI+Ind+Prs+3Sg
+
+pîsim	pîsim+N+AN+Sg
+pîsim	PV/pe+isimêw+V+TA+Imp+Imm+2Sg+3SgO
+
+sakahikan	sakahikan+N+IN+Sg
+sakahikan	sâkahikan+N+IN+Sg
+
+sakihikan	sâkihêw+V+TA+Imp+Del+2Sg+1SgO
+
+sâkahikan	sâkahikan+N+IN+Sg
+sâkahikan	sakahikan+N+IN+Sg
+
+sêmâk	sêmâk+Ipc
+
+sikâk	sikâk+N+AN+Sg
+sikâk	sîhkawêw+V+TA+Ind+Prs+4Sg/Pl+3SgO
+
+sîsîp	sîsîp+N+AN+Sg
+
+sîsîpak	sîsîp+N+AN+Pl
+
+sîsîpisisak	sîsîp+N+AN+Der/Dim+N+AN+Pl
+sîsîpisisak	sîsîpisis+N+AN+Pl
+
+sîwihtâkan	sîwîhtâkan+N+IN+Sg
+sîwihtâkan	sîwîhtâw+V+TI+Imp+Del+2Sg
+
+sîwinikan	sîwinikan+N+AN+Sg
+sîwinikan	sîwinêw+V+TA+Imp+Del+2Sg+1SgO
+
+tawâw	tawâw+V+II+Ind+Prs+3Sg
+tawâw	tawâw+Ipc
+
+tânêhki	tânêhki+Ipc
+
+tânisi	tânisi+Ipc
+
+tânisîyisi	tânisîyisi+Ipc
+
+tânispi	tânispî+Ipc
+
+tânitê	tânitê+Ipc
+
+êisîyihkâsoyan	êisîyihkâsoyan	+?
+
+têhtapiwin	têhtapiwin+N+IN+Sg
+têhtapiwin	têhtapiwin+N+AN+Sg
+
+têhtapiwina	têhtapiwin+N+IN+Pl
+têhtapiwina	têhtapiwin+N+AN+Sg+Obv
+
+têhtapiwinihk	têhtapiwin+N+IN+Loc
+têhtapiwinihk	têhtapiwin+N+AN+Loc
+
+têpakohp	têpakohp+Ipc
+têpakohp	têpakohp+Num+Ipc
+
+tohtôsapoy	tohtôsâpoy+N+IN+Sg
+
+tohtôsâpohk	tohtôsâpoy+N+IN+Loc
+
+tohtôsâpoy	tohtôsâpoy+N+IN+Sg
+
+tohtôsâpôpimiy	tohtôsâpôwipimiy+Err/Orth+N+IN+Sg
+
+wahwâ	wahwâ+Ipc
+
+wâcistakâc	wâcistakâc+Ipc
+
+wâhyaw	wâhyaw+Ipc
+
+wâpahta	wâpahtam+V+TI+Imp+Imm+2Sg
+
+wâpam	wâpamêw+V+TA+Imp+Imm+2Sg+3SgO
+
+wâskahikan	wâskahikan+N+IN+Sg
+wâskahikan	wâskâhikan+N+IN+Sg
+
+wâwa	wâwi+N+IN+Pl
+
+wêhcasin	PV/wehci+asinêw+V+TA+Imp+Imm+2Sg+3SgO
+wêhcasin	wêhcasin+V+II+Ind+Prs+3Sg
+
+wêmistikôsiw	wêmistikôsiw+N+AN+Sg
+
+wêmistikôsînâhk	wêmistikôsînâhk+N+IN+Sg
+
+wiyâs	wiyâs+N+IN+Sg
+wiyâs	-îwas+N+IN+Sg+Px3Sg
+
+wîcihihk	wîcihêw+V+TA+Imp+Imm+2Pl+1SgO
+wîcihihk	wîcihêw+V+TA+Imp+Imm+2Pl+3SgO
+wîcihihk	wîcihêw+V+TA+Imp+Imm+2Sg+3PlO
+wîcihihk	wîcihêw+V+TA+Ind+Prs+4Sg/Pl+3SgO
+wîcihihk	kîhêw+V+TA+Ind+Fut+Int+4Sg/Pl+3SgO
+
+wîcihik	wîcihêw+V+TA+Imp+Imm+2Pl+1SgO
+wîcihik	wîcihêw+V+TA+Imp+Imm+2Pl+3SgO
+wîcihik	wîcihêw+V+TA+Imp+Imm+2Sg+3PlO
+wîcihik	wîcihêw+V+TA+Ind+Prs+4Sg/Pl+3SgO
+wîcihik	kîhêw+V+TA+Ind+Fut+Int+4Sg/Pl+3SgO
+
+wîki	wîkiw+V+AI+Imp+Imm+2Sg
+wîki	wîhkiw+V+AI+Imp+Imm+2Sg
+wîki	-îki+N+IN+Sg+Px3Sg
+
+wîkinân	wîkinân	+?
+
+wîpac	wîpâw+V+II+Cnj+Prs+3Sg
+wîpac	wîpac+Ipc
+
+wîsta	wîsti+N+IN+Pl
+wîsta	wîsta+Pron+Pers+3Sg+Incl
+
+wîstawâw	wîstawâw+Pron+Pers+3Pl+Incl
+
+wîya	wiya+Ipc
+wîya	wiya+Pron+Pers+3Sg
+
+wîyawâw	wâyâw+V+II+Ind+Fut+Int+3Sg
+wîyawâw	wiyawâw+Ipc
+wîyawâw	wiyawâw+Pron+Pers+3Pl
+
+wîyâkan	wiyâkan+N+IN+Sg
+
+wîyâs	wiyâs+N+IN+Sg
+wîyâs	-îwas+N+IN+Sg+Px3Sg
+
+wîyâsihk	wiyâs+N+IN+Loc
+wîyâsihk	wîwasiw+V+AI+Imp+Imm+2Pl
+wîyâsihk	wîwasiw+V+AI+Cnj+Prs+X+3Sg
+wîyâsihk	-îwas+N+IN+Px3Sg+Loc
