@@ -1,5 +1,63 @@
 from django.db import models
 
+'''
+HOW TO:
+-Create a model with Django:
+    https://docs.djangoproject.com/en/2.0/topics/db/models/
+-Integrate a legacy database:
+    https://docs.djangoproject.com/en/2.0/howto/legacy-databases/
+-Three-step guide to making model changes:
+    1. Change your models (in models.py)
+    2. Run python manage.py makemigrations to create migrations for those changes
+    3. Run python manage.py migrate to apply those changes to the database
+    NOTE: If you change the name of model or field, PLEASE ENSURE that you change it everywhere else it
+    could be changed e.g. in views.py
+-Create a model(table) using mysql:
+    1. Create table in mysql
+    2. Run python manage.py inspectdb
+    3. Find the Python Model script for your new model and copy it
+    4. Paste it into this file.
+    5. Make appropriate migrations and desired adjustments.
+    NOTE: Not every table from the database needs to be in models, only if it is being used
+    elsewhere, e.g. views.py
+-Understanding migrations:
+    https://docs.djangoproject.com/en/2.0/topics/migrations/
+-Class META:
+    -If not explicitly named, django will name the database tables "appname_modelname",
+    for example "lettergame_alphabet". But in class META, the property 'db_table' allows
+    for the naming of the table in the database. ** RECCOMENDED FOR EASE OF USE **
+    -Managed: This property is a boolean. Essentially, default set to true. If set to False,
+    migration will NOT add it to the database. The command 'inspectdb' returns it as False,
+    since it already exists in the database.
+    -See: https://docs.djangoproject.com/en/2.0/ref/models/options/
+
+TROUBLESHOOTING:
+-If you are having problems with migrations or models, try deleting the database and re-creating it.
+ To do this, follow these steps:
+    1. To collect the data currently in the database, use the following command
+
+            python manage.py dumpdata > data.json
+
+       This creates a json file in your current directory
+    2. To drop and recreate the database, run the following:
+
+            python manage.py dbshell
+            drop database CreeTutordb;
+            create database CreeTutordb;
+            exit
+
+    3. Next, migrate to recreate the models in models.py
+
+            python manage.py migrate
+
+    4. Then, using the data file we already created, repopulate the tables:
+
+            python manage.py loaddata data.json
+
+    Note: There will still be a json file with all of the data that was in the database that has
+    all the data information from the database, which should be deleted.
+
+'''
 
 class Alphabet(models.Model):
     name = models.CharField(primary_key=True, max_length=2)
@@ -7,8 +65,7 @@ class Alphabet(models.Model):
     sound = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = False
-        db_table = 'Alphabet'
+        
 
 class LettergameStats(models.Model):
     user_id = models.IntegerField(blank=True, null=True)
@@ -16,9 +73,6 @@ class LettergameStats(models.Model):
     correct_answer = models.CharField(max_length=4, blank=True, null=True)
     time_answered = models.DateTimeField(blank=True, null=True)
 
-    class Meta:
-        managed = False
-        db_table = 'lettergame_stats'
 
 
 class LetterPairs(models.Model):
@@ -27,9 +81,6 @@ class LetterPairs(models.Model):
     second_letter = models.CharField(max_length=2, blank=True, null=True)
     sound = models.TextField(blank=True, null=True)
 
-    class Meta:
-        managed = False
-        db_table = 'letter_pairs'
 
 
 class PairletterStats(models.Model):
@@ -38,115 +89,20 @@ class PairletterStats(models.Model):
     correct_answer = models.TextField(blank=True, null=True)
     time_answered = models.DateTimeField(blank=True, null=True)
 
-    class Meta:
-        managed = False
-        db_table = 'pairletter_stats'
 
-class AuthGroup(models.Model):
-    name = models.CharField(unique=True, max_length=80)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_group'
+class SoundInSyl(models.Model):
+    syl_id = models.IntegerField(blank=True, null=True)
+    pair = models.CharField(max_length=8, blank=True, null=True)
+    vowel = models.CharField(max_length=4, blank=True, null=True)
 
 
-class AuthGroupPermissions(models.Model):
-    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
-    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_group_permissions'
-        unique_together = (('group', 'permission'),)
+class WordSyllables(models.Model):
+    word_id = models.IntegerField(blank=True, null=True)
+    syllable_num = models.IntegerField(blank=True, null=True)
+    syllable_name = models.TextField(blank=True, null=True)
 
 
-class AuthPermission(models.Model):
-    name = models.CharField(max_length=255)
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
-    codename = models.CharField(max_length=100)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_permission'
-        unique_together = (('content_type', 'codename'),)
-
-
-class AuthUser(models.Model):
-    password = models.CharField(max_length=128)
-    last_login = models.DateTimeField(blank=True, null=True)
-    is_superuser = models.IntegerField()
-    username = models.CharField(unique=True, max_length=150)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=150)
-    email = models.CharField(max_length=254)
-    is_staff = models.IntegerField()
-    is_active = models.IntegerField()
-    date_joined = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'auth_user'
-
-
-class AuthUserGroups(models.Model):
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_user_groups'
-        unique_together = (('user', 'group'),)
-
-
-class AuthUserUserPermissions(models.Model):
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-    permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_user_user_permissions'
-        unique_together = (('user', 'permission'),)
-
-
-class DjangoAdminLog(models.Model):
-    action_time = models.DateTimeField()
-    object_id = models.TextField(blank=True, null=True)
-    object_repr = models.CharField(max_length=200)
-    action_flag = models.PositiveSmallIntegerField()
-    change_message = models.TextField()
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'django_admin_log'
-
-
-class DjangoContentType(models.Model):
-    app_label = models.CharField(max_length=100)
-    model = models.CharField(max_length=100)
-
-    class Meta:
-        managed = False
-        db_table = 'django_content_type'
-        unique_together = (('app_label', 'model'),)
-
-
-class DjangoMigrations(models.Model):
-    app = models.CharField(max_length=255)
-    name = models.CharField(max_length=255)
-    applied = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'django_migrations'
-
-
-class DjangoSession(models.Model):
-    session_key = models.CharField(primary_key=True, max_length=40)
-    session_data = models.TextField()
-    expire_date = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'django_session'
+class Words(models.Model):
+    word = models.CharField(max_length=255)
+    word_id = models.IntegerField(primary_key=True)
+    num_syllables = models.IntegerField(blank=True, null=True)
