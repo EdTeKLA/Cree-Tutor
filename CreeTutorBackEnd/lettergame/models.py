@@ -65,7 +65,7 @@ class Alphabet(models.Model):
     sound = models.TextField(blank=True, null=True)
 
     class Meta:
-        
+        db_table = "alphabet"
 
 class LettergameStats(models.Model):
     user_id = models.IntegerField(blank=True, null=True)
@@ -80,6 +80,9 @@ class LetterPairs(models.Model):
     first_letter = models.CharField(max_length=2, blank=True, null=True)
     second_letter = models.CharField(max_length=2, blank=True, null=True)
     sound = models.TextField(blank=True, null=True)
+
+    class Meta:
+        db_table = "letter_pairs"
 
 
 
@@ -106,3 +109,6 @@ class Words(models.Model):
     word = models.CharField(max_length=255)
     word_id = models.IntegerField(primary_key=True)
     num_syllables = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        db_table = "words"
