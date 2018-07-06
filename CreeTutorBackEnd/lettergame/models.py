@@ -85,7 +85,6 @@ class LetterPairs(models.Model):
         db_table = "letter_pairs"
 
 
-
 class PairletterStats(models.Model):
     user_id = models.IntegerField(blank=True, null=True)
     chosen_answer = models.TextField(blank=True, null=True)
