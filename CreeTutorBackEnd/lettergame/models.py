@@ -104,10 +104,35 @@ class WordSyllables(models.Model):
     syllable_name = models.TextField(blank=True, null=True)
 
 
-class Words(models.Model):
+class Word(models.Model):
     word = models.CharField(max_length=255)
     word_id = models.IntegerField(primary_key=True)
     num_syllables = models.IntegerField(blank=True, null=True)
+    #lemma = models.ForeignKey
+    #gram_code = models.ForeignKey
+    #translation = models.CharField(max_length=40, null=True)
+
+
 
     class Meta:
         db_table = "words"
+
+"""
+class Lemma(models.Model):
+    lemma = models.ForeignKey
+    usable_gram_codes = models.manytomany(Gram_code())
+    pos = models.CharField(max_length, null=True)
+        #possible: V N IPC Pron Num
+        #These are available in Linguistics/sorted_gram_codes.txt
+
+    animate = models.CharField(max_length=25, null=True)
+        #possible: AN IN null
+
+    transitive = models.Charfield(max_length=25, null=True)
+        #possible: II AI TI TA null
+
+    translation = models.CharField(max_length=250, null=True)
+
+class Gram_code(models.Model):
+    gram_code = models.CharField(primary_key=True, max_length=100, unique=True)
+"""
