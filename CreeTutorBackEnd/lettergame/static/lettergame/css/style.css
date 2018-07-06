@@ -9,7 +9,7 @@ body{
   transform: translate(-50%, -50%);
 }
 
-a{
+.choose{
   margin: 5px;
   padding: 5px;
   font-family: sans-serif;
@@ -21,6 +21,6 @@ a{
   background-color: white;
 }
 
-a:hover{
+.choose:hover{
   opacity: 0.7;
 }
