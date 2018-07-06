@@ -136,3 +136,4 @@ class Lemma(models.Model):
 
 class Gram_code(models.Model):
     gram_code = models.CharField(primary_key=True, max_length=100, unique=True)
+"""

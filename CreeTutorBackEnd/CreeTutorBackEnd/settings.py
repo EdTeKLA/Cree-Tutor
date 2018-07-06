@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from settings_secret import .
+#contains: db_user, db_pass
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -78,8 +80,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'CreeTutordb',
-        'USER': 'root',
-        'PASSWORD':'2718nehiyawewin',
+        'USER': db_root,
+        'PASSWORD':db_pass,
         'HOST':'localhost',
         'PORT':''
     }
