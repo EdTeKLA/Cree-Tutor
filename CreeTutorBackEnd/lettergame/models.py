@@ -58,6 +58,26 @@ TROUBLESHOOTING:
     all the data information from the database, which should be deleted.
 
 '''
+class PartOfSpeech(models.Model):
+    #possible: V N IPC Pron Num
+    pos = models.CharField(primary_key=True, max_length=10)
+
+    class Meta:
+        db_table = "part_of_speech"
+
+class Transitive(models.Model):
+    #possible: II AI TI TA null
+    transitive = models.CharField(primary_key=True, max_length=8)
+
+    class Meta:
+        db_table = "transitive"
+
+class Animate(models.Model):
+    #possible: AN IN null
+    animate = models.CharField(primary_key=True, max_length=25)
+
+    class Meta:
+        db_table = "animate"
 
 class Alphabet(models.Model):
     name = models.CharField(primary_key=True, max_length=2)
@@ -121,9 +141,9 @@ class Lemma(models.Model):
     id = models.IntegerField(primary_key=True)
     lemma = models.CharField(max_length=255, blank=True, null=True)
     useable_gram_codes = models.CharField(max_length=100, blank=True, null=True)
-    pos = models.CharField(max_length=8, blank=True, null=True)
-    animate = models.CharField(max_length=8, blank=True, null=True)
-    transitive = models.CharField(max_length=8, blank=True, null=True)
+    pos = models.ForeignKey(PartOfSpeech, models.DO_NOTHING, blank=True, null=True)
+    animate = models.ForeignKey(Animate, models.DO_NOTHING, blank=True, null=True)
+    transitive = models.ForeignKey(Transitive, models.DO_NOTHING, blank=True, null=True)
     translation = models.CharField(max_length=250, blank=True, null=True)
 
     class Meta:
@@ -145,9 +165,10 @@ class Word(models.Model):
 class Lemma(models.Model):
     lemma = models.ForeignKey
     usable_gram_codes = models.manytomany(Gram_code())
+        #These are available in Linguistics/sorted_gram_codes.txt
     pos = models.CharField(max_length, null=True)
         #possible: V N IPC Pron Num
-        #These are available in Linguistics/sorted_gram_codes.txt
+
 
     animate = models.CharField(max_length=25, null=True)
         #possible: AN IN null
