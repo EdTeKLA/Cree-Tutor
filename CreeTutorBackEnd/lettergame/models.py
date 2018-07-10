@@ -79,8 +79,15 @@ class Animate(models.Model):
     class Meta:
         db_table = "animate"
 
+class GramCode(models.Model):
+    #These are available in Linguistics/sorted_gram_codes.txt
+    gram_code = models.CharField(primary_key=True, max_length=100, unique=True)
+
+    class Meta:
+        db_table = "game_code"
+
 class Alphabet(models.Model):
-    name = models.CharField(primary_key=True, max_length=2)
+    letter = models.CharField(primary_key=True, max_length=2)
     vowel = models.TextField(blank=True, null=True)
     sound = models.TextField(blank=True, null=True)
 
@@ -97,15 +104,14 @@ class SingleLetterStats(models.Model):
         db_table = "single_letter_stats"
 
 
-
 class LetterPair(models.Model):
-    name = models.CharField(primary_key=True, max_length=4)
-    first_letter = models.CharField(max_length=2, blank=True, null=True)
-    second_letter = models.CharField(max_length=2, blank=True, null=True)
+    pair = models.CharField(primary_key=True, max_length=4)
+    first_letter = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='first_letter', blank=True, null=True)
+    second_letter = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='second_letter', blank=True, null=True, related_name = '+')
     sound = models.TextField(blank=True, null=True)
 
     class Meta:
-        db_table = "letter_pair"
+        db_table = 'letter_pair'
 
 
 class DoubleLetterStats(models.Model):
@@ -136,11 +142,10 @@ class WordSyllable(models.Model):
         db_table = "word_syllable"
 
 
-
 class Lemma(models.Model):
     id = models.IntegerField(primary_key=True)
     lemma = models.CharField(max_length=255, blank=True, null=True)
-    useable_gram_codes = models.CharField(max_length=100, blank=True, null=True)
+    useable_gram_codes = models.ForeignKey(GramCode, models.DO_NOTHING, blank=True, null=True)
     pos = models.ForeignKey(PartOfSpeech, models.DO_NOTHING, blank=True, null=True)
     animate = models.ForeignKey(Animate, models.DO_NOTHING, blank=True, null=True)
     transitive = models.ForeignKey(Transitive, models.DO_NOTHING, blank=True, null=True)
@@ -152,7 +157,7 @@ class Lemma(models.Model):
 class Word(models.Model):
     word_id = models.IntegerField(primary_key=True, default=0)
     word = models.CharField(max_length=255, blank=True, null=True)
-    gram_code = models.CharField(max_length=100, blank=True, null=True)
+    gram_code = models.ForeignKey(GramCode, models.DO_NOTHING, blank=True, null=True)
     translation = models.TextField(blank=True, null=True)
     num_syllables = models.IntegerField(blank=True, null=True)
     lemmaID = models.ForeignKey(Lemma, models.DO_NOTHING, blank=True, null=True)
@@ -178,6 +183,4 @@ class Lemma(models.Model):
 
     translation = models.CharField(max_length=250, null=True)
 
-class Gram_code(models.Model):
-    gram_code = models.CharField(primary_key=True, max_length=100, unique=True)
 """
