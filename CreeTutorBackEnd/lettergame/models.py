@@ -67,55 +67,79 @@ class Alphabet(models.Model):
     class Meta:
         db_table = "alphabet"
 
-class LettergameStats(models.Model):
+class SingleLetterStats(models.Model):
     user_id = models.IntegerField(blank=True, null=True)
     chosen_answer = models.CharField(max_length=4, blank=True, null=True)
     correct_answer = models.CharField(max_length=4, blank=True, null=True)
     time_answered = models.DateTimeField(blank=True, null=True)
 
+    class Meta:
+        db_table = "single_letter_stats"
 
 
-class LetterPairs(models.Model):
+
+class LetterPair(models.Model):
     name = models.CharField(primary_key=True, max_length=4)
     first_letter = models.CharField(max_length=2, blank=True, null=True)
     second_letter = models.CharField(max_length=2, blank=True, null=True)
     sound = models.TextField(blank=True, null=True)
 
     class Meta:
-        db_table = "letter_pairs"
+        db_table = "letter_pair"
 
 
-class PairletterStats(models.Model):
+class DoubleLetterStats(models.Model):
     user_id = models.IntegerField(blank=True, null=True)
     chosen_answer = models.TextField(blank=True, null=True)
     correct_answer = models.TextField(blank=True, null=True)
     time_answered = models.DateTimeField(blank=True, null=True)
 
+    class Meta:
+        db_table = "double_letter_stats"
 
-class SoundInSyl(models.Model):
+
+class SoundInSyllable(models.Model):
     syl_id = models.IntegerField(blank=True, null=True)
     pair = models.CharField(max_length=8, blank=True, null=True)
     vowel = models.CharField(max_length=4, blank=True, null=True)
 
+    class Meta:
+        db_table = "sound_in_syllable"
 
-class WordSyllables(models.Model):
+
+class WordSyllable(models.Model):
     word_id = models.IntegerField(blank=True, null=True)
     syllable_num = models.IntegerField(blank=True, null=True)
     syllable_name = models.TextField(blank=True, null=True)
 
-
-class Word(models.Model):
-    word = models.CharField(max_length=255)
-    word_id = models.IntegerField(primary_key=True)
-    num_syllables = models.IntegerField(blank=True, null=True)
-    #lemma = models.ForeignKey
-    #gram_code = models.ForeignKey
-    #translation = models.CharField(max_length=40, null=True)
+    class Meta:
+        db_table = "word_syllable"
 
 
+
+class Lemma(models.Model):
+    id = models.IntegerField(primary_key=True)
+    lemma = models.CharField(max_length=255, blank=True, null=True)
+    useable_gram_codes = models.CharField(max_length=100, blank=True, null=True)
+    pos = models.CharField(max_length=8, blank=True, null=True)
+    animate = models.CharField(max_length=8, blank=True, null=True)
+    transitive = models.CharField(max_length=8, blank=True, null=True)
+    translation = models.CharField(max_length=250, blank=True, null=True)
 
     class Meta:
-        db_table = "words"
+        db_table = 'lemma'
+
+class Word(models.Model):
+    word_id = models.IntegerField(primary_key=True, default=0)
+    word = models.CharField(max_length=255, blank=True, null=True)
+    gram_code = models.CharField(max_length=100, blank=True, null=True)
+    translation = models.TextField(blank=True, null=True)
+    num_syllables = models.IntegerField(blank=True, null=True)
+    lemmaID = models.ForeignKey(Lemma, models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        db_table = 'word'
+
 
 """
 class Lemma(models.Model):
