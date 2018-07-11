@@ -39,13 +39,19 @@ If there is an error, download the wheel from https://www.lfd.uci.edu/~gohlke/py
 
    Navigate to the directory `CreeTutor/CreeTutorBackEnd` and run:
 
-        $ python manage.py dbshell
+        $ mysql -u root -p
+
+        Then enter 'Your_Password'.
 
 
    To open up the mysql shell. Next run the follow queries in the shell:
 
         > create database CreeTutordb;
         > exit
+
+10. The database is created. Check that it is working by running:
+
+        $ python manage.py dbshell
 
 11. Navigate to CreeTutor/CreeTutorBackEnd and run:
 

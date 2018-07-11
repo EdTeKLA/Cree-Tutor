@@ -7,15 +7,44 @@ import re
 db = None
 cursor = None
 
-def connect():
+def connect(user, pw):
     '''
     Function takes in password and connects to database
     Returns None
     '''
 
     global db, cursor
-    db = MySQLdb.connect("localhost","root", '2718nehiyawewin', 'CreeTutordb' )
+    db = MySQLdb.connect("localhost", user, pw, 'CreeTutordb' )
     cursor = db.cursor()
+
+    return
+
+def dbInfo():
+    user = input("Please enter the name of your database user (e.g. root): ")
+    password = getpass()
+
+    connect(user, password)
+
+    while True:
+        print("Are you\n1.Adding new data\n2.Re-populating the database?\n(1/2):")
+        delete = input()
+        if delete == '1':
+            break
+        elif delete == '2':
+            emptyDb()
+            break
+        else:
+            print("That is not valid input")
+
+    return
+
+
+def emptyDb():
+    # THIS ORDER MATTERS. letter_pair has foreign keys that reference alphabet, and mysql will throw a key error otherwise
+    cursor.execute("delete from letter_pair")
+    cursor.execute("delete from alphabet")
+    cursor.execute("delete from word")
+    db.commit()
 
     return
 
@@ -23,7 +52,7 @@ def connect():
 def cycleSound(directory_in_str):
     '''
     Function takes in a string path to the desired directory. Directory must be in static folder of django project.
-    Cycles through directory and extracts individual names and paths. Passes name to getfirstsecond to identify the first
+    Cycles through directory and extracts individual pairs and paths. Passes pair to getfirstsecond to identify the first
     and second letter of the letter pair, and return them.
     Inserts names, first letters, second letters, and paths into pre-made Alphabet table
     in database.
@@ -38,12 +67,16 @@ def cycleSound(directory_in_str):
         if filename.endswith(".wav") or filename.endswith(".m4a"):
             pathname = os.path.join(directory, file)
             finalpath = os.fsdecode(pathname)
+            finalpath = finalpath.replace("\\", "/")
             # Splits on 'static/' so that path string is appropriate for django to read
             finalpath = finalpath.split('static/')[1]
             new = filename.replace('.wav', '')
+            new = new.replace('.m4a', '')
+            if "._" in new:
+                continue
             first, second = getfirstsecond(new)
             getfirstsecond(new)
-            executestring = "INSERT INTO letter_pairs VALUES ('{}','{}','{}','{}')".format(new, first, second, finalpath)
+            executestring = "INSERT INTO letter_pair VALUES ('{}','{}','{}','{}')".format(new, first, second, finalpath)
             cursor.execute(executestring)
 
     db.commit()
@@ -75,13 +108,13 @@ def cycleWords(directory_in_str):
     '''
     Function takes in a string path to the desired directory. Directory must be in static folder of django project.
     Cycles through directory and extracts individual names and paths. Passes individual names to function syllables to count the
-    number of syllables in word. Inserts names, paths, number of syllables, and an id into pre-made words table
+    number of syllables in word. Inserts names, paths, number of syllables, and an id into pre-made word table
     in database. Strips names of any non-alpha character and does not allow names with whitespace or duplicate names.
     Returns None
     '''
 
     word_id = 0
-    executestring = "INSERT INTO words VALUES"
+    executestring = "INSERT INTO word VALUES"
     directory = os.fsencode(directory_in_str)
 
     # Cycle through directory
@@ -92,9 +125,13 @@ def cycleWords(directory_in_str):
         if filename.endswith(".wav") or filename.endswith(".m4a"):
             pathname = os.path.join(directory, file)
             finalpath = os.fsdecode(pathname)
+            finalpath = finalpath.replace("\\", "/")
             # Splits on 'static/' so that path string is appropriate for django to read
             finalpath = finalpath.split('static/')[1]
             new = filename.replace('.wav', '').lower()
+            new = new.replace('.m4a', '').lower()
+            if "._" in new:
+                continue
             # If exists whitespace, then not a single word
             if ' ' in new:
                 continue
@@ -104,10 +141,11 @@ def cycleWords(directory_in_str):
             if "'{}',".format(new) in executestring:
                 continue
             num_syllables = syllables(new)
-            executestring += "('{}','{}','{}'),".format(new, word_id, num_syllables)
+            executestring += "({},'{}', NULL, NULL, {}, NULL),".format(word_id, new, num_syllables)
             word_id +=1
 
     executestring = executestring[0:-1]
+    # print(executestring)
     cursor.execute(executestring)
     db.commit()
     return
@@ -149,10 +187,15 @@ def cycleLetters(directory_in_str):
         if filename.endswith(".wav") or filename.endswith(".m4a"):
             pathname = os.path.join(directory, file)
             finalpath = os.fsdecode(pathname)
+            finalpath = finalpath.replace("\\", "/") # Accounts for Windows machines
             # Splits on 'static/' so that path string is appropriate for django to read
             finalpath = finalpath.split('static/')[1]
             new = filename.replace('.wav', '')
+            new = new.replace('.m4a', '')
+            if "._" in new:
+                continue
             executestring = "INSERT INTO alphabet VALUES ('{}','','{}')".format(new, finalpath)
+            print(executestring)
             cursor.execute(executestring)
 
     db.commit()
@@ -172,7 +215,7 @@ def namevowel():
 
     vowels = ['a', 'e', 'i', 'o']
     for v in vowels:
-        executestring = "UPDATE Alphabet SET vowel = 'vowel' where name like '%{}%'".format(v)
+        executestring = "UPDATE Alphabet SET vowel = 'vowel' where letter like '%{}%'".format(v)
         cursor.execute(executestring)
 
     db.commit()
@@ -186,7 +229,7 @@ def semivowel():
     Returns nothings.
     '''
 
-    executestring = "UPDATE Alphabet SET vowel = 'semivowel' where name = 'y' or name = 'w'"
+    executestring = "UPDATE Alphabet SET vowel = 'semivowel' where letter = 'y' or letter = 'w'"
     cursor.execute(executestring)
 
     db.commit()
@@ -207,17 +250,16 @@ def consonant():
     return
 
 def main():
-    connect()
 
-    cursor.execute("delete from alphabet")
-    cursor.execute("delete from letter_pairs")
-    cursor.execute("delete from words")
-    db.commit()
-    words = input("Please enter the path to 'word' recordings: ")
+    dbInfo()
+
+    word = input("Please enter the path to 'word' recordings: ")
+    print("\n")
     alphabet = input("Please enter the path to 'alphabet' recordings: ")
+    print("\n")
     sound = input("Please enter the path to 'letter pair' recordings: ")
 
-    cycleWords(words)
+    cycleWords(word)
     cycleLetters(alphabet)
     cycleSound(sound)
 
