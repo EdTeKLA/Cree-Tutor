@@ -23,14 +23,15 @@ If there is an error, download the wheel from https://www.lfd.uci.edu/~gohlke/py
 7. Open or create the file `CreeTutor/CreeTutorBackEnd/CreeTutorBackEnd/settings_secret.py`
 8. Make the contents of settings_secret.py look like this:
 
-"""
-These settings must never be uploaded onto github.
+       """  
+       These settings must never be uploaded onto github.
 
-Keep it secret
-"""
+       Keep it secret
+       """
 
-db_root = "root"
-db_pass = "PutPasswordHere"
+       db_root = "Your_DB_User"
+
+       db_pass = "Your_Password"
 
 9. Make a MySQL schema named "CreeTutordb"
 
@@ -38,14 +39,19 @@ db_pass = "PutPasswordHere"
 
    Navigate to the directory `CreeTutor/CreeTutorBackEnd` and run:
 
-        $ python manage.py dbshell
+        $ mysql -u root -p
 
-        @Delaney This doesn't work. It gave me "returned non-zero exit status 1." I managed to get into the mysql shell anotehr way but we need to sort this out. Made an issue.#1
+        Then enter 'Your_Password'.
+
 
    To open up the mysql shell. Next run the follow queries in the shell:
 
         > create database CreeTutordb;
         > exit
+
+10. The database is created. Check that it is working by running:
+
+        $ python manage.py dbshell
 
 11. Navigate to CreeTutor/CreeTutorBackEnd and run:
 
