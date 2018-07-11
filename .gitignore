@@ -42,6 +42,6 @@ Thumbs.db
 *.m4a
 *.mp3
 CreeTutorBackEnd/lettergame/static/lettergame/sound
-__pycache__/
-migrations/
+*__pycache__/
+*migrations/
 *settings_secret.py
