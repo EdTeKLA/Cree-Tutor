@@ -116,3 +116,7 @@ def syl_in_word(request):
         syl = WordSyllable.objects.filter(word_id = word.word_id)
 
     return HttpResponse(syl[num].vowel)
+
+def invaders(request):
+
+    return render(request, 'lettergame/spaceinvadersgame.html')

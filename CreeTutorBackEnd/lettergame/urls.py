@@ -5,6 +5,6 @@ app_name = 'lettergame'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('syl/', views.syl_in_word, name="syl"),
+    path('invaders/', views.invaders, name="invaders"),
     path('<str:game>/', views.whichgame, name="whichgame")
 ]
