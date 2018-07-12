@@ -46,7 +46,7 @@ If there is an error, download the wheel from https://www.lfd.uci.edu/~gohlke/py
 
    To open up the mysql shell. Next run the follow queries in the shell:
 
-        > create database CreeTutordb;
+        > create database CreeTutordb DEFAULT CHARACTER SET utf8;
         > exit
 
 10. The database is created. Check that it is working by running:
