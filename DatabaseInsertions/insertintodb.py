@@ -25,16 +25,18 @@ def dbInfo():
 
     connect(user, password)
 
-    while True:
-        print("Are you\n1.Adding new data\n2.Re-populating the database?\n(1/2):")
-        delete = input()
-        if delete == '1':
-            break
-        elif delete == '2':
-            emptyDb()
-            break
-        else:
-            print("That is not valid input")
+    # while True:
+    #     print("Are you\n1.Adding new data\n2.Re-populating the database?\n(1/2):")
+    #     delete = input()
+    #     if delete == '1':
+    #         break
+    #     elif delete == '2':
+    #         emptyDb()
+    #         break
+    #     else:
+    #         print("That is not valid input")
+
+    emptyDb()
 
     return
 
@@ -76,7 +78,7 @@ def cycleSound(directory_in_str):
                 continue
             first, second = getfirstsecond(new)
             getfirstsecond(new)
-            executestring = "INSERT INTO letter_pair VALUES ('{}','{}','{}','{}')".format(new, first, second, finalpath)
+            executestring = "INSERT INTO letter_pair VALUES ('{}','{}','{}','{}')".format(new, finalpath, first, second)
             cursor.execute(executestring)
 
     db.commit()
@@ -141,11 +143,10 @@ def cycleWords(directory_in_str):
             if "'{}',".format(new) in executestring:
                 continue
             num_syllables = syllables(new)
-            executestring += "({},'{}', NULL, NULL, {}, NULL),".format(word_id, new, num_syllables)
+            executestring += "({},'{}', NULL, {}, NULL, NULL),".format(word_id, new, num_syllables)
             word_id +=1
 
     executestring = executestring[0:-1]
-    # print(executestring)
     cursor.execute(executestring)
     db.commit()
     return
@@ -195,7 +196,6 @@ def cycleLetters(directory_in_str):
             if "._" in new:
                 continue
             executestring = "INSERT INTO alphabet VALUES ('{}','','{}')".format(new, finalpath)
-            print(executestring)
             cursor.execute(executestring)
 
     db.commit()
