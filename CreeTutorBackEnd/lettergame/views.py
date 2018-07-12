@@ -52,9 +52,12 @@ def singleletter(request):
     '''
 
     if request.method == 'GET':
-        letters = sorted(Alphabet.objects.all().order_by('name'), key=lambda x: random.random())
+        letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
         letters = letters[:5]
         sound = random.choice(letters)
+        sound.name = sound.letter
+        for letter in letters:
+            letter.name = letter.letter
         context = {
         'letters': letters, 'sound':sound, 'game':'single'
         }
@@ -87,11 +90,14 @@ def letterpair(request):
     '''
 
     if request.method == 'GET':
-        letters = sorted(LetterPair.objects.all().order_by('name'), key=lambda x: random.random())
-        letters = letters[:5]
-        sound = random.choice(letters)
+        pairs = sorted(LetterPair.objects.all().order_by('pair'), key=lambda x: random.random())
+        pairs = pairs[:5]
+        sound = random.choice(pairs)
+        sound.name = sound.pair
+        for pair in pairs:
+            pair.name = pair.pair
         context = {
-        'letters': letters, 'sound':sound, 'game':'double'
+        'letters': pairs, 'sound':sound, 'game':'double'
         }
         return context
     elif request.method == 'POST':

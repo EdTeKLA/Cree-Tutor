@@ -20,7 +20,7 @@
 
          {% for letter in letters %}
 					<input class="choice_button" type="radio" name= "user_r" value="{{ letter.name }}" required/>
-					<label for="{{letter.name}}">{{ letter.name }}</label><br />
+					<label for="{{ letter.name }}">{{ letter.name }}</label><br/>
 			   {% endfor %}
 
          <input type="submit" value="submit" />
