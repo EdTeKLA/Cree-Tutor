@@ -18,10 +18,11 @@ def connect(user, pw):
     db.set_character_set('utf8')
     cursor = db.cursor()
 
-    #MySQL must be reminded many times to use nothing but UNICODE 
+    #MySQL must be reminded many times to use nothing but UNICODE
     cursor.execute('SET NAMES utf8;')
     cursor.execute('SET CHARACTER SET utf8;')
     cursor.execute('SET character_set_connection=utf8;')
+
 
     return
 
