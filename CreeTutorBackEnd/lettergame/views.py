@@ -52,7 +52,7 @@ def singleletter(request):
     '''
 
     if request.method == 'GET':
-        letters = sorted(Alphabet.objects.all().order_by('name'), key=lambda x: random.random())
+        letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
         letters = letters[:5]
         sound = random.choice(letters)
         context = {
@@ -87,7 +87,7 @@ def letterpair(request):
     '''
 
     if request.method == 'GET':
-        letters = sorted(LetterPair.objects.all().order_by('name'), key=lambda x: random.random())
+        letters = sorted(LetterPair.objects.all().order_by('pair'), key=lambda x: random.random())
         letters = letters[:5]
         sound = random.choice(letters)
         context = {

@@ -16,11 +16,11 @@
 
     	<form class="options" action="{% url 'lettergame:whichgame' game %}" method="post">
 			{% csrf_token %}
-			   <input class="hidden" type="hidden" id="{{ sound.name }}" name= "correct_r" value="{{ sound.name }}" />
+			   <input class="hidden" type="hidden" id="{{ sound.letter }}" name= "correct_r" value="{{ sound.letter }}" />
 
          {% for letter in letters %}
-					<input class="choice_button" type="radio" name= "user_r" value="{{ letter.name }}" required/>
-					<label for="{{letter.name}}">{{ letter.name }}</label><br />
+					<input class="choice_button" type="radio" name= "user_r" value="{{ letter.letter }}" required/>
+					<label for="{{letter.letter}}">{{ letter.letter }}</label><br />
 			   {% endfor %}
 
          <input type="submit" value="submit" />
