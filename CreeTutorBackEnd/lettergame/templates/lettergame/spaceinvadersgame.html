@@ -1,18 +1,284 @@
-<!doctype html>
+﻿<!doctype html>
 {% load static %}
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Hello World</title>
+    <meta charset="utf-8">
+    <title>Space Invader !!</title>
+    <style>
+        body {
+            background-color: #0F4C15;
+        }
+    </style>
 </head>
-  <link rel="shortcut icon" href="favicon.ico">
-  <script src="{% static 'lettergame/js/pixi.min.js' %}"></script>
-<body>
-  <script type="text/javascript">
-    let app = new PIXI.Application({width: 256, height: 256});
+<link rel="shortcut icon" href="favicon.ico">
+<script src="{% static 'lettergame/js/pixi.min.js' %}"></script>
 
-    //Add the canvas that Pixi automatically created for you to the HTML document
-    document.body.appendChild(app.view);
+<script src="https://pixijs.download/release/pixi.min.js"></script>
+<body>
+    <font size="6" color="white" face="Comic Sans MS">
+        <p>space invaders except it doesn't work yet >:^( </p>
+    </font>
+    <style>
+        * {
+            padding: 600;
+            margin: 80;
+        }
+    </style>
+
+    <script type="text/javascript">
+       // let b = new Bump(PIXI);
+        let app = new PIXI.Application({
+            width: 500,
+            height: 500,
+            antialias: true,    // default: false
+            transparent: false, // default: false
+            resolution: 1,       // default: 1
+        }
+        );
+        //add canvas
+        document.body.appendChild(app.view);
+        //change canvas bgcolour
+        app.renderer.backgroundColor = 0x9CD7F0;
+
+        /*   var renderer = PIXI.autoDetectRenderer(WIDTH, HEIGHT);
+           document.body.appendChild(renderer.view);
+           renderer.view.style.position = 'absolute';
+           renderer.view.style.left = '50%';
+           renderer.view.style.top = '50%';
+           renderer.view.style.transform = 'translate3d( -50%, -50%, 0 )';
+           */
+        PIXI.loader
+            .add("{% static 'lettergame/image/shooter-1.png' %}")
+            .add("{% static 'lettergame/image/bottomboundary.png' %}")
+            .add("{% static 'lettergame/image/Contain.png'%}")
+            .load(setup)
+            .load(boundaries);
+       
+
+       
+        let shooter1, state, bottomBoundary;
+      
+        function boundaries() {
+
+          
+            if (shooter1.x > -480) {
+                shooter1.vx = 0;
+            }
+                
+            let bottomBoundaries = 17,
+                spacing = 30,
+                xOffset = 0;
+            //array to store all bottom boundary blocks
+            bottomBlocks = [];
+
+            for (let i = 0; i < bottomBoundaries; i++) {
+                //create sprite
+                let bottomBoundary = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bottomboundary.png' %}"].texture);
+
+                let x = spacing * i + xOffset;
+
+                let y = 470;
+
+                bottomBoundary.x = x;
+                bottomBoundary.y = y;
+
+                bottomBlocks.push(bottomBoundary);
+
+                app.stage.addChild(bottomBoundary)
+            }
+
+           
+
+
+        }
+
+        function setup() {
+            //'create' sprite
+            shooter1 = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/shooter-1.png' %}"].texture);
+            
+            //change sprite position
+            shooter1.x = 230;
+            shooter1.y = 400;
+            shooter1.vx = 0;
+            shooter1.vy = 0;
+
+            //create
+           // let Contain = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/Contain.png' %}"].texture);
+            //change sprite position
+           // Contain.x = 0;
+           // Contain.y = 0;
+           // Contain.vx = 0;
+           // Contain.vy = 0;
+            //add sprite to stage
+            app.stage.addChild(shooter1);
+            //app.stage.addChild(Contain);
+
+          
+            
+            //Capture the keyboard arrow keys
+            let left = keyboard(37),
+                up = keyboard(38),
+                right = keyboard(39),
+                down = keyboard(40);
+            //contain(shooter1, Contain);
+            //Left arrow key `press` method
+            left.press = () => {
+                //Change the shooter1's velocity when the key is pressed
+
+                    shooter1.vx = -5;
+                    shooter1.vy = 0;
+            };
+
+            //Left arrow key `release` method
+            left.release = () => {
+                //If the left arrow has been released, and the right arrow isn't down,
+                //and the shooter1 isn't moving vertically:
+                //Stop the shooter1
+                if (!right.isDown && shooter1.vy === 0) {
+                    shooter1.vx = 0;
+                }
+            };
+
+            //Up
+            up.press = () => {
+                shooter1.vy = 0;
+                shooter1.vx = 0;
+            };
+            up.release = () => {
+                if (!down.isDown && shooter1.vx === 0) {
+                    shooter1.vy = 0;
+                }
+            };
+
+            //Right
+            right.press = () => {
+                shooter1.vx = 5;
+                shooter1.vy = 0;
+            };
+            right.release = () => {
+                if (!left.isDown && shooter1.vy === 0) {
+                    shooter1.vx = 0;
+                }
+            };
+            if (shooter1.x >= 480) {
+                shooter1.vx = 0;
+                shooter1.x = 479;
+            }
+
+            //Down
+            down.press = () => {
+                shooter1.vy = 0;
+                shooter1.vx = 0;
+            };
+            down.release = () => {
+                if (!up.isDown && shooter1.vx === 0) {
+                    shooter1.vy = 0;
+                }
+            };
+
+            //Set the game state
+            state = play;
+
+            //Start the game loop
+            app.ticker.add(delta => gameLoop(delta));
+        }
+
+        function gameLoop(delta) {
+
+            //Update the current game state:
+            state(delta);
+        }
+
+        function play(delta) {
+            let Contain = { x: 0, y: 0, width: 490, height: 490 };
+            let shooter1hitsWall = contain(shooter1, Contain);
+
+            if (shooter1hitsWall === "left" || shooter1hitsWall === "right") {
+                shooter1.vx = 0;
+                //shooter1.y = 469;
+            }
+
+            //Use the shooter1's velocity to make it move
+            shooter1.x += shooter1.vx;
+            shooter1.y += shooter1.vy;
+            
+        }
+
+        function keyboard(keyCode) {
+            let key = {};
+            key.code = keyCode;
+            key.isDown = false;
+            key.isUp = true;
+            key.press = undefined;
+            key.release = undefined;
+            //The `downHandler`
+            key.downHandler = event => {
+                if (event.keyCode === key.code) {
+                    if (key.isUp && key.press) key.press();
+                    key.isDown = true;
+                    key.isUp = false;
+                }
+                event.preventDefault();
+            };
+
+            //The `upHandler`
+            key.upHandler = event => {
+                if (event.keyCode === key.code) {
+                    if (key.isDown && key.release) key.release();
+                    key.isDown = false;
+                    key.isUp = true;
+                }
+                event.preventDefault();
+            };
+
+            //Attach event listeners
+            window.addEventListener(
+                "keydown", key.downHandler.bind(key), false
+            );
+            window.addEventListener(
+                "keyup", key.upHandler.bind(key), false
+            );
+            return key;
+        }
+        //contain shooter1 to borders of the stage
+        function contain(sprite, Contain) {
+            
+           let collision = undefined;
+
+            //Left
+            if (sprite.x < Contain.x) {
+                sprite.x = Contain.x
+
+               collision = "left";
+            }
+
+             //Top
+             if (sprite.y < Contain.y) {
+                 sprite.y = Contain.y;
+                 collision = "top";
+             }
+
+            //Right
+            if (sprite.x + sprite.width > Contain.width) {
+                sprite.x = Contain.width - sprite.width;
+
+                collision = "right";
+            }
+
+            //Bottom
+            if (sprite.y + sprite.height > Contain.height) {
+                sprite.y = Contain.height - sprite.height;
+                collision = "bottom";
+            }
+
+            //Return the `collision` value
+          return collision;
+        }
+        
+          
+
+
+
     </script>
 </body>
 </html>
