@@ -95,6 +95,7 @@ def cycleSound(directory_in_str):
             if "._" in new:
                 continue
             first, second = getfirstsecond(new)
+            sys.stdout.write(first + " " + second)
             getfirstsecond(new)
             executestring = "INSERT INTO letter_pair VALUES ('{}','{}','{}','{}')".format(new, finalpath, first, second)
             cursor.execute(executestring)
@@ -112,10 +113,12 @@ def getfirstsecond(pair):
         n = re.match('(\w)(\w\W)', pair)
 
         if m!= None:
+            sys.stdout.write("It's m")
             first = m.group(1)
             second = m.group(2)
 
         elif n!= None:
+            sys.stdout.write("It's n")
             first = n.group(1)
             second = n.group(2)
 
