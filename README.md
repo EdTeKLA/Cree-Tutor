@@ -20,8 +20,9 @@ Write down the password you created.
 If there is an error, download the wheel from https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysql-python and navigate to the downloads folder then run pip install mysqlclient-1.3.13-cp??whatever?the?filename?downloaded.whl
 5. Install Django 2.0.x
 6. Clone this directory
-7. Open or create the file `CreeTutor/CreeTutorBackEnd/CreeTutorBackEnd/settings_secret.py`
-8. Make the contents of settings_secret.py look like this:
+7. Contact EdTeKLA to obtain media files.
+8. Open or create the file `CreeTutor/CreeTutorBackEnd/CreeTutorBackEnd/settings_secret.py`
+9. Make the contents of settings_secret.py look like this:
 
        """  
        These settings must never be uploaded onto github.
@@ -39,7 +40,7 @@ If there is an error, download the wheel from https://www.lfd.uci.edu/~gohlke/py
 
 You will need to customize the paths for the media files obtained with permission from EdTeKLA
 
-9. Make a MySQL schema named "CreeTutordb"
+10. Make a MySQL schema named "CreeTutordb"
 
    **How to**
 
@@ -55,11 +56,11 @@ You will need to customize the paths for the media files obtained with permissio
         > create database CreeTutordb DEFAULT CHARACTER SET utf8;
         > exit
 
-10. The database is created. Check that it is working by running:
+11. The database is created. Check that it is working by running:
 
         $ python manage.py dbshell
 
-11. Navigate to CreeTutor/CreeTutorBackEnd and run:
+12. Navigate to CreeTutor/CreeTutorBackEnd and run:
 
         $ python manage.py migrate
 

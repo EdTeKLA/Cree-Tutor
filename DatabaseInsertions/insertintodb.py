@@ -236,7 +236,7 @@ def namevowel():
 
     vowels = ['a', 'e', 'i', 'o']
     for v in vowels:
-        executestring = "UPDATE Alphabet SET vowel = 'vowel' where letter like '%{}%'".format(v)
+        executestring = "UPDATE alphabet SET vowel = 'vowel' where letter like '%{}%'".format(v)
         cursor.execute(executestring)
 
     db.commit()
@@ -250,7 +250,7 @@ def semivowel():
     Returns nothings.
     '''
 
-    executestring = "UPDATE Alphabet SET vowel = 'semivowel' where letter = 'y' or letter = 'w'"
+    executestring = "UPDATE alphabet SET vowel = 'semivowel' where letter = 'y' or letter = 'w'"
     cursor.execute(executestring)
 
     db.commit()
@@ -264,7 +264,7 @@ def consonant():
     Returns nothings.
     '''
 
-    executestring = "UPDATE Alphabet SET vowel = 'consonant' where vowel = ''"
+    executestring = "UPDATE alphabet SET vowel = 'consonant' where vowel = ''"
     cursor.execute(executestring)
 
     db.commit()

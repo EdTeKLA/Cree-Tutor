@@ -99,7 +99,7 @@ class SingleLetterStats(models.Model):
     chosen_answer = models.CharField(max_length=4, blank=True, null=True)
     correct_answer = models.CharField(max_length=4, blank=True, null=True)
     time_answered = models.DateTimeField(blank=True, null=True)
- 
+
     class Meta:
         db_table = "single_letter_stats"
 
