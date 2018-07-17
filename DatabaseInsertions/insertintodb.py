@@ -7,6 +7,15 @@ import re
 db = None
 cursor = None
 
+#Get db_root, db_pass, and filepaths from settings.py
+sys.path.append(os.path.join(os.path.dirname(sys.path[0]),'CreeTutorBackEnd'))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "CreeTutorBackEnd.settings")
+import django
+django.setup()
+from CreeTutorBackEnd import settings
+
+
+
 def connect(user, pw):
     '''
     Function takes in password and connects to database
@@ -19,18 +28,19 @@ def connect(user, pw):
     cursor = db.cursor()
 
     #MySQL must be reminded many times to use nothing but UNICODE
-    cursor.execute('SET NAMES utf8;')
-    cursor.execute('SET CHARACTER SET utf8;')
-    cursor.execute('SET character_set_connection=utf8;')
+    #cursor.execute('SET NAMES utf8 COLLATE utf8_bin;')
+    #cursor.execute('SET CHARACTER SET utf8;')
+    #cursor.execute('SET character_set_connection=utf8;')
 
 
     return
 
 def dbInfo():
-    user = input("Please enter the name of your database user (e.g. root): ")
-    password = getpass()
+    #user = input("Please enter the name of your database user (e.g. root): ")
+    #password = getpass()
 
-    connect(user, password)
+    #connect(user, password)
+    connect(settings.DB_ROOT, settings.DB_PASS)
 
     # while True:
     #     print("Are you\n1.Adding new data\n2.Re-populating the database?\n(1/2):")
@@ -67,6 +77,7 @@ def cycleSound(directory_in_str):
     in database.
     Returns None
     '''
+
 
     # Cycle through directory
     directory = os.fsencode(directory_in_str)
@@ -187,6 +198,7 @@ def cycleLetters(directory_in_str):
     Returns None
     '''
 
+
     # Cycle through directory
     directory = os.fsencode(directory_in_str)
     for file in os.listdir(directory):
@@ -259,12 +271,17 @@ def consonant():
 def main():
 
     dbInfo()
-
+#I got upset at having to type the same stuff in again and again. -Brent
+    """
     word = input("Please enter the path to 'word' recordings: ")
     print("\n")
     alphabet = input("Please enter the path to 'alphabet' recordings: ")
     print("\n")
     sound = input("Please enter the path to 'letter pair' recordings: ")
+    """
+    word = settings.PATH_TO_WORD
+    alphabet = settings.PATH_TO_ALPHABET
+    sound = settings.PATH_TO_LETTERPAIR
 
     cycleWords(word)
     cycleLetters(alphabet)

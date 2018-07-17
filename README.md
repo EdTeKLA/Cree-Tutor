@@ -29,9 +29,15 @@ If there is an error, download the wheel from https://www.lfd.uci.edu/~gohlke/py
        Keep it secret
        """
 
-       db_root = "Your_DB_User"
+       DB_ROOT = "Your_DB_User"
 
-       db_pass = "Your_Password"
+       DB_PASS = "Your_Password"
+
+       PATH_TO_ALPHABET = "C:\Users\Brent\Repositories\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\Alphabet"
+       PATH_TO_WORD = "C:\Users\Brent\Repositories\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\Words"
+       PATH_TO_LETTERPAIR = "C:\Users\Brent\Repositories\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\LetterPairs"
+
+You will need to customize the paths for the media files obtained with permission from EdTeKLA
 
 9. Make a MySQL schema named "CreeTutordb"
 
