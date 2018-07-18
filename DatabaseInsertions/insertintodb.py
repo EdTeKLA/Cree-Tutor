@@ -3,6 +3,7 @@ import MySQLdb
 import os
 import sys
 import re
+import unicodedata
 
 db = None
 cursor = None
@@ -95,7 +96,9 @@ def cycleSound(directory_in_str):
             if "._" in new:
                 continue
             first, second = getfirstsecond(new)
-            getfirstsecond(new)
+            new = unicodedata.normalize('NFC', new)
+            first = unicodedata.normalize('NFC', first)
+            second = unicodedata.normalize('NFC', second)
             executestring = "INSERT INTO letter_pair VALUES ('{}','{}','{}','{}')".format(new, finalpath, first, second)
             cursor.execute(executestring)
 
@@ -163,6 +166,7 @@ def cycleWords(directory_in_str):
             if "'{}',".format(new) in executestring:
                 continue
             num_syllables = syllables(new)
+            new = unicodedata.normalize('NFC', new)
             executestring += "({},'{}', NULL, {}, NULL, NULL),".format(word_id, new, num_syllables)
             word_id +=1
 
@@ -216,6 +220,7 @@ def cycleLetters(directory_in_str):
             new = new.replace('.m4a', '')
             if "._" in new:
                 continue
+            new = unicodedata.normalize('NFC', new)
             executestring = "INSERT INTO alphabet VALUES ('{}','','{}')".format(new, finalpath)
             cursor.execute(executestring)
 
