@@ -84,7 +84,7 @@ class GramCode(models.Model):
     gram_code = models.CharField(primary_key=True, max_length=100, unique=True)
 
     class Meta:
-        db_table = "game_code"
+        db_table = "gram_code"
 
 class Alphabet(models.Model):
     letter = models.CharField(primary_key=True, max_length=2)

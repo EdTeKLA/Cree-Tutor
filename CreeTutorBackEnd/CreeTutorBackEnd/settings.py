@@ -80,10 +80,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'CreeTutordb',
-        'USER': db_root,
-        'PASSWORD':db_pass,
+        'USER': DB_ROOT,
+        'PASSWORD':DB_PASS,
         'HOST':'localhost',
-        'PORT':''
+        'PORT':'',
+        'OPTIONS': {
+            'init_command': 'ALTER DATABASE CreeTutordb CHARACTER SET utf8mb4 COLLATE utf8mb4_bin',
+        },
     }
 }
 
