@@ -1,31 +1,33 @@
 	{% load static %}
 
 	{% block styles %}
-	 <link rel="stylesheet" type="text/css" href="{% static 'lettergame/css/gamestyle.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'lettergame/css/gamestyle.css' %}" />
+<script src="{% static 'lettergame/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'lettergame/js/logging.js' %}"></script>
   {% endblock %}
 
 	{% block content %}
-    <a href="{% url 'lettergame:index' %}">Home</a>
+<a href="{% url 'lettergame:index' %}">Home</a>
 
-    <div class="game_div">
+<div class="game_div">
 
-    	<audio controls controlsList="nodownload">
-				<source src="{% static ''%}{{sound.sound}}" type="audio/wav">
-					Your browser does not support the sound type
-			</audio>
+    <audio controls controlsList="nodownload">
+        <source src="{% static ''%}{{sound.sound}}" type="audio/wav">
+        Your browser does not support the sound type
+    </audio>
 
-    	<form class="options" action="{% url 'lettergame:whichgame' game %}" method="post">
-			{% csrf_token %}
-			   <input class="hidden" type="hidden" id="{{ sound.letter }}" name= "correct_r" value="{{ sound.letter }}" />
+    <form class="options">
+        {% csrf_token %}
+        <input class="hidden" type="hidden" id="{{ sound.name }}" name="correct_r" value="{{ sound.name }}" />
 
-         {% for letter in letters %}
-					<input class="choice_button" type="radio" name= "user_r" value="{{ letter.letter }}" required/>
-					<label for="{{letter.letter}}">{{ letter.letter }}</label><br />
-			   {% endfor %}
+        {% for letter in letters %}
+        <input class="choice_button" type="radio" name="user_r" value="{{ letter.name }}" required />
+        <label for="{{ letter.name }}">{{ letter.name }}</label><br />
+        {% endfor %}
 
-         <input type="submit" value="submit" />
-		  </form>
-		 </div>
+        <input type="submit" value="submit" onsubmit="postData()" />
+    </form>
+</div>
 	{% endblock content %}
 
 </html>

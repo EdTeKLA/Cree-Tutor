@@ -55,6 +55,9 @@ def singleletter(request):
         letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
         letters = letters[:5]
         sound = random.choice(letters)
+        sound.name = sound.letter
+        for letter in letters:
+            letter.name = letter.letter
         context = {
         'letters': letters, 'sound':sound, 'game':'single'
         }
@@ -62,7 +65,11 @@ def singleletter(request):
     elif request.method == 'POST':
         user_response = request.POST['user_r']
         correct_response = request.POST['correct_r']
-
+        time_spent = request.POST['time_spent']
+        # f = open('test.txt', 'w')
+        # f.write(data + "\n")
+        # f.write(":(")
+        # time_spent = request.POST['data']
         answer = SingleLetterStats()
         answer.chosen_answer = user_response
         answer.correct_answer = correct_response
@@ -87,11 +94,14 @@ def letterpair(request):
     '''
 
     if request.method == 'GET':
-        letters = sorted(LetterPair.objects.all().order_by('pair'), key=lambda x: random.random())
-        letters = letters[:5]
-        sound = random.choice(letters)
+        pairs = sorted(LetterPair.objects.all().order_by('pair'), key=lambda x: random.random())
+        pairs = pairs[:5]
+        sound = random.choice(pairs)
+        sound.name = sound.pair
+        for pair in pairs:
+            pair.name = pair.pair
         context = {
-        'letters': letters, 'sound':sound, 'game':'double'
+        'letters': pairs, 'sound':sound, 'game':'double'
         }
         return context
     elif request.method == 'POST':
