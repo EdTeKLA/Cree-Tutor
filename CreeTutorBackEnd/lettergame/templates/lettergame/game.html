@@ -2,6 +2,8 @@
 
 	{% block styles %}
 	 <link rel="stylesheet" type="text/css" href="{% static 'lettergame/css/gamestyle.css' %}" />
+	 <script src="{% static 'lettergame/js/jquery-3.3.1.min.js' %}"></script>
+	 <script src="{% static 'lettergame/js/logging.js' %}"></script>
   {% endblock %}
 
 	{% block content %}
@@ -14,7 +16,7 @@
 					Your browser does not support the sound type
 			</audio>
 
-    	<form class="options" action="{% url 'lettergame:whichgame' game %}" method="post">
+    	<form class="options">
 			{% csrf_token %}
 			   <input class="hidden" type="hidden" id="{{ sound.name }}" name= "correct_r" value="{{ sound.name }}" />
 
@@ -23,7 +25,7 @@
 					<label for="{{ letter.name }}">{{ letter.name }}</label><br/>
 			   {% endfor %}
 
-         <input type="submit" value="submit" />
+         <input type="submit" value="submit" onsubmit="postData()"/>
 		  </form>
 		 </div>
 	{% endblock content %}

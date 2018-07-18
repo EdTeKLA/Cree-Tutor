@@ -84,7 +84,7 @@ class GramCode(models.Model):
     gram_code = models.CharField(primary_key=True, max_length=100, unique=True)
 
     class Meta:
-        db_table = "game_code"
+        db_table = "gram_code"
 
 class Alphabet(models.Model):
     letter = models.CharField(primary_key=True, max_length=2)
@@ -99,7 +99,7 @@ class SingleLetterStats(models.Model):
     chosen_answer = models.CharField(max_length=4, blank=True, null=True)
     correct_answer = models.CharField(max_length=4, blank=True, null=True)
     time_answered = models.DateTimeField(blank=True, null=True)
- 
+
     class Meta:
         db_table = "single_letter_stats"
 

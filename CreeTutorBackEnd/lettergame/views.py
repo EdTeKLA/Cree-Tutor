@@ -65,7 +65,11 @@ def singleletter(request):
     elif request.method == 'POST':
         user_response = request.POST['user_r']
         correct_response = request.POST['correct_r']
-
+        time_spent = request.POST['time_spent']
+        # f = open('test.txt', 'w')
+        # f.write(data + "\n")
+        # f.write(":(")
+        # time_spent = request.POST['data']
         answer = SingleLetterStats()
         answer.chosen_answer = user_response
         answer.correct_answer = correct_response
