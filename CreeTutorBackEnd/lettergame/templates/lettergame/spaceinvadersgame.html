@@ -19,7 +19,7 @@
 
          <font size="6" color="white" face="Comic Sans MS">
            
-             <p>space invaders except it doesn't work yet >:^( </p>
+             <p>space invaders and it kinda works now! >:^) </p>
          
          </font>
        
@@ -27,357 +27,391 @@
        
          <script type="text/javascript">
 
+/*Space Invaders Game, JS code begins
+PIXI JS app used 
+-creates stage 500x500 pixels on HTML webpage
+-creates graphic of grass along bottom of screen
+-creates 'shooter1' sprite on stage
+-enables 'shooter1' to move along stage horizontally and stay within boundaries 
+-
+*/ 
+let app = new PIXI.Application({
+    //create canvas description
+    width: 500,
+    height: 500,
+    antialias: true,    // default: false
+    transparent: false, // default: false
+    resolution: 1,       // default: 1
+});
 
-             /*Space Invaders Game, JS code begins
-              PIXI JS app used 
-                -creates stage 500x500 pixels on HTML webpage
-                -creates graphic of grass along bottom of screen
-                -creates 'shooter1' sprite on stage
-                -enables 'shooter1' to move along stage horizontally and stay within boundaries 
-                -
-              */ 
-             let app = new PIXI.Application({
-                 //create canvas description
-                 width: 500,
-                 height: 500,
-                 antialias: true,    // default: false
-                 transparent: false, // default: false
-                 resolution: 1,       // default: 1
-              });
+//add canvas
+document.body.appendChild(app.view);
+app.renderer.backgroundColor = 0x2196F3;
 
-             //add canvas
-             document.body.appendChild(app.view);
-             app.renderer.backgroundColor = 0x2196F3;
+//Add images to 
+PIXI.loader
+     .add("{% static 'lettergame/image/shooter-1.png' %}")
+     .add("{% static 'lettergame/image/bottomboundary.png' %}")
+     .add("{% static 'lettergame/image/bullet.png' %}")  
+     .add("{% static 'lettergame/image/invader2.png' %}")  
+     .add("{% static 'lettergame/image/invadershot.png' %}") 
+     //calls function 'setup'
+     .load(setup)
+      //calls function 'boundaries'
+     .load(boundaries);
 
-             //Add images to 
-             PIXI.loader
-               .add("{% static 'lettergame/image/shooter-1.png' %}")
-               .add("{% static 'lettergame/image/bottomboundary.png' %}")
-               .add("{% static 'lettergame/image/bullet.png' %}")  
-               .add("{% static 'lettergame/image/invader.png' %}")  
-               .add("{% static 'lettergame/image/invadershot.png' %}") 
-               //calls function 'setup'
-               .load(setup)
-               //calls function 'boundaries'
-               .load(boundaries);
-       
-             //functions of code start
-             //initialize global variables of functions below
-             let shooter1, state, bottomBoundary, bullet, invader,invaders, invadershot;
-             let bullets = [];
+//functions of code start
+//initialize global variables of functions below
+let shooter1, state, bottomBoundary, bullet, invader,invaders, invadershot;
+let bullets = [];
+let pow_array = [];
       
-             function boundaries() {
-                 let bottomBoundaries = 17,
-                     spacing = 30,
-                     xOffset = 0;
-                 //array to store all bottom boundary blocks
-                 bottomBlocks = [];
-                 //for loop adds blocks until bottom row of stage is filled with grass
-                 for (let i = 0; i < bottomBoundaries; i++) {
-                    //create sprite
-                    let bottomBoundary = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bottomboundary.png' %}"].texture);
-                    let x = spacing * i + xOffset;
-                    let y = 470;
+function boundaries() {
+    let bottomBoundaries = 17,
+        spacing = 30,
+        xOffset = 0;
 
-                    bottomBoundary.x = x;
-                    bottomBoundary.y = y;
+    //array to store all bottom boundary blocks
+    bottomBlocks = [];
+    //for loop adds blocks until bottom row of stage is filled with grass
+    for (let i = 0; i < bottomBoundaries; i++) {
+        //create sprite
+        let bottomBoundary = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bottomboundary.png' %}"].texture);
+        let x = spacing * i + xOffset;
+        let y = 470;
 
-                    bottomBlocks.push(bottomBoundary);
-                    app.stage.addChild(bottomBoundary)
-                 }
-             }
-              
-            function setup() {
-           
-                //add sprite to stage at starting position
-                shooter1 = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/shooter-1.png' %}"].texture);
-                shooter1.x = 225;
-                shooter1.y = 460;
-                shooter1.vx = 0;
-                shooter1.vy = 0;
-                app.stage.addChild(shooter1);
+        bottomBoundary.x = x;
+        bottomBoundary.y = y;
 
-                //create specifics of sprite 'bullet'
-                bullet = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bullet.png' %}"].texture);
-                //bullet.x = shooter1.x;
-                //bullet.y = 460
-                
-                   
-               
-                invader = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invader.png' %}"].texture);
-                invadershot = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invadershot.png' %}"].texture);
+        bottomBlocks.push(bottomBoundary);
+        app.stage.addChild(bottomBoundary)
+    }
+}
+function setup() {
+    //add sprite to stage at starting position
+    shooter1 = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/shooter-1.png' %}"].texture);
+    shooter1.x = 225;
+    shooter1.y = 460;
+    shooter1.vx = 0;
+    shooter1.vy = 0;
+    app.stage.addChild(shooter1);
 
-                let numofInvaders = 4;
-                    spacing = 100;
-                    xOffset = 75;
-                    speed = 2;
-                    direction = 1;
+    //create specifics of sprite 'bullet'
+    bullet = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bullet.png' %}"].texture);
 
-                invaders = [];
+    //creare invader as a sprite and invadershot as sprite
+   // invader = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invader2.png' %}"].texture);
+    invadershot = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invadershot.png' %}"].texture);
 
-                for (let i = 0; i < numofInvaders; i++) {
-                    invader = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invader.png' %}"].texture);
+    let numofInvaders = 18;
+        spacing = 20;
+        xOffset = 0;
+        speed = 2.5;
+        direction = 1;
 
-                    let x = spacing * i + xOffset;
-                    let y = 75;
-                    invader.x = x;
-                    invader.y = y;
+    invaders = [];
 
-                    invader.vx = speed * direction;
-                    direction *= -1;
+    for (let i = 0; i < numofInvaders; i++) {
+        invader = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invader2.png' %}"].texture);
 
-                   // invadershot.x = x
-                    //invadershot.y = y;
+        let x = spacing * i;
+        let y = 20 * i + 2;
+        invader.x = x;
+        invader.y = y;
 
-                    invaders.push(invader);
+        invader.vx = speed * direction;
+        direction *= -1;
 
-                    app.stage.addChild(invader);
-                }
+        //put current invader inside invaders arraay
+        invaders.push(invader);
+        //add invader to stage
+        app.stage.addChild(invader);
+    }
                    
 
-                //Capture the keyboard arrow keys for use in moving 'shooter1'
-                let left = keyboard(37),
-                    shoot = keyboard(32),
-                    right = keyboard(39),
-                    down = keyboard(40);
-                let upCount = 0;
-                //Left arrow key `press` method
-                //Change the shooter1's velocity when the key is pressed
-                left.press = () => {
-                    shooter1.vx = -5;
-                    shooter1.vy = 0;
-                };
+    //Capture the keyboard arrow keys for use in moving 'shooter1'
+    let left = keyboard(37),
+        shoot = keyboard(32),
+        right = keyboard(39),
+        down = keyboard(40);
+        upCount = 0;
 
-                //Left arrow key `release` method
-                left.release = () => {
-                    //If the left arrow has been released, and the right arrow isn't down,
-                    //and the shooter1 isn't moving vertically:
-                    //Stop the shooter1
-                    if (!right.isDown && shooter1.vy === 0) {
-                        shooter1.vx = 0;
-                    }
-                };
+    //Left arrow key `press` method
+    //Change the shooter1's velocity when the key is pressed
+    left.press = () => {
+        shooter1.vx = -5;
+        shooter1.vy = 0;
+    };
+
+    //Left arrow key `release` method
+    left.release = () => {
+        //If the left arrow has been released, and the right arrow isn't down,
+        //and the shooter1 isn't moving vertically:
+        //Stop the shooter1
+        if (!right.isDown && shooter1.vy === 0) {
+            shooter1.vx = 0;
+        }
+    };
 
                 
-                //Space bar shoot
-                shoot.press = () => {
-                    upCount++
-                   // shooter1.vy = 0;
-                    //shooter1.vx = 0;
-                    //bullet.vy = 5;
-                    let bulletNum = upCount;
-                    bullet = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bullet.png' %}"].texture);
-                    bullet.vy = -5;
-                    bullet.y = 460;
-                    bullet.x = (shooter1.x + 2);
-                    app.stage.addChild(bullet);
-                    bullets.push(bullet);
-                };
-                shoot.release = () => {
-                    if (!down.isDown && shooter1.vx === 0) {
-                        shooter1.vy = 0;
+   //Space bar shoot
+    shoot.press = () => {
+        upCount++
+        let bulletNum = upCount;
+        bullet = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bullet.png' %}"].texture);
+        bullets.push(bullet);
+        bullet.vy = -5;
+        bullet.y = 460;
+        bullet.x = (shooter1.x + 2);
+        app.stage.addChild(bullet);
+    };
+    shoot.release = () => {
+        if (!down.isDown && shooter1.vx === 0) {
+            shooter1.vy = 0;
                        
-                    }
-                };
-                //Right
-                right.press = () => {
-                    shooter1.vx = 5;
-                    shooter1.vy = 0;
-                };
-                right.release = () => {
-                    if (!left.isDown && shooter1.vy === 0) {
-                         shooter1.vx = 0;
-                    }
-                };
-                //Down
-                down.press = () => {
-                    shooter1.vy = 0;
-                    shooter1.vx = 0;
-                };
-                down.release = () => {
-                    if (!shoot.isDown && shooter1.vx === 0) {
-                         shooter1.vy = 0;
-                    }
-                };
+        }
+    };
+    //Right
+    right.press = () => {
+        shooter1.vx = 5;
+        shooter1.vy = 0;
+    };
+    right.release = () => {
+        if (!left.isDown && shooter1.vy === 0) {
+            shooter1.vx = 0;
+        }
+    };
+    //Down
+    down.press = () => {
+        shooter1.vy = 0;
+        shooter1.vx = 0;
+    };
+    down.release = () => {
+        if (!shoot.isDown && shooter1.vx === 0) {
+            shooter1.vy = 0;
+        }
+    };
 
-                //Set the game state
-                //call function 'play'
-                state = play;
+    //Set the game state
+    //call function 'play'
+    state = play;
 
-                //Start the game loop
-                //call function 'gameLoop'
-                app.ticker.add(delta => gameLoop(delta));
-            }
+    //Start the game loop
+    //call function 'gameLoop'
+    app.ticker.add(delta => gameLoop(delta));
+}
+function keyboard(keyCode) {
+    //function initializes keyboard keys as used to move sprites 
+    let key = {};
+    key.code = keyCode;
+    key.isDown = false;
+    key.isUp = true;
+    key.press = undefined;
+    key.release = undefined;
+    //The `downHandler`
+    key.downHandler = event => {
+        if (event.keyCode === key.code) {
+            if (key.isUp && key.press) key.press();
+            key.isDown = true;
+            key.isUp = false;
+        }
+        event.preventDefault();
+    };
 
+    //The `upHandler`
+    key.upHandler = event => {
+        if (event.keyCode === key.code) {
+            if (key.isDown && key.release) key.release();
+            key.isDown = false;
+            key.isUp = true;
+        }
+        event.preventDefault();
+    };
 
-            function keyboard(keyCode) {
-            //function initializes keyboard keys as used to move sprites 
-                 let key = {};
-                 key.code = keyCode;
-                 key.isDown = false;
-                 key.isUp = true;
-                 key.press = undefined;
-                 key.release = undefined;
-                 //The `downHandler`
-                 key.downHandler = event => {
-                     if (event.keyCode === key.code) {
-                         if (key.isUp && key.press) key.press();
-                         key.isDown = true;
-                         key.isUp = false;
-                     }
-                     event.preventDefault();
-                 };
-
-                 //The `upHandler`
-                 key.upHandler = event => {
-                     if (event.keyCode === key.code) {
-                         if (key.isDown && key.release) key.release();
-                         key.isDown = false;
-                         key.isUp = true;
-                     }
-                     event.preventDefault();
-                 };
-
-                 //Attach event listeners
-                 window.addEventListener("keydown", key.downHandler.bind(key), false);
-                 window.addEventListener("keyup", key.upHandler.bind(key), false);
-                 return key;
-            }
-
-            function gameLoop(delta) {
-            //function will update the current game state:
-                state(delta);
+    //Attach event listeners
+    window.addEventListener("keydown", key.downHandler.bind(key), false);
+    window.addEventListener("keyup", key.upHandler.bind(key), false);
+    return key;
+}
+function gameLoop(delta) {
+    //function will update the current game state:
+    state(delta);
                 
-            }
-
-            function play(delta) {
-            //
-                 let Contain = { x: 0, y: 0, width: 500, height: 500 };
-                 let shooter1hitsWall = contain(shooter1, Contain);
-
-                 if (shooter1hitsWall === "left" || shooter1hitsWall === "right") {
-                     shooter1.vx = 0;
-                 }
-               
-                 //Use the shooter1's velocity to make it move
-                 shooter1.x += shooter1.vx;
-                 shooter1.y += shooter1.vy;
-                // bullet.x += bullet.vx; 
-                
-                // bullet.y += bullet.vy;
-                out_of_bounds = [];
-                for (let i = 0, l = bullets.length; i < l; i += 1) {
-                    let bullethitsWall = contain(bullets[i], Contain);
-                    if (bullethitsWall === "top") {
-                        app.stage.removeChild(bullets[i]); 
-                        out_of_bounds.push(i);
-                    }
-                    else {
-                        bullets[i].y += bullets[i].vy;
-                    }
-                }
-                for (let j = 0, l = out_of_bounds.length; j < l; j += 1) {
-                    bullets.splice(out_of_bounds[j], 1);
-                }
-
-                for (let j = 0, k = invaders.length; j < k; j++) {
-                    let destroyInvader = hitTestRectangle(bullet, invaders[j]);
-                    if (destroyInvader === true) {
-
-                        app.stage.removeChild(invaders[j]);
-                        invadershot.x = invaders[j].x;
-                        invadershot.y = invaders[j].y;
-                        app.stage.addChild(invadershot);
-                        
-                        app.stage.removeChild(bullet);
-                    } else {
-
-                    }
-                }
-            }
-
+}
+function play(delta) {
             
-            function contain(sprite, Contain) {
-            //function contains 'shooter1' to borders of the stage
-                let collision = undefined;
+    let Contain = { x: 0, y: 0, width: 500, height: 500 };
+    let shooter1hitsWall = contain(shooter1, Contain);
 
-                //Left
-                if (sprite.x < Contain.x) {
-                    sprite.x = Contain.x
-                    collision = "left";
-                }
+    if (shooter1hitsWall === "left" || shooter1hitsWall === "right") {
+        shooter1.vx = 0;
+    }
+               
+    //Use the shooter1's velocity to make it move
+    shooter1.x += shooter1.vx;
+    shooter1.y += shooter1.vy;
+    for (let i = 0; i < invaders.length; i++) {
+        invaders[i].x += invaders[i].vx;
+        let invaderhitsWall = contain(invaders[i], Contain);
+        if (invaderhitsWall === "right" || invaderhitsWall === "left") {
+            invaders[i].vx *= -1;
+            invaders[i].y += 15;
+        }
+    }
+    gotHit = [];
+    hitInvader = [];
+    for (let j = 0, k = invaders.length; j < k; j++){
+        for (let i = 0; i < bullets.length; i++) {
+            let destroyInvader = hitTestRectangle(bullets[i], invaders[j]);
+            if (destroyInvader === true) {
+                app.stage.removeChild(invaders[j]);
+                app.stage.removeChild(bullets[i]);
+                gotHit.push(j);
+                hitInvader.push(i);   
+                //hit === false;
+                invaders[j].vx = 0;
+                bullets[i].vy = 0;
+                invadershot = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invadershot.png' %}"].texture);
+                invadershot.x = invaders[j].x;
+                invadershot.y = invaders[j].y;
+                invadershot.time = new Date().getTime();
+                pow_array.push(invadershot)
+                app.stage.addChild(pow_array[pow_array.length-1]);
+                //app.stage.removeChild(invadershot);
+                //app.stage.removeChild(invadershot);
+                
+            } else {
 
-                //Top
-                if (sprite.y < Contain.y) {
-                    sprite.y = Contain.y;
-                    collision = "top";
-                }
-
-                //Right
-                if (sprite.x + sprite.width > Contain.width) {
-                    sprite.x = Contain.width - sprite.width;
-                    collision = "right";
-                }
-
-                 //Bottom
-                if (sprite.y + sprite.height > Contain.height) {
-                    sprite.y = Contain.height - sprite.height;
-                    collision = "bottom";
-                }
-
-                //Return the `collision` value
-                return collision;
             }
-             function hitTestRectangle(r1, r2) {
+           
+          
+        } 
+    }
+    goodbye_pow = [];
+    for (let i = 0, l = pow_array.length; i < l; i += 1) {
+        if (wait(500, pow_array[i]) === true) {
+            app.stage.removeChild(pow_array[i]);
+            goodbye_pow.push(i)
+        }
+    }
+    arraySplice(bullets, hitInvader);
+    arraySplice(invaders, gotHit);
+    arraySplice(pow_array, goodbye_pow);
+    //wait(50);
+    //  app.stage.removeChild(invadershot);
+    out_of_bounds = [];
+    for (let i = 0; i < bullets.length; i += 1) {
+        let bullethitsWall = contain(bullets[i], Contain);
+        if (bullethitsWall === "top") {
+            app.stage.removeChild(bullets[i]); 
+            out_of_bounds.push(i);
+        }else{
+            bullets[i].y += bullets[i].vy;
+        }
+    }
+    //arraySplice(bullets, out_of_bounds)
+    for (let j = 0, l = out_of_bounds.length; j < l; j += 1) {
+        bullets.splice(out_of_bounds[j], 1);
+        
+    }
 
-                 //Define the variables we'll need to calculate
-                 let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
+                
+}
+function contain(sprite, Contain) {
+    //function contains 'shooter1' to borders of the stage
+    let collision = undefined;
 
-                 //hit will determine whether there's a collision
-                 hit = false;
+    //Left
+    if (sprite.x < Contain.x) {
+        sprite.x = Contain.x
+        collision = "left";
+    }
 
-                 //Find the center points of each sprite
-                 r1.centerX = r1.x + r1.width / 2;
-                 r1.centerY = r1.y + r1.height / 2;
-                 r2.centerX = r2.x + r2.width / 2;
-                 r2.centerY = r2.y + r2.height / 2;
+    //Top
+    if (sprite.y < Contain.y) {
+        sprite.y = Contain.y;
+        collision = "top";
+    }
 
-                 //Find the half-widths and half-heights of each sprite
-                 r1.halfWidth = r1.width / 2;
-                 r1.halfHeight = r1.height / 2;
-                 r2.halfWidth = r2.width / 2;
-                 r2.halfHeight = r2.height / 2;
+    //Right
+    if (sprite.x + sprite.width > Contain.width) {
+        sprite.x = Contain.width - sprite.width;
+        collision = "right";
+    }
 
-                 //Calculate the distance vector between the sprites
-                 vx = r1.centerX - r2.centerX;
-                 vy = r1.centerY - r2.centerY;
+    //Bottom
+    if (sprite.y + sprite.height > Contain.height) {
+        sprite.y = Contain.height - sprite.height;
+        collision = "bottom";
+    }
 
-                 //Figure out the combined half-widths and half-heights
-                 combinedHalfWidths = r1.halfWidth + r2.halfWidth;
-                 combinedHalfHeights = r1.halfHeight + r2.halfHeight;
+    //Return the `collision` value
+    return collision;
+}
+function hitTestRectangle(r1, r2) {
 
-                 //Check for a collision on the x axis
-                 if (Math.abs(vx) < combinedHalfWidths) {
+    //Define the variables we'll need to calculate
+    let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
 
-                     //A collision might be occuring. Check for a collision on the y axis
-                     if (Math.abs(vy) < combinedHalfHeights) {
+    //hit will determine whether there's a collision
+    hit = false;
 
-                         //There's definitely a collision happening
-                         hit = true;
-                     } else {
+    //Find the center points of each sprite
+    r1.centerX = r1.x + r1.width / 2;
+    r1.centerY = r1.y + r1.height / 2;
+    r2.centerX = r2.x + r2.width / 2;
+    r2.centerY = r2.y + r2.height / 2;
 
-                         //There's no collision on the y axis
-                         hit = false;
-                     }
-                 } else {
+    //Find the half-widths and half-heights of each sprite
+    r1.halfWidth = r1.width / 2;
+    r1.halfHeight = r1.height / 2;
+    r2.halfWidth = r2.width / 2;
+    r2.halfHeight = r2.height / 2;
 
-                     //There's no collision on the x axis
-                     hit = false;
-                 }
+    //Calculate the distance vector between the sprites
+    vx = r1.centerX - r2.centerX;
+    vy = r1.centerY - r2.centerY;
 
-                 //`hit` will be either `true` or `false`
-                 return hit;
-             }; 
+    //Figure out the combined half-widths and half-heights
+    combinedHalfWidths = r1.halfWidth + r2.halfWidth;
+    combinedHalfHeights = r1.halfHeight + r2.halfHeight;
+
+    //Check for a collision on the x axis
+    if (Math.abs(vx) < combinedHalfWidths) {
+
+        //A collision might be occuring. Check for a collision on the y axis
+        if (Math.abs(vy) < combinedHalfHeights) {
+            //There's definitely a collision happening
+            hit = true;
+        } else {
+            //There's no collision on the y axis
+            hit = false;
+        }
+    } else {
+        //There's no collision on the x axis
+        hit = false;
+    }
+
+    //`hit` will be either `true` or `false`
+    return hit;
+}
+function wait(ms, object) {
+    let start = object.time;
+    let end = new Date().getTime();
+    if (end < start + ms) {
+        end = new Date().getTime();
+    } else {
+        return true
+    }
+}
+function arraySplice(mainArray, notinUse) {
+            //let mainArray, notinUse = [];
+    for (let i = 0; i < notinUse.length; i++) {
+        mainArray.splice(notinUse[i], 1);
+
+    }
+}
+
         
         </script>
     </body>
