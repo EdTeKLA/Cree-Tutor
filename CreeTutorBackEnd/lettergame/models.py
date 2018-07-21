@@ -173,10 +173,10 @@ class LemmaGame(models.Model):
     #For Nouns, this should default to the non-affixed noun, e.i. atim+N+AN+Sg -> atim
     wordform = models.ForeignKey(Word, models.DO_NOTHING,blank=True, null=True)
 
-    lemma = models.ForeignKey(Lemma, models.DO_NOTHING, blank=False, null=True
+    lemma = models.ForeignKey(Lemma, models.DO_NOTHING, blank=False, null=True)
 
     distractors = models.ManyToManyField(Word)
-    
+
 
     class Meta:
         db_table = 'lemma_game
