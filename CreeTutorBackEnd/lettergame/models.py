@@ -175,8 +175,8 @@ class LemmaGame(models.Model):
 
     lemma = models.ForeignKey(Lemma, models.DO_NOTHING, blank=False, null=True)
 
-    distractors = models.ManyToManyField(Word)
+    distractors = models.ManyToManyField(Word, related_name="+")
 
 
     class Meta:
-        db_table = 'lemma_game
+        db_table = 'lemma_game'
