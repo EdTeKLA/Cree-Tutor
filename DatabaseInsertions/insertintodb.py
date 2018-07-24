@@ -8,6 +8,10 @@ import unicodedata
 db = None
 cursor = None
 
+#Set filenames
+GRAMCODE_FILENAME = 'sorted_gram_codes.txt'
+LEMMA_FILENAME = 'lemmas.txt'
+
 #Get db_root, db_pass, and filepaths from settings.py
 sys.path.append(os.path.join(os.path.dirname(sys.path[0]),'CreeTutorBackEnd'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "CreeTutorBackEnd.settings")
@@ -64,6 +68,8 @@ def emptyDb():
     cursor.execute("delete from letter_pair")
     cursor.execute("delete from alphabet")
     cursor.execute("delete from word")
+    cursor.execute("delete from gram_code")
+    cursor.execute("delete from lemma")
     db.commit()
 
     return
@@ -167,7 +173,7 @@ def cycleWords(directory_in_str):
                 continue
             num_syllables = syllables(new)
             new = unicodedata.normalize('NFC', new)
-            executestring += "({},'{}', NULL, {}, NULL, NULL),".format(word_id, new, num_syllables)
+            executestring += "({},'{}', NULL, {}, NULL, NULL, NULL),".format(word_id, new, num_syllables)
             word_id +=1
 
     executestring = executestring[0:-1]
@@ -275,6 +281,39 @@ def consonant():
     db.commit()
     return
 
+def cycleGramCodes(directory_in_str):
+    directory = directory_in_str
+    with open(os.path.join(directory,GRAMCODE_FILENAME), 'r') as doc:
+        lines = doc.readlines()
+
+    for l in lines:
+        #strip code to remove '\n'
+        stripped_code = l.strip()
+        executestring = "INSERT INTO gram_code VALUES ('{}')".format(stripped_code)
+        cursor.execute(executestring)
+
+def cycleLemma(directory_in_str):
+    directory = directory_in_str
+    with open(os.path.join(directory,LEMMA_FILENAME), 'r') as doc:
+        lines = doc.readlines()
+
+    lemma_id = 0
+
+    #TODO add part_of_speech stuff
+    #TODO add animate stuff
+    #TODO add trransitive stuff
+    #TODO add translation stuff
+
+    for l in lines:
+        #strip code to remove '\n'
+        stripped_code = l.strip()
+        executestring = "INSERT INTO lemma VALUES ('{}', '{}', NULL, NULL, NULL, NULL, NULL, NULL)".format(lemma_id,
+                                                                        stripped_code,
+                                                                        )
+        cursor.execute(executestring)
+        lemma_id += 1
+
+
 def main():
 
     dbInfo()
@@ -289,7 +328,11 @@ def main():
     word = settings.PATH_TO_WORD
     alphabet = settings.PATH_TO_ALPHABET
     sound = settings.PATH_TO_LETTERPAIR
+    #path to ../Linguistics/
+    linguistics = os.path.abspath(os.path.join(os.path.dirname(sys.path[0]),'Linguistics'))
 
+    cycleGramCodes(linguistics)
+    cycleLemma(linguistics)
     cycleWords(word)
     cycleLetters(alphabet)
     cycleSound(sound)
