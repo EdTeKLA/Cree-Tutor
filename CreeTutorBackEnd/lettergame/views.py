@@ -127,6 +127,30 @@ def syl_in_word(request):
 
     return HttpResponse(syl[num].vowel)
 
-def invaders(request):
+def invaderslevel(request):
 
-    return render(request, 'lettergame/spaceinvadersgame.html')
+    return render(request, 'lettergame/invadersmain.html')
+
+def invaders(request, level):
+    if level == 'easy':
+        num = 3
+    elif level == 'med':
+        num = 4
+    elif level == 'hard':
+        num = 5
+    else:
+        return HttpResponse('ERROR: variable "level" not passed properly')
+    if request.method == 'GET':
+        letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
+        letters = letters[:num]
+        sound = random.choice(letters)
+        sound.name = sound.letter
+        for letter in letters:
+            letter.name = letter.letter
+        context = {
+        'letters': letters, 'sound':sound, 'level':level
+        }
+        return render(request, 'lettergame/spaceinvadersgame.html', context)
+
+    else: 
+        return HttpResponse('ERROR: POST request passed to views.invaders')
