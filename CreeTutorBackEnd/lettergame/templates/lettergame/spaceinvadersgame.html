@@ -267,11 +267,13 @@
                         fontWeight: 'bold',
                         fill: ['#ffffff'], 
                         stroke: '#000000',
-                        strokeThickness: 2,
+                        strokeThickness: 3,
 
                     });
                     // let randomValue = randomInt(0, numofInvaders);
-                    var text = new PIXI.Text(options[i],style);
+                    var text = new PIXI.Text(options[i], style);
+                    text.x += 8;
+                    text.y += 20;
                     if (options[i] == correct) {
                         
                         correctCheck === i;
@@ -430,7 +432,7 @@
                     for (let i = 0; i < bullets.length; i++) {
                         let destroyInvader = hitTestRectangle(bullets[i], invaders[j]);
                         if (destroyInvader === true) {
-                            hitCheck = true;
+                            hitCheck;
                             if (correctArr[0] === invaders[j]) {
                                 console.log('correct');
                                 hitCheck = true;
@@ -473,8 +475,7 @@
                          
                         //Reduce the width of the health bar's inner rectangle by 1 pixel
                         if (level === 'easy') {
-                            //healthBar.outer.radius = 59;
-                            //healthBar.outer.height = 4;
+                            
                             healthBar.outer.width -= 30;
                             
                         } else if (level === 'med') {;
@@ -495,9 +496,16 @@
                     }
                 }
                 if (hitCheck) {
+                    if (level === 'easy') {
+                        pointBar.outer.width += 30;
+                    } else if (level === 'med') {
+                        pointBar.outer.width += 22.5;
+                    } else if (level === 'hard') {
+                        pointBar.outer.width += 18;
+                    }
                     console.log('points should be higher');
                     
-                    pointBar.outer.width += 30;
+                    
                    // pointBar.outer.radius = 7;
                     hitCheck = false;
                 }
