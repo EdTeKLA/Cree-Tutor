@@ -11,6 +11,7 @@ cursor = None
 #Set filenames
 GRAMCODE_FILENAME = 'sorted_gram_codes.txt'
 LEMMA_FILENAME = 'lemmas.txt'
+WORDS_FILENAME = 'words_for_db.txt'
 
 #Get db_root, db_pass, and filepaths from settings.py
 sys.path.append(os.path.join(os.path.dirname(sys.path[0]),'CreeTutorBackEnd'))
@@ -136,6 +137,78 @@ def getfirstsecond(pair):
     return first, second
 
 def cycleWords(directory_in_str):
+    """
+    Opens Linguistics/words_for_db.txt
+    Adds entry for each line in words_for_db.txt
+        A line looks like this:
+    acimosis	N+AN+Der/Dim+N+AN+Sg	puppy	      atim	acimosis.wav
+    word        gram_code               translation   lemma filename.wav,other_file.mp4
+        Columns are seperated by tab (\t). Note that atom hates typing \t.
+        Be careful using atom to edit words_for_db.txt
+    """
+
+
+    word_id = 0
+    executestring = "INSERT INTO word VALUES"
+    directory = directory_in_str
+
+    #read in file
+    with open(os.path.join(directory,WORDS_FILENAME), 'r') as readfile:
+        word_lines = readfile.readlines()
+
+    #cycle through lines
+    for e in word_lines:
+        #No double characters! No other funny business!
+        content = unicodedata.normalize("NFC", e)
+        #Split the columns into a list
+        content_as_list = content.split('\t')
+        #If there aren't enough columns, print which word caused the failure
+        #One will need to go through words_for_db and find out why.
+        #DON"T USE ATOM FOR THIS PART! Atom hates \t.
+        if len(content_as_list) != 5:
+            sys.stdout.write(
+                                "Error on line " + str(word_id) + '\n' +
+                                str(content_as_list) + '\n'
+                                )
+            break
+        else:
+            #get the stuff, man
+            word = content_as_list[0]
+            gram_code = content_as_list[1]
+            translation = content_as_list[2]
+            lemma = content_as_list[3]
+            #make sure lemma is already in the db
+            #TODO Delaney, I need your help here!
+            if "lemma is not already in database"==True:
+                #add the lemma with all null stuff for now
+
+            #TODO for now, just save the first audio file. Eventually all.
+            audio_files = content_as_list[4].split(',')[0]
+
+            #get number of syllables
+            num_syllables = syllables(word)
+
+
+
+            executestring += "({}, {}, {}, {}, {}, {}, {}),".format(
+                word_id,
+                word,
+                translation,
+                num_syllables,
+                audio_files,
+                gram_code,
+                lemma,
+                )
+            word_id +=1
+
+    #chop off the trailing comma
+    executestring = executestring[0:-1]
+    cursor.execute(executestring)
+    db.commit()
+    return
+
+""" Delaneys cycleWords
+
     '''
     Function takes in a string path to the desired directory. Directory must be in static folder of django project.
     Cycles through directory and extracts individual names and paths. Passes individual names to function syllables to count the
@@ -143,38 +216,6 @@ def cycleWords(directory_in_str):
     in database. Strips names of any non-alpha character and does not allow names with whitespace or duplicate names.
     Returns None
     '''
-
-"""
-when building wordforms need:
-
-
-	actual wordform
-	gram_code - obtained from fst
-	translation - added manually
-	num_syll - auto
-	lemma - obtained from fst
-	filename(sound) - tricky because filenames are not exact
-
-atim	N+AN+Sg	dog	atim	atim.wav
-
-start with list of files in file.
-	store their filenames in txt
-    =col 0
-
-next, get their associated real edited text word.
-    get fst output for that word
-    edit real text until fst works on everything.
-    add words to fst if it doesn't works
-
-
-manually add translation. Until this point field will be null
-
-Use this text file to add words to database.
-"""
-
-    word_id = 0
-    executestring = "INSERT INTO word VALUES"
-    directory = os.fsencode(directory_in_str)
 
     # Cycle through directory
     for file in os.listdir(directory):
@@ -208,6 +249,7 @@ Use this text file to add words to database.
     cursor.execute(executestring)
     db.commit()
     return
+"""
 
 def syllables(word):
     '''
@@ -361,7 +403,7 @@ def main():
 
     cycleGramCodes(linguistics)
     cycleLemma(linguistics)
-    cycleWords(word)
+    cycleWords(linguistics)
     cycleLetters(alphabet)
     cycleSound(sound)
 
