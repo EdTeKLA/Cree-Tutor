@@ -144,6 +144,34 @@ def cycleWords(directory_in_str):
     Returns None
     '''
 
+"""
+when building wordforms need:
+
+
+	actual wordform
+	gram_code - obtained from fst
+	translation - added manually
+	num_syll - auto
+	lemma - obtained from fst
+	filename(sound) - tricky because filenames are not exact
+
+atim	N+AN+Sg	dog	atim	atim.wav
+
+start with list of files in file.
+	store their filenames in txt
+    =col 0
+
+next, get their associated real edited text word.
+    get fst output for that word
+    edit real text until fst works on everything.
+    add words to fst if it doesn't works
+
+
+manually add translation. Until this point field will be null
+
+Use this text file to add words to database.
+"""
+
     word_id = 0
     executestring = "INSERT INTO word VALUES"
     directory = os.fsencode(directory_in_str)
