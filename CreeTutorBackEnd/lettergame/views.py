@@ -31,8 +31,6 @@ def whichgame(request, game):
     if request.method == 'GET':
         return render(request, 'lettergame/game.html', context)
 
-    elif request.method == 'POST':
-        return redirect('lettergame:whichgame', context)
 
     else:
         return HttpResponse('ERROR: request.method not adequately identified in view.whichgame')
@@ -50,7 +48,6 @@ def singleletter(request):
     the context string "single".
     Function returns either dictionary or string or HttpResponse if ERROR.
     '''
-
     if request.method == 'GET':
         letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
         letters = letters[:5]
@@ -65,11 +62,6 @@ def singleletter(request):
     elif request.method == 'POST':
         user_response = request.POST['user_r']
         correct_response = request.POST['correct_r']
-        time_spent = request.POST['time_spent']
-        # f = open('test.txt', 'w')
-        # f.write(data + "\n")
-        # f.write(":(")
-        # time_spent = request.POST['data']
         answer = SingleLetterStats()
         answer.chosen_answer = user_response
         answer.correct_answer = correct_response

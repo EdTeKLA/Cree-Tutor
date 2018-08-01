@@ -3,7 +3,6 @@
 <html>
   <head>
   {% load static %}
-
 	<link rel="stylesheet" type="text/css" href="{% static 'lettergame/css/bootstrap.min.css' %}" />
   <script src="{% static 'lettergame/js/popper.min.js' %}"></script>
   <script src="{% static 'lettergame/js/jquery-3.3.1.min.js' %}"></script>
@@ -21,7 +20,7 @@
 
   <body>
     <nav class="navbar navbar-expand-lg" style="background-color: #e6b800;">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="{% url 'lettergame:index' %}">Home</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -29,7 +28,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="">Nothing <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>

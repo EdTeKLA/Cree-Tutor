@@ -1,83 +1,45 @@
-var start_time = undefined;
-var end_time = undefined;
-
-function testPrint(){
-  document.getElementById("demo").innerHTML() = "NICE";
-  return;
-}
-
-
-// window.onbeforeunload = function(e){
-//   return false;
-//   };
-
-window.onload = function loadTime(){
-  start_time = new Date();
-  return;
-};
-
-// window.onbeforeunload = function unLoadTime(){
-//   end_time = new Date();
-//   window.alert("Got to unload")
-//   timeSpentOnPage();
-//   return;
-// }
-
-function timeSpentOnPage(){
-  end_time = new Date();
-  let total_time = start_time.getTime() - end_time.getTime();
-  return total_time;
-};
-
-// function getRequestBody(id){
-//   var form = document.getElementById(id)
-//   values = [];
-//   for (var i = 0, l = form.elements.length; i < l ; i += 1){
-//     var el = form.elements[i];
-//     //fieldName=value&fieldName2=value2&...
-//       name = encodeURIComponent(el.name),
-//       value = encodeURIComponent(el.value),
-//       complete = name + "=" + value;
-//       values.push(complete);
-//
-//   }
-//   time = timeSpentOnPage();
-//   var time_spent = "time_spent";
-//   complete = time_spent + "=" + time;
-//   values.push(complete);
-//   return values.join("&");
-// };
-
-function postData() {
-  $('.ajaxProgress').show();
-  $.ajax({
-    type: "POST",
-    url: "{% url 'lettergame:whichgame' game %}",
-    dataType: "json",
-    async: true,
-    data: {
-      csfrmiddlewaretoken: '{{ csfr_token }}',
-      user_r: $('#user_r').val(),
-      correct_r: $('correct_r').val(),
-      test: "test"
-    },
-    success: function(json){
-      $('#output').html(json.message);
-      $('.ajaxProgress').hide();
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
     }
-
-  });
+    return cookieValue;
 }
-//
-// function postData(id, url){
-//   data = getRequestBody(id)
-//   xhr = new XMLHttpRequest();
-//   xhr.open("POST", url, true);
-//   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-//   xhr.send(data);
-//   return;
-// };
-//
-// function myFunction() {
-//     document.getElementById("demo").innerHTML = "Iframe is loaded.";
-// }
+var csrftoken = getCookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+
+$(document).on('submit', '#game_ans', function(e){
+    e.preventDefault();
+
+    $.ajax({
+      type:'POST',
+      url: "",
+      data:{
+        user_r:$('input[name=user_r]:checked').val(),
+        correct_r:$("#correct_r").val()
+      },
+      success:function(){console.log($("#correct_r").val())},
+      error:function(error){console.log(error)}
+    });
+    }
+  );
