@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.http import JsonResponse
+import json
 from django.template import loader
+from django.forms.models import model_to_dict
 from .models import Alphabet, SingleLetterStats, LetterPair, DoubleLetterStats, Word, WordSyllable
 import random
 import datetime
@@ -31,9 +34,10 @@ def whichgame(request, game):
     if request.method == 'GET':
         return render(request, 'lettergame/game.html', context)
 
-
+    elif request.method == 'POST':
+        return JsonResponse(context)
     else:
-        return HttpResponse('ERROR: request.method not adequately identified in view.whichgame')
+        return HttpResponse('ERROR: request.method not adequately identified in view.whichgame.')
 
 # TODO: The following two functions could probably be condensed into one
 
@@ -52,11 +56,14 @@ def singleletter(request):
         letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
         letters = letters[:5]
         sound = random.choice(letters)
-        sound.name = sound.letter
+        correct = sound.letter
+        sound = sound.sound
+        lets = list()
         for letter in letters:
-            letter.name = letter.letter
+            let = letter.letter
+            lets.append(let)
         context = {
-        'letters': letters, 'sound':sound, 'game':'single'
+        'letters': lets, 'sound':sound, 'game':'single', 'correct':correct
         }
         return context
     elif request.method == 'POST':
@@ -67,10 +74,23 @@ def singleletter(request):
         answer.correct_answer = correct_response
         answer.time_answered = datetime.datetime.now()
         answer.save()
-        context = 'single'
+        letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
+        letters = letters[:5]
+        sound = random.choice(letters)
+        correct = sound.letter
+        sound = sound.sound
+        lets = list()
+        for letter in letters:
+            let = letter.letter
+            lets.append(let)
+        context = {
+        'letters': lets, 'sound':sound, 'game':'single', 'correct':correct
+        }
+
         return context
+        # return context
     else:
-        return HttpResponse('ERROR: request.method not adequately identified in view.singleletter')
+        return HttpResponse('ERROR: request.method not adequately identified in view.singleletter. Request is: ' + str(request))
 
 
 def letterpair(request):

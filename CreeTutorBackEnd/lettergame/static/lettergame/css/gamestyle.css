@@ -18,6 +18,7 @@ a {
 }
 
 .game_div {
+	margin: 10px;
 	padding: 200px;
 	background-color: lightblue;
 	position: fixed;
