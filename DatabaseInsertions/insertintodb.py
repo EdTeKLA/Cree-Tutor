@@ -9,6 +9,11 @@ import unicodedata
 db = None
 cursor = None
 
+#Set filenames
+GRAMCODE_FILENAME = 'sorted_gram_codes.txt'
+LEMMA_FILENAME = 'lemmas.txt'
+WORDS_FILENAME = 'words_for_db.txt'
+
 #Get db_root, db_pass, and filepaths from settings.py
 sys.path.append(os.path.join(os.path.dirname(sys.path[0]),'CreeTutorBackEnd'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "CreeTutorBackEnd.settings")
@@ -62,9 +67,12 @@ def dbInfo():
 
 def emptyDb():
     # THIS ORDER MATTERS. letter_pair has foreign keys that reference alphabet, and mysql will throw a key error otherwise
-    cursor.execute("delete from letter_pair")
-    cursor.execute("delete from alphabet")
+    # cursor.execute("delete from letter_pair")
+    # cursor.execute("delete from alphabet")
+    cursor.execute("delete from gram_code")
+    cursor.execute("delete from lemma")
     cursor.execute("delete from word")
+
     db.commit()
 
     return
@@ -131,6 +139,83 @@ def getfirstsecond(pair):
     return first, second
 
 def cycleWords(directory_in_str):
+    """
+    Opens Linguistics/words_for_db.txt
+    Adds entry for each line in words_for_db.txt
+        A line looks like this:
+    acimosis	N+AN+Der/Dim+N+AN+Sg	puppy	      atim	acimosis.wav
+    word        gram_code               translation   lemma filename.wav,other_file.mp4
+        Columns are seperated by tab (\t). Note that atom hates typing \t.
+        Be careful using atom to edit words_for_db.txt
+    """
+
+
+    word_id = 0
+    executestring = "INSERT INTO word VALUES"
+    directory = directory_in_str
+
+    #read in file
+    with open(os.path.join(directory,WORDS_FILENAME), 'r') as readfile:
+        word_lines = readfile.readlines()
+
+    #cycle through lines
+    for e in word_lines:
+        #No double characters! No other funny business!
+        content = unicodedata.normalize("NFC", e)
+        #Split the columns into a list
+        content_as_list = content.split('\t')
+        #If there aren't enough columns, print which word caused the failure
+        #One will need to go through words_for_db and find out why.
+        #DON"T USE ATOM FOR THIS PART! Atom hates \t.
+        if len(content_as_list) != 5:
+            sys.stdout.write(
+                                "Error on line " + str(word_id) + '\n' +
+                                str(content_as_list) + '\n'
+                                )
+            break
+        else:
+            #get the stuff, man
+            word = content_as_list[0]
+            gram_code = content_as_list[1]
+            translation = content_as_list[2]
+            lemma = content_as_list[3]
+            #make sure lemma is already in the db
+            #TODO Delaney, I need your help here!
+            cursor.execute("SELECT lemma FROM Lemma")
+            f = cursor.fetchall()
+            for i in f:
+                # fetchall returns everything as a tuple, i.e. of the form ('lemma',)
+                if lemma == i[0]:
+                    print("Lemma " + str(lemma) + " is in the DB")
+
+            #TODO for now, just save the first audio file. Eventually all.
+            audio_files = content_as_list[4].split(',')[0]
+
+            #get number of syllables
+            num_syllables = syllables(word)
+
+
+
+            executestring += "({}, {}, {}, {}, {}, {}, {}),".format(
+                word_id,
+                word,
+                translation,
+                num_syllables,
+                audio_files,
+                gram_code,
+                lemma,
+                )
+            word_id +=1
+
+    #chop off the trailing comma
+    executestring = executestring[0:-1]
+    print(executestring)
+    cursor.execute(executestring)
+    db.commit()
+    return
+
+""" Delaneys cycleWords
+
     '''
     Function takes in a string path to the desired directory. Directory must be in static folder of django project.
     Cycles through directory and extracts individual names and paths. Passes individual names to function syllables to count the
@@ -138,10 +223,6 @@ def cycleWords(directory_in_str):
     in database. Strips names of any non-alpha character and does not allow names with whitespace or duplicate names.
     Returns None
     '''
-
-    word_id = 0
-    executestring = "INSERT INTO word VALUES"
-    directory = os.fsencode(directory_in_str)
 
     # Cycle through directory
     for file in os.listdir(directory):
@@ -168,13 +249,14 @@ def cycleWords(directory_in_str):
                 continue
             num_syllables = syllables(new)
             new = unicodedata.normalize('NFC', new)
-            executestring += "({},'{}', NULL, {}, NULL, NULL),".format(word_id, new, num_syllables)
+            executestring += "({},'{}', NULL, {}, NULL, NULL, NULL),".format(word_id, new, num_syllables)
             word_id +=1
 
     executestring = executestring[0:-1]
     cursor.execute(executestring)
     db.commit()
     return
+"""
 
 def syllables(word):
     '''
@@ -276,6 +358,39 @@ def consonant():
     db.commit()
     return
 
+def cycleGramCodes(directory_in_str):
+    directory = directory_in_str
+    with open(os.path.join(directory,GRAMCODE_FILENAME), 'r') as doc:
+        lines = doc.readlines()
+
+    for l in lines:
+        #strip code to remove '\n'
+        stripped_code = l.strip()
+        executestring = "INSERT INTO gram_code VALUES ('{}')".format(stripped_code)
+        cursor.execute(executestring)
+
+def cycleLemma(directory_in_str):
+    directory = directory_in_str
+    with open(os.path.join(directory,LEMMA_FILENAME), 'r') as doc:
+        lines = doc.readlines()
+
+    lemma_id = 0
+
+    #TODO add part_of_speech stuff
+    #TODO add animate stuff
+    #TODO add trransitive stuff
+    #TODO add translation stuff
+
+    for l in lines:
+        #strip code to remove '\n'
+        stripped_code = l.strip()
+        executestring = "INSERT INTO lemma VALUES ('{}', '{}', NULL, NULL, NULL, NULL, NULL, NULL)".format(lemma_id,
+                                                                        stripped_code,
+                                                                        )
+        cursor.execute(executestring)
+        lemma_id += 1
+
+
 def main():
 
     dbInfo()
@@ -290,10 +405,14 @@ def main():
     word = settings.PATH_TO_WORD
     alphabet = settings.PATH_TO_ALPHABET
     sound = settings.PATH_TO_LETTERPAIR
+    #path to ../Linguistics/
+    linguistics = os.path.abspath(os.path.join(os.path.dirname(sys.path[0]),'Linguistics'))
 
-    cycleWords(word)
-    cycleLetters(alphabet)
-    cycleSound(sound)
+    cycleGramCodes(linguistics)
+    cycleLemma(linguistics)
+    cycleWords(linguistics)
+    # cycleLetters(alphabet)
+    # cycleSound(sound)
 
     db.commit()
     db.close()

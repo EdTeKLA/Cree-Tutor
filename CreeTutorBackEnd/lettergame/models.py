@@ -150,6 +150,7 @@ class Lemma(models.Model):
     animate = models.ForeignKey(Animate, models.DO_NOTHING, blank=True, null=True)
     transitive = models.ForeignKey(Transitive, models.DO_NOTHING, blank=True, null=True)
     translation = models.CharField(max_length=250, blank=True, null=True)
+    image = models.CharField(max_length=250, blank=True, null=True)
 
     class Meta:
         db_table = 'lemma'
@@ -157,30 +158,25 @@ class Lemma(models.Model):
 class Word(models.Model):
     word_id = models.IntegerField(primary_key=True, default=0)
     word = models.CharField(max_length=255, blank=True, null=True)
+
     gram_code = models.ForeignKey(GramCode, models.DO_NOTHING, blank=True, null=True)
     translation = models.TextField(blank=True, null=True)
     num_syllables = models.IntegerField(blank=True, null=True)
     lemmaID = models.ForeignKey(Lemma, models.DO_NOTHING, blank=True, null=True)
+    sound = models.CharField(max_length=250, blank=True, null=True)
 
     class Meta:
         db_table = 'word'
 
 
-"""
-class Lemma(models.Model):
-    lemma = models.ForeignKey
-    usable_gram_codes = models.manytomany(Gram_code())
-        #These are available in Linguistics/sorted_gram_codes.txt
-    pos = models.CharField(max_length, null=True)
-        #possible: V N IPC Pron Num
+class LemmaGame(models.Model):
+    #For Nouns, this should default to the non-affixed noun, e.i. atim+N+AN+Sg -> atim
+    wordform = models.ForeignKey(Word, models.DO_NOTHING,blank=True, null=True)
+
+    lemma = models.ForeignKey(Lemma, models.DO_NOTHING, blank=False, null=True)
+
+    distractors = models.ManyToManyField(Word, related_name="+")
 
 
-    animate = models.CharField(max_length=25, null=True)
-        #possible: AN IN null
-
-    transitive = models.Charfield(max_length=25, null=True)
-        #possible: II AI TI TA null
-
-    translation = models.CharField(max_length=250, null=True)
-
-"""
+    class Meta:
+        db_table = 'lemma_game'

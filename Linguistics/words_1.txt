@@ -13,7 +13,6 @@ askipwawâ
 askipwâwa
 atâwêwikamik
 atâwêwikamikwa
-atâwêwikamiwa
 atim
 atimwak
 atoskê
@@ -23,7 +22,7 @@ ayamihcikê
 ayamihcikêw
 ayamihcikêyiwa
 ayapi
-ay ay
+ay
 âkayâsîmowin
 âkâyâsiw
 âpokosîs
@@ -442,7 +441,6 @@ tânisi
 tânisîyisi
 tânispi
 tânitê
-êisîyihkâsoyan
 têhtapiwin
 têhtapiwina
 têhtapiwinihk

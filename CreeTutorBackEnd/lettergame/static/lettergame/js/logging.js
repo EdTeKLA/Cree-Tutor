@@ -1,83 +1,95 @@
-var start_time = undefined;
-var end_time = undefined;
-
-function testPrint(){
-  document.getElementById("demo").innerHTML() = "NICE";
-  return;
-}
-
-
-// window.onbeforeunload = function(e){
-//   return false;
-//   };
-
-window.onload = function loadTime(){
-  start_time = new Date();
-  return;
-};
-
-// window.onbeforeunload = function unLoadTime(){
-//   end_time = new Date();
-//   window.alert("Got to unload")
-//   timeSpentOnPage();
-//   return;
-// }
-
-function timeSpentOnPage(){
-  end_time = new Date();
-  let total_time = start_time.getTime() - end_time.getTime();
-  return total_time;
-};
-
-// function getRequestBody(id){
-//   var form = document.getElementById(id)
-//   values = [];
-//   for (var i = 0, l = form.elements.length; i < l ; i += 1){
-//     var el = form.elements[i];
-//     //fieldName=value&fieldName2=value2&...
-//       name = encodeURIComponent(el.name),
-//       value = encodeURIComponent(el.value),
-//       complete = name + "=" + value;
-//       values.push(complete);
-//
-//   }
-//   time = timeSpentOnPage();
-//   var time_spent = "time_spent";
-//   complete = time_spent + "=" + time;
-//   values.push(complete);
-//   return values.join("&");
-// };
-
-function postData() {
-  $('.ajaxProgress').show();
-  $.ajax({
-    type: "POST",
-    url: "{% url 'lettergame:whichgame' game %}",
-    dataType: "json",
-    async: true,
-    data: {
-      csfrmiddlewaretoken: '{{ csfr_token }}',
-      user_r: $('#user_r').val(),
-      correct_r: $('correct_r').val(),
-      test: "test"
-    },
-    success: function(json){
-      $('#output').html(json.message);
-      $('.ajaxProgress').hide();
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
     }
-
-  });
+    return cookieValue;
 }
-//
-// function postData(id, url){
-//   data = getRequestBody(id)
-//   xhr = new XMLHttpRequest();
-//   xhr.open("POST", url, true);
-//   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-//   xhr.send(data);
-//   return;
-// };
-//
-// function myFunction() {
-//     document.getElementById("demo").innerHTML = "Iframe is loaded.";
-// }
+var csrftoken = getCookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+
+$(document).on('submit', '#game_ans', function(e){
+    e.preventDefault();
+
+    $.ajax({
+      type:'POST',
+      url: "",
+      data:{
+        user_r:$('input[name=user_r]:checked').val(),
+        correct_r:$("#correct_r").val()
+      },
+      success:function(data){
+        // console.log(data['letters']);
+        modifyForm('game_ans', data);
+      },
+      error:function(error){console.log(error)}
+    });
+    }
+  );
+
+function modifyForm(formID, data){
+
+  // Update the correct response
+  var correct = document.getElementById("correct_r");
+  correct.setAttribute("value", data['correct']);
+
+  // All of the children of the form in game.html have the class 'choice_button'. Delete them
+  $(".choice_button").remove();
+  var form = document.getElementById(formID);
+
+  // Update the src path of the audio file and load the new audio file
+  var audio = document.getElementById("aud");
+  path = '/static/' + data['sound'];
+  var sound = document.getElementById("sound");
+  sound.setAttribute("src", path);
+  audio.load();
+
+  // Create the new radio options
+  for(var i = 0, l = data['letters'].length; i < l; i++){
+    var datum = data['letters'][i];
+    var rad = document.createElement("INPUT");
+    rad.setAttribute("type", "radio");
+    rad.setAttribute("class", "choice_button");
+    rad.setAttribute("required", true);
+    rad.setAttribute("name", "user_r");
+    rad.setAttribute("value", datum);
+    var lab = document.createElement("LABEL");
+    lab.setAttribute("for", datum);
+    lab.setAttribute("class", "choice_button");
+    lab.innerHTML = datum;
+    linebreak = document.createElement("br");
+    linebreak.setAttribute("class", "choice_button");
+    form.appendChild(rad);
+    form.appendChild(lab);
+    form.appendChild(linebreak);
+  }
+
+  //Re-create the new submit button
+  var sub = document.createElement("INPUT");
+  sub.setAttribute("class","choice_button");
+  sub.setAttribute("type", "submit");
+  sub.setAttribute("value","submit");
+  form.appendChild(sub);
+
+  return;
+}
