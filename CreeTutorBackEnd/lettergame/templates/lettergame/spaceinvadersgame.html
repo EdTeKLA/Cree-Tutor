@@ -17,6 +17,8 @@
 
 <script src="https://pixijs.download/release/pixi.min.js"></script>
 <script src="{% static 'lettergame/js/pixi.min.js' %}"></script>
+<script src="{% static 'lettergame/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'lettergame/js/invaders_log.js' %}"></script>
 
 
 
@@ -139,20 +141,17 @@
                // let level = "{{level}}";
                 let options = [];
                 {% for letter in letters %}
-                options.push("{{letter.name}}");
+                options.push("{{letter}}");
                 //var text = new PIXI.Text("{{letter.name}}", { font: "30px Arial",outline-color: black fill: "red" });
                 /*text.x = invader.x;
                 text.y = invader.y + 10;*/
                 //app.stage.addChild(text);
 
                 {% endfor %}
-                //let sound = ("{% static ''%}{{sound.sound}}");
 
-                var audio = new Audio("{% static ''%}{{sound.sound}}");
+                var audio = new Audio("{% static ''%}{{sound}}");
                 audio.play();
-                let correct = new String("{{sound.name}}");
-
-                //let correct = string.substring(34, 35);
+                let correct = new String("{{correct}}");
 
                 //create specifics of sprite 'bullet'
 
@@ -247,72 +246,75 @@
                 pointBar.outer = outerpBar;
                 pointBar.outer.width = 0;
 
-
+                populateInvaders(options, correct);
 
                 //creare invader as a sprite and invadershot as sprite
                 // invader = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invader2.png' %}"].texture);
-                invadershot = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invadershot2.png' %}"].texture);
-
-                let
-                    numofInvaders = options.length;
-                    //spacing = 30;
-
-                if (level === 'easy') {
-                    speed = 2;
-                    spacing = 70;
-                    xOffset = 0;
-                } else if (level === 'med') {
-                    speed = 2.25;
-                    spacing = 50;
-                    xOffset = 0;
-                } else if (level === 'hard') {
-                    speed = 2.5;
-                    spacing = 30;
-                    xOffset = -10;
-                }
-                direction = 1;
-
-                invaders = [];
-
-                for (let i = 0; i < numofInvaders; i++) {
-                    invader = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invader3.png' %}"].texture);
-
-                    let x = spacing * i + xOffset;
-                    let y = 40;
-                    invader.x = x;
-                    invader.y = y;
-
-                    invader.vx = speed * direction;
-                   // direction *= -1;
-                    var style = new PIXI.TextStyle({
-                        fontFamily: 'Arial',
-                        fontSize: 20,
-                        fontStyle: 'italic',
-                        fontWeight: 'bold',
-                        fill: ['#ffffff'],
-                        stroke: '#000000',
-                        strokeThickness: 3,
-
-                    });
-                    // let randomValue = randomInt(0, numofInvaders);
-                    text = new PIXI.Text(options[i], style);
-                    text.x += 5;
-                    text.y += 20;
-                    if (options[i] == correct) {
-
-
-                        correctArr.push(invader);
-                    }else{
-                        incorrArr.push(invader);
-                    }
-
-                    invader.addChild(text);
-                    //put current invader inside invaders arraay
-                    invaders.push(invader);
-                    //add invader to stage
-                    app.stage.addChild(invader);
-                }
-
+                // invadershot = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invadershot2.png' %}"].texture);
+                //
+                // let
+                //     numofInvaders = options.length;
+                //     //spacing = 30;
+                //
+                // if (level === 'easy') {
+                //     speed = 2;
+                //     spacing = 70;
+                //     xOffset = 0;
+                // } else if (level === 'med') {
+                //     speed = 2.25;
+                //     spacing = 50;
+                //     xOffset = 0;
+                // } else if (level === 'hard') {
+                //     speed = 2.5;
+                //     spacing = 30;
+                //     xOffset = -10;
+                // }
+                // else{
+                //   console.log("ERROR: Level not properly passed in spaceinvadersgame.html, lines 262 - 274");
+                // }
+                // direction = 1;
+                //
+                // invaders = [];
+                //
+                // for (let i = 0; i < numofInvaders; i++) {
+                //     invader = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invader3.png' %}"].texture);
+                //
+                //     let x = spacing * i + xOffset;
+                //     let y = 40;
+                //     invader.x = x;
+                //     invader.y = y;
+                //
+                //     invader.vx = speed * direction;
+                //    // direction *= -1;
+                //     var style = new PIXI.TextStyle({
+                //         fontFamily: 'Arial',
+                //         fontSize: 20,
+                //         fontStyle: 'italic',
+                //         fontWeight: 'bold',
+                //         fill: ['#ffffff'],
+                //         stroke: '#000000',
+                //         strokeThickness: 3,
+                //
+                //     });
+                //     // let randomValue = randomInt(0, numofInvaders);
+                //     text = new PIXI.Text(options[i], style);
+                //     text.x += 5;
+                //     text.y += 20;
+                //     if (options[i] == correct) {
+                //
+                //
+                //         correctArr.push(invader);
+                //     }else{
+                //         incorrArr.push(invader);
+                //     }
+                //
+                //     invader.addChild(text);
+                //     //put current invader inside invaders arraay
+                //     invaders.push(invader);
+                //     //add invader to stage
+                //     app.stage.addChild(invader);
+                // }
+                //
 
 
 
@@ -710,6 +712,75 @@
         }
         function end() {
                 //end game make it a choice to play again
+
+        }
+
+        function populateInvaders(options, correct){
+          invadershot = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invadershot2.png' %}"].texture);
+
+          let
+              numofInvaders = options.length;
+              //spacing = 30;
+
+          if (level === 'easy') {
+              speed = 2;
+              spacing = 70;
+              xOffset = 0;
+          } else if (level === 'med') {
+              speed = 2.25;
+              spacing = 50;
+              xOffset = 0;
+          } else if (level === 'hard') {
+              speed = 2.5;
+              spacing = 30;
+              xOffset = -10;
+          }
+          else{
+            console.log("ERROR: Level not properly passed in spaceinvadersgame.html, lines 262 - 274");
+          }
+          direction = 1;
+
+          invaders = [];
+
+          for (let i = 0; i < numofInvaders; i++) {
+              invader = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invader3.png' %}"].texture);
+
+              let x = spacing * i + xOffset;
+              let y = 40;
+              invader.x = x;
+              invader.y = y;
+
+              invader.vx = speed * direction;
+             // direction *= -1;
+              var style = new PIXI.TextStyle({
+                  fontFamily: 'Arial',
+                  fontSize: 20,
+                  fontStyle: 'italic',
+                  fontWeight: 'bold',
+                  fill: ['#ffffff'],
+                  stroke: '#000000',
+                  strokeThickness: 3,
+
+              });
+              // let randomValue = randomInt(0, numofInvaders);
+              text = new PIXI.Text(options[i], style);
+              text.x += 5;
+              text.y += 20;
+              if (options[i] == correct) {
+
+
+                  correctArr.push(invader);
+              }else{
+                  incorrArr.push(invader);
+              }
+
+              invader.addChild(text);
+              //put current invader inside invaders arraay
+              invaders.push(invader);
+              //add invader to stage
+              app.stage.addChild(invader);
+          }
+
 
         }
     </script>
