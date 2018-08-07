@@ -136,7 +136,7 @@ def getfirstsecond(pair):
 
     return first, second
 
-def cycleWords(directory_in_str):
+def cycleWords(directory_in_str, lemma_list):
     """
     Opens Linguistics/words_for_db.txt
     Adds entry for each line in words_for_db.txt
@@ -179,8 +179,12 @@ def cycleWords(directory_in_str):
             lemma = content_as_list[3]
             #make sure lemma is already in the db
             #TODO Delaney, I need your help here!
+            """
             if "lemma is not already in database"==True:
                 #add the lemma with all null stuff for now
+            """
+            if lemma not in lemma_list:
+                lemma = "NULL"
 
             #TODO for now, just save the first audio file. Eventually all.
             audio_files = content_as_list[4].split(',')[0]
@@ -190,15 +194,19 @@ def cycleWords(directory_in_str):
 
 
 
-            executestring += "({}, {}, {}, {}, {}, {}, {}),".format(
+            add_to_executestring = "('{}', '{}', '{}', '{}', '{}', '{}', '{}'),".format(
                 word_id,
                 word,
                 translation,
                 num_syllables,
                 audio_files,
-                gram_code,
                 lemma,
+                gram_code,
                 )
+
+            if word_id == 0:
+                print(add_to_executestring)
+            executestring += add_to_executestring
             word_id +=1
 
     #chop off the trailing comma
@@ -368,6 +376,7 @@ def cycleLemma(directory_in_str):
         lines = doc.readlines()
 
     lemma_id = 0
+    lemma_list = []
 
     #TODO add part_of_speech stuff
     #TODO add animate stuff
@@ -375,13 +384,21 @@ def cycleLemma(directory_in_str):
     #TODO add translation stuff
 
     for l in lines:
+        content = unicodedata.normalize('NFC', l)
+
         #strip code to remove '\n'
-        stripped_code = l.strip()
-        executestring = "INSERT INTO lemma VALUES ('{}', '{}', NULL, NULL, NULL, NULL, NULL, NULL)".format(lemma_id,
-                                                                        stripped_code,
-                                                                        )
+        stripped_code = content.strip()
+
+        executestring = "INSERT INTO lemma VALUES ('{}', '{}', NULL, NULL,NULL,NULL,NULL,NULL)".format(
+                        lemma_id,
+                        stripped_code,
+                        )
+        #print(executestring + '\n')
+        lemma_list.append(stripped_code)
         cursor.execute(executestring)
         lemma_id += 1
+
+    return lemma_list
 
 
 def main():
@@ -402,8 +419,11 @@ def main():
     linguistics = os.path.abspath(os.path.join(os.path.dirname(sys.path[0]),'Linguistics'))
 
     cycleGramCodes(linguistics)
-    cycleLemma(linguistics)
-    cycleWords(linguistics)
+
+    #cycle lemmas and obtain a list of added lemmas for cycleWords to use
+    lemma_list = cycleLemma(linguistics)
+
+    cycleWords(linguistics, lemma_list)
     cycleLetters(alphabet)
     cycleSound(sound)
 
