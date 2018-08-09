@@ -67,8 +67,8 @@ def dbInfo():
 
 def emptyDb():
     # THIS ORDER MATTERS. letter_pair has foreign keys that reference alphabet, and mysql will throw a key error otherwise
-    # cursor.execute("delete from letter_pair")
-    # cursor.execute("delete from alphabet")
+    cursor.execute("delete from letter_pair")
+    cursor.execute("delete from alphabet")
     cursor.execute("delete from gram_code")
     cursor.execute("delete from lemma")
     cursor.execute("delete from word")
@@ -204,18 +204,19 @@ def cycleWords(directory_in_str, lemma_dict):
                 translation,
                 num_syllables,
                 audio_files,
-                lemma,
                 gram_code,
+                lemma_dict[lemma]
                 )
 
-            if word_id == 0:
-                print(add_to_executestring)
+            # if word_id == 0:
+            #     print(add_to_executestring)
             executestring += add_to_executestring
             word_id +=1
 
     #chop off the trailing comma
     executestring = executestring[0:-1]
-    print(executestring)
+    executestring = executestring.replace("\n", "")
+    # print(executestring)
     cursor.execute(executestring)
     db.commit()
     return
@@ -398,7 +399,7 @@ def cycleLemma(directory_in_str):
                         lemma_id,
                         stripped_code,
                         )
-        #print(executestring + '\n')
+        # print(executestring + '\n')
         lemma_dict[stripped_code] = lemma_id
         cursor.execute(executestring)
         lemma_id += 1
@@ -427,14 +428,14 @@ def main():
 
 
     #cycle lemmas and obtain a list of added lemmas for cycleWords to use
-    lemma_dict = cycleLemma(linguistics)
+    # lemma_dict = cycleLemma(linguistics)
 
-    cycleWords(linguistics, lemma_dict)
+    # cycleWords(linguistics, lemma_dict)
     cycleLetters(alphabet)
     cycleSound(sound)
 
-    cycleLemma(linguistics)
-    cycleWords(linguistics)
+    # cycleLemma(linguistics)
+    # cycleWords(linguistics)
     # cycleLetters(alphabet)
     # cycleSound(sound)
 

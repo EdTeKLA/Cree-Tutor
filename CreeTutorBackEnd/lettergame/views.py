@@ -70,7 +70,7 @@ def letterGames(request, game):
         answer.chosen_answer = user_response
         answer.correct_answer = correct_response
         answer.time_answered = datetime.datetime.now()
-        answer.time_spent = time_spent
+        #answer.time_spent = time_spent
         answer.save()
         return getOptions(options, type)
 
@@ -133,5 +133,5 @@ def invaders(request, level):
         }
         return render(request, 'lettergame/spaceinvadersgame.html', context)
 
-    else: 
+    else:
         return HttpResponse('ERROR: POST request passed to views.invaders')
