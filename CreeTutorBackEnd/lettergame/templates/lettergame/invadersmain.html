@@ -1,0 +1,21 @@
+﻿{% extends 'lettergame/base.html' %}
+{% load static %}
+
+	{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'lettergame/css/style.css' %}" />
+ <link rel="shortcut icon" href="lettergame/invader" />
+<script src="{% static 'lettergame/js/logging.js' %}"></script>
+	{% endblock %}
+
+	{% block content %}
+<div class="gamelinks">
+    <a class="choose" href="{% url 'lettergame:invaders' 'easy' %}">Easy</a>
+    <a class="choose" href="{% url 'lettergame:invaders' 'med' %}">Medium</a>
+    <a class="choose" href="{% url 'lettergame:invaders' 'hard' %}">Hard</a>
+</div>
+<body>
+    <font size="6" face="Comic Sans MS">
+        <p>Choose your difficulty level! </p>
+</body>
+
+    {% endblock content %}

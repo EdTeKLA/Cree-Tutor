@@ -1,3 +1,4 @@
+
 from getpass import getpass
 import MySQLdb
 import os
@@ -137,7 +138,7 @@ def getfirstsecond(pair):
 
     return first, second
 
-def cycleWords(directory_in_str):
+def cycleWords(directory_in_str, lemma_dict):
     """
     Opens Linguistics/words_for_db.txt
     Adds entry for each line in words_for_db.txt
@@ -179,7 +180,9 @@ def cycleWords(directory_in_str):
             translation = content_as_list[2]
             lemma = content_as_list[3]
             #make sure lemma is already in the db
-            #TODO Delaney, I need your help here!
+
+
+            #find the lemma in the Lemma table
             cursor.execute("SELECT lemma FROM Lemma")
             f = cursor.fetchall()
             for i in f:
@@ -195,15 +198,19 @@ def cycleWords(directory_in_str):
 
 
 
-            executestring += "({}, {}, {}, {}, {}, {}, {}),".format(
+            add_to_executestring = "('{}', '{}', '{}', '{}', '{}', '{}', '{}'),".format(
                 word_id,
                 word,
                 translation,
                 num_syllables,
                 audio_files,
-                gram_code,
                 lemma,
+                gram_code,
                 )
+
+            if word_id == 0:
+                print(add_to_executestring)
+            executestring += add_to_executestring
             word_id +=1
 
     #chop off the trailing comma
@@ -374,6 +381,7 @@ def cycleLemma(directory_in_str):
         lines = doc.readlines()
 
     lemma_id = 0
+    lemma_dict = {}
 
     #TODO add part_of_speech stuff
     #TODO add animate stuff
@@ -381,13 +389,21 @@ def cycleLemma(directory_in_str):
     #TODO add translation stuff
 
     for l in lines:
+        content = unicodedata.normalize('NFC', l)
+
         #strip code to remove '\n'
-        stripped_code = l.strip()
-        executestring = "INSERT INTO lemma VALUES ('{}', '{}', NULL, NULL, NULL, NULL, NULL, NULL)".format(lemma_id,
-                                                                        stripped_code,
-                                                                        )
+        stripped_code = content.strip()
+
+        executestring = "INSERT INTO lemma VALUES ('{}', '{}', NULL, NULL,NULL,NULL,NULL,NULL)".format(
+                        lemma_id,
+                        stripped_code,
+                        )
+        #print(executestring + '\n')
+        lemma_dict[stripped_code] = lemma_id
         cursor.execute(executestring)
         lemma_id += 1
+
+    return lemma_dict
 
 
 def main():
@@ -408,10 +424,20 @@ def main():
     linguistics = os.path.abspath(os.path.join(os.path.dirname(sys.path[0]),'Linguistics'))
 
     cycleGramCodes(linguistics)
+
+
+    #cycle lemmas and obtain a list of added lemmas for cycleWords to use
+    lemma_dict = cycleLemma(linguistics)
+
+    cycleWords(linguistics, lemma_dict)
+    cycleLetters(alphabet)
+    cycleSound(sound)
+
     cycleLemma(linguistics)
     cycleWords(linguistics)
     # cycleLetters(alphabet)
     # cycleSound(sound)
+
 
     db.commit()
     db.close()
