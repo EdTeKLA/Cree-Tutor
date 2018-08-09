@@ -66,11 +66,12 @@ def dbInfo():
 
 def emptyDb():
     # THIS ORDER MATTERS. letter_pair has foreign keys that reference alphabet, and mysql will throw a key error otherwise
-    cursor.execute("delete from letter_pair")
-    cursor.execute("delete from alphabet")
-    cursor.execute("delete from word")
+    # cursor.execute("delete from letter_pair")
+    # cursor.execute("delete from alphabet")
     cursor.execute("delete from gram_code")
     cursor.execute("delete from lemma")
+    cursor.execute("delete from word")
+
     db.commit()
 
     return
@@ -136,7 +137,7 @@ def getfirstsecond(pair):
 
     return first, second
 
-def cycleWords(directory_in_str, lemma_list):
+def cycleWords(directory_in_str, lemma_dict):
     """
     Opens Linguistics/words_for_db.txt
     Adds entry for each line in words_for_db.txt
@@ -178,13 +179,15 @@ def cycleWords(directory_in_str, lemma_list):
             translation = content_as_list[2]
             lemma = content_as_list[3]
             #make sure lemma is already in the db
-            #TODO Delaney, I need your help here!
-            """
-            if "lemma is not already in database"==True:
-                #add the lemma with all null stuff for now
-            """
-            if lemma not in lemma_list:
-                lemma = "NULL"
+
+
+            #find the lemma in the Lemma table
+            cursor.execute("SELECT lemma FROM Lemma")
+            f = cursor.fetchall()
+            for i in f:
+                # fetchall returns everything as a tuple, i.e. of the form ('lemma',)
+                if lemma == i[0]:
+                    print("Lemma " + str(lemma) + " is in the DB")
 
             #TODO for now, just save the first audio file. Eventually all.
             audio_files = content_as_list[4].split(',')[0]
@@ -211,6 +214,7 @@ def cycleWords(directory_in_str, lemma_list):
 
     #chop off the trailing comma
     executestring = executestring[0:-1]
+    print(executestring)
     cursor.execute(executestring)
     db.commit()
     return
@@ -376,7 +380,7 @@ def cycleLemma(directory_in_str):
         lines = doc.readlines()
 
     lemma_id = 0
-    lemma_list = []
+    lemma_dict = {}
 
     #TODO add part_of_speech stuff
     #TODO add animate stuff
@@ -394,11 +398,11 @@ def cycleLemma(directory_in_str):
                         stripped_code,
                         )
         #print(executestring + '\n')
-        lemma_list.append(stripped_code)
+        lemma_dict[stripped_code] = lemma_id
         cursor.execute(executestring)
         lemma_id += 1
 
-    return lemma_list
+    return lemma_dict
 
 
 def main():
@@ -420,12 +424,19 @@ def main():
 
     cycleGramCodes(linguistics)
 
-    #cycle lemmas and obtain a list of added lemmas for cycleWords to use
-    lemma_list = cycleLemma(linguistics)
 
-    cycleWords(linguistics, lemma_list)
+    #cycle lemmas and obtain a list of added lemmas for cycleWords to use
+    lemma_dict = cycleLemma(linguistics)
+
+    cycleWords(linguistics, lemma_dict)
     cycleLetters(alphabet)
     cycleSound(sound)
+
+    cycleLemma(linguistics)
+    cycleWords(linguistics)
+    # cycleLetters(alphabet)
+    # cycleSound(sound)
+
 
     db.commit()
     db.close()
