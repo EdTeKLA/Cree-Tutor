@@ -1,4 +1,3 @@
-
 from getpass import getpass
 import MySQLdb
 import os
@@ -251,7 +250,6 @@ def cycleWords(directory_in_str, lemma_dict):
     return
 
 """ Delaneys cycleWords
-
     '''
     Function takes in a string path to the desired directory. Directory must be in static folder of django project.
     Cycles through directory and extracts individual names and paths. Passes individual names to function syllables to count the
@@ -259,11 +257,9 @@ def cycleWords(directory_in_str, lemma_dict):
     in database. Strips names of any non-alpha character and does not allow names with whitespace or duplicate names.
     Returns None
     '''
-
     # Cycle through directory
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
-
         # TODO: Currently hardcoded to only allow wav files
         if filename.endswith(".wav") or filename.endswith(".m4a"):
             pathname = os.path.join(directory, file)
@@ -287,7 +283,6 @@ def cycleWords(directory_in_str, lemma_dict):
             new = unicodedata.normalize('NFC', new)
             executestring += "({},'{}', NULL, {}, NULL, NULL, NULL),".format(word_id, new, num_syllables)
             word_id +=1
-
     executestring = executestring[0:-1]
     cursor.execute(executestring)
     db.commit()

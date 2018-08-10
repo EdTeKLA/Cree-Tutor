@@ -1,3 +1,19 @@
+var startTime = undefined
+var endTime = undefined
+
+$(window).on("load", function(e){
+  startTime = new Date();
+  return;
+});
+
+function howLong(){
+  endTime = new Date();
+  var time = endTime.getTime() - startTime.getTime();
+  console.log(time);
+  time = time.toString();
+  return time;
+}
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -13,12 +29,16 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+
 var csrftoken = getCookie('csrftoken');
 
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
+
+
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
@@ -31,12 +51,16 @@ $.ajaxSetup({
 $(document).on('submit', '#game_ans', function(e){
     e.preventDefault();
 
+    timeSpent = howLong();
+    startTime = new Date();
+
     $.ajax({
       type:'POST',
       url: "",
       data:{
         user_r:$('input[name=user_r]:checked').val(),
-        correct_r:$("#correct_r").val()
+        correct_r:$("#correct_r").val(),
+        time_s: timeSpent
       },
       success:function(data){
         // console.log(data['letters']);
@@ -46,6 +70,7 @@ $(document).on('submit', '#game_ans', function(e){
     });
     }
   );
+
 
 function modifyForm(formID, data){
 
