@@ -58,6 +58,40 @@ TROUBLESHOOTING:
     all the data information from the database, which should be deleted.
 
 '''
+class Alphabet(models.Model):
+    letter = models.CharField(primary_key=True, max_length=2)
+    vowel = models.TextField(blank=True, null=True)
+    sound = models.TextField(blank=True, null=True)
+
+    class Meta:
+        db_table = "alphabet"
+
+class LetterPair(models.Model):
+    pair = models.CharField(primary_key=True, max_length=4)
+    first_letter = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='first_letter', blank=True, null=True)
+    second_letter = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='second_letter', blank=True, null=True, related_name = '+')
+    sound = models.TextField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'letter_pair'
+
+class DistractorType(models.Model):
+    type = models.IntegerField(primary_key=True)
+    distraction = models.TextField(blank=True, null=True)
+    insro = models.CharField(db_column='InSRO', max_length=8, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        db_table = 'distractor_type'
+
+class PairDistractor(models.Model):
+    pair = models.OneToOneField(LetterPair, models.DO_NOTHING, db_column='letter')
+    distractor = models.CharField(max_length=16)
+    type = models.ForeignKey(DistractorType, models.DO_NOTHING, db_column='type', blank=True, null=True)
+
+    class Meta:
+        db_table = 'pair_distractor'
+        unique_together = (('pair', 'distractor'),)
+
 class PartOfSpeech(models.Model):
     #possible: V N IPC Pron Num
     pos = models.CharField(primary_key=True, max_length=10)
@@ -86,32 +120,27 @@ class GramCode(models.Model):
     class Meta:
         db_table = "gram_code"
 
-class Alphabet(models.Model):
-    letter = models.CharField(primary_key=True, max_length=2)
-    vowel = models.TextField(blank=True, null=True)
-    sound = models.TextField(blank=True, null=True)
 
-    class Meta:
-        db_table = "alphabet"
 
 class SingleLetterStats(models.Model):
     user_id = models.IntegerField(blank=True, null=True)
     chosen_answer = models.CharField(max_length=4, blank=True, null=True)
     correct_answer = models.CharField(max_length=4, blank=True, null=True)
     time_answered = models.DateTimeField(blank=True, null=True)
+    time_spent = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         db_table = "single_letter_stats"
 
 
-class LetterPair(models.Model):
-    pair = models.CharField(primary_key=True, max_length=4)
-    first_letter = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='first_letter', blank=True, null=True)
-    second_letter = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='second_letter', blank=True, null=True, related_name = '+')
-    sound = models.TextField(blank=True, null=True)
+class LetterDistractor(models.Model):
+    letter = models.OneToOneField(Alphabet, models.DO_NOTHING, db_column='letter')
+    distractor = models.CharField(max_length=4)
+    type = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        db_table = 'letter_pair'
+        db_table = 'letter_distractor'
+        unique_together = (('letter', 'distractor'),)
 
 
 class DoubleLetterStats(models.Model):
@@ -119,6 +148,7 @@ class DoubleLetterStats(models.Model):
     chosen_answer = models.TextField(blank=True, null=True)
     correct_answer = models.TextField(blank=True, null=True)
     time_answered = models.DateTimeField(blank=True, null=True)
+    time_spent = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         db_table = "double_letter_stats"
@@ -180,3 +210,15 @@ class LemmaGame(models.Model):
 
     class Meta:
         db_table = 'lemma_game'
+
+class Creedictionarydotcom(models.Model):
+    word = models.CharField(primary_key=True, max_length=250)
+    plural = models.CharField(max_length=250, blank=True, null=True)
+    syllabics = models.TextField(blank=True, null=True)
+    pos = models.CharField(max_length=10)
+    translation = models.CharField(max_length=250)
+    dictionary = models.CharField(max_length=8)
+
+    class Meta:
+        db_table = 'creedictionarydotcom'
+        unique_together = (('word', 'pos', 'translation', 'dictionary'),)

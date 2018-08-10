@@ -66,9 +66,11 @@ def letterGames(request, game):
     elif request.method == 'POST':
         user_response = request.POST['user_r']
         correct_response = request.POST['correct_r']
+        time_spent = request.POST['time_s']
         answer.chosen_answer = user_response
         answer.correct_answer = correct_response
         answer.time_answered = datetime.datetime.now()
+        #answer.time_spent = time_spent
         answer.save()
         return getOptions(options, type)
 
@@ -133,3 +135,4 @@ def invaders(request, level):
         return JsonResponse(context)
     else:
         return HttpResponse('ERROR: request methods improperly passed to views.invaders')
+

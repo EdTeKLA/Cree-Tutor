@@ -16,7 +16,6 @@ askipwâwa	N+IN+Pl	potato	askipwâwi	askipwâwa.m4a,askipwâwa_0.wav
 atâwêwikamik	N+IN+Sg	store	atâwêwikamik	atâwew_kamik.wav,atâwew_kamik-2.wav
 atâwêwikamikwa	N+IN+Pl	store	atâwêwikamik	atâwew_kamikwa.wav,atâwew_kamiwa.wav
 atim	N+AN+Sg	dog	atim	atim-2.wav,atim.wav,atim_0.wav,atim_1.wav
-atim	V+TA+Imp+Imm+2Sg+3SgO	dog	atimêw	atim-2.wav,atim.wav,atim_0.wav,atim_1.wav
 atimwak	N+AN+Pl	dogs	atim	atimwak-2.wav,atimwak.wav
 atoskê	V+AI+Imp+Imm+2Sg	work	atoskêw	atoske.m4a
 awâsis	N+AN+Sg	baby	awâsis	awâsis.m4a
