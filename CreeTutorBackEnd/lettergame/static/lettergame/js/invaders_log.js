@@ -27,19 +27,22 @@ $.ajaxSetup({
     }
 });
 
-function postInvaders(shot, remains, more=false){
+function postInvaders(){
     // e.preventDefault();
-    $.ajax({
+    return $.ajax({
       type:'POST',
       url: "",
       data:{
-        shot: 'shot',
-        remains: 'remains',
-        more: more
+        correct: "correct",
+        more: "more"
       },
-      success:function(data){
-        console.log(data);
+        success: function (data) {
+          console.log(data)
+        populateInvaders(data['letters'], data['correct'], data['sound']);
+        //console.log(data);
       },
-      error:function(error){console.log(error)}
+      error:function(error){
+        console.log(error)
+      }
     });
 }
