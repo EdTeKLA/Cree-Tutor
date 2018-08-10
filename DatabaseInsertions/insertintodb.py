@@ -107,9 +107,9 @@ def cycleSound(directory_in_str):
             if "._" in new:
                 continue
             first, second = getfirstsecond(new)
-            new = unicodedata.normalize('NFKC', new)
-            first = unicodedata.normalize('NFKC', first)
-            second = unicodedata.normalize('NFKC', second)
+            new = unicodedata.normalize('NFC', new)
+            first = unicodedata.normalize('NFC', first)
+            second = unicodedata.normalize('NFC', second)
             executestring = "INSERT INTO letter_pair VALUES ('{}','{}','{}','{}')".format(new, finalpath, first, second)
             cursor.execute(executestring)
 
@@ -157,14 +157,14 @@ def cycleWords(directory_in_str, lemma_dict):
     directory = directory_in_str
 
     #read in file
-    with open(os.path.join(directory,WORDS_FILENAME), 'r') as readfile:
+    with open(os.path.join(directory,WORDS_FILENAME), 'r', encoding='utf-8') as readfile:
         word_lines = readfile.readlines()
 
     #cycle through lines
     count = 0
     for e in word_lines:
         #No double characters! No other funny business!
-        content = unicodedata.normalize("NFKC", e)
+        content = unicodedata.normalize("NFC", e)
         #Split the columns into a list
         content_as_list = content.split('\t')
         #If there aren't enough columns, print which word caused the failure
@@ -226,8 +226,9 @@ def cycleWords(directory_in_str, lemma_dict):
                 gram_code,
                 )
 
-            if word_id == 0:
-                print(add_to_executestring)
+            if word_id == 3:
+                print([ord(e) for e in lemma])
+                print(lemma)
             executestring = "INSERT INTO word(word_id, word, translation, num_syllables, sound, lemmaID_id, gram_code_id) VALUES"
             executestring += add_to_executestring
             executestring = executestring.replace("\n", "")
@@ -283,7 +284,7 @@ def cycleWords(directory_in_str, lemma_dict):
             if "'{}',".format(new) in executestring:
                 continue
             num_syllables = syllables(new)
-            new = unicodedata.normalize('NFKC', new)
+            new = unicodedata.normalize('NFC', new)
             executestring += "({},'{}', NULL, {}, NULL, NULL, NULL),".format(word_id, new, num_syllables)
             word_id +=1
 
@@ -338,7 +339,7 @@ def cycleLetters(directory_in_str):
             new = new.replace('.m4a', '')
             if "._" in new:
                 continue
-            new = unicodedata.normalize('NFKC', new)
+            new = unicodedata.normalize('NFC', new)
             executestring = "INSERT INTO alphabet VALUES ('{}','','{}')".format(new, finalpath)
             cursor.execute(executestring)
 
@@ -395,7 +396,7 @@ def consonant():
 
 def cycleGramCodes(directory_in_str):
     directory = directory_in_str
-    with open(os.path.join(directory,GRAMCODE_FILENAME), 'r') as doc:
+    with open(os.path.join(directory,GRAMCODE_FILENAME), 'r', encoding='utf-8') as doc:
         lines = doc.readlines()
 
     for l in lines:
@@ -407,7 +408,7 @@ def cycleGramCodes(directory_in_str):
 
 def cycleLemma(directory_in_str):
     directory = directory_in_str
-    with open(os.path.join(directory,LEMMA_FILENAME), 'r') as doc:
+    with open(os.path.join(directory,LEMMA_FILENAME), 'r', encoding='utf-8') as doc:
         lines = doc.readlines()
 
     lemma_id = 0
@@ -419,7 +420,7 @@ def cycleLemma(directory_in_str):
     #TODO add translation stuff
 
     for l in lines:
-        content = unicodedata.normalize('NFKC', l)
+        content = unicodedata.normalize('NFC', l)
 
         #strip code to remove '\n'
         stripped_code = content.strip()
