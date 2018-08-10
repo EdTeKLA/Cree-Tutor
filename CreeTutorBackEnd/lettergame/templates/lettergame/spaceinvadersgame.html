@@ -17,6 +17,8 @@
 
 <script src="https://pixijs.download/release/pixi.min.js"></script>
 <script src="{% static 'lettergame/js/pixi.min.js' %}"></script>
+<script src="{% static 'lettergame/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'lettergame/js/invaders_log.js' %}"></script>
 
 
 
@@ -51,10 +53,15 @@
 
 
                     //var _renderer = PIXI.autoDetectRenderer(400, 250, canvas, false, true);
-        var app = new PIXI.Application(500, 500, false, false);
+        let genBoundaries = { width: 500, height: 500 };
+        var app = new PIXI.Application(genBoundaries.width, genBoundaries.height, false, false);
+        app.renderer.view.style.position.x = 200;
+        app.renderer.view.style.position.x = 200;
+        //app.renderer.position.y = 25;
 
         document.body.appendChild(app.view);
-        app.renderer.backgroundColor = 0xC6E9F5;
+            app.renderer.backgroundColor = 0xC6E9F5;
+
 
         //Add images to
         PIXI.loader
@@ -77,7 +84,8 @@
 
             //functions of code start
             //initialize global variables of functions below
-            let shooter1, state, bottomBoundary, bullet, invader, invaders, invadershot, shooter1hit;
+            let shooter1, state, bottomBoundary, bullet, invader, invadershot, shooter1hit;
+            var invaders = [];
             var text;
             let bullets = [];
             let pow_array = [];
@@ -85,6 +93,10 @@
             let correctArr = [];
             let incorrArr = [];
 
+            var invaderBoundaries = genBoundaries.height + 30;
+            let options = [];
+            var audio;
+            var gamesBar;
             function boundaries() {
 
                 let bg = 12,
@@ -95,8 +107,8 @@
                     let y = 50 * i;
 
                     backGrass.x = x;
+                    backGrass.width = genBoundaries.width;
                     backGrass.y = y;
-
                     bgs.push(backGrass);
                     app.stage.addChild(backGrass);
 
@@ -104,64 +116,66 @@
 
 
                     grass.beginFill(0x000000, 0.036);
-                    grass.drawRect(0, 0, 500, 500);
+                    grass.drawRect(0, 0, genBoundaries.width, genBoundaries.height);
                     grass.endFill();
                     app.stage.addChild(grass);
                 }
-                let bottomBoundaries = 17,
+                let bottomBoundaries = 1,
                     spacing = 30,
                     xOffset = 0;
 
                 //array to store all bottom boundary blocks
                 bottomBlocks = [];
                 //for loop adds blocks until bottom row of stage is filled with grass
-                for (let i = 0; i < bottomBoundaries; i++) {
+                let i = 0;
+                while(true) {
                     //create sprite
                     let bottomBoundary = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bottomboundary.png' %}"].texture);
                     let x = spacing * i + xOffset;
-                    let y = 470;
+                    let y = genBoundaries.height - 30;
 
                     bottomBoundary.x = x;
                     bottomBoundary.y = y;
 
                     bottomBlocks.push(bottomBoundary);
-                    app.stage.addChild(bottomBoundary)
+                    app.stage.addChild(bottomBoundary);
+                    if(i * bottomBoundary.width > genBoundaries.width) { break;}
+                    i += 1;
                 }
             }
             function setup() {
                  //add sprite to stage at starting position
                 shooter1 = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/shooter-3.png' %}"].texture);
-                shooter1.x = 225;
-                shooter1.y = 450;
+                shooter1.x = genBoundaries.width/2;
+                shooter1.y = genBoundaries.height - 50;
                 shooter1.vx = 0;
                 shooter1.vy = 0;
                 app.stage.addChild(shooter1);
                // let level = "{{level}}";
-                let options = [];
+
                 {% for letter in letters %}
-                options.push("{{letter.name}}");
+                options.push("{{letter}}");
                 //var text = new PIXI.Text("{{letter.name}}", { font: "30px Arial",outline-color: black fill: "red" });
                 /*text.x = invader.x;
                 text.y = invader.y + 10;*/
                 //app.stage.addChild(text);
 
                 {% endfor %}
-                //let sound = ("{% static ''%}{{sound.sound}}");
 
-                var audio = new Audio("{% static ''%}{{sound.sound}}");
-                audio.play();
-                let correct = new String("{{sound.name}}");
-
-                //let correct = string.substring(34, 35);
+                // var audio = new Audio("{% static ''%}{{sound}}");
+                // audio.play();
+                let sound = new String("{{sound}}");
+                //console.log(sound);
+                let correct = new String("{{correct}}");
 
                 //create specifics of sprite 'bullet'
 
                 bullet = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bullet2.png' %}"].texture);
-
+                gamesBar = new PIXI.Container();
                 var infoBar = new PIXI.Graphics();
                 infoBar.beginFill(0x342A02, 1);
-                infoBar.drawRect(0, 0, 500, 30);
-                app.stage.addChild(infoBar);
+                infoBar.drawRect(0, 0, genBoundaries.width, 30);
+                gamesBar.addChild(infoBar);
 
                 //Create the health bar                      //Create the points bar
                 var style = new PIXI.TextStyle({                //var style = new PIXI.TextStyle({
@@ -177,12 +191,12 @@
                 var health = new PIXI.Text('HEALTH : ', style);
                 health.x = 10;
                 health.y = 7;
-                app.stage.addChild(health);
+                gamesBar.addChild(health);
 
                 healthBar = new PIXI.Container();
                 healthBar.x = 70;
                 healthBar.y = 10;
-                app.stage.addChild(healthBar);
+                gamesBar.addChild(healthBar);
 
                 //Create the black background rectangle
                 let innerhBar = new PIXI.Graphics();
@@ -218,12 +232,12 @@
                 var points = new PIXI.Text('POINTS : ', style);
                 points.x = 330;
                 points.y = 7;
-                app.stage.addChild(points);
+                gamesBar.addChild(points);
 
                 pointBar = new PIXI.Container();
                 pointBar.x = 390;
                 pointBar.y = 10;
-                app.stage.addChild(pointBar);
+                gamesBar.addChild(pointBar);
 
                 //Create the black background rectangle
                 let innerpBar = new PIXI.Graphics();
@@ -246,75 +260,10 @@
 
                 pointBar.outer = outerpBar;
                 pointBar.outer.width = 0;
+                // invaders = [];
 
-
-
-                //creare invader as a sprite and invadershot as sprite
-                // invader = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invader2.png' %}"].texture);
-                invadershot = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invadershot2.png' %}"].texture);
-
-                let
-                    numofInvaders = options.length;
-                    //spacing = 30;
-
-                if (level === 'easy') {
-                    speed = 2;
-                    spacing = 70;
-                    xOffset = 0;
-                } else if (level === 'med') {
-                    speed = 2.25;
-                    spacing = 50;
-                    xOffset = 0;
-                } else if (level === 'hard') {
-                    speed = 2.5;
-                    spacing = 30;
-                    xOffset = -10;
-                }
-                direction = 1;
-
-                invaders = [];
-
-                for (let i = 0; i < numofInvaders; i++) {
-                    invader = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invader3.png' %}"].texture);
-
-                    let x = spacing * i + xOffset;
-                    let y = 40;
-                    invader.x = x;
-                    invader.y = y;
-
-                    invader.vx = speed * direction;
-                   // direction *= -1;
-                    var style = new PIXI.TextStyle({
-                        fontFamily: 'Arial',
-                        fontSize: 20,
-                        fontStyle: 'italic',
-                        fontWeight: 'bold',
-                        fill: ['#ffffff'],
-                        stroke: '#000000',
-                        strokeThickness: 3,
-
-                    });
-                    // let randomValue = randomInt(0, numofInvaders);
-                    text = new PIXI.Text(options[i], style);
-                    text.x += 5;
-                    text.y += 20;
-                    if (options[i] == correct) {
-
-
-                        correctArr.push(invader);
-                    }else{
-                        incorrArr.push(invader);
-                    }
-
-                    invader.addChild(text);
-                    //put current invader inside invaders arraay
-                    invaders.push(invader);
-                    //add invader to stage
-                    app.stage.addChild(invader);
-                }
-
-
-
+                app.stage.addChild(gamesBar);
+                populateInvaders(options, correct, sound);
 
                 //Capture the keyboard arrow keys for use in moving 'shooter1'
                 let left = keyboard(37),
@@ -431,8 +380,12 @@
 
             }
             function play(delta) {
+                if (wait(2000, audio) === true) {
+                    audio.play();
+                    audio.time = new Date().getTime();
+                }
                 let shooter1Hit;
-                let Contain = { x: 0, y: 0, width: 500, height: 500 };
+                let Contain = { x: 0, y: 0, width: genBoundaries.width, height: genBoundaries.heigth };
                 let shooter1hitsWall = contain(shooter1, Contain);
 
                 if (shooter1hitsWall === "left" || shooter1hitsWall === "right") {
@@ -442,21 +395,32 @@
                 //Use the shooter1's velocity to make it move
                 shooter1.x += shooter1.vx;
                 shooter1.y += shooter1.vy;
-                for (let i = 1; i < (invaders.length + 1); i++) {
-                    s = 640 / (invaders.length + 1);
-                    let Width = ((i-1) * s) + s;
-                    let x = (i-1) * s + 30;
-                    invaders[i-1].x += invaders[i-1].vx;
-                    let invaderhitsWall = contain(invaders[i-1], { x: x, y: 40, width: Width, height: 500 });
-                    if (invaderhitsWall === "right" || invaderhitsWall === "left") {
-                        invaders[i-1].vx *= -1;
-                        invaders[i - 1].y += 10;
-                      // invaders[i-1].anchor.x = 1;     /* 0 = top, 0.5 = center, 1 = bottom */
-                        invaders[i - 1].scale.x *= -1;    /* flip vertically */
-
+                flipEm();
+               /* for (let n = 1; n < 3; n++) {
+                    if (level === 'easy') {
+                        invaderLimit = 3;
+                    } else if (level === 'med') {
+                        invaderLimit = 4;
+                    } else if (level === 'hard') {
+                        invaderLimit = 5;
                     }
-                }
-                let hitCheck;
+
+                    for (let i = 0; i < invaders.length; i++) {
+                        s = 500 / (invaderLimit);
+                        let Width = ((i) * s) + s;
+                        let x = (i) * s +20;
+                        invaders[i].x += invaders[i].vx;
+                        let invaderhitsWall = contain(invaders[i], { x: x, y: 0, width: Width, height: invaderBoundaries });
+                        if (invaderhitsWall === "right" || invaderhitsWall === "left") {
+                            invaders[i].vx *= -1;
+                            invaders[i].y += 10;
+                            // invaders[i-1].anchor.x = 1;     /* 0 = top, 0.5 = center, 1 = bottom
+                            invaders[i].scale.x *= -1;     flip vertically
+                        }
+                    }
+
+                }*/
+                let hitCheck = false;
                 let wrongCheck = false;
                  gotHit = [];
                  hitInvader = [];
@@ -464,14 +428,20 @@
                     for (let i = 0; i < bullets.length; i++) {
                         let destroyInvader = hitTestRectangle(bullets[i], invaders[j]);
                         if (destroyInvader === true) {
-                            hitCheck;
-                            if (correctArr[0] === invaders[j]) {
-                                //console.log('correct');
-                                hitCheck = true;
-                            } else {
-                              wrongCheck = true;
-                                //console.log('wrong')
+                            for (let t = 0; t < correctArr.length; t++) {
+
+                                if (correctArr[t] === invaders[j]) {
+                                   //console.log('correct');
+                                   hitCheck = true;
+                                } else {
+                                    wrongCheck = true;
+
+                                    //console.log('wrong')
+                                }
+
                             }
+                            //console.log(hitCheck);
+                            // TODO: Potential bug: When two invaders leave screen at once, one may stay frozen on stage
                             app.stage.removeChild(invaders[j]);
                             app.stage.removeChild(bullets[i]);
                             gotHit.push(j);
@@ -483,6 +453,12 @@
                             invadershot.time = new Date().getTime();
                             pow_array.push(invadershot)
                             app.stage.addChild(pow_array[pow_array.length - 1]);
+                            if (hitCheck === true){
+                              postInvaders();
+                              // console.log(newGuys);
+                              // populateInvaders(newGuys['letters'], newGuys['correct']);
+                            }
+                            destroyInvader = false;
 
                         }
                     }
@@ -490,8 +466,8 @@
                     if (hitTestRectangle(shooter1, invaders[j])) {
                         shooter1Hit = true;
                     }
-
-                    if (shooter1Hit) {
+                    let invaderhitsWall = contain(invaders[j], { x: 0, y: -50, width: genBoundaries.width, height: invaderBoundaries });
+                    if (invaderhitsWall === "bottom") {
 
                         app.stage.removeChild(invaders[j]);
                         gotHit.push(j);
@@ -509,45 +485,55 @@
                         //Reduce the width of the health bar's inner rectangle by 1 pixel
                         let noHarm = false;
                         for (i = 0; i < incorrArr.length; i++) {
+
                             if (invaders[j] === incorrArr[i]) {
+
                                 noHarm = true;
                             }
                         }
-                        if (level === 'easy') {
+                        //console.log(noHarm);
+                        if (noHarm === true) {
+                            if (level === 'easy') {
+                                healthBar.outer.width -= 18;
+                            } else if (level === 'med') {
+                                healthBar.outer.width -= 12.85;
+                            } else if (level === 'hard') {
+                                healthBar.outer.width -= 10;
+                            }
+                            noHarm = false;
+                        }
+                       /* if (level === 'easy') {
 
-                            if (noHarm === false) {
-                                healthBar.outer.width -= 40;
-                                if (healthBar.outer.width <= 0) {
+                            if (noHarm === true) {
+                                healthBar.outer.width -= 18;
+
+                                if (healthBar.outer.width < 0) {
                                     healthBar.outer.width = 0;
                                 }
-                            } else {
-                                healthBar.outer.width -= 0;
                                 noHarm = false;
                             }
 
                         } else if (level === 'med') {;
-                            if (noHarm === false) {
-                                healthBar.outer.width -= 23;
-                                if (healthBar.outer.width <= 0) {
+                            if (noHarm === true) {
+                                healthBar.outer.width -= 12.85;
+
+                                if (healthBar.outer.width <0) {
                                     healthBar.outer.width = 0;
                                 }
-                            } else {
-                                healthBar.outer.width -= 0;
                                 noHarm = false;
                             }
                         } else if (level === 'hard') {
-                            if (noHarm === false) {
+                            if (noHarm === true) {
+                                healthBar.outer.width -= 10;
 
-                                if (healthBar.outer.width <= 0) {
+                                if (healthBar.outer.width < 0) {
                                     healthBar.outer.width = 0;
                                 } else {
-                                    healthBar.outer.width -= 18;
+
                                 }
-                            } else {
-                                healthBar.outer.width -= 0;
                                 noHarm = false;
                             }
-                        }
+                        }*/
 
 
                         shooter1Hit = false;
@@ -570,14 +556,27 @@
                     hitCheck = false;
                 }
 
+
                 if(wrongCheck){
-                  if(level === 'easy'){
-                    healthBar.outer.width -= 10;
+                    if (level === 'easy') {
+                        if (healthBar.outer.width < 0) {
+                            healthBar.outer.width = 0;
+                        } else {
+                            healthBar.outer.width -= 80;
+                        }
                   }else if (level === 'med'){
-                    healthBar.outer.width -= 20;
+                        if (healthBar.outer.width < 0) {
+                            healthBar.outer.width = 0;
+                        } else {
+                            healthBar.outer.width -= 20;
+                        }
                   }else if(level === 'hard'){
-                    healthBar.outer.width -= 30;
-                    }
+                        if (healthBar.outer.width < 0) {
+                            healthBar.outer.width = 0;
+                        } else {
+                            healthBar.outer.width -= 30;
+                        }
+                  }
                     wrongCheck = false;
                 }
 
@@ -595,7 +594,7 @@
 
                 out_of_bounds = [];
                 for (let i = 0; i < bullets.length; i += 1) {
-                    let bullethitsWall = contain(bullets[i], { x: 0, y: 41, width: 500, height: 500 });
+                    let bullethitsWall = contain(bullets[i], { x: 0, y: 41, width: genBoundaries.width, height: genBoundaries.heigth });
                     if (bullethitsWall === "top") {
                         app.stage.removeChild(bullets[i]);
                         out_of_bounds.push(i);
@@ -608,7 +607,12 @@
                     bullets.splice(out_of_bounds[j], 1);
 
                 }
-
+                if (healthBar.outer.width < 0) {
+                    healthBar.outer.width = 0;
+                }
+                if (pointBar.outer.width > 90) {
+                    pointBar.outer.width = 90;
+                }
 
             }
             function contain(sprite, Contain) {
@@ -695,7 +699,7 @@
                 if (end < start + ms) {
                     end = new Date().getTime();
                 } else {
-                    return true
+                    return true;
                 }
             }
         function arraySplice(mainArray, notinUse) {
@@ -712,6 +716,124 @@
                 //end game make it a choice to play again
 
         }
+
+        function populateInvaders(options, correct, sound) {
+            s = "{% static '' %}" + sound;
+            audio = new Audio(s);
+            audio.time = new Date().getTime();
+            audio.play();
+
+            c = "{% static '' %}" + correct;
+           // var correct = new String(c);
+          invadershot = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invadershot2.png' %}"].texture);
+
+          let numofInvaders = options.length;
+              //spacing = 30;
+
+          if (level === 'easy') {
+              speed = 1;
+              spacing = 70;
+              xOffset = 0;
+          } else if (level === 'med') {
+              speed = 1.25;
+              spacing = 50;
+              xOffset = 0;
+          } else if (level === 'hard') {
+            speed = 1.5;
+            spacing = 30;
+            xOffset = -10;
+          }else{
+            console.log("ERROR: Level not properly passed in spaceinvadersgame.html, lines 262 - 274");
+          }
+          direction = 1;
+
+          // invaders = [];
+            barIndex = app.stage.getChildIndex(gamesBar);
+          for (let i = 0; i < numofInvaders; i++) {
+              invader = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invader3.png' %}"].texture);
+
+              let x = spacing * i + xOffset;
+              let y = -30 * i;
+              invader.x = x;
+              invader.y = y;
+
+              invader.vx = speed * direction;
+             // direction *= -1;
+              var style = new PIXI.TextStyle({
+                  fontFamily: 'Arial',
+                  fontSize: 20,
+                  fontStyle: 'italic',
+                  fontWeight: 'bold',
+                  fill: ['#ffffff'],
+                  stroke: '#000000',
+                  strokeThickness: 2.5,
+
+              });
+              // let randomValue = randomInt(0, numofInvaders);
+              text = new PIXI.Text(options[i], style);
+              text.x += 5;
+              text.y += 20;
+              console.log(correct);
+              if (options[i] === (correct.substring(0, 1))) {
+
+                  correctArr.push(invader);
+                //  console.log(invader);
+              }else{
+                  incorrArr.push(invader);
+
+              }
+
+              invader.addChild(text);
+              //put current invader inside invaders arraay
+              invaders.push(invader);
+              //add invader to stage
+              app.stage.addChildAt(invader, barIndex - 1);
+          }
+            setPosition();
+
+        }
+
+            function setPosition() {
+              //  for (let n = 1; n < 3; n++) {
+                    if (level === 'easy') {
+                        invaderLimit = 3;
+                    } else if (level === 'med') {
+                        invaderLimit = 4;
+                    } else if (level === 'hard') {
+                        invaderLimit = 5;
+                    }
+
+                for (let i = 0; i < invaders.length; i++) {
+                        j = i % invaderLimit;
+                        s = genBoundaries.width / (invaderLimit);
+                        let Width = ((j) * s) + s;
+                        let x = (j) * s + 20;
+                        invaders[i].leftBound = x;
+                        invaders[i].widthBound = Width;
+                        //let invaderhitsWall = contain(invaders[i], { x: x, y: -50, width: Width, height: invaderBoundaries });
+                    for (let j = 0; j < invaders.length; j++) {
+                        if (invaders[i].x === invaders[j].x && i != j) {
+                            invaders[i].x += 20;
+                        }
+                    }
+                }
+
+            }
+
+            function flipEm() {
+                for (let i = 0; i < invaders.length; i++) {
+                    invaders[i].x += invaders[i].vx;
+                    let invaderhitsWall = contain(invaders[i], { x: invaders[i].leftBound, y: -50, width: invaders[i].widthBound, height: invaderBoundaries });
+                    if (invaderhitsWall === "right" || invaderhitsWall === "left") {
+                        invaders[i].vx *= -1;
+                        invaders[i].y += 10;
+                        // invaders[i-1].anchor.x = 1;     /* 0 = top, 0.5 = center, 1 = bottom */
+                        invaders[i].scale.x *= -1;    /* flip vertically */
+                        invaders[i].children[0].scale.x *= -1;
+                    }
+                }
+            }
+           // }
     </script>
         </center>
     <font size="2.5" color="white" face="arial">

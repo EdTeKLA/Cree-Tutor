@@ -124,14 +124,15 @@ def invaders(request, level):
     if request.method == 'GET':
         letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
         letters = letters[:num]
-        sound = random.choice(letters)
-        sound.name = sound.letter
-        for letter in letters:
-            letter.name = letter.letter
-        context = {
-        'letters': letters, 'sound':sound, 'level':level
-        }
+        context = getOptions(letters, 'letter')
+        context['level'] = level
         return render(request, 'lettergame/spaceinvadersgame.html', context)
-
+    elif request.method == 'POST':
+        letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
+        letters = letters[:num]
+        context = getOptions(letters, 'letter')
+        context['level'] = level
+        return JsonResponse(context)
     else:
-        return HttpResponse('ERROR: POST request passed to views.invaders')
+        return HttpResponse('ERROR: request methods improperly passed to views.invaders')
+
