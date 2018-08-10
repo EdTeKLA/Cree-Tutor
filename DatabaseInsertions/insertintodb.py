@@ -1,4 +1,3 @@
-
 from getpass import getpass
 import MySQLdb
 import os
@@ -10,7 +9,7 @@ db = None
 cursor = None
 
 #Set filenames
-GRAMCODE_FILENAME = 'sorted_gram_codes.txt'
+GRAMCODE_FILENAME = 'gram_codes.txt'
 LEMMA_FILENAME = 'lemmas.txt'
 WORDS_FILENAME = 'words_for_db.txt'
 
@@ -69,9 +68,11 @@ def emptyDb():
     # THIS ORDER MATTERS. letter_pair has foreign keys that reference alphabet, and mysql will throw a key error otherwise
     cursor.execute("delete from letter_pair")
     cursor.execute("delete from alphabet")
-    cursor.execute("delete from gram_code")
-    cursor.execute("delete from lemma")
     cursor.execute("delete from word")
+    cursor.execute("delete from lemma")
+    cursor.execute("delete from gram_code")
+
+
 
     db.commit()
 
@@ -105,9 +106,9 @@ def cycleSound(directory_in_str):
             if "._" in new:
                 continue
             first, second = getfirstsecond(new)
-            new = unicodedata.normalize('NFC', new)
-            first = unicodedata.normalize('NFC', first)
-            second = unicodedata.normalize('NFC', second)
+            new = unicodedata.normalize('NFKC', new)
+            first = unicodedata.normalize('NFKC', first)
+            second = unicodedata.normalize('NFKC', second)
             executestring = "INSERT INTO letter_pair VALUES ('{}','{}','{}','{}')".format(new, finalpath, first, second)
             cursor.execute(executestring)
 
@@ -159,9 +160,10 @@ def cycleWords(directory_in_str, lemma_dict):
         word_lines = readfile.readlines()
 
     #cycle through lines
+    count = 0
     for e in word_lines:
         #No double characters! No other funny business!
-        content = unicodedata.normalize("NFC", e)
+        content = unicodedata.normalize("NFKC", e)
         #Split the columns into a list
         content_as_list = content.split('\t')
         #If there aren't enough columns, print which word caused the failure
@@ -177,6 +179,9 @@ def cycleWords(directory_in_str, lemma_dict):
             #get the stuff, man
             word = content_as_list[0]
             gram_code = content_as_list[1]
+            #print([ord(e) for e in gram_code])
+            if gram_code == '':
+                gram_code = 'NULL'
             translation = content_as_list[2]
             lemma = content_as_list[3]
             #make sure lemma is already in the db
@@ -188,7 +193,19 @@ def cycleWords(directory_in_str, lemma_dict):
             for i in f:
                 # fetchall returns everything as a tuple, i.e. of the form ('lemma',)
                 if lemma == i[0]:
-                    print("Lemma " + str(lemma) + " is in the DB")
+                    pass
+                    #print("Lemma " + str(lemma) + " is in the DB")
+
+            #find the lemma in the Lemma table
+            e = "SELECT * from gram_code where gram_code = '{}'".format(gram_code)
+            cursor.execute(e)
+            f = cursor.fetchone()
+            # for i in f:
+            #     # fetchall returns everything as a tuple, i.e. of the form ('lemma',)
+            #     if gram_code == i[0]:
+            #         print("Gram_CODE " + str(gram_code) + " is in the DB")
+            if not f:
+                print(gram_code + " is not in the db")
 
             #TODO for now, just save the first audio file. Eventually all.
             audio_files = content_as_list[4].split(',')[0]
@@ -204,25 +221,34 @@ def cycleWords(directory_in_str, lemma_dict):
                 translation,
                 num_syllables,
                 audio_files,
+                lemma_dict[lemma],
                 gram_code,
-                lemma_dict[lemma]
                 )
 
-            # if word_id == 0:
-            #     print(add_to_executestring)
+            if word_id == 0:
+                print(add_to_executestring)
+            executestring = "INSERT INTO word(word_id, word, translation, num_syllables, sound, lemmaID_id, gram_code_id) VALUES"
             executestring += add_to_executestring
+            executestring = executestring.replace("\n", "")
+            executestring = executestring[0:-1]
+            try:
+                cursor.execute(executestring)
+            except:
+                print(executestring)
+                count += 1
+
             word_id +=1
 
     #chop off the trailing comma
-    executestring = executestring[0:-1]
-    executestring = executestring.replace("\n", "")
-    # print(executestring)
-    cursor.execute(executestring)
+    print("Number of fails: " + str(count))
+    # executestring = executestring[0:-1]
+    # #print(executestring)
+    # executestring = executestring.replace("\n", "")
+    # cursor.execute(executestring)
     db.commit()
     return
 
 """ Delaneys cycleWords
-
     '''
     Function takes in a string path to the desired directory. Directory must be in static folder of django project.
     Cycles through directory and extracts individual names and paths. Passes individual names to function syllables to count the
@@ -230,11 +256,9 @@ def cycleWords(directory_in_str, lemma_dict):
     in database. Strips names of any non-alpha character and does not allow names with whitespace or duplicate names.
     Returns None
     '''
-
     # Cycle through directory
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
-
         # TODO: Currently hardcoded to only allow wav files
         if filename.endswith(".wav") or filename.endswith(".m4a"):
             pathname = os.path.join(directory, file)
@@ -255,10 +279,9 @@ def cycleWords(directory_in_str, lemma_dict):
             if "'{}',".format(new) in executestring:
                 continue
             num_syllables = syllables(new)
-            new = unicodedata.normalize('NFC', new)
+            new = unicodedata.normalize('NFKC', new)
             executestring += "({},'{}', NULL, {}, NULL, NULL, NULL),".format(word_id, new, num_syllables)
             word_id +=1
-
     executestring = executestring[0:-1]
     cursor.execute(executestring)
     db.commit()
@@ -310,7 +333,7 @@ def cycleLetters(directory_in_str):
             new = new.replace('.m4a', '')
             if "._" in new:
                 continue
-            new = unicodedata.normalize('NFC', new)
+            new = unicodedata.normalize('NFKC', new)
             executestring = "INSERT INTO alphabet VALUES ('{}','','{}')".format(new, finalpath)
             cursor.execute(executestring)
 
@@ -375,6 +398,7 @@ def cycleGramCodes(directory_in_str):
         stripped_code = l.strip()
         executestring = "INSERT INTO gram_code VALUES ('{}')".format(stripped_code)
         cursor.execute(executestring)
+    db.commit()
 
 def cycleLemma(directory_in_str):
     directory = directory_in_str
@@ -390,7 +414,7 @@ def cycleLemma(directory_in_str):
     #TODO add translation stuff
 
     for l in lines:
-        content = unicodedata.normalize('NFC', l)
+        content = unicodedata.normalize('NFKC', l)
 
         #strip code to remove '\n'
         stripped_code = content.strip()
@@ -399,7 +423,7 @@ def cycleLemma(directory_in_str):
                         lemma_id,
                         stripped_code,
                         )
-        # print(executestring + '\n')
+        #print(executestring + '\n')
         lemma_dict[stripped_code] = lemma_id
         cursor.execute(executestring)
         lemma_id += 1
@@ -428,16 +452,11 @@ def main():
 
 
     #cycle lemmas and obtain a list of added lemmas for cycleWords to use
-    # lemma_dict = cycleLemma(linguistics)
+    lemma_dict = cycleLemma(linguistics)
 
-    # cycleWords(linguistics, lemma_dict)
+    cycleWords(linguistics, lemma_dict)
     cycleLetters(alphabet)
     cycleSound(sound)
-
-    # cycleLemma(linguistics)
-    # cycleWords(linguistics)
-    # cycleLetters(alphabet)
-    # cycleSound(sound)
 
 
     db.commit()
