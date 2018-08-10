@@ -211,15 +211,14 @@ class LemmaGame(models.Model):
     class Meta:
         db_table = 'lemma_game'
 
-# class Creedictionarydotcom(models.Model):
-#     word = models.CharField(primary_key=True, max_length=250)
-#     plural = models.CharField(max_length=250, blank=True, null=True)
-#     syllabics = models.TextField(blank=True, null=True)
-#     pos = models.CharField(max_length=10)
-#     translation = models.CharField(max_length=250)
-#     dictionary = models.CharField(max_length=8)
-#
-#     class Meta:
-#         managed = False
-#         db_table = 'creedictionarydotcom'
-#         unique_together = (('word', 'pos', 'translation', 'dictionary'),)
+class Creedictionarydotcom(models.Model):
+    word = models.CharField(primary_key=True, max_length=250)
+    plural = models.CharField(max_length=250, blank=True, null=True)
+    syllabics = models.TextField(blank=True, null=True)
+    pos = models.CharField(max_length=10)
+    translation = models.CharField(max_length=250)
+    dictionary = models.CharField(max_length=8)
+
+    class Meta:
+        db_table = 'creedictionarydotcom'
+        unique_together = (('word', 'pos', 'translation', 'dictionary'),)
