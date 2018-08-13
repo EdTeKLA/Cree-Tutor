@@ -1,17 +1,17 @@
-﻿<!doctype html>
+<!doctype html>
 {% load static %}
 <html>
 <head>
 
-    <meta charset="utf-8">
-    <title>Space Invader !!</title>
-    <style>
-        body {
-            background-color: #BBc9b3;
-        }
-    </style>
+	<meta charset="utf-8">
+	<title>Space Invader !!</title>
+	<style>
+	body {
+		background-color: #BBc9b3;
+	}
+	</style>
 
-    <link rel="shortcut icon" href="favicon.ico" />
+	<link rel="shortcut icon" href="favicon.ico" />
 </head>
 
 
@@ -25,830 +25,832 @@
 
 <body>
 
-    <font size="6" color="white" face="arial">
-        <center>
-        <p>space invaders and it kinda works now! >:^) </p>
-            </center>
-    </font>
-
-
-    <center>
-        <script type="text/javascript">
-
-                            /*Space Invaders Game, JS code begins
-                            PIXI JS app used
-                            -creates stage 500x500 pixels on HTML webpage
-                            -creates graphic of grass along bottom of screen
-                            -creates 'shooter1' sprite on stage
-                            -enables 'shooter1' to move along stage horizontally and stay within boundaries
-                            - colour codes medicine wheel
-                                - 9F1212
-                                - C8BD1A
-                                - FFEF00
-                                - FF0000
-                                - B0CED9
-                            */
-
-
-
-
-                    //var _renderer = PIXI.autoDetectRenderer(400, 250, canvas, false, true);
-        let genBoundaries = { width: 500, height: 500 };
-        var app = new PIXI.Application(genBoundaries.width, genBoundaries.height, false, false);
-        app.renderer.view.style.position.x = 200;
-        app.renderer.view.style.position.x = 200;
-        //app.renderer.position.y = 25;
-
-        document.body.appendChild(app.view);
-            app.renderer.backgroundColor = 0xC6E9F5;
-
-
-        //Add images to
-        PIXI.loader
-            .add("{% static 'lettergame/image/shooter-3.png' %}")
-            .add("{% static 'lettergame/image/bottomboundary.png' %}")
-            .add("{% static 'lettergame/image/bullet2.png' %}")
-            .add("{% static 'lettergame/image/invader3.png' %}")
-            .add("{% static 'lettergame/image/invadershot2.png' %}")
-            .add("{% static 'lettergame/image/bg.png' %}")
-            .add("{% static 'lettergame/image/invaderR3.png'%}")
-            //calls function 'setup'
-            .load(boundaries)
-            .load(setup);
-
-       // let outerpBar = new PIXI.Graphics();
-      // PIXI.
-
-            //calls function 'boundaries'
-
-
-            //functions of code start
-            //initialize global variables of functions below
-            let shooter1, state, bottomBoundary, bullet, invader, invadershot, shooter1hit;
-            var invaders = [];
-            var text;
-            let bullets = [];
-            let pow_array = [];
-            let level = "{{level}}";
-            let correctArr = [];
-            let incorrArr = [];
-
-            var invaderBoundaries = genBoundaries.height + 30;
-            let options = [];
-            var audio;
-            var gamesBar;
-            function boundaries() {
-
-                let bg = 12,
-                    bgs = [];
-                for (let i = 0; i < bg; i++) {
-                    let backGrass = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bg.png' %}"].texture);
-                    let x = 0;
-                    let y = 50 * i;
-
-                    backGrass.x = x;
-                    backGrass.width = genBoundaries.width;
-                    backGrass.y = y;
-                    bgs.push(backGrass);
-                    app.stage.addChild(backGrass);
-
-                    let grass = new PIXI.Graphics();
-
-
-                    grass.beginFill(0x000000, 0.036);
-                    grass.drawRect(0, 0, genBoundaries.width, genBoundaries.height);
-                    grass.endFill();
-                    app.stage.addChild(grass);
-                }
-                let bottomBoundaries = 1,
-                    spacing = 30,
-                    xOffset = 0;
-
-                //array to store all bottom boundary blocks
-                bottomBlocks = [];
-                //for loop adds blocks until bottom row of stage is filled with grass
-                let i = 0;
-                while(true) {
-                    //create sprite
-                    let bottomBoundary = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bottomboundary.png' %}"].texture);
-                    let x = spacing * i + xOffset;
-                    let y = genBoundaries.height - 30;
-
-                    bottomBoundary.x = x;
-                    bottomBoundary.y = y;
-
-                    bottomBlocks.push(bottomBoundary);
-                    app.stage.addChild(bottomBoundary);
-                    if(i * bottomBoundary.width > genBoundaries.width) { break;}
-                    i += 1;
-                }
-            }
-            function setup() {
-                 //add sprite to stage at starting position
-                shooter1 = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/shooter-3.png' %}"].texture);
-                shooter1.x = genBoundaries.width/2;
-                shooter1.y = genBoundaries.height - 50;
-                shooter1.vx = 0;
-                shooter1.vy = 0;
-                app.stage.addChild(shooter1);
-               // let level = "{{level}}";
-
-                {% for letter in letters %}
-                options.push("{{letter}}");
-                //var text = new PIXI.Text("{{letter.name}}", { font: "30px Arial",outline-color: black fill: "red" });
-                /*text.x = invader.x;
-                text.y = invader.y + 10;*/
-                //app.stage.addChild(text);
-
-                {% endfor %}
-
-                // var audio = new Audio("{% static ''%}{{sound}}");
-                // audio.play();
-                let sound = new String("{{sound}}");
-                //console.log(sound);
-                let correct = new String("{{correct}}");
-
-                //create specifics of sprite 'bullet'
-
-                bullet = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bullet2.png' %}"].texture);
-                gamesBar = new PIXI.Container();
-                var infoBar = new PIXI.Graphics();
-                infoBar.beginFill(0x342A02, 1);
-                infoBar.drawRect(0, 0, genBoundaries.width, 30);
-                gamesBar.addChild(infoBar);
-
-                //Create the health bar                      //Create the points bar
-                var style = new PIXI.TextStyle({                //var style = new PIXI.TextStyle({
-                    fontFamily: 'Arial',
-                    fontSize: 12,
-                    fontStyle: 'italic',
-                    fontWeight: 'bold',
-                    fill: ['#FFFFFF'], // gradient
-                    stroke: '#000000',
-                    strokeThickness: 2,
-
-                });
-                var health = new PIXI.Text('HEALTH : ', style);
-                health.x = 10;
-                health.y = 7;
-                gamesBar.addChild(health);
-
-                healthBar = new PIXI.Container();
-                healthBar.x = 70;
-                healthBar.y = 10;
-                gamesBar.addChild(healthBar);
-
-                //Create the black background rectangle
-                let innerhBar = new PIXI.Graphics();
-
-                innerhBar.lineStyle(3, 0x000000, 1);
-                innerhBar.beginFill(0x000000, 1);
-                innerhBar.drawRoundedRect(0, 0, 90, 10, 7);
-                innerhBar.endFill();
-                healthBar.addChild(innerhBar);
-
-
-                //Create the front red rectangle
-                let outerhBar = new PIXI.Graphics();
-
-                outerhBar.beginFill(0xFF0000, 1);
-                outerhBar.drawRoundedRect(0, 0, 90, 10, 7);
-                healthBar.addChild(outerhBar);
-
-                healthBar.outer = outerhBar;
-
-
-                //Create the points bar
-                var style = new PIXI.TextStyle({
-                    fontFamily: 'Arial',
-                    fontSize: 12,
-                    fontStyle: 'italic',
-                    fontWeight: 'bold',
-                    fill: ['#FFFFFF'], // gradient
-                    stroke: '#000000',
-                    strokeThickness: 2,
-
-                });
-                var points = new PIXI.Text('POINTS : ', style);
-                points.x = 330;
-                points.y = 7;
-                gamesBar.addChild(points);
-
-                pointBar = new PIXI.Container();
-                pointBar.x = 390;
-                pointBar.y = 10;
-                gamesBar.addChild(pointBar);
-
-                //Create the black background rectangle
-                let innerpBar = new PIXI.Graphics();
-
-                innerpBar.lineStyle(3, 0x000000, 1);
-                innerpBar.beginFill(0x000000, 1);
-                innerpBar.drawRoundedRect(0, 0, 90, 10, 7);
-                innerpBar.endFill();
-                pointBar.addChild(innerpBar);
-
-                pointBar.inner = innerpBar;
-
-                //Create the front red rectangle
-                let outerpBar = new PIXI.Graphics();
-
-                outerpBar.beginFill(0xFFEF00, 1);
-                outerpBar.drawRoundedRect(0, 0, 90, 10, 7);
-
-                pointBar.addChild(outerpBar);
-
-                pointBar.outer = outerpBar;
-                pointBar.outer.width = 0;
-                // invaders = [];
-
-                app.stage.addChild(gamesBar);
-                populateInvaders(options, correct, sound);
-
-                //Capture the keyboard arrow keys for use in moving 'shooter1'
-                let left = keyboard(37),
-                shoot = keyboard(32),
-                right = keyboard(39),
-                down = keyboard(40);
-                upCount = 0;
-
-                //Left arrow key `press` method
-                //Change the shooter1's velocity when the key is pressed
-                left.press = () => {
-                shooter1.vx = -3;
-                shooter1.vy = 0;
-                };
-
-                //Left arrow key `release` method
-                left.release = () => {
-                //If the left arrow has been released, and the right arrow isn't down,
-                //and the shooter1 isn't moving vertically:
-                //Stop the shooter1
-                if (!right.isDown && shooter1.vy === 0) {
-                shooter1.vx = 0;
-                }
-                };
-
-
-                //Space bar shoot
-                shoot.press = () => {
-
-
-                    if (wait(500, bullet) === true) {
-                         upCount++
-                         let bulletNum = upCount;
-                            bullet = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bullet2.png' %}"].texture);
-                            bullets.push(bullet);
-                            bullet.vy = -15;
-                            bullet.y = 460;
-                            bullet.x = (shooter1.x );
-                            app.stage.addChild(bullet);
-                            bullet.time = new Date().getTime();
-                    }
-                };
-                shoot.release = () => {
-                    if (!down.isDown && shooter1.vx === 0) {
-                        shooter1.vy = 0;
-
-                    }
-                };
-                //Right
-                right.press = () => {
-                    shooter1.vx = 3;
-                    shooter1.vy = 0;
-                };
-                right.release = () => {
-                    if (!left.isDown && shooter1.vy === 0) {
-                        shooter1.vx = 0;
-                    }
-                };
-                //Down
-                down.press = () => {
-                    shooter1.vy = 0;
-                    shooter1.vx = 0;
-                };
-                down.release = () => {
-                    if (!shoot.isDown && shooter1.vx === 0) {
-                        shooter1.vy = 0;
-                    }
-                };
-
-                //Set the game state
-                //call function 'play'
-                state = play;
-
-                //Start the game loop
-                //call function 'gameLoop'
-                app.ticker.add(delta => gameLoop(delta));
-            }
-            function keyboard(keyCode) {
-                //function initializes keyboard keys as used to move sprites
-                let key = {};
-                key.code = keyCode;
-                key.isDown = false;
-                key.isUp = true;
-                key.press = undefined;
-                key.release = undefined;
-                //The `downHandler`
-                key.downHandler = event => {
-                if (event.keyCode === key.code) {
-                if (key.isUp && key.press) key.press();
-                key.isDown = true;
-                key.isUp = false;
-                }
-                event.preventDefault();
-                };
-
-                //The `upHandler`
-                key.upHandler = event => {
-                if (event.keyCode === key.code) {
-                if (key.isDown && key.release) key.release();
-                key.isDown = false;
-                key.isUp = true;
-                }
-                event.preventDefault();
-                };
-
-                //Attach event listeners
-                window.addEventListener("keydown", key.downHandler.bind(key), false);
-                window.addEventListener("keyup", key.upHandler.bind(key), false);
-                return key;
-            }
-            function gameLoop(delta) {
-                //function will update the current game state:
-                 state(delta);
-
-            }
-            function play(delta) {
-                if (wait(2000, audio) === true) {
-                    audio.play();
-                    audio.time = new Date().getTime();
-                }
-                let shooter1Hit;
-                let Contain = { x: 0, y: 0, width: genBoundaries.width, height: genBoundaries.heigth };
-                let shooter1hitsWall = contain(shooter1, Contain);
-
-                if (shooter1hitsWall === "left" || shooter1hitsWall === "right") {
-                    shooter1.vx = 0;
-                }
-
-                //Use the shooter1's velocity to make it move
-                shooter1.x += shooter1.vx;
-                shooter1.y += shooter1.vy;
-                flipEm();
-               /* for (let n = 1; n < 3; n++) {
-                    if (level === 'easy') {
-                        invaderLimit = 3;
-                    } else if (level === 'med') {
-                        invaderLimit = 4;
-                    } else if (level === 'hard') {
-                        invaderLimit = 5;
-                    }
-
-                    for (let i = 0; i < invaders.length; i++) {
-                        s = 500 / (invaderLimit);
-                        let Width = ((i) * s) + s;
-                        let x = (i) * s +20;
-                        invaders[i].x += invaders[i].vx;
-                        let invaderhitsWall = contain(invaders[i], { x: x, y: 0, width: Width, height: invaderBoundaries });
-                        if (invaderhitsWall === "right" || invaderhitsWall === "left") {
-                            invaders[i].vx *= -1;
-                            invaders[i].y += 10;
-                            // invaders[i-1].anchor.x = 1;     /* 0 = top, 0.5 = center, 1 = bottom
-                            invaders[i].scale.x *= -1;     flip vertically
-                        }
-                    }
-
-                }*/
-                let hitCheck = false;
-                let wrongCheck = false;
-                 gotHit = [];
-                 hitInvader = [];
-                for (let j = 0, k = invaders.length; j < k; j++) {
-                    for (let i = 0; i < bullets.length; i++) {
-                        let destroyInvader = hitTestRectangle(bullets[i], invaders[j]);
-                        if (destroyInvader === true) {
-                            for (let t = 0; t < correctArr.length; t++) {
-
-                                if (correctArr[t] === invaders[j]) {
-                                   //console.log('correct');
-                                   hitCheck = true;
-                                } else {
-                                    wrongCheck = true;
-
-                                    //console.log('wrong')
-                                }
-
-                            }
-                            //console.log(hitCheck);
-                            // TODO: Potential bug: When two invaders leave screen at once, one may stay frozen on stage
-                            app.stage.removeChild(invaders[j]);
-                            app.stage.removeChild(bullets[i]);
-                            gotHit.push(j);
-                            hitInvader.push(i);
-                            invaders[j].vx = 0;
-                            bullets[i].vy = 0;
-                            invadershot.x = invaders[j].x;
-                            invadershot.y = invaders[j].y;
-                            invadershot.time = new Date().getTime();
-                            pow_array.push(invadershot)
-                            app.stage.addChild(pow_array[pow_array.length - 1]);
-                            if (hitCheck === true){
-                              postInvaders();
-                              // console.log(newGuys);
-                              // populateInvaders(newGuys['letters'], newGuys['correct']);
-                            }
-                            destroyInvader = false;
-
-                        }
-                    }
-
-                    if (hitTestRectangle(shooter1, invaders[j])) {
-                        shooter1Hit = true;
-                    }
-                    let invaderhitsWall = contain(invaders[j], { x: 0, y: -50, width: genBoundaries.width, height: invaderBoundaries });
-                    if (invaderhitsWall === "bottom") {
-
-                        app.stage.removeChild(invaders[j]);
-                        gotHit.push(j);
-                        invaders[j].vx = 0;
-
-                        //Make the explorer semi-transparent
-                        shooter1.alpha = 0.5;
-
-                        /*insert 3 if or else loops to create the level of health removed
-                         * depending on the level of difficulty you're playing on
-
-                         */
-
-
-                        //Reduce the width of the health bar's inner rectangle by 1 pixel
-                        let noHarm = false;
-                        for (i = 0; i < incorrArr.length; i++) {
-
-                            if (invaders[j] === incorrArr[i]) {
-
-                                noHarm = true;
-                            }
-                        }
-                        //console.log(noHarm);
-                        if (noHarm === true) {
-                            if (level === 'easy') {
-                                healthBar.outer.width -= 18;
-                            } else if (level === 'med') {
-                                healthBar.outer.width -= 12.85;
-                            } else if (level === 'hard') {
-                                healthBar.outer.width -= 10;
-                            }
-                            noHarm = false;
-                        }
-                       /* if (level === 'easy') {
-
-                            if (noHarm === true) {
-                                healthBar.outer.width -= 18;
-
-                                if (healthBar.outer.width < 0) {
-                                    healthBar.outer.width = 0;
-                                }
-                                noHarm = false;
-                            }
-
-                        } else if (level === 'med') {;
-                            if (noHarm === true) {
-                                healthBar.outer.width -= 12.85;
-
-                                if (healthBar.outer.width <0) {
-                                    healthBar.outer.width = 0;
-                                }
-                                noHarm = false;
-                            }
-                        } else if (level === 'hard') {
-                            if (noHarm === true) {
-                                healthBar.outer.width -= 10;
-
-                                if (healthBar.outer.width < 0) {
-                                    healthBar.outer.width = 0;
-                                } else {
-
-                                }
-                                noHarm = false;
-                            }
-                        }*/
-
-
-                        shooter1Hit = false;
-                    } else {
-                        //Make the explorer fully opaque (non-transparent) if it hasn't been hit
-                        shooter1.alpha = 1;
-                    }
-                }
-
-                if (hitCheck) {
-                    if (level === 'easy') {
-                        pointBar.outer.width += 45;
-
-
-                    } else if (level === 'med') {
-                        pointBar.outer.width += 45;
-                    } else if (level === 'hard') {
-                        pointBar.outer.width += 45;
-                    }
-                    hitCheck = false;
-                }
-
-
-                if(wrongCheck){
-                    if (level === 'easy') {
-                        if (healthBar.outer.width < 0) {
-                            healthBar.outer.width = 0;
-                        } else {
-                            healthBar.outer.width -= 80;
-                        }
-                  }else if (level === 'med'){
-                        if (healthBar.outer.width < 0) {
-                            healthBar.outer.width = 0;
-                        } else {
-                            healthBar.outer.width -= 20;
-                        }
-                  }else if(level === 'hard'){
-                        if (healthBar.outer.width < 0) {
-                            healthBar.outer.width = 0;
-                        } else {
-                            healthBar.outer.width -= 30;
-                        }
-                  }
-                    wrongCheck = false;
-                }
-
-                goodbye_pow = [];
-                for (let i = 0, l = pow_array.length; i < l; i += 1) {
-                     if (wait(500, pow_array[i]) === true) {
-                        app.stage.removeChild(pow_array[i]);
-                        goodbye_pow.push(i)
-                     }
-                }
-                arraySplice(bullets, hitInvader);
-                arraySplice(invaders, gotHit);
-                arraySplice(pow_array, goodbye_pow);
-
-
-                out_of_bounds = [];
-                for (let i = 0; i < bullets.length; i += 1) {
-                    let bullethitsWall = contain(bullets[i], { x: 0, y: 41, width: genBoundaries.width, height: genBoundaries.heigth });
-                    if (bullethitsWall === "top") {
-                        app.stage.removeChild(bullets[i]);
-                        out_of_bounds.push(i);
-                    } else {
-                      bullets[i].y += bullets[i].vy;
-                    }
-                }
-
-                for (let j = 0, l = out_of_bounds.length; j < l; j += 1) {
-                    bullets.splice(out_of_bounds[j], 1);
-
-                }
-                if (healthBar.outer.width < 0) {
-                    healthBar.outer.width = 0;
-                }
-                if (pointBar.outer.width > 90) {
-                    pointBar.outer.width = 90;
-                }
-
-            }
-            function contain(sprite, Contain) {
-                //function contains 'shooter1' to borders of the stage
-                let collision = undefined;
-
-                //Left
-                if (sprite.x < Contain.x) {
-                    sprite.x = Contain.x
-                    collision = "left";
-                }
-
-                //Top
-                if (sprite.y < Contain.y) {
-                    sprite.y = Contain.y;
-                    collision = "top";
-                }
-
-                //Right
-                if (sprite.x + sprite.width > Contain.width) {
-                    sprite.x = Contain.width - sprite.width;
-                    collision = "right";
-                }
-
-                //Bottom
-                if (sprite.y + sprite.height > Contain.height) {
-                    sprite.y = Contain.height - sprite.height;
-                    collision = "bottom";
-                }
-
-                //Return the `collision` value
-                return collision;
-            }
-            function hitTestRectangle(r1, r2) {
-
-                //Define the variables we'll need to calculate
-                let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
-
-                //hit will determine whether there's a collision
-                hit = false;
-
-                //Find the center points of each sprite
-                r1.centerX = r1.x + r1.width / 2;
-                r1.centerY = r1.y + r1.height / 2;
-                r2.centerX = r2.x + r2.width / 2;
-                r2.centerY = r2.y + r2.height / 2;
-
-                //Find the half-widths and half-heights of each sprite
-                r1.halfWidth = r1.width / 2;
-                r1.halfHeight = r1.height / 2;
-                r2.halfWidth = r2.width / 2;
-                r2.halfHeight = r2.height / 2;
-
-                //Calculate the distance vector between the sprites
-                vx = r1.centerX - r2.centerX;
-                vy = r1.centerY - r2.centerY;
-
-                //Figure out the combined half-widths and half-heights
-                combinedHalfWidths = r1.halfWidth + r2.halfWidth;
-                combinedHalfHeights = r1.halfHeight + r2.halfHeight;
-
-                //Check for a collision on the x axis
-                if (Math.abs(vx) < combinedHalfWidths) {
-
-                    //A collision might be occuring. Check for a collision on the y axis
-                    if (Math.abs(vy) < combinedHalfHeights) {
-                    //There's definitely a collision happening
-                    hit = true;
-                    } else {
-                        //There's no collision on the y axis
-                        hit = false;
-                    }
-                } else {
-                     //There's no collision on the x axis
-                    hit = false;
-                }
-
-                //`hit` will be either `true` or `false`
-                return hit;
-            }
-            function wait(ms, object) {
-                let start = object.time;
-                let end = new Date().getTime();
-                if (end < start + ms) {
-                    end = new Date().getTime();
-                } else {
-                    return true;
-                }
-            }
-        function arraySplice(mainArray, notinUse) {
-            //let mainArray, notinUse = [];
-            for (let i = 0; i < notinUse.length; i++) {
-                mainArray.splice(notinUse[i], 1);
-
-            }
-        }
-        function randomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-        function end() {
-                //end game make it a choice to play again
-
-        }
-
-        function populateInvaders(options, correct, sound) {
-            s = "{% static '' %}" + sound;
-            audio = new Audio(s);
-            audio.time = new Date().getTime();
-            audio.play();
-
-            c = "{% static '' %}" + correct;
-           // var correct = new String(c);
-          invadershot = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invadershot2.png' %}"].texture);
-
-          let numofInvaders = options.length;
-              //spacing = 30;
-
-          if (level === 'easy') {
-              speed = 1;
-              spacing = 70;
-              xOffset = 0;
-          } else if (level === 'med') {
-              speed = 1.25;
-              spacing = 50;
-              xOffset = 0;
-          } else if (level === 'hard') {
-            speed = 1.5;
-            spacing = 30;
-            xOffset = -10;
-          }else{
-            console.log("ERROR: Level not properly passed in spaceinvadersgame.html, lines 262 - 274");
-          }
-          direction = 1;
-
-          // invaders = [];
-            barIndex = app.stage.getChildIndex(gamesBar);
-          for (let i = 0; i < numofInvaders; i++) {
-              invader = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invader3.png' %}"].texture);
-
-              let x = spacing * i + xOffset;
-              let y = -30 * i;
-              invader.x = x;
-              invader.y = y;
-
-              invader.vx = speed * direction;
-             // direction *= -1;
-              var style = new PIXI.TextStyle({
-                  fontFamily: 'Arial',
-                  fontSize: 20,
-                  fontStyle: 'italic',
-                  fontWeight: 'bold',
-                  fill: ['#ffffff'],
-                  stroke: '#000000',
-                  strokeThickness: 2.5,
-
-              });
-              // let randomValue = randomInt(0, numofInvaders);
-              text = new PIXI.Text(options[i], style);
-              text.x += 5;
-              text.y += 20;
-              console.log(correct);
-              if (options[i] === (correct.substring(0, 1))) {
-
-                  correctArr.push(invader);
-                //  console.log(invader);
-              }else{
-                  incorrArr.push(invader);
-
-              }
-
-              invader.addChild(text);
-              //put current invader inside invaders arraay
-              invaders.push(invader);
-              //add invader to stage
-              app.stage.addChildAt(invader, barIndex - 1);
-          }
-            setPosition();
-
-        }
-
-            function setPosition() {
-              //  for (let n = 1; n < 3; n++) {
-                    if (level === 'easy') {
-                        invaderLimit = 3;
-                    } else if (level === 'med') {
-                        invaderLimit = 4;
-                    } else if (level === 'hard') {
-                        invaderLimit = 5;
-                    }
-
-                for (let i = 0; i < invaders.length; i++) {
-                        j = i % invaderLimit;
-                        s = genBoundaries.width / (invaderLimit);
-                        let Width = ((j) * s) + s;
-                        let x = (j) * s + 20;
-                        invaders[i].leftBound = x;
-                        invaders[i].widthBound = Width;
-                        //let invaderhitsWall = contain(invaders[i], { x: x, y: -50, width: Width, height: invaderBoundaries });
-                    for (let j = 0; j < invaders.length; j++) {
-                        if (invaders[i].x === invaders[j].x && i != j) {
-                            invaders[i].x += 20;
-                        }
-                    }
-                }
-
-            }
-
-            function flipEm() {
-                for (let i = 0; i < invaders.length; i++) {
-                    invaders[i].x += invaders[i].vx;
-                    let invaderhitsWall = contain(invaders[i], { x: invaders[i].leftBound, y: -50, width: invaders[i].widthBound, height: invaderBoundaries });
-                    if (invaderhitsWall === "right" || invaderhitsWall === "left") {
-                        invaders[i].vx *= -1;
-                        invaders[i].y += 10;
-                        // invaders[i-1].anchor.x = 1;     /* 0 = top, 0.5 = center, 1 = bottom */
-                        invaders[i].scale.x *= -1;    /* flip vertically */
-                        invaders[i].children[0].scale.x *= -1;
-                    }
-                }
-            }
-           // }
-    </script>
-        </center>
-    <font size="2.5" color="white" face="arial">
-        <center>
-            INSTRUCTIONS
-        </center>
-    </font>
-    <font size="2" color="white" face="arial">
-        <center>
-            <p>Use the left and right arrow keys to move the shooter,</p>
-            <p>Use the space button to shoot,</p>
-            <p>Listen to the sound and shoot the correctly labelled animal,</p>
-            <p> If you shoot the wrong answer you lose health.</p>
-        </center>
-    </font>
+	<font size="6" color="white" face="arial">
+		<center>
+			<p>space invaders and it kinda works now! >:^) </p>
+		</center>
+	</font>
+
+
+	<center>
+		<script type="text/javascript">
+
+		/*Space Invaders Game, JS code begins
+		PIXI JS app used
+		-creates stage 500x500 pixels on HTML webpage
+		-creates graphic of grass along bottom of screen
+		-creates 'shooter1' sprite on stage
+		-enables 'shooter1' to move along stage horizontally and stay within boundaries
+		- colour codes medicine wheel
+		- 9F1212
+		- C8BD1A
+		- FFEF00
+		- FF0000
+		- B0CED9
+		*/
+
+
+
+
+		//var _renderer = PIXI.autoDetectRenderer(400, 250, canvas, false, true);
+		let w = Math.max(window.innerWidth * 0.6, 500);
+		let genBoundaries = { width: w, height: 500 };
+		var app = new PIXI.Application(genBoundaries.width, genBoundaries.height, false, false);
+
+
+		//app.renderer.position.y = 25;
+
+		document.body.appendChild(app.view);
+		app.renderer.backgroundColor = 0xC6E9F5;
+		$('canvas').css("display", "block");
+		$('canvas').css("margin", "auto");
+
+		//Add images to
+		PIXI.loader
+		.add("{% static 'lettergame/image/shooter-3.png' %}")
+		.add("{% static 'lettergame/image/bottomboundary.png' %}")
+		.add("{% static 'lettergame/image/bullet2.png' %}")
+		.add("{% static 'lettergame/image/invader3.png' %}")
+		.add("{% static 'lettergame/image/invadershot2.png' %}")
+		.add("{% static 'lettergame/image/bg.png' %}")
+		.add("{% static 'lettergame/image/invaderR3.png'%}")
+		//calls function 'setup'
+		.load(boundaries)
+		.load(setup);
+
+		// let outerpBar = new PIXI.Graphics();
+		// PIXI.
+
+		//calls function 'boundaries'
+
+
+		//functions of code start
+		//initialize global variables of functions below
+		let shooter1, state, bottomBoundary, bullet, invader, invadershot, shooter1hit;
+		var invaders = [];
+		var text;
+		let bullets = [];
+		let pow_array = [];
+		let level = "{{level}}";
+		let correctArr = [];
+		let incorrArr = [];
+
+		var invaderBoundaries = genBoundaries.height + 30;
+		let options = [];
+		var audio;
+		var gamesBar;
+		function boundaries() {
+
+			let bg = 12,
+			bgs = [];
+			for (let i = 0; i < bg; i++) {
+				let backGrass = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bg.png' %}"].texture);
+				let x = 0;
+				let y = 50 * i;
+
+				backGrass.x = x;
+				backGrass.width = genBoundaries.width;
+				backGrass.y = y;
+				bgs.push(backGrass);
+				app.stage.addChild(backGrass);
+
+				let grass = new PIXI.Graphics();
+
+
+				grass.beginFill(0x000000, 0.036);
+				grass.drawRect(0, 0, genBoundaries.width, genBoundaries.height);
+				grass.endFill();
+				app.stage.addChild(grass);
+			}
+			let bottomBoundaries = 1,
+			spacing = 30,
+			xOffset = 0;
+
+			//array to store all bottom boundary blocks
+			bottomBlocks = [];
+			//for loop adds blocks until bottom row of stage is filled with grass
+			let i = 0;
+			while(true) {
+				//create sprite
+				let bottomBoundary = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bottomboundary.png' %}"].texture);
+				let x = spacing * i + xOffset;
+				let y = genBoundaries.height - 30;
+
+				bottomBoundary.x = x;
+				bottomBoundary.y = y;
+
+				bottomBlocks.push(bottomBoundary);
+				app.stage.addChild(bottomBoundary);
+				if(i * bottomBoundary.width > genBoundaries.width) { break;}
+				i += 1;
+			}
+		}
+		function setup() {
+			//add sprite to stage at starting position
+			shooter1 = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/shooter-3.png' %}"].texture);
+			shooter1.x = genBoundaries.width/2;
+			shooter1.y = genBoundaries.height - 50;
+			shooter1.vx = 0;
+			shooter1.vy = 0;
+			app.stage.addChild(shooter1);
+			// let level = "{{level}}";
+
+			{% for letter in letters %}
+			options.push("{{letter}}");
+			//var text = new PIXI.Text("{{letter.name}}", { font: "30px Arial",outline-color: black fill: "red" });
+			/*text.x = invader.x;
+			text.y = invader.y + 10;*/
+			//app.stage.addChild(text);
+
+			{% endfor %}
+
+			// var audio = new Audio("{% static ''%}{{sound}}");
+			// audio.play();
+			let sound = new String("{{sound}}");
+			//console.log(sound);
+			let correct = new String("{{correct}}");
+
+			//create specifics of sprite 'bullet'
+
+			bullet = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bullet2.png' %}"].texture);
+			gamesBar = new PIXI.Container();
+			var infoBar = new PIXI.Graphics();
+			infoBar.beginFill(0x342A02, 1);
+			infoBar.drawRect(0, 0, genBoundaries.width, 30);
+			gamesBar.addChild(infoBar);
+
+			//Create the health bar                      //Create the points bar
+			var style = new PIXI.TextStyle({                //var style = new PIXI.TextStyle({
+				fontFamily: 'Arial',
+				fontSize: 12,
+				fontStyle: 'italic',
+				fontWeight: 'bold',
+				fill: ['#FFFFFF'], // gradient
+				stroke: '#000000',
+				strokeThickness: 2,
+
+			});
+			var health = new PIXI.Text('HEALTH : ', style);
+			health.x = 10;
+			health.y = 7;
+			gamesBar.addChild(health);
+
+			healthBar = new PIXI.Container();
+			healthBar.x = 70;
+			healthBar.y = 10;
+			gamesBar.addChild(healthBar);
+
+			//Create the black background rectangle
+			let innerhBar = new PIXI.Graphics();
+
+			innerhBar.lineStyle(3, 0x000000, 1);
+			innerhBar.beginFill(0x000000, 1);
+			innerhBar.drawRoundedRect(0, 0, 90, 10, 7);
+			innerhBar.endFill();
+			healthBar.addChild(innerhBar);
+
+
+			//Create the front red rectangle
+			let outerhBar = new PIXI.Graphics();
+
+			outerhBar.beginFill(0xFF0000, 1);
+			outerhBar.drawRoundedRect(0, 0, 90, 10, 7);
+			healthBar.addChild(outerhBar);
+
+			healthBar.outer = outerhBar;
+
+
+			//Create the points bar
+			var style = new PIXI.TextStyle({
+				fontFamily: 'Arial',
+				fontSize: 12,
+				fontStyle: 'italic',
+				fontWeight: 'bold',
+				fill: ['#FFFFFF'], // gradient
+				stroke: '#000000',
+				strokeThickness: 2,
+
+			});
+			var points = new PIXI.Text('POINTS : ', style);
+			points.x = 330;
+			points.y = 7;
+			gamesBar.addChild(points);
+
+			pointBar = new PIXI.Container();
+			pointBar.x = 390;
+			pointBar.y = 10;
+			gamesBar.addChild(pointBar);
+
+			//Create the black background rectangle
+			let innerpBar = new PIXI.Graphics();
+
+			innerpBar.lineStyle(3, 0x000000, 1);
+			innerpBar.beginFill(0x000000, 1);
+			innerpBar.drawRoundedRect(0, 0, 90, 10, 7);
+			innerpBar.endFill();
+			pointBar.addChild(innerpBar);
+
+			pointBar.inner = innerpBar;
+
+			//Create the front red rectangle
+			let outerpBar = new PIXI.Graphics();
+
+			outerpBar.beginFill(0xFFEF00, 1);
+			outerpBar.drawRoundedRect(0, 0, 90, 10, 7);
+
+			pointBar.addChild(outerpBar);
+
+			pointBar.outer = outerpBar;
+			pointBar.outer.width = 0;
+			// invaders = [];
+
+			app.stage.addChild(gamesBar);
+			populateInvaders(options, correct, sound);
+
+			//Capture the keyboard arrow keys for use in moving 'shooter1'
+			let left = keyboard(37),
+			shoot = keyboard(32),
+			right = keyboard(39),
+			down = keyboard(40);
+			upCount = 0;
+
+			//Left arrow key `press` method
+			//Change the shooter1's velocity when the key is pressed
+			left.press = () => {
+				shooter1.vx = -3;
+				shooter1.vy = 0;
+			};
+
+			//Left arrow key `release` method
+			left.release = () => {
+				//If the left arrow has been released, and the right arrow isn't down,
+				//and the shooter1 isn't moving vertically:
+				//Stop the shooter1
+				if (!right.isDown && shooter1.vy === 0) {
+					shooter1.vx = 0;
+				}
+			};
+
+
+			//Space bar shoot
+			shoot.press = () => {
+
+
+				if (wait(500, bullet) === true) {
+					upCount++
+					let bulletNum = upCount;
+					bullet = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bullet2.png' %}"].texture);
+					bullets.push(bullet);
+					bullet.vy = -15;
+					bullet.y = 460;
+					bullet.x = (shooter1.x );
+					app.stage.addChild(bullet);
+					bullet.time = new Date().getTime();
+				}
+			};
+			shoot.release = () => {
+				if (!down.isDown && shooter1.vx === 0) {
+					shooter1.vy = 0;
+
+				}
+			};
+			//Right
+			right.press = () => {
+				shooter1.vx = 3;
+				shooter1.vy = 0;
+			};
+			right.release = () => {
+				if (!left.isDown && shooter1.vy === 0) {
+					shooter1.vx = 0;
+				}
+			};
+			//Down
+			down.press = () => {
+				shooter1.vy = 0;
+				shooter1.vx = 0;
+			};
+			down.release = () => {
+				if (!shoot.isDown && shooter1.vx === 0) {
+					shooter1.vy = 0;
+				}
+			};
+
+			//Set the game state
+			//call function 'play'
+			state = play;
+
+			//Start the game loop
+			//call function 'gameLoop'
+			app.ticker.add(delta => gameLoop(delta));
+		}
+		function keyboard(keyCode) {
+			//function initializes keyboard keys as used to move sprites
+			let key = {};
+			key.code = keyCode;
+			key.isDown = false;
+			key.isUp = true;
+			key.press = undefined;
+			key.release = undefined;
+			//The `downHandler`
+			key.downHandler = event => {
+				if (event.keyCode === key.code) {
+					if (key.isUp && key.press) key.press();
+					key.isDown = true;
+					key.isUp = false;
+				}
+				event.preventDefault();
+			};
+
+			//The `upHandler`
+			key.upHandler = event => {
+				if (event.keyCode === key.code) {
+					if (key.isDown && key.release) key.release();
+					key.isDown = false;
+					key.isUp = true;
+				}
+				event.preventDefault();
+			};
+
+			//Attach event listeners
+			window.addEventListener("keydown", key.downHandler.bind(key), false);
+			window.addEventListener("keyup", key.upHandler.bind(key), false);
+			return key;
+		}
+		function gameLoop(delta) {
+			//function will update the current game state:
+			state(delta);
+
+		}
+		function play(delta) {
+			if (wait(2000, audio) === true) {
+				audio.play();
+				audio.time = new Date().getTime();
+			}
+			let shooter1Hit;
+			let Contain = { x: 0, y: 0, width: genBoundaries.width, height: genBoundaries.heigth };
+			let shooter1hitsWall = contain(shooter1, Contain);
+
+			if (shooter1hitsWall === "left" || shooter1hitsWall === "right") {
+				shooter1.vx = 0;
+			}
+
+			//Use the shooter1's velocity to make it move
+			shooter1.x += shooter1.vx;
+			shooter1.y += shooter1.vy;
+			flipEm();
+			/* for (let n = 1; n < 3; n++) {
+			if (level === 'easy') {
+			invaderLimit = 3;
+		} else if (level === 'med') {
+		invaderLimit = 4;
+	} else if (level === 'hard') {
+	invaderLimit = 5;
+}
+
+for (let i = 0; i < invaders.length; i++) {
+s = 500 / (invaderLimit);
+let Width = ((i) * s) + s;
+let x = (i) * s +20;
+invaders[i].x += invaders[i].vx;
+let invaderhitsWall = contain(invaders[i], { x: x, y: 0, width: Width, height: invaderBoundaries });
+if (invaderhitsWall === "right" || invaderhitsWall === "left") {
+invaders[i].vx *= -1;
+invaders[i].y += 10;
+// invaders[i-1].anchor.x = 1;     /* 0 = top, 0.5 = center, 1 = bottom
+invaders[i].scale.x *= -1;     flip vertically
+}
+}
+
+}*/
+let hitCheck = false;
+let wrongCheck = false;
+gotHit = [];
+hitInvader = [];
+for (let j = 0, k = invaders.length; j < k; j++) {
+	for (let i = 0; i < bullets.length; i++) {
+		let destroyInvader = hitTestRectangle(bullets[i], invaders[j]);
+		if (destroyInvader === true) {
+			for (let t = 0; t < correctArr.length; t++) {
+
+				if (correctArr[t] === invaders[j]) {
+					//console.log('correct');
+					hitCheck = true;
+				} else {
+					wrongCheck = true;
+
+					//console.log('wrong')
+				}
+
+			}
+			//console.log(hitCheck);
+			// TODO: Potential bug: When two invaders leave screen at once, one may stay frozen on stage
+			app.stage.removeChild(invaders[j]);
+			app.stage.removeChild(bullets[i]);
+			gotHit.push(j);
+			hitInvader.push(i);
+			invaders[j].vx = 0;
+			bullets[i].vy = 0;
+			invadershot.x = invaders[j].x;
+			invadershot.y = invaders[j].y;
+			invadershot.time = new Date().getTime();
+			pow_array.push(invadershot)
+			app.stage.addChild(pow_array[pow_array.length - 1]);
+			if (hitCheck === true){
+				postInvaders();
+				// console.log(newGuys);
+				// populateInvaders(newGuys['letters'], newGuys['correct']);
+			}
+			destroyInvader = false;
+
+		}
+	}
+
+	if (hitTestRectangle(shooter1, invaders[j])) {
+		shooter1Hit = true;
+	}
+	let invaderhitsWall = contain(invaders[j], { x: 0, y: -50, width: genBoundaries.width, height: invaderBoundaries });
+	if (invaderhitsWall === "bottom") {
+
+		app.stage.removeChild(invaders[j]);
+		gotHit.push(j);
+		invaders[j].vx = 0;
+
+		//Make the explorer semi-transparent
+		shooter1.alpha = 0.5;
+
+		/*insert 3 if or else loops to create the level of health removed
+		* depending on the level of difficulty you're playing on
+
+		*/
+
+
+		//Reduce the width of the health bar's inner rectangle by 1 pixel
+		let noHarm = false;
+		for (i = 0; i < incorrArr.length; i++) {
+
+			if (invaders[j] === incorrArr[i]) {
+
+				noHarm = true;
+			}
+		}
+		//console.log(noHarm);
+		if (noHarm === true) {
+			if (level === 'easy') {
+				healthBar.outer.width -= 18;
+			} else if (level === 'med') {
+				healthBar.outer.width -= 12.85;
+			} else if (level === 'hard') {
+				healthBar.outer.width -= 10;
+			}
+			noHarm = false;
+		}
+		/* if (level === 'easy') {
+
+		if (noHarm === true) {
+		healthBar.outer.width -= 18;
+
+		if (healthBar.outer.width < 0) {
+		healthBar.outer.width = 0;
+	}
+	noHarm = false;
+}
+
+} else if (level === 'med') {;
+if (noHarm === true) {
+healthBar.outer.width -= 12.85;
+
+if (healthBar.outer.width <0) {
+healthBar.outer.width = 0;
+}
+noHarm = false;
+}
+} else if (level === 'hard') {
+if (noHarm === true) {
+healthBar.outer.width -= 10;
+
+if (healthBar.outer.width < 0) {
+healthBar.outer.width = 0;
+} else {
+
+}
+noHarm = false;
+}
+}*/
+
+
+shooter1Hit = false;
+} else {
+	//Make the explorer fully opaque (non-transparent) if it hasn't been hit
+	shooter1.alpha = 1;
+}
+}
+
+if (hitCheck) {
+	if (level === 'easy') {
+		pointBar.outer.width += 45;
+
+
+	} else if (level === 'med') {
+		pointBar.outer.width += 45;
+	} else if (level === 'hard') {
+		pointBar.outer.width += 45;
+	}
+	hitCheck = false;
+}
+
+
+if(wrongCheck){
+	if (level === 'easy') {
+		if (healthBar.outer.width < 0) {
+			healthBar.outer.width = 0;
+		} else {
+			healthBar.outer.width -= 80;
+		}
+	}else if (level === 'med'){
+		if (healthBar.outer.width < 0) {
+			healthBar.outer.width = 0;
+		} else {
+			healthBar.outer.width -= 20;
+		}
+	}else if(level === 'hard'){
+		if (healthBar.outer.width < 0) {
+			healthBar.outer.width = 0;
+		} else {
+			healthBar.outer.width -= 30;
+		}
+	}
+	wrongCheck = false;
+}
+
+goodbye_pow = [];
+for (let i = 0, l = pow_array.length; i < l; i += 1) {
+	if (wait(500, pow_array[i]) === true) {
+		app.stage.removeChild(pow_array[i]);
+		goodbye_pow.push(i)
+	}
+}
+arraySplice(bullets, hitInvader);
+arraySplice(invaders, gotHit);
+arraySplice(pow_array, goodbye_pow);
+
+
+out_of_bounds = [];
+for (let i = 0; i < bullets.length; i += 1) {
+	let bullethitsWall = contain(bullets[i], { x: 0, y: 41, width: genBoundaries.width, height: genBoundaries.heigth });
+	if (bullethitsWall === "top") {
+		app.stage.removeChild(bullets[i]);
+		out_of_bounds.push(i);
+	} else {
+		bullets[i].y += bullets[i].vy;
+	}
+}
+
+for (let j = 0, l = out_of_bounds.length; j < l; j += 1) {
+	bullets.splice(out_of_bounds[j], 1);
+
+}
+if (healthBar.outer.width < 0) {
+	healthBar.outer.width = 0;
+}
+if (pointBar.outer.width > 90) {
+	pointBar.outer.width = 90;
+}
+
+}
+function contain(sprite, Contain) {
+	//function contains 'shooter1' to borders of the stage
+	let collision = undefined;
+
+	//Left
+	if (sprite.x < Contain.x) {
+		sprite.x = Contain.x
+		collision = "left";
+	}
+
+	//Top
+	if (sprite.y < Contain.y) {
+		sprite.y = Contain.y;
+		collision = "top";
+	}
+
+	//Right
+	if (sprite.x + sprite.width > Contain.width) {
+		sprite.x = Contain.width - sprite.width;
+		collision = "right";
+	}
+
+	//Bottom
+	if (sprite.y + sprite.height > Contain.height) {
+		sprite.y = Contain.height - sprite.height;
+		collision = "bottom";
+	}
+
+	//Return the `collision` value
+	return collision;
+}
+function hitTestRectangle(r1, r2) {
+
+	//Define the variables we'll need to calculate
+	let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
+
+	//hit will determine whether there's a collision
+	hit = false;
+
+	//Find the center points of each sprite
+	r1.centerX = r1.x + r1.width / 2;
+	r1.centerY = r1.y + r1.height / 2;
+	r2.centerX = r2.x + r2.width / 2;
+	r2.centerY = r2.y + r2.height / 2;
+
+	//Find the half-widths and half-heights of each sprite
+	r1.halfWidth = r1.width / 2;
+	r1.halfHeight = r1.height / 2;
+	r2.halfWidth = r2.width / 2;
+	r2.halfHeight = r2.height / 2;
+
+	//Calculate the distance vector between the sprites
+	vx = r1.centerX - r2.centerX;
+	vy = r1.centerY - r2.centerY;
+
+	//Figure out the combined half-widths and half-heights
+	combinedHalfWidths = r1.halfWidth + r2.halfWidth;
+	combinedHalfHeights = r1.halfHeight + r2.halfHeight;
+
+	//Check for a collision on the x axis
+	if (Math.abs(vx) < combinedHalfWidths) {
+
+		//A collision might be occuring. Check for a collision on the y axis
+		if (Math.abs(vy) < combinedHalfHeights) {
+			//There's definitely a collision happening
+			hit = true;
+		} else {
+			//There's no collision on the y axis
+			hit = false;
+		}
+	} else {
+		//There's no collision on the x axis
+		hit = false;
+	}
+
+	//`hit` will be either `true` or `false`
+	return hit;
+}
+function wait(ms, object) {
+	let start = object.time;
+	let end = new Date().getTime();
+	if (end < start + ms) {
+		end = new Date().getTime();
+	} else {
+		return true;
+	}
+}
+function arraySplice(mainArray, notinUse) {
+	//let mainArray, notinUse = [];
+	for (let i = 0; i < notinUse.length; i++) {
+		mainArray.splice(notinUse[i], 1);
+
+	}
+}
+function randomInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function end() {
+	//end game make it a choice to play again
+
+}
+
+function populateInvaders(options, correct, sound) {
+	s = "{% static '' %}" + sound;
+	audio = new Audio(s);
+	audio.time = new Date().getTime();
+	audio.play();
+
+	c = "{% static '' %}" + correct;
+	// var correct = new String(c);
+	invadershot = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invadershot2.png' %}"].texture);
+
+	let numofInvaders = options.length;
+	//spacing = 30;
+
+	if (level === 'easy') {
+		speed = 1;
+		spacing = 70;
+		xOffset = 0;
+	} else if (level === 'med') {
+		speed = 1.25;
+		spacing = 50;
+		xOffset = 0;
+	} else if (level === 'hard') {
+		speed = 1.5;
+		spacing = 30;
+		xOffset = -10;
+	}else{
+		console.log("ERROR: Level not properly passed in spaceinvadersgame.html, lines 262 - 274");
+	}
+	direction = 1;
+
+	// invaders = [];
+	barIndex = app.stage.getChildIndex(gamesBar);
+	for (let i = 0; i < numofInvaders; i++) {
+		invader = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invader3.png' %}"].texture);
+
+		let x = spacing * i + xOffset;
+		let y = -30 * i;
+		invader.x = x;
+		invader.y = y;
+
+		invader.vx = speed * direction;
+		// direction *= -1;
+		var style = new PIXI.TextStyle({
+			fontFamily: 'Arial',
+			fontSize: 20,
+			fontStyle: 'italic',
+			fontWeight: 'bold',
+			fill: ['#ffffff'],
+			stroke: '#000000',
+			strokeThickness: 2.5,
+
+		});
+		// let randomValue = randomInt(0, numofInvaders);
+		text = new PIXI.Text(options[i], style);
+		text.x += 5;
+		text.y += 20;
+		console.log(correct);
+		if (options[i] === (correct.substring(0, 1))) {
+
+			correctArr.push(invader);
+			//  console.log(invader);
+		}else{
+			incorrArr.push(invader);
+
+		}
+
+		invader.addChild(text);
+		//put current invader inside invaders arraay
+		invaders.push(invader);
+		//add invader to stage
+		app.stage.addChildAt(invader, barIndex - 1);
+	}
+	setPosition();
+
+}
+
+function setPosition() {
+	//  for (let n = 1; n < 3; n++) {
+	if (level === 'easy') {
+		invaderLimit = 3;
+	} else if (level === 'med') {
+		invaderLimit = 4;
+	} else if (level === 'hard') {
+		invaderLimit = 5;
+	}
+
+	for (let i = 0; i < invaders.length; i++) {
+		j = i % invaderLimit;
+		s = genBoundaries.width / (invaderLimit);
+		let Width = ((j) * s) + s;
+		let x = (j) * s + 20;
+		invaders[i].leftBound = x;
+		invaders[i].widthBound = Width;
+		//let invaderhitsWall = contain(invaders[i], { x: x, y: -50, width: Width, height: invaderBoundaries });
+		for (let j = 0; j < invaders.length; j++) {
+			if (invaders[i].x === invaders[j].x && i != j) {
+				invaders[i].x += 20;
+			}
+		}
+	}
+
+}
+
+function flipEm() {
+	for (let i = 0; i < invaders.length; i++) {
+		invaders[i].x += invaders[i].vx;
+		let invaderhitsWall = contain(invaders[i], { x: invaders[i].leftBound, y: -50, width: invaders[i].widthBound, height: invaderBoundaries });
+		if (invaderhitsWall === "right" || invaderhitsWall === "left") {
+			invaders[i].vx *= -1;
+			invaders[i].y += 10;
+			// invaders[i-1].anchor.x = 1;     /* 0 = top, 0.5 = center, 1 = bottom */
+			invaders[i].scale.x *= -1;    /* flip vertically */
+			invaders[i].children[0].scale.x *= -1;
+		}
+	}
+}
+// }
+</script>
+</center>
+<font size="2.5" color="white" face="arial">
+	<center>
+		INSTRUCTIONS
+	</center>
+</font>
+<font size="2" color="white" face="arial">
+	<center>
+		<p>Use the left and right arrow keys to move the shooter,</p>
+		<p>Use the space button to shoot,</p>
+		<p>Listen to the sound and shoot the correctly labelled animal,</p>
+		<p> If you shoot the wrong answer you lose health.</p>
+	</center>
+</font>
 
 </body>
 </html>
