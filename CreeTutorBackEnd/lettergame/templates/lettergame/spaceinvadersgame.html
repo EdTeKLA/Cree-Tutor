@@ -159,6 +159,8 @@
 		function onClick (){
 			app.stage.removeChild(startOptions);
 			app.stage.removeChild(backBlack);
+			healthBar.outer.width = 90;
+			pointBar.outer.width = 0;
 			state = play;
 			populateInvaders(options, correct, sound);
 			return true;
@@ -434,6 +436,7 @@
 					goodbye_pow.push(i)
 				}
 			}
+
 			//removes any sprites that should no longer be on screen from their main arrays
 			arraySplice(bullets, hitInvader);
 			arraySplice(invaders, gotHit);
@@ -457,7 +460,7 @@
 
 			//------------------- makes sure points and health bar dont go out of bounds, sets the game state to start if points are full or health is gone
 			if (healthBar.outer.width <= 0) {
-				healthBar.outer.width = 0;
+				//healthBar.outer.width = 0;
 				startEnd = ['quit', 'try again'];
 				startScreen(startEnd, "you lose :(");
 				state = start;
@@ -592,14 +595,15 @@ initiates direction and  velocity
 creates text and attaches it to invader thru parent child relationship
 adds invader to array
 */
-function populateInvaders(options, correct, sound) {
+function populateInvaders(options, correc, sound) {
+	correct = correc;
 	s = "{% static '' %}" + sound;
 	audio = new Audio(s);
 	audio.time = new Date().getTime();
 	audio.play();
-
-	c = "{% static '' %}" + correct;
-	// var correct = new String(c);
+	console.log(correct)
+	// c = "{% static '' %}" + correct;
+	// correct = new String(c);
 	invadershot = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invadershot2.png' %}"].texture);
 
 	let numofInvaders = options.length;
@@ -647,14 +651,10 @@ function populateInvaders(options, correct, sound) {
 		text = new PIXI.Text(options[i], style);
 		text.x += 5;
 		text.y += 20;
-		console.log(correct);
-		if (options[i] === (correct.substring(0, 1))) {
-
-			correctArr.push(invader);
-			//  console.log(invader);
-		}else{
+		// console.log(correct);
+		// console.log(options[0])
+		if (options[i] != (correct.substring(0, 1))) {
 			incorrArr.push(invader);
-
 		}
 
 		invader.addChild(text);
@@ -808,13 +808,16 @@ function checkHit() {
 			let destroyInvader = hitTestRectangle(bullets[i], invaders[j]);
 			if (destroyInvader === true) {
 				// Checks to see if the one hit is the correct one
-				for (let t = 0; t < correctArr.length; t++) {
-					if (correctArr[t] === invaders[j]) {
-						hitCheck = true;
-					} else {
-						wrongCheck = true;
-					}
+				// for (let t = 0; t < correctArr.length; t++) {
+				console.log(correct.substring(0, 1));
+				console.log(invaders[j].children[0].text);
+				if (correct.substring(0, 1) === invaders[j].children[0].text) {
+					hitCheck = true;
+					console.log("?");
+				} else {
+					wrongCheck = true;
 				}
+				// }
 				// TODO: Potential bug: When two invaders leave screen at once, one may stay frozen on stage
 				// If hit, remove from stage and add index to gotHit array
 				app.stage.removeChild(invaders[j]);
@@ -864,7 +867,7 @@ function checkHit() {
 				} else if (level === 'hard') {
 					healthBar.outer.width -= 10;
 				}
-				noHarm = false;
+				// noHarm = true;
 			}
 		} else {
 			//Make the explorer fully opaque (non-transparent) if it hasn't been hit
@@ -883,7 +886,7 @@ if incorrect subtracts points based on Level
 function changeBar(hitCheck, wrongCheck){
 	if (hitCheck) {
 		if (level === 'easy') {
-			pointBar.outer.width += 45;
+			pointBar.outer.width += 30;
 
 
 		} else if (level === 'med') {
@@ -896,25 +899,12 @@ function changeBar(hitCheck, wrongCheck){
 
 	if(wrongCheck){
 		if (level === 'easy') {
-			if (healthBar.outer.width < 0) {
-				healthBar.outer.width = 0;
-			} else {
-				healthBar.outer.width -= 18;
-			}
+			healthBar.outer.width -= 18;
 		}else if (level === 'med'){
-			if (healthBar.outer.width < 0) {
-				healthBar.outer.width = 0;
-			} else {
-				healthBar.outer.width -= 12.85;
-			}
+			healthBar.outer.width -= 12.85;
 		}else if(level === 'hard'){
-			if (healthBar.outer.width < 0) {
-				healthBar.outer.width = 0;
-			} else {
-				healthBar.outer.width -= 10;
-			}
+			healthBar.outer.width -= 10;
 		}
-		wrongCheck = false;
 	}
 	return;
 }
