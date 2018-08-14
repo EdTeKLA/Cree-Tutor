@@ -49,17 +49,30 @@
 		- B0CED9
 		*/
 
+		//max width for window size takes largest number between browser automated width and 500
 		let w = Math.max(window.innerWidth * 0.6, 500);
+		//genBoundaries are used to determine stage size and contain sprites
 		let genBoundaries = { width: w, height: 500 };
+		//stage, with boundaries based on max and browser size, app is called when anything is related to the stage
 		var app = new PIXI.Application(genBoundaries.width, genBoundaries.height, false, false);
 
 
 		document.body.appendChild(app.view);
+		//make app a solid coloured block
 		app.renderer.backgroundColor = 0xC6E9F5;
 		$('canvas').css("display", "block");
 		$('canvas').css("margin", "auto");
 
-		//Add images to
+		/*load images so they can be used later on in game, some of these are from beginning of game
+		 development and are no longer used, when loading an image uyou must first load it here and
+		 also where it is attached to an object, or sprite, or container, load by adding image path
+		 inside the following: .add("{% static 'image path here' %}")
+		 PIXI.loader also calls functions, right now it calls boundaries, which creates most of the
+		 background game elements such as the grass. It then calls setup which creates the infobar
+		 the shooter and populates the invader array all other functions are called somewhere within
+		 one of these or other functions
+		 to load a function use the following: .load(function name)
+		*/
 		PIXI.loader
 		.add("{% static 'lettergame/image/shooter-3.png' %}")
 		.add("{% static 'lettergame/image/bottomboundary.png' %}")
@@ -72,71 +85,103 @@
 		.load(boundaries)
 		.load(setup);
 
-		//calls function 'boundaries'
-		//functions of code start
-		//initialize global variables of functions below
-		let shooter1, state, bottomBoundary, bullet, invader, invadershot, shooter1hit;
-		var invaders = [];
-		var text;
+		//initiate all global variables first line is all 'let' without specific values yet, under are all specific globals and arrays
+		let shooter1, state, bottomBoundary, bullet, invader, invadershot, shooter1hit, correct, sound, backBlack, startOptions;
 		let bullets = [];
 		let pow_array = [];
-		let level = "{{level}}";
+		let options = [];
 		let correctArr = [];
 		let incorrArr = [];
+		let level = "{{level}}";
 
+		var text, audio, gamesBar;
+		var invaders = [];
 		var invaderBoundaries = genBoundaries.height + 30;
-		let options = [];
-		var audio;
-		var gamesBar;
-		let backBlack;
-		let startOptions;
 
 		/*This function Creates start screen, fades out game with black rectangle
 		will return once user clicks start to ensure user interacts with document
 		for chrome use
 		*/
-		function startScreen() {
+		function startScreen(startEnd, userMessage = '') {
+			//-------------------  creates faded background
+			var style = new PIXI.TextStyle({fontFamily: 'Arial', fontSize: 25, fontWeight: 'bold', fill: ['#ffffff'], stroke: '#000000', strokeThickness: 4});
 			backBlack = new PIXI.Graphics();
 			backBlack.beginFill(0x000000, 0.5);
 			backBlack.drawRect(0, 0, genBoundaries.width, genBoundaries.height);
 			backBlack.endFill();
 			app.stage.addChild(backBlack);
+			//-------------------
 
+			//------------------- Creates Brown box which will hopefully be an options menu
 			startOptions = new PIXI.Container();
-			let optionBox = new PIXI.Graphics();
-			optionBox.beginFill(0x342A02, 1);
-			optionBox.drawRoundedRect((genBoundaries.width * 0.5) - 150, (genBoundaries.height * 0.5) - 100, 300, 150);
-			startOptions.addChild(optionBox);
+			//-------------------
 
-			let startBox = new PIXI.Graphics();
-			startBox.beginFill(0x0B610B, 1);
-			startBox.drawRoundedRect((optionBox.width * 0.5)+ 65, (optionBox.height * 0.5)+ 150, 80, 40);
-			var style = new PIXI.TextStyle({fontFamily: 'Arial', fontSize: 25, fontWeight: 'bold', fill: ['#ffffff'], stroke: '#000000', strokeThickness: 4});
-			var start = new PIXI.Text('Start', style);
+			//------------------- creates green button with 'start' or 'end' label
+			let prevPos = 0;
+			for(let i = 0; i < startEnd.length; i++){
 
-			start.x = 222;
-			start.y = 228;
-			startBox.interactive = true;
-			startBox.buttonMode = true;
-			startBox.addChild(start);
-			startBox.on('pointerdown', onClick);
-			startOptions.addChild(startBox);
+				var start = new PIXI.Text(startEnd[i], style);
+				start.x = (genBoundaries.width * 0.5) - start.width/2;
+				start.y = (genBoundaries.height * 0.5) + (start.height + 20) * i - 60;
+				let startBox = new PIXI.Graphics();
+				startBox.lineStyle(2, 0x000000, 1);
+				startBox.beginFill(0x0B610B, 1);
+				startBox.drawRoundedRect(start.x - 4, start.y, start.width + 10, start.height + 10);
+				startBox.interactive = true;
+				startBox.buttonMode = true;
+				startBox.addChild(start);
+
+				if (startEnd[i] === 'start' || startEnd[i] === 'try again'){
+					startBox.on('click', onClick);
+				}else if(startEnd[i] === 'instructions'){
+					startBox.on('click', onClick);
+				}else if(startEnd[i] === 'quit'){
+					startBox.on('click', leaveGame);
+				}
+				else if(startEnd[i] ==='next level'){
+					startBox.on('click', nextLevel);
+				}
+				startOptions.addChild(startBox);
+				prevPos = start.width + 30;
+			}
+			//-------------------
+			if (userMessage != ''){
+				let uM = new PIXI.Text(userMessage, style);
+				uM.x = (genBoundaries.width * 0.5) - uM.width/2;
+				uM.y = (genBoundaries.height * 0.25);
+				startOptions.addChild(uM);
+			}
 			app.stage.addChild(startOptions);
 			return;
 
 		}
+		/* What happens when start button is clicked*/
 		function onClick (){
 			app.stage.removeChild(startOptions);
 			app.stage.removeChild(backBlack);
+			state = play;
 			populateInvaders(options, correct, sound);
 			return true;
+		}
+
+		function leaveGame(){
+			window.location.href = '/lettergame/invaderslevel';
+			return;
+		}
+		function nextLevel(){
+			if (level === 'easy'){
+				window.location.href = '/lettergame/invaders/med';
+			}else if (level === 'med'){
+				window.location.href = '/lettergame/invaders/hard';
+			}
+			return;
 		}
 		/*This code creates green background, fading to darker as screen goes higher
 		with slowly more opacity in black rectangles
 		creates bottom geass line
 		*/
 		function boundaries() {
-
+			//-------------------  creates background green
 			let bg = 12,
 			bgs = [];
 			for (let i = 0; i < bg; i++) {
@@ -151,13 +196,14 @@
 				app.stage.addChild(backGrass);
 
 				let grass = new PIXI.Graphics();
-
-
 				grass.beginFill(0x000000, 0.036);
 				grass.drawRect(0, 0, genBoundaries.width, genBoundaries.height);
 				grass.endFill();
 				app.stage.addChild(grass);
 			}
+			//-------------------
+
+			//-------------------  creates bottom line of grass that underlines shooter boundaries
 			let bottomBoundaries = 1,
 			spacing = 30,
 			xOffset = 0;
@@ -180,6 +226,7 @@
 				if(i * bottomBoundary.width > genBoundaries.width + 100) { break;}
 				i += 1;
 			}
+			//-------------------
 		}
 		/*This function
 			- creates shooter
@@ -192,30 +239,33 @@
 			- calls state and gameLoop to set play
 		*/
 		function setup() {
-			//add shooter to stage at starting position, center screen
+			//-------------------add shooter to stage at starting position, center screen
 			shooter1 = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/shooter-3.png' %}"].texture);
 			shooter1.x = genBoundaries.width/2 - 10;
 			shooter1.y = genBoundaries.height - 50;
 			shooter1.vx = 0;
 			shooter1.vy = 0;
 			app.stage.addChild(shooter1);
+			//-------------------
 
-			// set variables passed from backend
+			//------------------- set variables passed from backend
 			{% for letter in letters %}
 			options.push("{{letter}}");
 			{% endfor %}
-			let sound = new String("{{sound}}");
-			let correct = new String("{{correct}}");
+			sound = new String("{{sound}}");
+			correct = new String("{{correct}}");
+			//-------------------
 
-			//create specifics of sprite 'bullet'
+			//-------------------create specifics of sprite 'bullet'
 			bullet = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bullet2.png' %}"].texture);
 			gamesBar = new PIXI.Container();
 			var infoBar = new PIXI.Graphics();
 			infoBar.beginFill(0x342A02, 1);
 			infoBar.drawRect(0, 0, genBoundaries.width, 30);
 			gamesBar.addChild(infoBar);
+			//-------------------
 
-			//Create the style of point/health bar text
+			//-------------------Create the style of point/health bar text
 			var style = new PIXI.TextStyle({
 				fontFamily: 'Arial',
 				fontSize: 12,
@@ -226,6 +276,9 @@
 				strokeThickness: 2,
 
 			});
+			//-------------------
+
+			//------------------- All of Health Bar creation
 			// create health text
 			var health = new PIXI.Text('HEALTH : ', style);
 			health.x = 10;
@@ -249,6 +302,9 @@
 			healthBar.outer = outerhBar;
 			gamesBar.addChild(health);
 			gamesBar.addChild(healthBar);
+			//-------------------
+
+			//------------------- All of Points bar creation
 			//create points text
 			var points = new PIXI.Text('POINTS : ', style);
 			points.x = 330;
@@ -274,20 +330,16 @@
 			pointBar.outer.width = 0;
 			gamesBar.addChild(points);
 			gamesBar.addChild(pointBar);
-
+			//-------------------
 
 			app.stage.addChild(gamesBar);
-		    startScreen();
-			// while(true){
-			// 	console.log("AAAAAAAh");
-			// }
-			// populateInvaders(options, correct, sound);
-
+			let startEnd = ['start', 'instructions', 'quit'];
+		    startScreen(startEnd);
 			setKeyActions();
 
 			//Set the game state
 			//call function 'play'
-			state = play;
+			state = start;
 
 			//Start the game loop
 			//call function 'gameLoop'
@@ -335,6 +387,11 @@
 			//function will update the current game state:
 			state(delta);
 	    }
+
+		/*Function is used for start and end of game state, different state than play doesnt
+		do anything right now*/
+		function start(delta) {}
+
 		/*Function plays sound at beginning of gameLoop
 		contains the shooter to vertical boundaries
 		calls flipem() to flip invaders when they hit their bouncdaries
@@ -366,8 +423,10 @@
 
 			// flips invaders over y-axis
 			flipEm();
+			//checks through invader and bullet array to see if any have interacted
 			checkHit();
 
+			//creates 'pow' image and deletes it after half a second
 			goodbye_pow = [];
 			for (let i = 0, l = pow_array.length; i < l; i += 1) {
 				if (wait(500, pow_array[i]) === true) {
@@ -375,10 +434,12 @@
 					goodbye_pow.push(i)
 				}
 			}
+			//removes any sprites that should no longer be on screen from their main arrays
 			arraySplice(bullets, hitInvader);
 			arraySplice(invaders, gotHit);
 			arraySplice(pow_array, goodbye_pow);
 
+			//-------------------for loop iterates through all bullets in array and checks if any have hit the top, if so removes them from array, else creates their velocity
 			out_of_bounds = [];
 			for (let i = 0; i < bullets.length; i += 1) {
 				let bullethitsWall = contain(bullets[i], { x: 0, y: 41, width: genBoundaries.width, height: genBoundaries.heigth });
@@ -389,16 +450,29 @@
 					bullets[i].y += bullets[i].vy;
 				}
 			}
-
 			for (let j = 0, l = out_of_bounds.length; j < l; j += 1) {
 				bullets.splice(out_of_bounds[j], 1);
 			}
-			if (healthBar.outer.width < 0) {
+			//-------------------
+
+			//------------------- makes sure points and health bar dont go out of bounds, sets the game state to start if points are full or health is gone
+			if (healthBar.outer.width <= 0) {
 				healthBar.outer.width = 0;
+				startEnd = ['quit', 'try again'];
+				startScreen(startEnd, "you lose :(");
+				state = start;
 			}
-			if (pointBar.outer.width > 90) {
+			if (pointBar.outer.width >= 90) {
+				if (level != 'hard'){
+					startEnd = ['quit', 'next level'];
+				}else{
+					startEnd = ['quit'];
+				}
 				pointBar.outer.width = 90;
+				startScreen(startEnd, "you win :)");
+				state = start;
 			}
+			//-------------------
 }
 /*function gives objects boundaries within the game, contains sprite to
 certain parameters to within or off stage
@@ -508,9 +582,8 @@ function arraySplice(mainArray, notinUse) {
 }
 /*Function will contain end conditions which when true
 give the user the 'game over' message  and give the choice to play again */
-function end() {
+function end(delta) {
 	//end game make it a choice to play again
-
 }
 /*Uses correct sound and options variables to create invaders given values from the backend
 sets invader speed based on Level
@@ -533,7 +606,7 @@ function populateInvaders(options, correct, sound) {
 	//spacing = 30;
 
 	if (level === 'easy') {
-		speed = 1;
+		speed = 3;
 		spacing = 70;
 		xOffset = 0;
 	} else if (level === 'med') {
