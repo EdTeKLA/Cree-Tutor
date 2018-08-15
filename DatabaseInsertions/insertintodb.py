@@ -11,6 +11,7 @@ cursor = None
 #Set filenames
 GRAMCODE_FILENAME = 'gram_codes.txt'
 LEMMA_FILENAME = 'lemmas.txt'
+# LEMMA_FILENAME = 'lemmas_REMOVE_OR_REPLACE.txt'
 WORDS_FILENAME = 'words_for_db.txt'
 
 #Get db_root, db_pass, and filepaths from settings.py
@@ -226,8 +227,11 @@ def cycleWords(directory_in_str, lemma_dict):
                 )
 
             if word_id == 3:
+                #Test to make sure that characters are encoded correctly
                 print([ord(e) for e in lemma])
+                print("This should look like \n[97, 107, 226, 109, 97, 115, 107, 238, 104, 107]")
                 print(lemma)
+                print("This should look like \nakâmaskîhk")
             executestring = "INSERT INTO word(word_id, word, translation, num_syllables, sound, lemmaID_id, gram_code_id) VALUES"
             executestring += add_to_executestring
             executestring = executestring.replace("\n", "")
@@ -390,6 +394,12 @@ def consonant():
     return
 
 def cycleGramCodes(directory_in_str):
+    """Function takes no arguments
+    Function cycles through gram_codes found in GRAMCODE_FILENAME and adds them
+    to the database.
+
+    Returns nothing
+    """
     directory = directory_in_str
     with open(os.path.join(directory,GRAMCODE_FILENAME), 'r', encoding='utf-8') as doc:
         lines = doc.readlines()
@@ -402,6 +412,14 @@ def cycleGramCodes(directory_in_str):
     db.commit()
 
 def cycleLemma(directory_in_str):
+    """Function takes no arguments
+    Function cycles through lemmas found in LEMMA_FILENAME and adds them
+    to the database.
+
+    Returns a dictionary with lemmas as keys and the associated lemma_id as VALUES
+    This is used by cycleWords(lemma_dict) to add the lemma as a foriegn key.
+    An integer id is used as primary key for Lemma because homophones exist.
+    """
     directory = directory_in_str
     with open(os.path.join(directory,LEMMA_FILENAME), 'r', encoding='utf-8') as doc:
         lines = doc.readlines()
@@ -412,20 +430,26 @@ def cycleLemma(directory_in_str):
     #TODO add part_of_speech stuff
     #TODO add animate stuff
     #TODO add trransitive stuff
-    #TODO add translation stuff
 
     for l in lines:
+        #all double characters turn into single characters
         content = unicodedata.normalize('NFC', l)
 
-        #strip code to remove '\n'
-        stripped_code = content.strip()
+        #strip code to remove '\n', split on tilda
+        stripped_code = content.strip().split('~')
+        # print(stripped_code)
+        # should look like ["atim","dog"]
+        lemma = stripped_code[0]
+        translation = stripped_code[1]
 
-        executestring = "INSERT INTO lemma VALUES ('{}', '{}', NULL, NULL,NULL,NULL,NULL,NULL)".format(
+
+        executestring = "INSERT INTO lemma VALUES ('{}', '{}', '{}', NULL,NULL,NULL,NULL,NULL)".format(
                         lemma_id,
-                        stripped_code,
+                        lemma,
+                        translation,
                         )
         #print(executestring + '\n')
-        lemma_dict[stripped_code] = lemma_id
+        lemma_dict[lemma] = lemma_id
         cursor.execute(executestring)
         lemma_id += 1
 
