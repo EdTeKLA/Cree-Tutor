@@ -1,251 +1,252 @@
-atim
-acimosis
-akâmaskiy
-akâmaskîhk
-akâmihk
-amiskwâciwaskahikan
-anohc
-apsis
-apiw
-askipwawâ
-askipwâwi
-atâwêwikamik
-atoskêw
-awâsis
-awîna
-ayamihcikêw
-ay
-âkayâsîmowin
-âkâyâsiw
-âpokosîs
-âta
-âtiht
-âwas
-âyiman
-cacâstapiwêw
-cakêk
-têhtapiwin
-cêhcapiwinis
-cêskwa
-cikêmâ
-cîki
-cîscayisîpwâkanis
-cîscaysîpwâkanis
-cohkâp
-côcô
-êhâ
-êhohpiyan
-ohpîw
-êhopîyâhk
-kîwêw
-êkosi
-êkwa
-masinahikêw
-mâtow
-mêtawêw
-êmihkwânis
-êmihkwân
-minihkwêw
-mîcisow
-nikamow
-nipâw
-nîmihitow
-nîpawiw
-êpahpiyit
-pâhpiw
-êpihtwâyan
-êpihtwâyit
-pimohtêw
-pîhtwâw
-pîkiskwêw
-sâkihêw
-isîyihkâs
-isîyihkâso
-isîyihkâta
-isîyihkâtêw
-iskwêw
-iskwêsis
-itamaciho
-itohtêw
-itwêw
-ka
-kayâs
-kihtwâm
-mikot
-nikamon
-kinosêw
-kipihtwân
-kiskinohamâkosiw
-miskîsik
-mitôn
-kîhtawakay
-kîkwây
-mîscakâsa
-kîsta
-kîstanaw
-kîstawâw
-kiya
-kîyanaw
-kiyawâw
-kôhkôs
-kôhkôsak
-kôhkôsis
-kôhkôsowîyan
-kôhkôsowîyin
-ma
-mahtâmin
-maskihkiwâpohk
-maskihkiwâpoy
-maskisin
-maskisiniw
-maskisinis
-matahminak
-mâka
-mâmaskâc
-micihciy
-micihcîs
-mickciy
-minihkwêwîyâkanis
-minôs
-mistêhtapiwin
-misi-atâwêwikamik
-miscakasa
-misit
-misicis
-misiminihkwêwîyâkan
-misi-minôs
-misi-môhkomân
-itêw
-itam
-miskât
-mispiton
-mistahi
-mistaskipwâwa
-mistatim
-mistikinosêw
-mistikwan
-mistikwân
-mistimaskisina
-mitawakay
-mîcimapoy
-mîcimâpoy
-mîhtawakay
-mîhtawakaya
-mîhtawakâhk
-mîpit
-mîyomaciho
-mîywâsin
-mostos
-môhkomanis
-môhkomân
-mônîyâw
-napêw
-nâpê-êsa
-nâpê-êsis
-nâpêw
-nâpêsis
-nâspic
-nêhiyaw
-nêhiyawêw
-nêhiyawêwin
-nêstosiw
--awâsimis
-nihtâ
--kâwiy
--kosis
--mosôm
-ninêkihikwak
-nipimohtânan
-nipîy
-nisitohtam
-nistawêyimêw
-nitawêyihtam
-nitawêyimêw
--tânis
-nitâwasimisak
-nitohtam
--tôtêm
-nîpîy
-nîsosâp
-nîsta
-nîstanân
--tisân
-niya
-niyanân
-nîyânan
--ohtâwiy
-nohtê
-nohtêkatê
-nohtêkwasi
--ohkom
--ôsisim
-ohci
-ohtâwîmâw
-ohtâwîmêw
-okâwîmâw
-okâwîmêw
-onêkihikomâw
-oskâtâsk
-ôcênas
-ôtênaw
-ôcênâs
-ôhô
-pahkwêsikan
-pahpiyiwa
-papêskomina
-pê
-pêtâw
-pêyakwan
-picikwâs
-pihtokwê
-pihtwâ
-pihtwâyiwa
-ohtêw
-pitamâ
-pîkiskwâs
-pîsim
-sakahikan
-sakihikan
-sâkahikan
-sêmâk
-sikâk
-sîsîp
-sîsîpisis
-sîwihtâkan
-sîwinikan
-tawâw
-tânêhki
-tânisi
-tânisîyisi
-tânispi
-tânitê
-têpakohp
-tohtôsapoy
-tohtôsâpohk
-tohtôsâpoy
-tohtôsâpôpimiy
-wahwâ
-wâcistakâc
-wâhyaw
-wâpahtam
-wâpamêw
-wâskahikan
-wâwi
-asinêw
-wêhcasin
-wêmistikôsiw
-wêmistikôsînâhk
-wiyâs
-wîcihêw
-wîkiw
--îki
-wîkinân
-wîpac
-wîsti
-wîsta
-wîstawâw
-wiya
-wiyawâw
-wîyâkan
-wîyâs
-wîyâsihk
+atim~A dog.
+acimosis~A pup or a puppy; a newborn dog.
+akâmaskiy~the land across the water, overseas
+akâmaskîhk~overseas, across the ocean; in the land across the water
+akâmihk~across the water or lake
+amiskwâciwaskahikan~NULL
+amiskwaciy-wâskahikan~Edmonton
+anohc~today
+apsis~a little
+apiw~He sits.  Also means he is at home.
+askipwawâ~NULL
+askipwâwi~potato
+atâwêwikamik~store
+atoskêw~He works
+awâsis~A child; a tot.
+awîna~who
+ayamihcikêw~read
+ay~NULL
+âkayâsîmowin~English
+âkâyâsiw~NULL
+âpokosîs~NULL
+âta~although, even though, in vain; on the other hand
+âtiht~NULL
+âwas~NULL
+âyiman~NULL
+cacâstapiwêw~NULL
+cakêk~NULL
+têhtapiwin~chair, seat; saddle
+cêhcapiwinis~baby chair, highchair; little chair
+cêskwa~wait, wait a minute; presently, yet; soon; in the future
+cikêmâ~of course, certainly, naturally, obviously, as might be expected, as a natural result, certain consequence; evidently; because
+cîki~close, close by, near, nearby, near to
+cîscayisîpwâkanis~A big table fork.
+cîscaysîpwâkanis~NULL
+cohkâp~NULL
+côcô~NULL
+êhâ~NULL
+êhohpiyan~NULL
+ohpîw~NULL
+êhopîyâhk~NULL
+kîwêw~NULL
+êkosi~amen
+êkwa~and, also; then; now
+masinahikêw~s/he writes, s/he writes things, s/he is literate; s/he owes; s/he takes employment; s/he gives credit; s/he gets credit
+mâtow~bawl
+mêtawêw~s/he plays; s/he gambles, s/he contests
+êmihkwânis~NULL
+êmihkwân~NULL
+minihkwêw~s/he drinks, s/he has a drink; s/he drinks s.t.; s/he drinks, s/he abuses alcohol
+mîcisow~s/he eats, s/he has a meal
+nikamow~s/he sings
+nipâw~s/he sleeps, s/he is asleep
+nîmihitow~s/he dances
+nîpawiw~NULL
+êpahpiyit~NULL
+pâhpiw~NULL
+êpihtwâyan~NULL
+êpihtwâyit~NULL
+pimohtêw~s/he walks, s/he walks along; s/he goes along
+pîhtwâw~s/he smokes; s/he smokes the pipe, s/he uses the pipe; s/he has a pipe ceremony; s/he is a nicotine addict
+pîkiskwêw~s/he speaks, s/he talks, s/he use words, s/he makes a speech
+sâkihêw~s/he loves s.o., s/he prizes s.o., s/he is attached to s.o.
+isîyihkâs~NULL
+isîyihkâso~NULL
+isîyihkâta~NULL
+isîyihkâtêw~NULL
+iskwêw~woman, female adult
+iskwêsis~girl
+itamaciho~NULL
+itohtêw~NULL
+itwêw~s/he says so, s/he says thus, s/he calls (it) so; it has such a meaning
+ka~(MD)
+kayâs~a long time ago
+kihtwâm~again
+mikot~A nose; a human nose. (Plains). Alt. paswâkan (Northern).
+nikamon~A song. (Northern). Alt. nikamowin (Plains).
+kinosêw~fish
+kipihtwân~NULL
+kiskinohamâkosiw~NULL
+miskîsik~An eye.
+mitôn~A mouth.
+kîhtawakay~NULL
+kîkwây~what  Used when asking a question, i.e. : what
+mîscakâsa~NULL
+kîsta~NULL
+kîstanaw~NULL
+kîstawâw~you (pl), too; you (pl) by contrast; you yourselves
+kiya~you (sg)
+kîyanaw~we/you (pl.incl)
+kiyawâw~you (pl)
+kôhkôs~pig
+kôhkôsak~pigs
+kôhkôsis~little pig
+kôhkôsowîyan~NULL
+kôhkôsowîyin~bacon
+ma~To mean continuous action.  Means always or keeps doing
+mahtâmin~cob of corn
+maskihkiwâpohk~NULL
+maskihkiwâpoy~camomile
+maskisin~A low-cut footwear, i.e.: a moccasin.
+maskisiniw~NULL
+maskisinis~little moccasin, childs shoe
+matahminak~corn
+mâka~but
+mâmaskâc~awful
+micihciy~A hand.
+micihcîs~little hand
+mickciy~NULL
+minihkwêwîyâkanis~NULL
+minôs~A cat.
+mistêhtapiwin~NULL
+misi-atâwêwikamik~NULL
+miscakasa~NULL
+misit~A foot.
+misicis~A little foot
+misiminihkwêwîyâkan~NULL
+misi-minôs~large cat
+misi-môhkomân~large knife
+itêw~s/he says thus to s.o., s/he says thus about s.o.; s/he calls s.o. thus
+itam~He speaks of it as so.
+miskât~A leg.
+mispiton~limb  A limb on a person
+mistahi~A lot.  A great amount.  Much.
+mistaskipwâwa~NULL
+mistatim~An aged horse; an old nag.
+mistikinosêw~NULL
+mistikwan~NULL
+mistikwân~A head.
+mistimaskisina~NULL
+mitawakay~NULL
+mîcimapoy~soup
+mîcimâpoy~soup
+mîhtawakay~NULL
+mîhtawakaya~NULL
+mîhtawakâhk~NULL
+mîpit~A tooth.
+mîyomaciho~NULL
+mîywâsin~it looks very fine, it is attractive
+mostos~A cow.
+môhkomanis~little knife
+môhkomân~A knife.
+mônîyâw~NULL
+napêw~man
+nâpê-êsa~NULL
+nâpê-êsis~NULL
+nâpêw~man, male adult, male being; husband
+nâpêsis~boy, little boy
+nâspic~forever, for good, beyond return, beyond reach; continuous
+nêhiyaw~Cree, Cree man, Cree Indian, Indian
+nêhiyawêw~s/he speaks Cree
+nêhiyawêwin~the Cree language; speaking Cree
+nêstosiw~NULL
+-awâsimis~NULL
+nihtâ~NULL
+-kâwiy~NULL
+-kosis~NULL
+-mosôm~NULL
+ninêkihikwak~NULL
+nipimohtânan~NULL
+nipîy~Water; aqua.
+nisitohtam~NULL
+nistawêyimêw~NULL
+nitawêyihtam~NULL
+nitawêyimêw~NULL
+-tânis~NULL
+nitâwasimisak~NULL
+nitohtam~NULL
+-tôtêm~NULL
+nîpîy~A leaf.
+nîsosâp~twelve
+nîsta~I, too; I by contrast; I myself
+nîstanân~we, too; we by contrast; we ourselves
+-tisân~NULL
+niya~I am
+niyanân~NULL
+nîyânan~five
+-ohtâwiy~NULL
+nohtê~NULL
+nohtêkatê~NULL
+nohtêkwasi~NULL
+-ohkom~NULL
+-ôsisim~NULL
+ohci~from there, thence, out of; with, by means of; because of; for; from then; about
+ohtâwîmâw~A father. Var. opâpâmâw.
+ohtâwîmêw~s/he regards s.o. as his/her own father
+okâwîmâw~A mother (generic).
+okâwîmêw~s/he regards s.o. as his/her own mother
+onêkihikomâw~NULL
+oskâtâsk~A carrot.
+ôcênas~village
+ôtênaw~town, camp-circle, settlement; city
+ôcênâs~village
+ôhô~An owl.
+pahkwêsikan~bannock, bread; flour
+pahpiyiwa~NULL
+papêskomina~NULL
+pê~NULL
+pêtâw~s/he brings s.t., s/he brings s.t. hither
+pêyakwan~NULL
+picikwâs~apple
+pihtokwê~NULL
+pihtwâ~NULL
+pihtwâyiwa~NULL
+ohtêw~it boils
+pitamâ~for now, just a while; in the meantime, first, prior to doing anything else
+pîkiskwâs~NULL
+pîsim~sun  Or a month
+sakahikan~A nail.
+sakihikan~NULL
+sâkahikan~lake
+sêmâk~right now, right away, at once, immediately
+sikâk~skunk
+sîsîp~A duck.
+sîsîpisis~A duckling.
+sîwihtâkan~salt
+sîwinikan~Sugar. (Plains). Alt. sesipâskwat (Northern).
+tawâw~it has an opening
+tânêhki~NULL
+tânisi~how, in what way; hello, how are you
+tânisîyisi~NULL
+tânispi~NULL
+tânitê~NULL
+têpakohp~NULL
+tohtôsapoy~milk
+tohtôsâpohk~NULL
+tohtôsâpoy~milk
+tohtôsâpôpimiy~butter
+wahwâ~NULL
+wâcistakâc~An exclamation of surprise or disappointment, i.e.: wow, how about that! or oh, my goodness!
+wâhyaw~afar
+wâpahtam~to see (NI)
+wâpamêw~to see (NA)
+wâskahikan~a house
+wâwi~An egg.
+asinêw~s/he holds s.o. (pl) together in a bunch (e.g. money)
+wêhcasin~it is easy, it is simple; it is cheap in price
+wêmistikôsiw~Frenchman, French Canadian, white man
+wêmistikôsînâhk~NULL
+wiyâs~meat
+wîcihêw~NULL
+wîkiw~S/he lives or inhabits there; s/he dwells there; s/he resides there; s/he has a home there.
+-îki~NULL
+wîkinân~NULL
+wîpac~Soon. (Plains). Alt. kîyipa (Northern).
+wîsti~beaver lodge; muskrat house
+wîsta~he, too; she, too; he, by contrast; she, by contrast
+wîstawâw~they, too; they, by contrast; they themselves
+wiya~this, that; as for, by contrast
+wiyawâw~by contrast
+wîyâkan~NULL
+wîyâs~meat
+wîyâsihk~NULL

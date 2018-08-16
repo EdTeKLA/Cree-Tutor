@@ -140,4 +140,14 @@ def invaders(request, level):
         context['level'] = level
         return JsonResponse(context)
     else:
-        return HttpResponse('ERROR: request methods improperly passed to views.invaders')
+        return HttpResponse('ERROR: POST request passed to views.invaders')
+
+def lemmagame(request):
+    if request.method == 'GET':
+        return render(request, 'lettergame/lemmagame.html', context)
+
+    elif request.method == 'POST':
+        return render(request, 'lettergame/lemmagame.html', context)
+
+    else:
+        return HttpResponse('ERROR: request.method was neither GET nor POST')

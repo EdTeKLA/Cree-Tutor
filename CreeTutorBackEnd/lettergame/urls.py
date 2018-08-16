@@ -7,5 +7,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('introsound/<str:game>/', views.whichgame, name="whichgame"),
     path('invaderslevel/', views.invaderslevel, name="invaderslevel"),
-    path('invaders/<str:level>/', views.invaders, name="invaders")
+    path('invaders/<str:level>/', views.invaders, name="invaders"),
+    path('lemmagame/', views.lemmagame, name="lemmagame"),
 ]
