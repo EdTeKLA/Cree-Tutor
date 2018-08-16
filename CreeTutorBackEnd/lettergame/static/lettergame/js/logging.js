@@ -1,17 +1,32 @@
 var startTime = undefined
 var endTime = undefined
+var hoveredArr = [];
+var startHover = undefined;
+var endHover = undefined;
+var hovered = 'not changed';
+var distractors;
 
 $(window).on("load", function(e){
   startTime = new Date();
+  getDistractors();
   return;
 });
 
 function howLong(){
   endTime = new Date();
-  var time = endTime.getTime() - startTime.getTime();
-  console.log(time);
-  time = time.toString();
-  return time;
+  return;
+}
+
+function getDistractors(){
+    distractors = [];
+    let letters = $('input[type=radio]').each(function(){$(this).attr('value')});
+    let correct = $('#correct_r').attr('value');
+    for(let i = 0; i < letters.length; i++){
+        if(letters[i].value != correct){
+            distractors.push(letters[i].value);
+        }
+    }
+    return;
 }
 
 function getCookie(name) {
@@ -30,6 +45,16 @@ function getCookie(name) {
     return cookieValue;
 }
 
+$('body').on('mouseenter', 'input[type=radio]', function(){
+      startHover = new Date();
+   });
+$('body').on('mouseout', 'input[type=radio]', function(){
+     hovered = $(this).attr('value');
+     endHover = new Date();
+     var info = [startHover, endHover, hovered];
+     hoveredArr.push(info);
+     return;
+  });
 
 var csrftoken = getCookie('csrftoken');
 
@@ -50,8 +75,9 @@ $.ajaxSetup({
 
 $(document).on('submit', '#game_ans', function(e){
     e.preventDefault();
+    console.log(hoveredArr);
 
-    timeSpent = howLong();
+    howLong();
     startTime = new Date();
 
     $.ajax({
@@ -60,7 +86,10 @@ $(document).on('submit', '#game_ans', function(e){
       data:{
         user_r:$('input[name=user_r]:checked').val(),
         correct_r:$("#correct_r").val(),
-        time_s: timeSpent
+        time_s: startTime,
+        time_e: endTime,
+        arrHov: hoveredArr,
+        distract: distractors
       },
       success:function(data){
         // console.log(data['letters']);

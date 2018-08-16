@@ -123,15 +123,24 @@ class GramCode(models.Model):
 
 
 class SingleLetterStats(models.Model):
+    answer_id = models.AutoField(primary_key=True)
     user_id = models.IntegerField(blank=True, null=True)
     chosen_answer = models.CharField(max_length=4, blank=True, null=True)
     correct_answer = models.CharField(max_length=4, blank=True, null=True)
-    time_answered = models.DateTimeField(blank=True, null=True)
-    time_spent = models.DateTimeField(blank=True, null=True)
+    time_started = models.DateTimeField(blank=True, null=True)
+    time_ended = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         db_table = "single_letter_stats"
 
+class SLSDistractedBy(models.Model):
+    answer_id = models.OneToOneField(SingleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
+    distractor = models.OneToOneField(Alphabet, models.DO_NOTHING, db_column='letter')
+    time_distracted = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        db_table = "sls_distractedby"
+        unique_together = (('answer_id', 'distractor'),)
 
 class LetterDistractor(models.Model):
     letter = models.OneToOneField(Alphabet, models.DO_NOTHING, db_column='letter')
@@ -144,11 +153,12 @@ class LetterDistractor(models.Model):
 
 
 class DoubleLetterStats(models.Model):
+    answer_id = models.AutoField(primary_key=True)
     user_id = models.IntegerField(blank=True, null=True)
     chosen_answer = models.TextField(blank=True, null=True)
     correct_answer = models.TextField(blank=True, null=True)
-    time_answered = models.DateTimeField(blank=True, null=True)
-    time_spent = models.DateTimeField(blank=True, null=True)
+    time_started = models.DateTimeField(blank=True, null=True)
+    time_ended = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         db_table = "double_letter_stats"
@@ -202,9 +212,7 @@ class Word(models.Model):
 class LemmaGame(models.Model):
     #For Nouns, this should default to the non-affixed noun, e.i. atim+N+AN+Sg -> atim
     wordform = models.ForeignKey(Word, models.DO_NOTHING,blank=True, null=True)
-
     lemma = models.ForeignKey(Lemma, models.DO_NOTHING, blank=False, null=True)
-
     distractors = models.ManyToManyField(Word, related_name="+")
 
 

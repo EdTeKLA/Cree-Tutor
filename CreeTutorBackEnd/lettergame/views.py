@@ -64,13 +64,19 @@ def letterGames(request, game):
         return getOptions(options, type)
 
     elif request.method == 'POST':
+        f = open('check.txt', 'w')
         user_response = request.POST['user_r']
         correct_response = request.POST['correct_r']
-        time_spent = request.POST['time_s']
+        startTime = request.POST['time_s']
+        endTime = request.POST['time_e']
+        hoveredArr = request.POST.get('arrHov', '')
+        f.write(str(len(hoveredArr)))
+        # distractors = request.POST['distract']
+        # hoveredOver = request.POST['arrHov']
         answer.chosen_answer = user_response
         answer.correct_answer = correct_response
         answer.time_answered = datetime.datetime.now()
-        #answer.time_spent = time_spent
+        # answer.time_spent = int(time_spent)
         answer.save()
         return getOptions(options, type)
 
@@ -135,4 +141,3 @@ def invaders(request, level):
         return JsonResponse(context)
     else:
         return HttpResponse('ERROR: request methods improperly passed to views.invaders')
-
