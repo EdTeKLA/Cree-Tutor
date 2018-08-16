@@ -134,13 +134,23 @@ class SingleLetterStats(models.Model):
         db_table = "single_letter_stats"
 
 class SLSDistractedBy(models.Model):
-    answer_id = models.OneToOneField(SingleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
-    distractor = models.OneToOneField(Alphabet, models.DO_NOTHING, db_column='letter')
-    time_distracted = models.IntegerField(blank=True, null=True)
+    answer_id = models.ForeignKey(SingleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
+    distracted_by = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='letter')
+    time_hover_start = models.DateTimeField(blank=True, null=True)
+    time_hover_end = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         db_table = "sls_distractedby"
-        unique_together = (('answer_id', 'distractor'),)
+        unique_together = (('answer_id', 'distracted_by', 'time_hover_start'),)
+
+class SLSDistractors(models.Model):
+    answer_id = models.ForeignKey(SingleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
+    distractor = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='letter')
+
+    class Meta:
+        db_table = 'sls_distractors'
+        unique_together = (('answer_id', 'distractor'))
+
 
 class LetterDistractor(models.Model):
     letter = models.OneToOneField(Alphabet, models.DO_NOTHING, db_column='letter')
@@ -163,6 +173,23 @@ class DoubleLetterStats(models.Model):
     class Meta:
         db_table = "double_letter_stats"
 
+class DLSDistractedBy(models.Model):
+    answer_id = models.ForeignKey(DoubleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
+    distracted_by = models.ForeignKey(LetterPair, models.DO_NOTHING, db_column='pair')
+    time_hover_start = models.DateTimeField(blank=True, null=True)
+    time_hover_end = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        db_table = "dls_distractedby"
+        unique_together = (('answer_id', 'distracted_by', 'time_hover_start'),)
+
+class DLSDistractors(models.Model):
+    answer_id = models.ForeignKey(DoubleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
+    distractor = models.ForeignKey(LetterPair, models.DO_NOTHING, db_column='pair')
+
+    class Meta:
+        db_table = 'dls_distractors'
+        unique_together = (('answer_id', 'distractor'))
 
 class SoundInSyllable(models.Model):
     syl_id = models.IntegerField(blank=True, null=True)

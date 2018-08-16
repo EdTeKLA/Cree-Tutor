@@ -4,7 +4,7 @@ from django.http import JsonResponse
 import json
 from django.template import loader
 from django.forms.models import model_to_dict
-from .models import Alphabet, SingleLetterStats, LetterPair, DoubleLetterStats, Word, WordSyllable
+from .models import *
 import random
 import datetime
 
@@ -13,8 +13,8 @@ def index(request):
 
     return render(request, 'lettergame/index.html')
 
-def whichgame(request, game):
 
+def whichgame(request, game):
     '''
     Function takes in request and game name. If game is "single", then the client
     has requested to play the single letter game, and similarly for game == "double".
@@ -53,7 +53,7 @@ def letterGames(request, game):
         answer = DoubleLetterStats()
 
     elif game == 'single':
-        options = letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
+        options = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
         type = 'letter'
         answer = SingleLetterStats()
 
@@ -64,20 +64,44 @@ def letterGames(request, game):
         return getOptions(options, type)
 
     elif request.method == 'POST':
-        f = open('check.txt', 'w')
+        # TODO: Can be it's own function, figure out how to make more general
         user_response = request.POST['user_r']
         correct_response = request.POST['correct_r']
         startTime = request.POST['time_s']
         endTime = request.POST['time_e']
-        hoveredArr = request.POST.get('arrHov', '')
-        f.write(str(len(hoveredArr)))
-        # distractors = request.POST['distract']
-        # hoveredOver = request.POST['arrHov']
+        hoveredArr = request.POST.getlist('arrHov[]')
+        dists = request.POST.getlist('distract[]')
         answer.chosen_answer = user_response
         answer.correct_answer = correct_response
-        answer.time_answered = datetime.datetime.now()
-        # answer.time_spent = int(time_spent)
+        answer.time_started = startTime
+        answer.time_ended = endTime
         answer.save()
+        if game == 'single':
+            a_id = SingleLetterStats.objects.latest('answer_id')
+        elif game == 'double':
+            a_id = DoubleLetterStats.objects.latest('answer_id')
+        for i in hoveredArr:
+            j = i.split(',')
+            if game == 'single':
+                answer_dist = SLSDistractedBy()
+                answer_dist.distracted_by = Alphabet.objects.get(letter = j[0])
+            elif game == 'double':
+                answer_dist = DLSDistractedBy()
+                answer_dist.distracted_by = LetterPair.objects.get(pair = j[0])
+            answer_dist.answer_id = a_id
+            answer_dist.time_hover_start = j[1]
+            answer_dist.time_hover_end = j[2]
+            answer_dist.save()
+        for i in dists:
+            if game == 'single':
+                distractors = SLSDistractors()
+                distractors.distractor = Alphabet.objects.get(letter = i)
+            elif game == 'double':
+                distractors = DLSDistractors()
+                distractors.distractor = LetterPair.objects.get(pair = i)
+            distractors.answer_id = a_id
+            distractors.save()
+
         return getOptions(options, type)
 
     else:
@@ -114,9 +138,11 @@ def syl_in_word(request):
 
     return HttpResponse(syl[num].vowel)
 
+
 def invaderslevel(request):
 
     return render(request, 'lettergame/invadersmain.html')
+
 
 def invaders(request, level):
     if level == 'easy':
@@ -141,6 +167,7 @@ def invaders(request, level):
         return JsonResponse(context)
     else:
         return HttpResponse('ERROR: POST request passed to views.invaders')
+
 
 def lemmagame(request):
     if request.method == 'GET':
