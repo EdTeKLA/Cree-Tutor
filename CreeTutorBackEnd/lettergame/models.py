@@ -171,7 +171,7 @@ class PairDistractor(models.Model):
     - "type" refers to the types of distractors described in class DistractorType
     '''
 
-    pair = models.ForeignKey(LetterPair, models.DO_NOTHING, db_column='letter')
+    pair = models.ForeignKey(LetterPair, models.DO_NOTHING, db_column='pair')
     distractor = models.CharField(max_length=16)
     type = models.ForeignKey(DistractorType, models.DO_NOTHING, db_column='type', blank=True, null=True)
 
@@ -197,6 +197,7 @@ class Transitive(models.Model):
     Class defines possible options for describing transitivity of verbs
     Possibilities are restricted to:
             II AI TI TA NULL
+            TODO: Spell out what each option is 
     '''
 
     transitive = models.CharField(primary_key=True, max_length=8)
