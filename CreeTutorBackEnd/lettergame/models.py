@@ -12,7 +12,7 @@ HOW TO:
     3. Run python manage.py migrate to apply those changes to the database
     NOTE: If you change the name of model or field, PLEASE ENSURE that you change it everywhere else it
     could be changed e.g. in views.py
--Create a model(table) using mysql:
+-Creating a model(table) using mysql:
     1. Create table in mysql
     2. Run python manage.py inspectdb
     3. Find the Python Model script for your new model and copy it
@@ -25,7 +25,7 @@ HOW TO:
 -Class META:
     -If not explicitly named, django will name the database tables "appname_modelname",
     for example "lettergame_alphabet". But in class META, the property 'db_table' allows
-    for the naming of the table in the database. ** RECCOMENDED FOR EASE OF USE **
+    for the re-naming of the table in the database. ** RECCOMENDED FOR EASE OF USE **
     -Managed: This property is a boolean. Essentially, default set to true. If set to False,
     migration will NOT add it to the database. The command 'inspectdb' returns it as False,
     since it already exists in the database.
@@ -67,7 +67,16 @@ TROUBLESHOOTING:
     all the data information from the database, which may be deleted.
 
 '''
+
+
 class GameLevels(models.Model):
+    '''
+    Class describes what level the current games may operate at.
+    - "level" is the integer id and primary key (e.g. 0)
+    - "name" is the name of the level (e.g. "easy")
+    - "description" describes what makes it that level (e.g. "contains __ number of distractors of type __")
+    '''
+
     level = models.IntegerField(primary_key=True)
     name = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -75,7 +84,15 @@ class GameLevels(models.Model):
     class Meta:
         db_table = 'game_levels'
 
+
 class Alphabet(models.Model):
+    '''
+    Class contains the Standard Roman Orthography for Plains Cree.
+    - "letter" is self explanitory and is primary key (e.g. "a")
+    - "vowel" is class of speech sound (i.e. "vowel", "semi-vowel", "consonant")
+    - "sound" contains the path to the recording of the letter
+    '''
+
     letter = models.CharField(primary_key=True, max_length=2)
     vowel = models.TextField(blank=True, null=True)
     sound = models.TextField(blank=True, null=True)
@@ -83,7 +100,29 @@ class Alphabet(models.Model):
     class Meta:
         db_table = "alphabet"
 
+class LetterUserSeen(models.Model):
+    '''
+    Class contains letters that a user has seen at least once.
+    - "user_id" identifies user
+    - "letter" identifies which letter user has seen
+    '''
+
+    user_id = models.IntegerField(blank=True, null=True)
+    letter = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='letter')
+
+    class Meta:
+        db_table = "letter_user_seen"
+        unique_together = (('user_id', 'letter'),)
+
+
 class LetterPair(models.Model):
+    '''
+    Class contains pairs of letters from Standard Roman Orthography for Plains Cree.
+    - "pair" is the pair of letters and is primary key (e.g. "aw")
+    - "first_letter"/"second_letter" contain the first and second letters, respectively, of the letter pair.
+    - "sound" contains the path to the recording of the pair
+    '''
+
     pair = models.CharField(primary_key=True, max_length=4)
     first_letter = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='first_letter', blank=True, null=True)
     second_letter = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='second_letter', blank=True, null=True, related_name = '+')
@@ -92,16 +131,47 @@ class LetterPair(models.Model):
     class Meta:
         db_table = 'letter_pair'
 
+
+class PairUserSeen(models.Model):
+    '''
+    Class contains letter pairs that a user has seen at least once.
+    - "user_id" identifies user
+    - "pair" identifies which pair user has seen
+    '''
+
+    user_id = models.IntegerField(blank=True, null=True)
+    pair = models.ForeignKey(LetterPair, models.DO_NOTHING, db_column='pair')
+
+    class Meta:
+        db_table = "pair_user_seen"
+        unique_together = (('user_id', 'pair'),)
+
+
 class DistractorType(models.Model):
+    '''
+    Class describes in what way an object might be distracting.
+    - "type" is the integer id and primary key (e.g. 1)
+    - "distraction" describes how it is distracting (e.g. "audiovisual", "dissimilar")
+    - "insro" dictates whether the distraction is in Cree SRO (i.e. "yes", "no")
+    '''
+
     type = models.IntegerField(primary_key=True)
     distraction = models.TextField(blank=True, null=True)
-    insro = models.CharField(db_column='InSRO', max_length=8, blank=True, null=True)  # Field name made lowercase.
+    insro = models.CharField(db_column='InSRO', max_length=8, blank=True, null=True)
 
     class Meta:
         db_table = 'distractor_type'
 
+
 class PairDistractor(models.Model):
-    pair = models.OneToOneField(LetterPair, models.DO_NOTHING, db_column='letter')
+    '''
+    Class contains pairs from the class "LetterPair" and conrresponding distractor pairs.
+    - "pair" is simply an SRO pair from class "LetterPair" (e.g. "ka")
+    - "distractor" is a pair of letters which may or may not be in SRO (e.g. "ga")
+    - "type" refers to the types of distractors described in class DistractorType
+    '''
+
+    pair = models.ForeignKey(LetterPair, models.DO_NOTHING, db_column='letter')
     distractor = models.CharField(max_length=16)
     type = models.ForeignKey(DistractorType, models.DO_NOTHING, db_column='type', blank=True, null=True)
 
@@ -109,29 +179,50 @@ class PairDistractor(models.Model):
         db_table = 'pair_distractor'
         unique_together = (('pair', 'distractor'),)
 
+
 class PartOfSpeech(models.Model):
-    #possible: V N IPC Pron Num
+    '''
+    Class defines possible options for describing "part of speech"
+    Possibilities are restricted to:
+            V N IPC Pron Num
+    '''
+
     pos = models.CharField(primary_key=True, max_length=10)
 
     class Meta:
         db_table = "part_of_speech"
 
 class Transitive(models.Model):
-    #possible: II AI TI TA null
+    '''
+    Class defines possible options for describing transitivity of verbs
+    Possibilities are restricted to:
+            II AI TI TA NULL
+    '''
+
     transitive = models.CharField(primary_key=True, max_length=8)
 
     class Meta:
         db_table = "transitive"
 
+
 class Animate(models.Model):
-    #possible: AN IN null
+    '''
+    Class defines possible options for describing animacy of nouns
+    Possibilities are restricted to:
+            AN IN NULL
+    '''
+
     animate = models.CharField(primary_key=True, max_length=25)
 
     class Meta:
         db_table = "animate"
 
 class GramCode(models.Model):
-    #These are available in Linguistics/sorted_gram_codes.txt
+    '''
+    Class defines possible options for grammar codes.
+    Possibilities are defined and are available in Linguistics/sorted_gram_codes.txt
+    '''
+
     gram_code = models.CharField(primary_key=True, max_length=100, unique=True)
 
     class Meta:
@@ -139,6 +230,17 @@ class GramCode(models.Model):
 
 
 class SingleLetterStats(models.Model):
+    '''
+    Class contains related information logged when users play the "Single Letter Game".
+    - "answer_id" is the integer ID and primary key. Is automatically incremented.
+    - "user_id" identifies user.
+    - "level" identifies which level the user is playing the game at, levels are defined in class GameLevels
+    - "chosen_answer" is the answer the user chose
+    - "correct_answer" is the correct answer
+    - "time_started" is the time, in ISO format, that the user started the specific question
+    - "time_ended" is the time, in ISO format, that the user ended the specific question
+    '''
+
     answer_id = models.AutoField(primary_key=True)
     user_id = models.IntegerField(blank=True, null=True)
     level = models.ForeignKey(GameLevels, models.DO_NOTHING, null=True, db_column='level')
@@ -150,7 +252,16 @@ class SingleLetterStats(models.Model):
     class Meta:
         db_table = "single_letter_stats"
 
+
 class SLSDistractedBy(models.Model):
+    '''
+    Class contains logged interactions of user hovering over potential answers when playing the "Single Letter Game".
+    - "answer_id" refers to the primary key of the class SingleLetterStats
+    - "distracted_by" is the potential answer the user hovered over
+    - "time_hover_start" is the time, in ISO format, that the user started hovering over potential answer
+    - "time_hover_end" is the time, in ISO format, that the user ended hovering over potential answer
+    '''
+
     answer_id = models.ForeignKey(SingleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
     distracted_by = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='letter')
     time_hover_start = models.DateTimeField(blank=True, null=True)
@@ -160,7 +271,14 @@ class SLSDistractedBy(models.Model):
         db_table = "sls_distractedby"
         unique_together = (('answer_id', 'distracted_by', 'time_hover_start'),)
 
+
 class SLSDistractors(models.Model):
+    '''
+    Class contains the incorrect options given to user as distractors when playing "Single Letter Game".
+    - "answer_id" refers to the primary key of the class SingleLetterStats
+    - "distractor" refers to the incorrect option given
+    '''
+
     answer_id = models.ForeignKey(SingleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
     distractor = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='letter')
 
@@ -170,9 +288,16 @@ class SLSDistractors(models.Model):
 
 
 class LetterDistractor(models.Model):
-    letter = models.OneToOneField(Alphabet, models.DO_NOTHING, db_column='letter')
+    '''
+    Class contains pairs from the class "LetterPair" and conrresponding distractor pairs.
+    - "pair" is simply an SRO letter from class "Alphabet" (e.g. "t")
+    - "distractor" is a letter which may or may not be in SRO (e.g. "d")
+    - "type" refers to the types of distractors described in class DistractorType
+    '''
+
+    letter = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='letter')
     distractor = models.CharField(max_length=4)
-    type = models.IntegerField(blank=True, null=True)
+    type = models.ForeignKey(DistractorType, models.DO_NOTHING, db_column='type', blank=True, null=True)
 
     class Meta:
         db_table = 'letter_distractor'
@@ -180,6 +305,17 @@ class LetterDistractor(models.Model):
 
 
 class DoubleLetterStats(models.Model):
+    '''
+    Class contains related information logged when users play the "Double Letter Game".
+    - "answer_id" is the integer ID and primary key. Is automatically incremented.
+    - "user_id" identifies user.
+    - "level" identifies which level the user is playing the game at, levels are defined in class GameLevels
+    - "chosen_answer" is the answer the user chose
+    - "correct_answer" is the correct answer
+    - "time_started" is the time, in ISO format, that the user started the specific question
+    - "time_ended" is the time, in ISO format, that the user ended the specific question
+    '''
+
     answer_id = models.AutoField(primary_key=True)
     user_id = models.IntegerField(blank=True, null=True)
     level = models.ForeignKey(GameLevels, models.DO_NOTHING, null=True, db_column='level')
@@ -191,7 +327,16 @@ class DoubleLetterStats(models.Model):
     class Meta:
         db_table = "double_letter_stats"
 
+
 class DLSDistractedBy(models.Model):
+    '''
+    Class contains logged interactions of user hovering over potential answers when playing the "Double Letter Game".
+    - "answer_id" refers to the primary key of the class DoubleLetterStats
+    - "distracted_by" is the potential answer the user hovered over
+    - "time_hover_start" is the time, in ISO format, that the user started hovering over potential answer
+    - "time_hover_end" is the time, in ISO format, that the user ended hovering over potential answer
+    '''
+
     answer_id = models.ForeignKey(DoubleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
     distracted_by = models.ForeignKey(LetterPair, models.DO_NOTHING, db_column='pair')
     time_hover_start = models.DateTimeField(blank=True, null=True)
@@ -201,7 +346,14 @@ class DLSDistractedBy(models.Model):
         db_table = "dls_distractedby"
         unique_together = (('answer_id', 'distracted_by', 'time_hover_start'),)
 
+
 class DLSDistractors(models.Model):
+    '''
+    Class contains the incorrect options given to user as distractors when playing "Double Letter Game".
+    - "answer_id" refers to the primary key of the class DoubleLetterStats
+    - "distractor" refers to the incorrect option given
+    '''
+
     answer_id = models.ForeignKey(DoubleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
     distractor = models.ForeignKey(LetterPair, models.DO_NOTHING, db_column='pair')
 
@@ -209,25 +361,20 @@ class DLSDistractors(models.Model):
         db_table = 'dls_distractors'
         unique_together = (('answer_id', 'distractor'))
 
-class SoundInSyllable(models.Model):
-    syl_id = models.IntegerField(blank=True, null=True)
-    pair = models.CharField(max_length=8, blank=True, null=True)
-    vowel = models.CharField(max_length=4, blank=True, null=True)
-
-    class Meta:
-        db_table = "sound_in_syllable"
-
-
-class WordSyllable(models.Model):
-    word_id = models.IntegerField(blank=True, null=True)
-    syllable_num = models.IntegerField(blank=True, null=True)
-    syllable_name = models.TextField(blank=True, null=True)
-
-    class Meta:
-        db_table = "word_syllable"
-
 
 class Lemma(models.Model):
+    '''
+    Class contains necessary properties to describe a lemma.
+    - "id" contains integer ID and primary key.
+    - "lemma" is the SRO spelling of lemma.
+    - "useable_gram_codes" is the applicable grammar codes as described in class GramCode
+    - "pos" is the appropriate part of speech, as described in class PartOfSpeech
+    - "animate" describes the animacy of lemma, as described in class Animate
+    - "transitive" describes the transitivity of lemma, as described in class Transitive
+    - "translation" contains the english translation
+    - "image" contains the path to a related descriptive image
+    '''
+
     id = models.IntegerField(primary_key=True)
     lemma = models.CharField(max_length=255, blank=True, null=True)
     useable_gram_codes = models.ForeignKey(GramCode, models.DO_NOTHING, blank=True, null=True)
@@ -240,10 +387,21 @@ class Lemma(models.Model):
     class Meta:
         db_table = 'lemma'
 
+
 class Word(models.Model):
+    '''
+    Class contains necessary properties to describe a word form.
+    - "word_id" contains integer ID and primary key.
+    - "word" is the SRO spelling of word form.
+    - "gram_code" is the applicable grammar codes as described in class GramCode
+    - "translation" contains the english translation
+    - "num_syllables" is, loosely, the number of syllables in the word
+    - "lemmaID" is the integer id referring to the relevant lemma descibed in the class Lemma
+    - "sound" contains the path to the recording of the word
+    '''
+
     word_id = models.IntegerField(primary_key=True, default=0)
     word = models.CharField(max_length=255, blank=True, null=True)
-
     gram_code = models.ForeignKey(GramCode, models.DO_NOTHING, blank=True, null=True)
     translation = models.TextField(blank=True, null=True)
     num_syllables = models.IntegerField(blank=True, null=True)
@@ -265,6 +423,11 @@ class LemmaGame(models.Model):
         db_table = 'lemma_game'
 
 class Creedictionarydotcom(models.Model):
+    '''
+    Temporary class used for manupulating words scraped from creedictionary.com
+    Scraped data NOT to be pushed to github
+    '''
+
     word = models.CharField(primary_key=True, max_length=250)
     plural = models.CharField(max_length=250, blank=True, null=True)
     syllabics = models.TextField(blank=True, null=True)
@@ -275,3 +438,23 @@ class Creedictionarydotcom(models.Model):
     class Meta:
         db_table = 'creedictionarydotcom'
         unique_together = (('word', 'pos', 'translation', 'dictionary'),)
+
+
+# The following classes are being set up to create games for listening to specific sounds within words
+
+# class SoundInSyllable(models.Model):
+#     syl_id = models.IntegerField(blank=True, null=True)
+#     pair = models.CharField(max_length=8, blank=True, null=True)
+#     vowel = models.CharField(max_length=4, blank=True, null=True)
+#
+#     class Meta:
+#         db_table = "sound_in_syllable"
+#
+#
+# class WordSyllable(models.Model):
+#     word_id = models.IntegerField(blank=True, null=True)
+#     syllable_num = models.IntegerField(blank=True, null=True)
+#     syllable_name = models.TextField(blank=True, null=True)
+#
+#     class Meta:
+#         db_table = "word_syllable"
