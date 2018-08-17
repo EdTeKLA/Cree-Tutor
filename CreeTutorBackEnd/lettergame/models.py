@@ -34,11 +34,12 @@ HOW TO:
 TROUBLESHOOTING:
 -If you are having problems with migrations or models, try deleting the database and re-creating it.
  To do this, follow these steps:
-    1. To collect the data currently in the database, use the following command
+    1. To collect the data currently in the database, navigate to `CreeTutor/CreeTutorBackEnd` run the following command:
 
             python manage.py dumpdata > data.json
 
        This creates a json file in your current directory
+
     2. To drop and recreate the database, run the following:
 
             python manage.py dbshell
@@ -46,18 +47,34 @@ TROUBLESHOOTING:
             create database CreeTutordb;
             exit
 
-    3. Next, migrate to recreate the models in models.py
+    3. Navigate to the director `CreeTutor/CreeTutorBackEnd/lettergame/migrations` and deleted
+       everything EXCEPT the `__init__.py` file.
+
+    4. From the directory `CreeTutor/CreeTutorBackEnd`, make all migrations for your
+       models in models.py with the following command:
+
+            python manage.py makemigrations
+
+    5. Next, migrate with the following command:
 
             python manage.py migrate
 
-    4. Then, using the data file we already created, repopulate the tables:
+    6. Then, using the data file we already created, repopulate the tables:
 
             python manage.py loaddata data.json
 
     Note: There will still be a json file with all of the data that was in the database that has
-    all the data information from the database, which should be deleted.
+    all the data information from the database, which may be deleted.
 
 '''
+class GameLevels(models.Model):
+    level = models.IntegerField(primary_key=True)
+    name = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'game_levels'
+
 class Alphabet(models.Model):
     letter = models.CharField(primary_key=True, max_length=2)
     vowel = models.TextField(blank=True, null=True)
@@ -121,10 +138,10 @@ class GramCode(models.Model):
         db_table = "gram_code"
 
 
-
 class SingleLetterStats(models.Model):
     answer_id = models.AutoField(primary_key=True)
     user_id = models.IntegerField(blank=True, null=True)
+    level = models.ForeignKey(GameLevels, models.DO_NOTHING, null=True, db_column='level')
     chosen_answer = models.CharField(max_length=4, blank=True, null=True)
     correct_answer = models.CharField(max_length=4, blank=True, null=True)
     time_started = models.DateTimeField(blank=True, null=True)
@@ -165,6 +182,7 @@ class LetterDistractor(models.Model):
 class DoubleLetterStats(models.Model):
     answer_id = models.AutoField(primary_key=True)
     user_id = models.IntegerField(blank=True, null=True)
+    level = models.ForeignKey(GameLevels, models.DO_NOTHING, null=True, db_column='level')
     chosen_answer = models.TextField(blank=True, null=True)
     correct_answer = models.TextField(blank=True, null=True)
     time_started = models.DateTimeField(blank=True, null=True)

@@ -8,8 +8,8 @@
 
 	{% block content %}
 		<div class="gamelinks">
-			<a class="choose" href="{% url 'lettergame:letterGames' 'single' %}" >Single letter game</a>
-			<a class="choose" href="{% url 'lettergame:letterGames' 'double' %}" >Letter pair game</a>
+			<a class="choose" href="{% url 'lettergame:whichGame' 'single' %}" >Single letter game</a>
+			<a class="choose" href="{% url 'lettergame:whichGame' 'double' %}" >Letter pair game</a>
 			<a class="choose" href="{% url 'lettergame:invaderslevel' %}" >Space Invaders Game</a>
 		</div>
 

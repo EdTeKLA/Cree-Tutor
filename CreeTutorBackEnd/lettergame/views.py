@@ -14,7 +14,12 @@ def index(request):
     return render(request, 'lettergame/index.html')
 
 
-def letterGames(request, game):
+def whichGame(request, game):
+    levels = ['learn', 'easy', 'medium', 'hard']
+    context = {'game': game, 'levels':levels}
+    return render(request, 'lettergame/level.html', context)
+
+def letterGames(request, game, level):
     '''
     Function takes in request.
     If request.method is GET, then function queries letters from the table LetterPair,
@@ -43,23 +48,23 @@ def letterGames(request, game):
         return HttpResponse('ERROR: game type not adequately identified in view.letterGames')
 
     if request.method == 'GET':
-        context =  getOptions(option, type)
+        context =  getOptions(option, type, level)
         return render(request, 'lettergame/game.html', context)
 
     elif request.method == 'POST':
-        savePostStats(request, option, whichStats, stats, whichDist)
-        context = getOptions(option, type)
+        savePostStats(request, option, whichStats, stats, whichDist, level)
+        context = getOptions(option, type, level)
         return JsonResponse(context)
     else:
         return HttpResponse('ERROR: request.method not adequately identified in view.letterGames')
 
 
-def getOptions(option, type, level = 'hard'):
+def getOptions(option, type, level):
     if level == 'learn':
         num = 1
     elif level == 'easy':
         num = 3
-    elif level == 'med':
+    elif level == 'medium':
         num = 4
     elif level == 'hard':
         num = 5
@@ -84,7 +89,7 @@ def getOptions(option, type, level = 'hard'):
 
     return context
 
-def savePostStats(request, option, whichStats, stats, whichDist):
+def savePostStats(request, option, whichStats, stats, whichDist, level):
     answer = stats()
     user_response = request.POST['user_r']
     correct_response = request.POST['correct_r']
@@ -96,6 +101,7 @@ def savePostStats(request, option, whichStats, stats, whichDist):
     answer.correct_answer = correct_response
     answer.time_started = startTime
     answer.time_ended = endTime
+    answer.level = GameLevels.objects.get(name = level)
     answer.save()
     a_id = stats.objects.latest('answer_id')
     for i in hoveredArr:
@@ -106,24 +112,13 @@ def savePostStats(request, option, whichStats, stats, whichDist):
         answer_dist.time_hover_start = j[1]
         answer_dist.time_hover_end = j[2]
         answer_dist.save()
-    f = open(':(.txt', 'w')
     for i in dists:
-        f.write(i)
         distractors = whichDist()
         distractors.distractor = option.objects.get(pk = i)
         distractors.answer_id = a_id
         distractors.save()
 
     return
-
-def syl_in_word(request):
-    if request.method == 'GET':
-        words = sorted(Word.objects.filter(num_syllables = 2), key=lambda x: random.random())
-        word = words[0]
-        num = random.choice(range(1, word.num_syllables + 1))
-        syl = WordSyllable.objects.filter(word_id = word.word_id)
-
-    return HttpResponse(syl[num].vowel)
 
 
 def invaderslevel(request):
@@ -134,7 +129,7 @@ def invaderslevel(request):
 def invaders(request, level):
     if level == 'easy':
         num = 3
-    elif level == 'med':
+    elif level == 'medium':
         num = 4
     elif level == 'hard':
         num = 5
@@ -143,13 +138,13 @@ def invaders(request, level):
     if request.method == 'GET':
         letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
         letters = letters[:num]
-        context = getOptions(letters, 'letter')
+        context = getOptions(Alphabet, 'letter', level)
         context['level'] = level
         return render(request, 'lettergame/spaceinvadersgame.html', context)
     elif request.method == 'POST':
         letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
         letters = letters[:num]
-        context = getOptions(letters, 'letter')
+        context = getOptions(Alphabet, 'letter', level)
         context['level'] = level
         return JsonResponse(context)
     else:

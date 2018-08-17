@@ -1,0 +1,20 @@
+{% extends 'lettergame/base.html' %}
+{% load static %}
+
+	{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'lettergame/css/style.css' %}" />
+    <link rel="shortcut icon" href="lettergame/invader" />
+	{% endblock %}
+
+	{% block content %}
+<div class="gamelinks">
+    {% for level in levels %}
+        <a class="choose" href="{% url 'lettergame:letterGames' game level %}">{{level}}</a>
+    {%endfor%}
+</div>
+<body>
+    <font size="6" face="Comic Sans MS">
+        <p>Choose your difficulty level! </p>
+</body>
+
+    {% endblock content %}
