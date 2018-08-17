@@ -14,29 +14,6 @@ def index(request):
     return render(request, 'lettergame/index.html')
 
 
-def whichgame(request, game):
-    '''
-    Function takes in request and game name. If game is "single", then the client
-    has requested to play the single letter game, and similarly for game == "double".
-    Function passes these requests to either singleletter or letterpair, or returns an
-    error via HttpResponse.
-    Returns type HttpResponse.
-    '''
-
-    context = None
-    if game == 'single' or game == 'double':
-        context = letterGames(request, game)
-    else:
-        return HttpResponse('ERROR: Game name not passed properly')
-
-    if request.method == 'GET':
-        return render(request, 'lettergame/game.html', context)
-    elif request.method == 'POST':
-        return JsonResponse(context)
-    else:
-        return HttpResponse('ERROR: request.method not adequately identified in view.whichgame.')
-
-
 def letterGames(request, game):
     '''
     Function takes in request.
@@ -47,69 +24,47 @@ def letterGames(request, game):
     the context string "double".
     Function returns either dictionary or string or HttpResponse if ERROR.
     '''
+    # TODO: rename these. It is not clear
     if game == 'double':
-        options = sorted(LetterPair.objects.all().order_by('pair'), key=lambda x: random.random())
+        option = LetterPair
+        whichStats = DLSDistractedBy
         type = 'pair'
-        answer = DoubleLetterStats()
+        stats = DoubleLetterStats
+        whichDist = DLSDistractors
 
     elif game == 'single':
-        options = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
+        option = Alphabet
         type = 'letter'
-        answer = SingleLetterStats()
+        stats = SingleLetterStats
+        whichStats = SLSDistractedBy
+        whichDist = SLSDistractors
 
     else:
         return HttpResponse('ERROR: game type not adequately identified in view.letterGames')
 
     if request.method == 'GET':
-        return getOptions(options, type)
+        context =  getOptions(option, type)
+        return render(request, 'lettergame/game.html', context)
 
     elif request.method == 'POST':
-        # TODO: Can be it's own function, figure out how to make more general
-        user_response = request.POST['user_r']
-        correct_response = request.POST['correct_r']
-        startTime = request.POST['time_s']
-        endTime = request.POST['time_e']
-        hoveredArr = request.POST.getlist('arrHov[]')
-        dists = request.POST.getlist('distract[]')
-        answer.chosen_answer = user_response
-        answer.correct_answer = correct_response
-        answer.time_started = startTime
-        answer.time_ended = endTime
-        answer.save()
-        if game == 'single':
-            a_id = SingleLetterStats.objects.latest('answer_id')
-        elif game == 'double':
-            a_id = DoubleLetterStats.objects.latest('answer_id')
-        for i in hoveredArr:
-            j = i.split(',')
-            if game == 'single':
-                answer_dist = SLSDistractedBy()
-                answer_dist.distracted_by = Alphabet.objects.get(letter = j[0])
-            elif game == 'double':
-                answer_dist = DLSDistractedBy()
-                answer_dist.distracted_by = LetterPair.objects.get(pair = j[0])
-            answer_dist.answer_id = a_id
-            answer_dist.time_hover_start = j[1]
-            answer_dist.time_hover_end = j[2]
-            answer_dist.save()
-        for i in dists:
-            if game == 'single':
-                distractors = SLSDistractors()
-                distractors.distractor = Alphabet.objects.get(letter = i)
-            elif game == 'double':
-                distractors = DLSDistractors()
-                distractors.distractor = LetterPair.objects.get(pair = i)
-            distractors.answer_id = a_id
-            distractors.save()
-
-        return getOptions(options, type)
-
+        savePostStats(request, option, whichStats, stats, whichDist)
+        context = getOptions(option, type)
+        return JsonResponse(context)
     else:
         return HttpResponse('ERROR: request.method not adequately identified in view.letterGames')
 
-def getOptions(options, type):
 
-    options = options[:5]
+def getOptions(option, type, level = 'hard'):
+    if level == 'learn':
+        num = 1
+    elif level == 'easy':
+        num = 3
+    elif level == 'med':
+        num = 4
+    elif level == 'hard':
+        num = 5
+    options = sorted(option.objects.all(), key=lambda x: random.random())
+    options = options[:num]
     sound = random.choice(options)
     if type == 'letter':
         correct = sound.letter
@@ -128,6 +83,38 @@ def getOptions(options, type):
     }
 
     return context
+
+def savePostStats(request, option, whichStats, stats, whichDist):
+    answer = stats()
+    user_response = request.POST['user_r']
+    correct_response = request.POST['correct_r']
+    startTime = request.POST['time_s']
+    endTime = request.POST['time_e']
+    hoveredArr = request.POST.getlist('arrHov[]')
+    dists = request.POST.getlist('distract[]')
+    answer.chosen_answer = user_response
+    answer.correct_answer = correct_response
+    answer.time_started = startTime
+    answer.time_ended = endTime
+    answer.save()
+    a_id = stats.objects.latest('answer_id')
+    for i in hoveredArr:
+        j = i.split(',')
+        answer_dist = whichStats()
+        answer_dist.distracted_by = option.objects.get(pk = j[0])
+        answer_dist.answer_id = a_id
+        answer_dist.time_hover_start = j[1]
+        answer_dist.time_hover_end = j[2]
+        answer_dist.save()
+    f = open(':(.txt', 'w')
+    for i in dists:
+        f.write(i)
+        distractors = whichDist()
+        distractors.distractor = option.objects.get(pk = i)
+        distractors.answer_id = a_id
+        distractors.save()
+
+    return
 
 def syl_in_word(request):
     if request.method == 'GET':
@@ -166,7 +153,7 @@ def invaders(request, level):
         context['level'] = level
         return JsonResponse(context)
     else:
-        return HttpResponse('ERROR: POST request passed to views.invaders')
+        return HttpResponse('ERROR: unknown request passed to views.invaders')
 
 
 def lemmagame(request):
