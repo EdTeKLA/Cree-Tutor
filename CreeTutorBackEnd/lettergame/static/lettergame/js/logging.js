@@ -7,20 +7,25 @@ var hovered = 'not changed';
 var distractors;
 
 $(window).on("load", function(e){
+    // Onload, function sets StartTime to when the user started looking at this page
     startTime = getTime();
+    // gets list of distractors for later post-ing
     getDistractors();
     return;
 });
 
 function getTime(){
+    // Function gets current date and converts it into ISO format
+    // returns the date
     wT = new Date();
-    console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
+    // console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
     whichTime = wT.toISOString();
     return whichTime;
 }
 
 
 function getDistractors(){
+    // gets all the values of the radio buttons, except for the correct answer, and pushes them onto a global list
     distractors = [];
     let letters = $('input[type=radio]').each(function(){$(this).attr('value')});
     let correct = $('#correct_r').attr('value');
@@ -32,6 +37,22 @@ function getDistractors(){
     return;
 }
 
+
+$('body').on('mouseenter', 'input[type=radio]', function(){
+    // Gets the time for when user hovers over a radio input
+    startHover = getTime();
+});
+$('body').on('mouseout', 'input[type=radio]', function(){
+    // Gets the time for when a user leaves hover over a radio input
+    hovered = $(this).attr('value');
+    endHover = getTime();
+    // adds the gathered time and radio input value to a list, which itslef is then pushed to the global list hoveredArr
+    var info = [hovered, startHover, endHover];
+    hoveredArr.push(info);
+    return;
+});
+
+//----------- The following code for acquiring the CSRF token was taken directly from https://docs.djangoproject.com/en/2.1/ref/csrf/
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -48,17 +69,6 @@ function getCookie(name) {
     return cookieValue;
 }
 
-$('body').on('mouseenter', 'input[type=radio]', function(){
-    startHover = getTime();
-});
-$('body').on('mouseout', 'input[type=radio]', function(){
-    hovered = $(this).attr('value');
-    endHover = getTime();
-    var info = [hovered, startHover, endHover];
-    hoveredArr.push(info);
-    return;
-});
-
 var csrftoken = getCookie('csrftoken');
 
 function csrfSafeMethod(method) {
@@ -74,7 +84,7 @@ $.ajaxSetup({
         }
     }
 });
-
+//----------------------
 
 $(document).on('submit', '#game_ans', function(e){
     e.preventDefault();
@@ -92,7 +102,7 @@ $(document).on('submit', '#game_ans', function(e){
             'distract[]': distractors
         },
         success:function(data){
-            // console.log(data['letters']);
+            // if the post is a success, modify the form for the next question
             modifyForm('game_ans', data);
         },
         error:function(error){console.log(error)}

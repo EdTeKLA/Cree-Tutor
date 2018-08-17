@@ -5,9 +5,9 @@ app_name = 'lettergame'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('invaders/<str:level>/', views.invaders, name="invaders"),
-    path('introsound/<str:game>/', views.whichGame, name="whichGame"),
-    path('introsound/<str:game>/<str:level>', views.letterGames, name="letterGames"),
-    path('invaderslevel/', views.invaderslevel, name="invaderslevel"),
-    path('lemmagame/', views.lemmagame, name="lemmagame")
+    path('invaders/<str:level>/', views.invaders, name="invaders"), # url path to invaders game
+    path('introsound/<str:game>/', views.whichGame, name="whichGame"), # url path to choose level of difficulty for letter games
+    path('introsound/<str:game>/<str:level>', views.letterGames, name="letterGames"), # url path to letter games
+    path('invaderslevel/', views.invaderslevel, name="invaderslevel"), # url path to choose level of difficulty for invaders game
+    path('lemmagame/', views.lemmagame, name="lemmagame") # url path to lemma game
 ]
