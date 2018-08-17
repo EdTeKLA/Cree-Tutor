@@ -13,16 +13,11 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 ## Build Instructions:
 1. Install python 3.6.x
 2. Install pip
-3. Install mysql from https://dev.mysql.com/downloads/mysql/
-You will need to select "use legacy authentication method"
-Write down the password you created.
+3. Install mysql
 4. Install mysqlclient
-If there is an error, download the wheel from https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysql-python and navigate to the downloads folder then run pip install mysqlclient-1.3.13-cp??whatever?the?filename?downloaded.whl
 5. Install Django 2.0.x
-6. Clone this directory
-7. Contact EdTeKLA to obtain media files.
-8. Open or create the file `CreeTutor/CreeTutorBackEnd/CreeTutorBackEnd/settings_secret.py`
-9. Make the contents of settings_secret.py look like this:
+6. Open or create the file `CreeTutor/CreeTutorBackEnd/CreeTutorBackEnd/settings_secret.py`
+7. Make the contents of settings_secret.py look like this:
 
        """  
        These settings must never be uploaded onto github.
@@ -34,38 +29,38 @@ If there is an error, download the wheel from https://www.lfd.uci.edu/~gohlke/py
 
        DB_PASS = "Your_Password"
 
-       PATH_TO_ALPHABET = "C:\Users\Brent\Repositories\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\Alphabet"
-       PATH_TO_WORD = "C:\Users\Brent\Repositories\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\Words"
-       PATH_TO_LETTERPAIR = "C:\Users\Brent\Repositories\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\LetterPairs"
+       PATH_TO_ALPHABET = "C:\Users\...\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\Alphabet"
+       PATH_TO_WORD = "C:\Users\...\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\Words"
+       PATH_TO_LETTERPAIR = "C:\Users\...\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\LetterPairs"
 
-You will need to customize the paths for the media files obtained with permission from EdTeKLA
-
-10. Make a MySQL schema named "CreeTutordb"
+8. Create database "CreeTutordb" and necessary tables.
 
    **How to**
 
    Navigate to the directory `CreeTutor/CreeTutorBackEnd` and run:
 
-        $ mysql -u root -p
+        $ mysql -u[user] -p[password]
 
-        Then enter 'Your_Password'.
+   Where `[user]` and `[password]` are the user and password determined in the MySQL installation process.
 
 
-   To open up the mysql shell. Next run the follow queries in the shell:
+   This opens up the mysql shell. Next run the follow queries in the shell:
 
-        > create database CreeTutordb DEFAULT CHARACTER SET utf8;
+        > create database CreeTutordb DEFAULT CHARACTER SET utf8_bin;
         > exit
-
-11. The database is created. Check that it is working by running:
+   
+   Once the database is working, you make check that is is working by running the following:
 
         $ python manage.py dbshell
 
-12. Navigate to CreeTutor/CreeTutorBackEnd and run:
+   To create the tables, in the current directory, run the following commands:
 
+        $ python manage.py makemigrations
         $ python manage.py migrate
 
-    to populate the database with django models and the models created in models.py. For more information
-    on models, please see the how to blurb at the top of `CreeTutorBackEnd/lettergame/models.py`.
+    This will fill the database with the models created in the file `CreeTutor/CreeTutorBackEnd/lettergame/models.py`. For   more information on models, please see the how to blurb at the top of `CreeTutorBackEnd/lettergame/models.py`.
+    
+    The database is now ready to be populated with available data.
  ---
 
 ##### References
