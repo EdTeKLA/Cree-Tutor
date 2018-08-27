@@ -29,9 +29,9 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 
        DB_PASS = "Your_Password"
 
-       PATH_TO_ALPHABET = "C:\Users\...\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\Alphabet"
-       PATH_TO_WORD = "C:\Users\...\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\Words"
-       PATH_TO_LETTERPAIR = "C:\Users\...\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\LetterPairs"
+       PATH_TO_ALPHABET = "...\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\Alphabet"
+       PATH_TO_WORD = "...\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\Words"
+       PATH_TO_LETTERPAIR = "...\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\LetterPairs"
 
 8. Create database "CreeTutordb" and necessary tables.
 
