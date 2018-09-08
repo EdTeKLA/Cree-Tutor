@@ -197,7 +197,7 @@ class Transitive(models.Model):
     Class defines possible options for describing transitivity of verbs
     Possibilities are restricted to:
             II AI TI TA NULL
-            TODO: Spell out what each option is 
+            TODO: Spell out what each option is
     '''
 
     transitive = models.CharField(primary_key=True, max_length=8)
@@ -385,6 +385,10 @@ class Lemma(models.Model):
     translation = models.CharField(max_length=250, blank=True, null=True)
     image = models.CharField(max_length=250, blank=True, null=True)
 
+
+    def __str__(self):
+        return self.lemma
+
     class Meta:
         db_table = 'lemma'
 
@@ -409,6 +413,9 @@ class Word(models.Model):
     lemmaID = models.ForeignKey(Lemma, models.DO_NOTHING, blank=True, null=True)
     sound = models.CharField(max_length=250, blank=True, null=True)
 
+    def __str__(self):
+        return self.word
+
     class Meta:
         db_table = 'word'
 
@@ -419,6 +426,9 @@ class LemmaGame(models.Model):
     lemma = models.ForeignKey(Lemma, models.DO_NOTHING, blank=False, null=True)
     distractors = models.ManyToManyField(Word, related_name="+")
 
+
+    def __str__(self):
+        return self.wordform.word
 
     class Meta:
         db_table = 'lemma_game'
