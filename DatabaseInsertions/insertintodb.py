@@ -189,7 +189,7 @@ def cycleWords(directory_in_str, lemma_dict):
 
 
             #find the lemma in the Lemma table
-            cursor.execute("SELECT lemma FROM Lemma")
+            cursor.execute("SELECT '{}' FROM lemma".format(lemma))
             f = cursor.fetchall()
             for i in f:
                 # fetchall returns everything as a tuple, i.e. of the form ('lemma',)
