@@ -187,18 +187,116 @@ def invaders(request, level):
         context = getOptions(Alphabet, 'letter', level)
         context['level'] = level
         return JsonResponse(context)
-        
+
     else:
         # For debugging -- To be removed before deployment
         return HttpResponse('ERROR: unknown request passed to views.invaders')
 
 
-def lemmagame(request):
+def lemmagame(request, type):
+    """
+    types: (based on lemma game whiteboard image)
+    reception
+        wordform in Cree
+        wordform audio
+            --------
+        4 images of distractors
+    prod_s (production speaking)
+        image of lemma
+            --------
+        1 audio distractor
+        animacy of lemma
+    prod_w (production writing)
+        image of lemma
+            ------
+        wordform
+    """
+    def get_lemmagame():
+        """
+        returns a random lemmagame object
+        """
+        return sorted(LemmaGame.objects.all().order_by('wordform'), key=lambda x: random.random())[0]
+
+    def get_word(game):
+        """
+        returns the characters of the target word
+        """
+        return game.wordform.word
+
+    def get_audio(game):
+        """
+        returns the audio filename for the target word
+        """
+        #get target audio
+        target_audio = game.wordform.sound
+        #if there is more than one audio
+        if "," in target_audio:
+            target_audio_as_list = target_audio.split(',')
+            return sorted(target_audio_as_list, key=lambda x: random.random())[0]
+        #if there is only one audio file
+        else:
+            return target_audio
+
+    def get_distractors(game, how_many):
+        """
+        returns a list of Word objects with length (how_many) and the target
+        Word object in a random order
+        """
+        #add the target_word
+        return_list = [game.wordform]
+        distractors = sorted(game.distractors, key=lambda x:random.random())
+
+        for i in range(how_many):
+            distractors += distractors[i]
+        #randomize the list of distractors
+        return sorted(distractors, key=lambda x:random.random())
+
+    def get_distractor_images(game, distractors):
+        """
+        return a list of image filenames based on the list of distractors passed.
+
+        The list should already contain the target word and should already be in
+        a randomized order.
+        """
+        distractors_images = []
+        #cycle list of Words, add the image for each Word
+        for word in distractors:
+            distractor_images += word.lemmaID.image
+        return distractor_images
+
+    def get_word_image(game):
+        return game.lemma.image
+
+    if type == "reception":
+        game = get_lemmagame()
+
+        context = {}
+
+        context['word'] = get_word(game)
+        context['word_audio'] = get_audio(game)
+
+        #get 4 Word objects as distractors
+        distractors = get_distractors(game, 3)
+        #pass characters of Word objects to context
+        context['distractors'] = [e.word for e in distractors]
+        #get filenames of images for Word objects
+        context['distractor_images'] = get_distractor_images(game, distractors)
+
+
+        if request.method == 'GET':
+            return render(request, 'lettergame/lemmagame_reception.html', context)
+
+        elif request.method == 'POST':
+            return JsonResponse(context)
+
+        else:
+            return HttpResponse('ERROR: request.method was neither GET nor POST')
+
     if request.method == 'GET':
         return render(request, 'lettergame/lemmagame.html', context)
 
     elif request.method == 'POST':
-        return render(request, 'lettergame/lemmagame.html', context)
+        return JsonResponse(context)
 
     else:
         return HttpResponse('ERROR: request.method was neither GET nor POST')

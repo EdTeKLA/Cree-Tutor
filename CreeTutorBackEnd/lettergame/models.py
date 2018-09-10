@@ -421,6 +421,12 @@ class Word(models.Model):
 
 
 class LemmaGame(models.Model):
+    """
+    Class contains three foriegn keys that are used in the lemmagame views
+    "wordform" links to a word object, which specifies which wordform will appear
+    "lemma" links to a lemma objects, which specifies almost everything else
+    "distractors" is a number of word objects to use as distractors
+    """
     #For Nouns, this should default to the non-affixed noun, e.i. atim+N+AN+Sg -> atim
     wordform = models.ForeignKey(Word, models.DO_NOTHING,blank=True, null=True)
     lemma = models.ForeignKey(Lemma, models.DO_NOTHING, blank=False, null=True)

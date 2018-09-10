@@ -9,5 +9,5 @@ urlpatterns = [
     path('introsound/<str:game>/', views.whichGame, name="whichGame"), # url path to choose level of difficulty for letter games
     path('introsound/<str:game>/<str:level>', views.letterGames, name="letterGames"), # url path to letter games
     path('invaderslevel/', views.invaderslevel, name="invaderslevel"), # url path to choose level of difficulty for invaders game
-    path('lemmagame/', views.lemmagame, name="lemmagame") # url path to lemma game
+    path('lemmagame/<str:type>', views.lemmagame, name="lemmagame"), # url path to lemma game
 ]
