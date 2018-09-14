@@ -387,7 +387,7 @@ class Lemma(models.Model):
 
 
     def __str__(self):
-        return self.lemma
+        return self.lemma + " " + str(self.id)
 
     class Meta:
         db_table = 'lemma'
@@ -414,7 +414,7 @@ class Word(models.Model):
     sound = models.CharField(max_length=250, blank=True, null=True)
 
     def __str__(self):
-        return self.word
+        return self.word + " " + str(self.word_id)
 
     class Meta:
         db_table = 'word'

@@ -20,6 +20,10 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "CreeTutorBackEnd.settings")
 import django
 django.setup()
 from CreeTutorBackEnd import settings
+# LemmaGame objects are made without MySQL because Brent is still lousy at MySQL
+
+sys.path.append(os.path.join(os.path.dirname(sys.path[0]),'lettergame'))
+from lettergame.models import LemmaGame, Word, Lemma
 
 
 
@@ -455,7 +459,28 @@ def cycleLemma(directory_in_str):
 
     return lemma_dict
 
+def addLemmaGames():
+    """
+    adds a few lemma games for testing.
 
+    """
+    def add_it(w, l, dist):
+        """
+        w and l are ints which are pk for the correct answer_id
+        dist is a list of ints for Word pks
+        """
+        #create a game with Lemma and Word objects
+        game, created = LemmaGame.objects.get_or_create(
+            wordform=w,
+            lemma=l,
+        )
+        #Add each distractor
+        for e in dist:
+            game.distractors.add(Word.objects.get(word_id=e))
+
+    add_it(486, 27, [492,494,497,466])        #tehtapiwin
+    add_it(366, 159, [17,187,260])              #nipiy
+    add_it( 17, 0, [11, 187, 492])
 def main():
 
     dbInfo()
@@ -482,6 +507,8 @@ def main():
     cycleWords(linguistics, lemma_dict)
     cycleLetters(alphabet)
     cycleSound(sound)
+
+    addLemmaGames()
 
 
     db.commit()

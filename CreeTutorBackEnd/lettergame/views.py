@@ -226,15 +226,18 @@ def lemmagame(request, type):
     def get_audio(game):
         """
         returns the audio filename for the target word
+
         """
         #get target audio
         target_audio = game.wordform.sound
         #if there is more than one audio
         if "," in target_audio:
             target_audio_as_list = target_audio.split(',')
+            print(target_audio_as_list)
             return sorted(target_audio_as_list, key=lambda x: random.random())[0]
         #if there is only one audio file
         else:
+            print(target_audio)
             return target_audio
 
     def get_distractors(game, how_many):
@@ -244,12 +247,12 @@ def lemmagame(request, type):
         """
         #add the target_word
         return_list = [game.wordform]
-        distractors = sorted(game.distractors, key=lambda x:random.random())
+        distractors = sorted(game.distractors.all(), key=lambda x:random.random())
 
         for i in range(how_many):
-            distractors += distractors[i]
+            return_list.append(distractors[i])
         #randomize the list of distractors
-        return sorted(distractors, key=lambda x:random.random())
+        return sorted(return_list, key=lambda x:random.random())
 
     def get_distractor_images(game, distractors):
         """
@@ -258,10 +261,10 @@ def lemmagame(request, type):
         The list should already contain the target word and should already be in
         a randomized order.
         """
-        distractors_images = []
+        distractor_images = []
         #cycle list of Words, add the image for each Word
         for word in distractors:
-            distractor_images += word.lemmaID.image
+            distractor_images.append(word.lemmaID.image)
         return distractor_images
 
     def get_word_image(game):
@@ -281,6 +284,7 @@ def lemmagame(request, type):
         context['distractors'] = [e.word for e in distractors]
         #get filenames of images for Word objects
         context['distractor_images'] = get_distractor_images(game, distractors)
+        context['range'] = range(len(distractors))
 
 
         if request.method == 'GET':

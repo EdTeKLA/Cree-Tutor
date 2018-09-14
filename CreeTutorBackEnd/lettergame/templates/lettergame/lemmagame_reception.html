@@ -19,9 +19,9 @@
     </audio>
     <input type="hidden" id="correct_r" name= "correct_r" value="{{ word }}" />
     <form id="game_ans" class="option" >
-    {% for i in range(len(distractors)) %}
-        <input class="choice_button" type="radio" name= "user_r" value="{{distractors[i]}}" required/>
-        <label class ="choice_button" for="{{ distractors[i] }}">{% static '' %}{{ distractor_images[i] }}</label><br class="choice_button"/>
+    {% for distractor in distractors %}
+        <input class="choice_button" type="radio" name= "user_r" value="{{distractor.word}}" required/>
+        <label class ="choice_button" for="{{ distractor.lemmaID.image }}">{% static '' %}{{ distractor.lemmaID.image }}</label><br class="choice_button"/>
     {% endfor %}
 
      <input id="sub" class="choice_button" type="submit" value="submit"/>
