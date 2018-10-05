@@ -46,7 +46,8 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 
    This opens up the mysql shell. Next run the follow queries in the shell:
 
-        > create database CreeTutordb DEFAULT CHARACTER SET utf8_bin;
+        > create database CreeTutordb DEFAULT CHARACTER SET utf8mb4;
+        > alter database CreeTutordb CHARACTER SET utf8 COLLATE utf8_bin;
         > exit
    
    Once the database is working, you make check that is is working by running the following:
