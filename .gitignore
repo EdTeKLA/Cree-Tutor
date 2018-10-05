@@ -45,3 +45,6 @@ CreeTutorBackEnd/lettergame/static/lettergame/sound
 *__pycache__/
 *migrations/
 *settings_secret.py
+
+# VirtualEnv folder #
+env/
