@@ -1,7 +1,26 @@
-/*#login-form, #signup-form {*/
-    /*display: none;*/
-/*}*/
+#signup-form {
+    display: none;
+}
 
-/*#login-form.active, #signup-form.active {*/
-    /*display: block;*/
-/*}*/
+.panel-heading .nav a {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.panel-heading .nav a.active {
+    font-weight: bold;
+}
+
+/* Temporary colours, need to pick colour scheme still */
+.btn {
+    background: grey;
+    color: white;
+}
+
+.btn:hover {
+    background: lightgrey;
+}
+
+.mismatch {
+    border: red 1px solid;
+}
