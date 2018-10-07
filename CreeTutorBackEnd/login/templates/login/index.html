@@ -16,8 +16,8 @@
             <div class="col-lg-6">
                 <div class="panel-heading">
                     <nav class="row nav justify-content-center nav-fill row">
-                        <a id="login-form-tab" class="col-xs-6 nav-link active" href="#">Login</a>
-                        <a id="signup-form-tab" class="col-xs-6 nav-link" href="#">Sign up</a>
+                        <a id="login-form-tab" class="col-6 nav-link active" href="#">Login</a>
+                        <a id="signup-form-tab" class="col-6 nav-link" href="#">Sign up</a>
                     </nav>
                     <hr>
                 </div>
@@ -27,28 +27,28 @@
                             <form id="login-form" class="form" action="" method="post">
                                 {% csrf_token %}
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="email" placeholder="Email" tabindex="1">
+                                    <input class="form-control" type="text" name="email" placeholder="Email">
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" type="password" name="password" placeholder="Password" tabindex="2">
+                                    <input class="form-control" type="password" name="password" placeholder="Password">
                                 </div>
                                 <div class="form-group">
-                                    <button class="form-control btn" type="submit" name="submit" value="log_in" tabindex="3">Log In</button>
+                                    <button class="form-control btn" type="submit" name="submit" value="log_in">Log In</button>
                                 </div>
                             </form>
                             <form id="signup-form" class="form" action="" method="post">
                                 {% csrf_token %}
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="email" placeholder="Email" tabindex="1">
+                                    <input class="form-control" type="text" name="email" placeholder="Email">
                                 </div>
                                 <div class="form-group">
-                                    <input id="password" class="form-control" type="password" name="password" placeholder="Password" tabindex="2">
+                                    <input id="password" class="form-control" type="password" name="password" placeholder="Password">
                                 </div>
                                 <div class="form-group">
-                                    <input id="confirm-password" class="form-control" type="password" name="confirm-password" placeholder="Confirm Password" tabindex="3">
+                                    <input id="confirm-password" class="form-control" type="password" name="confirm-password" placeholder="Confirm Password">
                                 </div>
                                 <div class="form-group">
-                                    <button class="form-control btn" type="submit" name="submit" value="sign_up" tabindex="3">Sign Up</button>
+                                    <button class="form-control btn" type="submit" name="submit" value="sign_up">Sign Up</button>
                                 </div>
                             </form>
                         </div>

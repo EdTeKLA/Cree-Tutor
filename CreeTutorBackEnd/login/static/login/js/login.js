@@ -1,5 +1,6 @@
 $(function() {
 
+    // When the user clicks on the login tab, show the log in form
     $('#login-form-tab').click(function(e) {
         $("#login-form")
             .delay(200)
@@ -11,6 +12,7 @@ $(function() {
         e.preventDefault();
     });
 
+    // When the user clicks on the sign up tab, show the sign up form
     $('#signup-form-tab').click(function(e) {
         $("#signup-form")
             .delay(200)
@@ -22,6 +24,7 @@ $(function() {
         e.preventDefault();
     });
 
+    // When the confirm password does not match, tell the user with the mismatch class on the input
     $('#password').on('input', function() {
         const confirmPassword = $('#confirm-password');
         if(confirmPassword.val().length > 0 && $(this).val() !== confirmPassword.val()) {
@@ -30,7 +33,6 @@ $(function() {
             confirmPassword.removeClass('mismatch');
         }
     });
-
     $('#confirm-password').on('input', function() {
         const confirmPassword = $(this);
         const password = $('#password');
@@ -40,5 +42,4 @@ $(function() {
             confirmPassword.removeClass('mismatch');
         }
     });
-
 });
