@@ -3,6 +3,8 @@ from django.template import loader
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.db import models
+from django.http import HttpResponse
+from django.http import JsonResponse
 
 
 def uniqueEmail(email):
@@ -39,10 +41,11 @@ def signin(request):
 
         if user is not None:
             login(request, user)
-            return redirect('lettergame:index')
+            context = {'redirect': '/lettergame'}
+            return JsonResponse(context)
         else:
             context={'error':"Email or password is incorrect.", 'email':email, 'password':password}
-            return render(request, 'login/index.html', context)
+            return JsonResponse(context)
 
     except KeyError:
         return HttpResponse('ERROR: ' + str(KeyError))
@@ -64,14 +67,17 @@ def create(request):
             user = User.objects.create_user(email, email, password)
 
             # Log user in
-            login(request,user)
+            # login(request,user)
 
             user.save()
-            return redirect('lettergame:index')
+            context={'success':'yay'}
+            return JsonResponse(context)
 
         else:
             context={'email':email, 'password':password, 'error':error}
-            return(render(request, 'login/index.html', context))
+            # return(render(request, 'login/index.html', context))
+            return JsonResponse(context)
+
 
     except KeyError:
-        return render(request, 'login/index.html')
+        return HttpResponse('ERROR: POST-ed values not recieved properly')

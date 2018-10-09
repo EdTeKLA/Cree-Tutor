@@ -3,6 +3,7 @@
 
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="{% static 'login/css/login.css' %}" />
+<script src="{% static 'common/js/jquery-3.3.1.min.js' %}"></script>
 {% endblock %}
 
 {% block scripts %}
@@ -31,22 +32,22 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form id="login-form" class="form" action="{% url 'login:signin' %}" method="post">
+                            <form id="login-form" class="form">
                                 {% csrf_token %}
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="email" placeholder="Email" tabindex="1">
+                                    <input id = "login_email" class="form-control" type="text" name="email" placeholder="Email" tabindex="1">
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" type="password" name="password" placeholder="Password" tabindex="2">
+                                    <input id = "login_password" class="form-control" type="password" name="password" placeholder="Password" tabindex="2">
                                 </div>
                                 <div class="form-group">
                                     <button class="form-control btn" type="submit" name="submit" value="log_in" tabindex="3">Log In</button>
                                 </div>
                             </form>
-                            <form id="signup-form" class="form" action="{% url 'login:create' %}" method="post">
+                            <form id="signup-form" class="form">
                                 {% csrf_token %}
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="email" placeholder="Email" tabindex="1">
+                                    <input id = "email" class="form-control" type="text" name="email" placeholder="Email" tabindex="1">
                                 </div>
                                 <div class="form-group">
                                     <input id="password" class="form-control" type="password" name="password" placeholder="Password" tabindex="2">
