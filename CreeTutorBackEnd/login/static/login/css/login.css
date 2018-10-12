@@ -17,10 +17,34 @@
     color: white;
 }
 
-.btn:hover {
+.btn:hover:enabled {
     background: lightgrey;
 }
 
-.mismatch {
+.error {
     border: red 1px solid;
+}
+
+/* This is to mimic the spacing in the .form-group bootstrap styling and the height of the input field */
+@media screen and (max-width: 991px) {
+    .form-field-message {
+        padding-bottom: 1rem;
+        margin-top: -1rem;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .form-field-message {
+        padding-bottom: 1rem;
+        margin-left: -1.5rem;
+        line-height: 38px; /* Height of input box */
+    }
+}
+
+.form-message {
+    padding-bottom: 1rem;
+}
+
+.hidden {
+    display: none;
 }
