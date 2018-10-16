@@ -5,6 +5,14 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 import re
 
+# If user is authenticated, redirect to homepage at lettergame/
+# If user is not authenticated, continue to login page
+def index(request):
+    if request.user.is_authenticated:
+        return redirect(request, 'lettergame:index')
+    else:
+        return render(request, 'login/index.html')
+
 def uniqueEmail(email):
     try:
         u = User.objects.get(username=email)
@@ -23,9 +31,6 @@ def checkEmail(email):
     elif not re.match(r"[^@]+@[^@]+\.[^@]+", email):
         error = "Email is invalid"
     return error
-
-def index(request):
-    return render(request, 'login/index.html')
 
 def signin(request):
     try:
