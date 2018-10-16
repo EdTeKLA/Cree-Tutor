@@ -1,3 +1,23 @@
+function showError(toError, toShow, toAddErrorMessage, errorMessage) {
+    toError.addClass('error');
+    toShow.removeClass('hidden');
+    toAddErrorMessage.text(errorMessage);
+}
+
+function hideError(toUnError, toHide) {
+    toUnError.removeClass('error');
+    toHide.addClass('hidden');
+}
+
+function shouldDisableSignUp() {
+
+    return $("#email").hasClass('error') ||
+        $("#confirm-password").hasClass('error') ||
+        $("#email").val().length === 0
+        $("#password").val().length === 0 ||
+        $("#confirm-password").val().length === 0;
+}
+
 $(function() {
 
     // TODO: need to clean up this code a bit to limit the queries being performed and remove duplicate code
@@ -27,70 +47,54 @@ $(function() {
         e.preventDefault();
     });
 
-    // TODO: CLEAN UP THIS QUERY DISASTER
     // When the confirm password does not match, tell the user with the error class on the input
     // Only enable the submit button when the user has entered something in both fields (and it matches)
     $('#password').on('input', function() {
         const confirmPassword = $('#confirm-password');
-        const signUpButton = $('#signup-button');
-        const emailFieldMessage = $("#email-group .form-field-message");
-        const confirmFieldMessage = $("#confirm-password-group .form-field-message");
-        const confirmFieldMessageSpan = $("#confirm-password-group .form-field-message span");
 
         if(confirmPassword.val().length > 0 && $(this).val() !== confirmPassword.val()) {
-            confirmPassword.addClass('error');
-            confirmFieldMessageSpan.text("Passwords do not match");
-            confirmFieldMessage.removeClass('hidden');
-            signUpButton.prop('disabled', true);
+            showError(
+                confirmPassword,
+                $("#confirm-password-group .form-field-message"),
+                $("#confirm-password-group .form-field-message span"),
+                "Passwords do not match");
+            $('#signup-button').prop('disabled', shouldDisableSignUp());
         } else if (confirmPassword.hasClass('error')) {
-            confirmPassword.removeClass('error');
-            confirmFieldMessage.addClass('hidden');
-            if (emailFieldMessage.hasClass('hidden')) {
-                signUpButton.prop('disabled', false);
-            }
+            hideError(confirmPassword, $("#confirm-password-group .form-field-message"));
+            $('#signup-button').prop('disabled', shouldDisableSignUp());
         }
     });
-    // TODO: CLEAN UP THIS QUERY DISASTER
+
     $('#confirm-password').on('input', function() {
         const confirmPassword = $(this);
         const password = $('#password');
-        const signUpButton = $('#signup-button');
-        const emailFieldMessage = $("#email-group .form-field-message");
-        const confirmFieldMessage = $("#confirm-password-group .form-field-message");
-        const confirmFieldMessageSpan = $("#confirm-password-group .form-field-message span");
 
         if(password.val().length > 0 && password.val() !== confirmPassword.val()) {
-            confirmPassword.addClass('error');
-            confirmFieldMessageSpan.text("Passwords do not match");
-            confirmFieldMessage.removeClass('hidden');
-            signUpButton.prop('disabled', true);
+            showError(
+                confirmPassword,
+                $("#confirm-password-group .form-field-message"),
+                $("#confirm-password-group .form-field-message span"),
+                "Passwords do not match");
+            $('#signup-button').prop('disabled', shouldDisableSignUp());
         } else if (confirmPassword.hasClass('error')) {
-            confirmPassword.removeClass('error');
-            confirmFieldMessage.addClass('hidden');
-            if (emailFieldMessage.hasClass('hidden')) {
-                signUpButton.prop('disabled', false);
-            }
+            hideError(confirmPassword, $("#confirm-password-group .form-field-message"));
+            $('#signup-button').prop('disabled', shouldDisableSignUp());
         }
     });
-    // TODO: CLEAN UP THIS QUERY DISASTER
+
     $('#email').on('focusout', function() {
         const email = $(this);
-        const emailFieldMessage = $("#email-group .form-field-message");
-        const emailFieldMessageSpan = $("#email-group .form-field-message span");
-        const signUpButton = $('#signup-button');
-        const confirmPassword = $('#confirm-password');
 
         if (email.val().match("[^@]+@[^@]+\\.[^@]+") == null) {
-            emailFieldMessageSpan.text("Email is invalid");
-            emailFieldMessage.removeClass('hidden');
-            email.addClass('error');
-            signUpButton.prop('disabled', true);
-        } else if (!emailFieldMessage.hasClass('hidden')) {
-            email.removeClass('error');
-            emailFieldMessage.addClass('hidden');
-            if (!confirmPassword.hasClass('error') && confirmPassword.val().length > 0) {
-                signUpButton.prop('disabled', false);
-            }
+            showError(
+                email,
+                $("#email-group .form-field-message"),
+                $("#email-group .form-field-message span"),
+                "Email is invalid");
+            $('#signup-button').prop('disabled', shouldDisableSignUp());
+        } else if (email.hasClass('error')) {
+            hideError(email, $("#email-group .form-field-message"));
+            $('#signup-button').prop('disabled', shouldDisableSignUp());
         }
     });
 
@@ -139,8 +143,12 @@ $(function() {
             success:function(data){
                 if (data['error']){
                     // TODO: right now all errors sent back come from the email, this may not always be the case going forwards
-                    $("#email-group .form-field-message").removeClass("hidden");
-                    $("#email-group .form-field-message span").text(data.error);
+                    showError(
+                        $("#email"),
+                        $("#email-group .form-field-message"),
+                        $("#email-group .form-field-message span"),
+                        data.error);
+                    $('#signup-button').prop('disabled', shouldDisableSignUp());
                 } else if (data['success']) {
                     // TODO: instant login and redirect to profile page instead?
                     // should be first time profile page, then tell user where they can go edit their details at any time?
