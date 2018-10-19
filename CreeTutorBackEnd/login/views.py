@@ -65,7 +65,7 @@ def create(request):
             user = authenticate(username=email, password=password)
             login(request, user)
 
-            context = {'redirect': '/lettergame'}
+            context = {'redirect': '/profile'}
             return JsonResponse(context)
 
         else:
@@ -78,4 +78,5 @@ def create(request):
         return HttpResponse('ERROR: POST-ed values not received properly')
 
 def profile(request):
-    return render(request, "login/profile.html")
+    username = request.user.username
+    return render(request, "login/profile.html", {'username': username});

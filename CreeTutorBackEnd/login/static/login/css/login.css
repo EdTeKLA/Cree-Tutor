@@ -48,3 +48,17 @@
 .hidden {
     display: none;
 }
+
+nav .dropdown {
+    display: none;
+}
+
+@media screen and (max-width: 991px) {
+    nav .list-group {
+        display: none;
+    }
+
+    nav .dropdown {
+        display: inline-block;
+    }
+}
