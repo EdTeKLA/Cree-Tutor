@@ -56,15 +56,16 @@ def create(request):
 
         error = checkEmail(email)
 
-        if error == None:
+        if error is None:
             # Create User object
             user = User.objects.create_user(email, email, password)
+            user.save()
 
             # Log user in
-            # login(request,user)
+            user = authenticate(username=email, password=password)
+            login(request, user)
 
-            user.save()
-            context={'success':'yay'}
+            context = {'redirect': '/lettergame'}
             return JsonResponse(context)
 
         else:

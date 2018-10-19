@@ -13,7 +13,7 @@ function shouldDisableSignUp() {
 
     return $("#email").hasClass('error') ||
         $("#confirm-password").hasClass('error') ||
-        $("#email").val().length === 0
+        $("#email").val().length === 0 ||
         $("#password").val().length === 0 ||
         $("#confirm-password").val().length === 0;
 }
@@ -149,22 +149,13 @@ $(function() {
                         $("#email-group .form-field-message span"),
                         data.error);
                     $('#signup-button').prop('disabled', shouldDisableSignUp());
-                } else if (data['success']) {
-                    // TODO: instant login and redirect to profile page instead?
-                    // should be first time profile page, then tell user where they can go edit their details at any time?
-                    $("#login-form")
-                        .delay(200)
-                        .fadeIn(200);
-                    $("#signup-form")
-                        .fadeOut(200);
-                    $(this).addClass('active');
-                    $("#signup-form-tab").removeClass('active');
-                    document.getElementById("login_email").value = $("#email").val();
-                    document.getElementById("login_password").value = $("#password").val();
-                    e.preventDefault();
+                } else if (data['redirect']) {
+                    window.location.href = data['redirect'];
                 }
             },
-            error:function(error){console.log(error)}
+            error:function(error) {
+                console.log(error);
+            }
         });
     });
 
@@ -183,7 +174,6 @@ $(function() {
                     $(".form-group .form-message").removeClass("hidden");
                     $(".form-group .form-message span").text(data.error);
                 } else if (data['redirect']) {
-                    console.log(data);
                     window.location.href = data['redirect'];
                 }
             },
