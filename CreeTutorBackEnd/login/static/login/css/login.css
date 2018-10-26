@@ -74,3 +74,8 @@ nav .dropdown {
 .container {
     margin-top: 15px;
 }
+
+/*TODO: mobile styling*/
+#first-language-group .input-group .dropdown .dropdown-toggle, #other-language-group .input-group .dropdown .dropdown-toggle {
+    width: 200px;
+}

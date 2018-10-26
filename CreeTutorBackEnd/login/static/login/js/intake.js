@@ -29,11 +29,29 @@ $(function () {
                 "                                <i class=\"fas fa-plus\"></i>\n" +
                 "                            </button>\n" +
                 "                        </div>\n" +
+                "                        <div class=\"dropdown input-group-append\">\n" +
+                "                            <a class=\"btn btn-secondary dropdown-toggle\" data-display=\"static\" href=\"#\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+                "                                Fluency\n" +
+                "                            </a>\n" +
+                "                            <div class=\"dropdown-menu\">\n" +
+                "                                <a class=\"dropdown-item\" href=\"\" value=\"1\">1 - Little experience, can use and understand basic sentences and questions</a>\n" +
+                "                                <a class=\"dropdown-item\" href=\"\" value=\"2\">2 - Some experience, can hold basic, casual conversations</a>\n" +
+                "                                <a class=\"dropdown-item\" href=\"\" value=\"3\">3 - Lots of experience, not quite fluent but can communicate well in the language</a>\n" +
+                "                                <a class=\"dropdown-item\" href=\"\" value=\"4\">4 - Fluent, no communication problems</a>\n" +
+                "                            </div>\n" +
+                "                        </div>\n" +
                 "                    </div>"));
             e.preventDefault();
         })
         .on('click', '.remove-first-language', function(e) {
             $(this).closest('.input-group').remove();
+            e.preventDefault();
+        })
+        .on('click', '.dropdown-menu a', function(e) {
+            // TODO: mobile styling, more responsive
+            let optionText = $(this).text().substr(0, 20) + "...";
+            $(this).parents('.dropdown').find('.dropdown-toggle')
+                .html(optionText);
             e.preventDefault();
         });
 
@@ -51,11 +69,29 @@ $(function () {
                 "                                <i class=\"fas fa-plus\"></i>\n" +
                 "                            </button>\n" +
                 "                        </div>\n" +
+                "                        <div class=\"dropdown input-group-append\">\n" +
+                "                            <a class=\"btn btn-secondary dropdown-toggle\" data-display=\"static\" href=\"#\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+                "                                Fluency\n" +
+                "                            </a>\n" +
+                "                            <div class=\"dropdown-menu\">\n" +
+                "                                <a class=\"dropdown-item\" href=\"\" value=\"1\">1 - Little experience, can use and understand basic sentences and questions</a>\n" +
+                "                                <a class=\"dropdown-item\" href=\"\" value=\"2\">2 - Some experience, can hold basic, casual conversations</a>\n" +
+                "                                <a class=\"dropdown-item\" href=\"\" value=\"3\">3 - Lots of experience, not quite fluent but can communicate well in the language</a>\n" +
+                "                                <a class=\"dropdown-item\" href=\"\" value=\"4\">4 - Fluent, no communication problems</a>\n" +
+                "                            </div>\n" +
+                "                        </div>\n" +
                 "                    </div>"));
             e.preventDefault();
         })
         .on('click', '.remove-other-language', function(e) {
             $(this).closest('.input-group').remove();
+            e.preventDefault();
+        })
+        .on('click', '.dropdown-menu a', function(e) {
+            // TODO: mobile styling, more responsive
+            let optionText = $(this).text().substr(0, 20) + "...";
+            $(this).parents('.dropdown').find('.dropdown-toggle')
+                .html(optionText);
             e.preventDefault();
         });
 });
