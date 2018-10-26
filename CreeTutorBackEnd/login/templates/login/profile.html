@@ -43,29 +43,37 @@
         <div class="col-lg-9">
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="list-account-information" role="tabpanel" aria-labelledby="list-account-information-list">
-                    <h4>Account Information</h4>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <label>Email:</label>
-                            <input value="{{ request.user.username }}"/>
-                        </li>
-                        <!-- TODO: anything else? name? -->
-                    </ul>
-                    <h4>Change Password</h4>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <label id="old-password-label" for="old-password">Old Password:</label>
-                            <input id="old-password" aria-labelledby="old-password-label" />
-                        </li>
-                        <li class="list-group-item">
-                            <label id="new-password-label" for="new-password">New Password:</label>
-                            <input id="new-password" aria-labelledby="new-password-label" />
-                        </li>
-                        <li class="list-group-item">
-                            <label id="confirm-password-label" for="confirm-password">Confirm New Password:</label>
-                            <input id="confirm-password" aria-labelledby="confirm-password-label" />
-                        </li>
-                    </ul>
+                    <div class="profile-section">
+                        <h4>Account Information</h4>
+                        <hr>
+                        <ul class="list-group">
+                            <li class="row list-group-item">
+                                <label class="col-4">Email:</label>
+                                <input class="col-7" value="{{ request.user.username }}"/>
+                            </li>
+                            <!-- TODO: anything else? name? -->
+                        </ul>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                    <div class="profile-section">
+                        <h4>Change Password</h4>
+                        <hr>
+                        <ul class="list-group">
+                            <li class="row list-group-item">
+                                <label class="col-4" id="old-password-label" for="old-password">Old Password:</label>
+                                <input class="col-7" id="old-password" aria-labelledby="old-password-label" />
+                            </li>
+                            <li class="row list-group-item">
+                                <label class="col-4" id="new-password-label" for="new-password">New Password:</label>
+                                <input class="col-7" id="new-password" aria-labelledby="new-password-label" />
+                            </li>
+                            <li class="row list-group-item">
+                                <label class="col-4" id="confirm-password-label" for="confirm-password">Confirm New Password:</label>
+                                <input class="col-7" id="confirm-password" aria-labelledby="confirm-password-label" />
+                            </li>
+                        </ul>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="list-another-section" role="tabpanel" aria-labelledby="list-another-section-list">PERHAPS SOME DEMOGRAPHIC OPTIONS - FILL IN</div>
                 <div class="tab-pane fade" id="list-third-section" role="tabpanel" aria-labelledby="list-third-section-list">PERHAPS SOME SETTINGS - FILL IN</div>

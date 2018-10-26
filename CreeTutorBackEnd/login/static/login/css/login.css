@@ -62,3 +62,11 @@ nav .dropdown {
         display: inline-block;
     }
 }
+
+.profile-section {
+    margin: 1em;
+}
+
+.profile-section .list-group .list-group-item {
+    border: none;
+}
