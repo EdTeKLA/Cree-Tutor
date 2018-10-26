@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'login/css/login.css' %}" />
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'login/js/intake.js' %}"></script>
+{% endblock %}
+
+<!-- TODO: create account will redirect here, we shouldn't let users come back to this page after they've seen it once -->
+<!-- TODO: these questions and options are all samples to play with the types of question formats we will need -->
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-6">
+            <h4>Intake Form</h4>
+            <p>This is an explanation of what you will be doing here. All questions are optional.</p>
+            <p>Tip: hover over the <i class="far fa-question-circle"></i> icon next to each question for an explanation of why we are collecting this data.</p>
+            <form id="login-form" class="form">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label for="first-name">
+                        First Name
+                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="This data will help us do a thing"></i>
+                    </label>
+                    <input type="text" class="form-control" id="first-name" placeholder="First Name">
+                </div>
+                <div class="form-group row">
+                    <label for="last-name">
+                        Last Name
+                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="This data will help us do a thing"></i>
+                    </label>
+                    <input type="text" class="form-control" id="last-name" placeholder="Last Name">
+                </div>
+                <div class="form-group row">
+                    <legend class="col-form-label">
+                        Age Range
+                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="This data will help us do a thing"></i>
+                    </legend>
+                    <div class="col-lg-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-1" value="17 or younger">
+                            <label class="form-check-label" for="age-range-1">
+                                17 or younger
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-2" value="18-20">
+                            <label class="form-check-label" for="age-range-2">
+                                18-20
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-3" value="21-29">
+                            <label class="form-check-label" for="age-range-3">
+                                21-29
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-4" value="30-39">
+                            <label class="form-check-label" for="age-range-4">
+                                30-39
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-5" value="40-49">
+                            <label class="form-check-label" for="age-range-5">
+                                40-49
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-6" value="50-59">
+                            <label class="form-check-label" for="age-range-6">
+                                50-59
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-7" value="60-69">
+                            <label class="form-check-label" for="age-range-7">
+                                60-69
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-8" value="70 or older">
+                            <label class="form-check-label" for="age-range-8">
+                                70 or older
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-9" value="prefer not to answer">
+                            <label class="form-check-label" for="age-range-9">
+                                Prefer not to answer
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

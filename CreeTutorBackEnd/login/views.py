@@ -1,15 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
+from django.urls import reverse
 import re
 
 # If user is authenticated, redirect to homepage at lettergame/
 # If user is not authenticated, continue to login page
 def index(request):
     if request.user.is_authenticated:
-        return redirect(request, 'lettergame:index')
+        return HttpResponseRedirect(reverse('lettergame:index'))
     else:
         return render(request, 'login/index.html')
 
@@ -70,7 +71,7 @@ def create(request):
             user = authenticate(username=email, password=password)
             login(request, user)
 
-            context = {'redirect': '/profile'}
+            context = {'redirect': '/intake'}
             return JsonResponse(context)
 
         else:
@@ -83,5 +84,7 @@ def create(request):
         return HttpResponse('ERROR: POST-ed values not received properly')
 
 def profile(request):
-    username = request.user.username
-    return render(request, "login/profile.html", {'username': username});
+    return render(request, "login/profile.html");
+
+def intake(request):
+    return render(request, "login/intake.html");
