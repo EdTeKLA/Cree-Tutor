@@ -12,14 +12,14 @@
 }
 
 /* Temporary colours, need to pick colour scheme still (and this should be in the common css probably?) */
-.btn {
-    background: grey;
-    color: white;
-}
+/*.btn {*/
+    /*background: grey;*/
+    /*color: white;*/
+/*}*/
 
-.btn:hover:enabled {
-    background: lightgrey;
-}
+/*.btn:hover:enabled {*/
+    /*background: lightgrey;*/
+/*}*/
 
 .error {
     border: red 1px solid;
@@ -73,9 +73,4 @@ nav .dropdown {
 
 .container {
     margin-top: 15px;
-}
-
-.icon-wrap {
-    position: relative;
-    display: inline-block;
 }
