@@ -88,3 +88,8 @@ def profile(request):
 
 def intake(request):
     return render(request, "login/intake.html");
+
+def submit_intake(request):
+    # for now just redirect, eventually we need to do something with their answers
+    context = {'redirect': '/lettergame'}
+    return JsonResponse(context)
