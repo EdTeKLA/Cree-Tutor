@@ -1,3 +1,46 @@
+// TODO: make fluencyLevels more dynamic
+// TODO: refactor dropdown menu... get rid of value on a element
+const setLanguageGroup = function(id, placeholder, fluencyLevels) {
+    $("#" + id + "-group")
+        .on('click', '.add-' + id, function(e) {
+            $('.add-' + id)
+                .html("<i class=\"fas fa-minus\"></i>")
+                .removeClass("btn-primary add-" + id)
+                .addClass("btn-secondary remove-" + id);
+            $("#" + id + "-group").append($("<div class=\"input-group\">\n" +
+                "                        <input type=\"text\" class=\"form-control " + id + "\" placeholder=\"" + placeholder + "\">\n" +
+                "                        <div class=\"input-group-append\">\n" +
+                "                            <button class=\"btn btn-primary add-" + id + "\" type=\"button\">\n" +
+                "                                <i class=\"fas fa-plus\"></i>\n" +
+                "                            </button>\n" +
+                "                        </div>\n" +
+                "                        <div class=\"dropdown input-group-append\">\n" +
+                "                            <a class=\"btn btn-secondary dropdown-toggle\" data-display=\"static\" href=\"#\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+                "                                Fluency\n" +
+                "                            </a>\n" +
+                "                            <div class=\"dropdown-menu\">\n" +
+                "                                <a class=\"dropdown-item\" href=\"\" value=\"1\">" + fluencyLevels[0] + "</a>\n" +
+                "                                <a class=\"dropdown-item\" href=\"\" value=\"2\">" + fluencyLevels[1] + "</a>\n" +
+                "                                <a class=\"dropdown-item\" href=\"\" value=\"3\">" + fluencyLevels[2] + "</a>\n" +
+                "                                <a class=\"dropdown-item\" href=\"\" value=\"4\">" + fluencyLevels[3] + "</a>\n" +
+                "                            </div>\n" +
+                "                        </div>\n" +
+                "                    </div>"));
+            e.preventDefault();
+        })
+        .on('click', '.remove-' + id, function(e) {
+            $(this).closest('.input-group').remove();
+            e.preventDefault();
+        })
+        .on('click', '.dropdown-menu a', function(e) {
+            // TODO: mobile styling, more responsive
+            let optionText = $(this).text().substr(0, 20) + "...";
+            $(this).parents('.dropdown').find('.dropdown-toggle')
+                .html(optionText);
+            e.preventDefault();
+        });
+};
+
 $(function () {
     $("[data-toggle=tooltip]").tooltip({
         boundary: 'viewport',
@@ -9,122 +52,23 @@ $(function () {
         source: languages
     };
     $(document)
-        .on('keydown.autocomplete', '.first-language', function() {
-            $(this).autocomplete(autocomplete_options);
-        })
-        .on('keydown.autocomplete', '.other-language', function() {
+        .on('keydown.autocomplete', '.first-language, .other-language', function() {
             $(this).autocomplete(autocomplete_options);
         });
 
-    $("#first-language-group")
-        .on('click', '.add-first-language', function(e) {
-            $('.add-first-language')
-                .html("<i class=\"fas fa-minus\"></i>")
-                .removeClass("btn-primary add-first-language")
-                .addClass("btn-secondary remove-first-language");
-            $("#first-language-group").append($("<div class=\"input-group\">\n" +
-                "                        <input type=\"text\" class=\"form-control first-language\" placeholder=\"e.g. English\">\n" +
-                "                        <div class=\"input-group-append\">\n" +
-                "                            <button class=\"btn btn-primary add-first-language\" type=\"button\">\n" +
-                "                                <i class=\"fas fa-plus\"></i>\n" +
-                "                            </button>\n" +
-                "                        </div>\n" +
-                "                        <div class=\"dropdown input-group-append\">\n" +
-                "                            <a class=\"btn btn-secondary dropdown-toggle\" data-display=\"static\" href=\"#\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
-                "                                Fluency\n" +
-                "                            </a>\n" +
-                "                            <div class=\"dropdown-menu\">\n" +
-                "                                <a class=\"dropdown-item\" href=\"\" value=\"1\">1 - Little experience, can use and understand basic sentences and questions</a>\n" +
-                "                                <a class=\"dropdown-item\" href=\"\" value=\"2\">2 - Some experience, can hold basic, casual conversations</a>\n" +
-                "                                <a class=\"dropdown-item\" href=\"\" value=\"3\">3 - Lots of experience, not quite fluent but can communicate well in the language</a>\n" +
-                "                                <a class=\"dropdown-item\" href=\"\" value=\"4\">4 - Fluent, no communication problems</a>\n" +
-                "                            </div>\n" +
-                "                        </div>\n" +
-                "                    </div>"));
-            e.preventDefault();
-        })
-        .on('click', '.remove-first-language', function(e) {
-            $(this).closest('.input-group').remove();
-            e.preventDefault();
-        })
-        .on('click', '.dropdown-menu a', function(e) {
-            // TODO: mobile styling, more responsive
-            let optionText = $(this).text().substr(0, 20) + "...";
-            $(this).parents('.dropdown').find('.dropdown-toggle')
-                .html(optionText);
-            e.preventDefault();
-        });
+    setLanguageGroup('first-language', 'e.g. English', [
+        '1 - Little experience, can use and understand basic sentences and questions',
+        '2 - Some experience, can hold basic, casual conversations',
+        '3 - Lots of experience, not quite fluent but can communicate well in the language',
+        '4 - Fluent, no communication problems'
+    ]);
 
-
-    $("#other-language-group")
-        .on('click', '.add-other-language', function(e) {
-            $('.add-other-language')
-                .html("<i class=\"fas fa-minus\"></i>")
-                .removeClass("btn-primary add-other-language")
-                .addClass("btn-secondary remove-other-language");
-            $("#other-language-group").append($("<div class=\"input-group\">\n" +
-                "                        <input type=\"text\" class=\"form-control other-language\" placeholder=\"e.g. Woods Cree\">\n" +
-                "                        <div class=\"input-group-append\">\n" +
-                "                            <button class=\"btn btn-primary add-other-language\" type=\"button\">\n" +
-                "                                <i class=\"fas fa-plus\"></i>\n" +
-                "                            </button>\n" +
-                "                        </div>\n" +
-                "                        <div class=\"dropdown input-group-append\">\n" +
-                "                            <a class=\"btn btn-secondary dropdown-toggle\" data-display=\"static\" href=\"#\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
-                "                                Fluency\n" +
-                "                            </a>\n" +
-                "                            <div class=\"dropdown-menu\">\n" +
-                "                                <a class=\"dropdown-item\" href=\"\" value=\"1\">1 - Little experience, can use and understand basic sentences and questions</a>\n" +
-                "                                <a class=\"dropdown-item\" href=\"\" value=\"2\">2 - Some experience, can hold basic, casual conversations</a>\n" +
-                "                                <a class=\"dropdown-item\" href=\"\" value=\"3\">3 - Lots of experience, not quite fluent but can communicate well in the language</a>\n" +
-                "                                <a class=\"dropdown-item\" href=\"\" value=\"4\">4 - Fluent, no communication problems</a>\n" +
-                "                            </div>\n" +
-                "                        </div>\n" +
-                "                    </div>"));
-            e.preventDefault();
-        })
-        .on('click', '.remove-other-language', function(e) {
-            $(this).closest('.input-group').remove();
-            e.preventDefault();
-        })
-        .on('click', '.dropdown-menu a', function(e) {
-            // TODO: mobile styling, more responsive
-            let optionText = $(this).text().substr(0, 20) + "...";
-            $(this).parents('.dropdown').find('.dropdown-toggle')
-                .html(optionText);
-            e.preventDefault();
-        });
-
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-    var csrftoken = getCookie('csrftoken');
-
-    function csrfSafeMethod(method) {
-        // these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-
-    $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        }
-    });
+    setLanguageGroup('other-language', 'e.g. Wood Cree', [
+        '1 - Little experience, can use and understand basic sentences and questions',
+        '2 - Some experience, can hold basic, casual conversations',
+        '3 - Lots of experience, not quite fluent but can communicate well in the language',
+        '4 - Fluent, no communication problems'
+    ]);
 
     // TODO: Delaney help... right now I'm not doing anything with the data
     $(document).on('submit', '#intake-form', function(e){
