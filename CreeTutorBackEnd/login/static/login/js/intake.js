@@ -3,19 +3,10 @@
 const setLanguageGroup = function(id, placeholder, fluencyLevels) {
     $("#" + id + "-group")
         .on('click', '.add-' + id, function(e) {
-            $('.add-' + id)
-                .html("<i class=\"fas fa-minus\"></i>")
-                .removeClass("btn-primary add-" + id)
-                .addClass("btn-secondary remove-" + id);
-            $("#" + id + "-group").append($("<div class=\"input-group\">\n" +
+            $("#" + id + "-input-group").append($("<div class=\"input-group\">\n" +
                 "                        <input type=\"text\" class=\"form-control " + id + "\" placeholder=\"" + placeholder + "\">\n" +
-                "                        <div class=\"input-group-append\">\n" +
-                "                            <button class=\"btn btn-primary add-" + id + "\" type=\"button\">\n" +
-                "                                <i class=\"fas fa-plus\"></i>\n" +
-                "                            </button>\n" +
-                "                        </div>\n" +
                 "                        <div class=\"dropdown input-group-append\">\n" +
-                "                            <a class=\"btn btn-secondary dropdown-toggle\" data-display=\"static\" href=\"#\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
+                "                            <a class=\"btn btn-outline-secondary dropdown-toggle\" data-display=\"static\" href=\"#\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
                 "                                Fluency\n" +
                 "                            </a>\n" +
                 "                            <div class=\"dropdown-menu\">\n" +
@@ -25,6 +16,11 @@ const setLanguageGroup = function(id, placeholder, fluencyLevels) {
                 "                                <a class=\"dropdown-item\" href=\"\" value=\"4\">" + fluencyLevels[3] + "</a>\n" +
                 "                            </div>\n" +
                 "                        </div>\n" +
+                "                        <div class=\"input-group-append\">\n" +
+                "                            <button class=\"btn btn-primary remove-" + id + "\" type=\"button\">\n" +
+                "                                <i class=\"fas fa-minus\"></i>" +
+                "                            </button>\n" +
+                "                        </div>" +
                 "                    </div>"));
             e.preventDefault();
         })
@@ -57,20 +53,20 @@ $(function () {
         });
 
     setLanguageGroup('first-language', 'e.g. English', [
-        '1 - Little experience, can use and understand basic sentences and questions',
-        '2 - Some experience, can hold basic, casual conversations',
-        '3 - Lots of experience, not quite fluent but can communicate well in the language',
-        '4 - Fluent, no communication problems'
+        'Little experience, can use and understand basic sentences and questions',
+        'Some experience, can hold basic, casual conversations',
+        'Lots of experience, not quite fluent but can communicate well in the language',
+        'Fluent, no communication problems'
     ]);
 
     setLanguageGroup('other-language', 'e.g. Wood Cree', [
-        '1 - Little experience, can use and understand basic sentences and questions',
-        '2 - Some experience, can hold basic, casual conversations',
-        '3 - Lots of experience, not quite fluent but can communicate well in the language',
-        '4 - Fluent, no communication problems'
+        'Little experience, can use and understand basic sentences and questions',
+        'Some experience, can hold basic, casual conversations',
+        'Lots of experience, not quite fluent but can communicate well in the language',
+        'Fluent, no communication problems'
     ]);
 
-    // TODO: Delaney help... right now I'm not doing anything with the data
+    // TODO: do something with the data?
     $(document).on('submit', '#intake-form', function(e){
         e.preventDefault();
 

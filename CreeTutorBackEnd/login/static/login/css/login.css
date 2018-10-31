@@ -11,16 +11,6 @@
     font-weight: bold;
 }
 
-/* Temporary colours, need to pick colour scheme still (and this should be in the common css probably?) */
-/*.btn {*/
-    /*background: grey;*/
-    /*color: white;*/
-/*}*/
-
-/*.btn:hover:enabled {*/
-    /*background: lightgrey;*/
-/*}*/
-
 .error {
     border: red 1px solid;
 }
@@ -75,7 +65,11 @@ nav .dropdown {
     margin-top: 15px;
 }
 
-/*TODO: mobile styling*/
-#first-language-group .input-group .dropdown .dropdown-toggle, #other-language-group .input-group .dropdown .dropdown-toggle {
+/* TODO: mobile styling and make this more dynamic */
+#first-language-input-group .input-group .dropdown .dropdown-toggle, #other-language-input-group .input-group .dropdown .dropdown-toggle {
     width: 200px;
+}
+
+#first-language-input-group, #other-language-input-group {
+    width: 100%
 }
