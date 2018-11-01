@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    {% load static %}
+    <!-- Stylesheet for Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{% static 'common/css/bootstrap.min.css' %}" />
+    <!-- Stylesheet for Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="{% static 'common/css/all.min.css' %}" />
+    <!-- Stylesheet for jQuery UI (only includes code necessary for autocomplete) -->
+    <link rel="stylesheet" type="text/css" href="{% static 'common/css/jquery-ui.min.css' %}" />
+
+    <!--Scripts for Bootstrap - order of these dependencies is important -->
+    <script src="{% static 'common/js/popper.min.js' %}"></script>
+    <script src="{% static 'common/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'common/js/bootstrap.min.js' %}"></script>
+    <!-- Scripts for Font Awesome -->
+    <script src="{% static 'common/js/all.min.js' %}"></script>
+    <!-- Scripts for jQuery UI (only includes code necessary for autocomplete) -->
+    <script src="{% static 'common/js/jquery-ui.min.js' %}"></script>
+    <!-- Common JS, setting cookie before all AJAX POST requests-->
+    <script src="{% static 'common/js/common.js' %}"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block title %}
+    <title>Learn Cree</title>
+    {% endblock %}
+
+    {% block styles %}
+    {% endblock %}
+
+    {% block scripts %}
+    {% endblock %}
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color: #e6b800;">
+        {% if user.is_authenticated %}
+        <a class="navbar-brand" href="{% url 'lettergame:index' %}">Cree Tutor</a>
+        {% else %}
+        <a class="navbar-brand" href="#" onclick="return false;">Cree Tutor</a>
+        {% endif %}
+
+        <div>
+            {% if user.is_authenticated %}
+            YOU ARE LOGGED IN
+            {% else %}
+            YOU ARE NOT LOGGED IN
+            {% endif %}
+        </div>
+
+        {% if user.is_authenticated %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Some text
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'login:profile' %}">Profile</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'login:signout' %}">Log Out <span class="sr-only">(current)</span></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        {% endif %}
+
+    </nav>
+
+    {% block content %}
+    {% endblock content %}
+
+</body>
+
+</html>

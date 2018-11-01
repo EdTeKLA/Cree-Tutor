@@ -52,6 +52,7 @@ $('body').on('mouseout', 'input[type=radio]', function(){
     return;
 });
 
+// TODO: we can probably delete this because it's now in static/common/js/common.js but leaving for now until we can test to make sure
 //----------- The following code for acquiring the CSRF token was taken directly from https://docs.djangoproject.com/en/2.1/ref/csrf/
 function getCookie(name) {
     var cookieValue = null;
