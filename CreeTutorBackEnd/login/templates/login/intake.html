@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'login/css/login.css' %}" />
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'login/js/intake.js' %}"></script>
+{% endblock %}
+
+<!-- TODO: create account will redirect here, we shouldn't let users come back to this page after they've seen it once -->
+<!-- TODO: these questions and options are all samples to play with the types of question formats we will need -->
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-8">
+            <h4>Intake Form</h4>
+            <p>This is an explanation of what you will be doing here. All questions are optional.</p>
+            <p>Tip: hover over the <i class="far fa-question-circle"></i> icon next to each question for an explanation of why we are collecting this data.</p>
+            <form id="intake-form" class="form">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label for="first-name">
+                        First Name
+                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="This data will help us do a thing"></i>
+                    </label>
+                    <input type="text" class="form-control" id="first-name" placeholder="First Name">
+                </div>
+                <div class="form-group row">
+                    <label for="last-name">
+                        Last Name
+                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="This data will help us do a thing"></i>
+                    </label>
+                    <input type="text" class="form-control" id="last-name" placeholder="Last Name">
+                </div>
+                <div class="form-group row">
+                    <legend class="col-form-label">
+                        Age Range
+                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="This data will help us do a thing"></i>
+                    </legend>
+                    <div class="col-lg-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-1" value="17 or younger">
+                            <label class="form-check-label" for="age-range-1">
+                                17 or younger
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-2" value="18-20">
+                            <label class="form-check-label" for="age-range-2">
+                                18-20
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-3" value="21-29">
+                            <label class="form-check-label" for="age-range-3">
+                                21-29
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-4" value="30-39">
+                            <label class="form-check-label" for="age-range-4">
+                                30-39
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-5" value="40-49">
+                            <label class="form-check-label" for="age-range-5">
+                                40-49
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-6" value="50-59">
+                            <label class="form-check-label" for="age-range-6">
+                                50-59
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-7" value="60-69">
+                            <label class="form-check-label" for="age-range-7">
+                                60-69
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-8" value="70 or older">
+                            <label class="form-check-label" for="age-range-8">
+                                70 or older
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-9" value="prefer not to answer">
+                            <label class="form-check-label" for="age-range-9">
+                                Prefer not to answer
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="first-language-group" class="form-group row">
+                    <label> <!-- TODO: for="first-language"> -->
+                        First Language
+                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="Your first language is the language you first spoke as a child. You can add more than one if you spoke two languages equally as a child. This data will help us."></i>
+                    </label>
+                    <div id="first-language-input-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control first-language" placeholder="e.g. English">
+                            <div class="dropdown input-group-append">
+                                <a class="btn btn-outline-secondary dropdown-toggle" data-display="static" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Fluency
+                                </a>
+                                <!-- TODO: decide on better options -->
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="" value="1">Spoke only as a child, no longer understand or speak the language</a>
+                                    <a class="dropdown-item" href="" value="2">Can understand a little bit, but cannot speak</a>
+                                    <a class="dropdown-item" href="" value="3">Can understand and speak a little bit</a>
+                                    <a class="dropdown-item" href="" value="4">Can speak fluently</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary add-first-language" type="button">
+                        Add Language
+                    </button>
+                </div>
+                <div id="other-language-group" class="form-group row">
+                    <label> <!-- TODO: for="other-languages"> -->
+                        Other Languages
+                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="Any other languages you speak that you learned after childhood or that you didn't speak at home as a child. You can add more than one. This data will help us."></i>
+                    </label>
+                    <div id="other-language-input-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control other-language" placeholder="e.g. Wood Cree">
+                            <div class="dropdown input-group-append">
+                                <a class="btn btn-outline-secondary dropdown-toggle" data-display="static" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Fluency
+                                </a>
+                                <!-- TODO: decide on better options -->
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="" value="1">Little experience, can use and understand basic sentences and questions</a>
+                                    <a class="dropdown-item" href="" value="2">Some experience, can hold basic, casual conversations</a>
+                                    <a class="dropdown-item" href="" value="3">Lots of experience, not quite fluent but can communicate well in the language</a>
+                                    <a class="dropdown-item" href="" value="4">Fluent, no communication problems</a>
+                                </div>
+                            </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary remove-other-language" type="button">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary add-other-language" type="button">
+                        Add Language
+                    </button>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12">
+                        <button id="submit" name="submit" class="btn btn-primary">Submit</button>
+                        <button id="cancel" name="cancel" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

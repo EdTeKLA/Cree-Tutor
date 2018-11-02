@@ -1,3 +1,4 @@
+// TODO: we can probably delete this because it's now in static/common/js/common.js but leaving for now until we can test to make sure
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
