@@ -133,3 +133,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+"""
+TEST EMAIL SERVER only for debugging purposes.
+sends "email" to stdout. We'll need to remove this and link an SMTP server
+for this to actually work for deployment
+"""
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
