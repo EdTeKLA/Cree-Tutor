@@ -51,6 +51,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # custom middleware
+    'CreeTutorBackEnd.middleware.RequireLoginMiddleware.requireLogin_middleware'
 ]
 
 ROOT_URLCONF = 'CreeTutorBackEnd.urls'
@@ -132,4 +135,12 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
+]
+
+LOGIN_URL = '/login/'
+
+# URLS that do not require user login should be placed here
+NO_LOGIN_URL = [
+    r'signin/',
+    r'signup/',
 ]
