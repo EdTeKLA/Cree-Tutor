@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h1 >Oops!</h1>
+        <h2>This page was not found</h2>
+        <h3>click <a href="{% url 'login:index' %}">here</a> to return to the main page.</h3>
+    </div>
+{% endblock %}

@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'errorpages.apps.ErrorpagesConfig',
     'login.apps.LoginConfig',
     'lettergame.apps.LettergameConfig',
     'django.contrib.admin',
