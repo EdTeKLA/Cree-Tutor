@@ -133,3 +133,21 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+"""
+TEST EMAIL SERVER only for debugging purposes.
+sends "email" to stdout. We'll need to remove this and link an SMTP server
+for this to actually work for deployment
+
+Something like this:
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'youremail@gmail.com'
+EMAIL_HOST_PASSWORD = 'yourpassword'
+EMAIL_PORT = 587
+
+(ref https://medium.com/@frfahim/django-registration-with-confirmation-email-bb5da011e4ef)
+"""
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+

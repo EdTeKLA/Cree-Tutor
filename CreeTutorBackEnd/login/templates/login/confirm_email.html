@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'login/css/login.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+{% autoescape off %}
+<h1>Confirm Your Account</h1>
+<p>
+    We've emailed you instructions to confirm your account, if an account exists with the email you entered.
+    You should receive them shortly.
+</p>
+<p>
+    If you don't receive an email, please make sure you've entered the address you registered with,
+    and check your spam folder.
+</p>
+    click <a href="{% url 'login:index' %}">here</a> to go to the login page.
+<p>
+
+{% endautoescape %}
+
+{% endblock %}
