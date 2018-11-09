@@ -461,7 +461,6 @@
 			this.left = keyboard(37);
 			this.shoot = keyboard(32);
 			this.right = keyboard(39);
-			this.down = keyboard(40);
 		}
 		KeyboardController.prototype = new GameController();
 
@@ -469,7 +468,6 @@
 			this.left = onScreenControls("#osc-left"),
 			this.shoot = onScreenControls("#osc-shoot"),
 			this.right = onScreenControls("#osc-right")
-			this.down = onScreenControls("#osc-down");
 		}
 		OnScreenController.prototype = new GameController();
 
@@ -848,7 +846,7 @@ function setKeyActions(controller) {
 		}
 	};
 	controller.shoot.release = () => {
-		if (!controller.down.isDown && shooter1.vx === 0) {
+		if (shooter1.vx === 0) {
 			shooter1.vy = 0;
 		}
 	};
@@ -860,17 +858,6 @@ function setKeyActions(controller) {
 	controller.right.release = () => {
 		if (!controller.left.isDown && shooter1.vy === 0) {
 			shooter1.vx = 0;
-		}
-	};
-
-	//Down
-	controller.down.press = () => {
-		shooter1.vy = 0;
-		shooter1.vx = 0;
-	};
-	controller.down.release = () => {
-		if (!controller.shoot.isDown && shooter1.vx === 0) {
-			shooter1.vy = 0;
 		}
 	};
 }
@@ -1003,7 +990,6 @@ function changeBar(hitCheck, wrongCheck){
 		<button id="osc-left" class="osc-btn">left</button>
 		<button id="osc-shoot" class="osc-btn">shoot</button>
 		<button id="osc-right" class="osc-btn">right</button>
-		<button id="osc-down" class="osc-btn">down</button>
 </div>
 <font size="2.5" color="white" face="arial">
 	<center>
