@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.http import Http404
+from django.http import HttpResponseNotFound, HttpResponseServerError
 
 """
 Note that in order to view these custom error pages in a local environment
@@ -17,10 +18,10 @@ def view_404(request, exception, template_name='errorpages/404.html'):
     """
     Render custom 404 page
     """
-    return render(request, template_name)
+    return HttpResponseNotFound(render(request, template_name))
 
 def view_500(request, template_name='errorpages/500.html'):
     """
     Render custom 500 page
     """
-    return render(request, template_name)
+    return HttpResponseServerError(render(request, template_name))
