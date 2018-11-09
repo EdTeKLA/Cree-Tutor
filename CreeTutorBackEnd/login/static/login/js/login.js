@@ -1,18 +1,18 @@
 function showError(toError, toShow, toAddErrorMessage, errorMessage) {
-    toError.addClass('error');
+    toError.addClass('error-border');
     toShow.removeClass('hidden');
     toAddErrorMessage.text(errorMessage);
 }
 
 function hideError(toUnError, toHide) {
-    toUnError.removeClass('error');
+    toUnError.removeClass('error-border');
     toHide.addClass('hidden');
 }
 
 function shouldDisableSignUp() {
 
-    return $("#email").hasClass('error') ||
-        $("#confirm-password").hasClass('error') ||
+    return $("#email").hasClass('error-border') ||
+        $("#confirm-password").hasClass('error-border') ||
         $("#email").val().length === 0 ||
         $("#password").val().length === 0 ||
         $("#confirm-password").val().length === 0;
@@ -59,7 +59,7 @@ $(function() {
                 $("#confirm-password-group .form-field-message span"),
                 "Passwords do not match");
             $('#signup-button').prop('disabled', shouldDisableSignUp());
-        } else if (confirmPassword.hasClass('error')) {
+        } else if (confirmPassword.hasClass('error-border')) {
             hideError(confirmPassword, $("#confirm-password-group .form-field-message"));
             $('#signup-button').prop('disabled', shouldDisableSignUp());
         }
@@ -76,7 +76,7 @@ $(function() {
                 $("#confirm-password-group .form-field-message span"),
                 "Passwords do not match");
             $('#signup-button').prop('disabled', shouldDisableSignUp());
-        } else if (confirmPassword.hasClass('error')) {
+        } else if (confirmPassword.hasClass('error-border')) {
             hideError(confirmPassword, $("#confirm-password-group .form-field-message"));
             $('#signup-button').prop('disabled', shouldDisableSignUp());
         }
@@ -92,7 +92,7 @@ $(function() {
                 $("#email-group .form-field-message span"),
                 "Email is invalid");
             $('#signup-button').prop('disabled', shouldDisableSignUp());
-        } else if (email.hasClass('error')) {
+        } else if (email.hasClass('error-border')) {
             hideError(email, $("#email-group .form-field-message"));
             $('#signup-button').prop('disabled', shouldDisableSignUp());
         }
@@ -134,8 +134,8 @@ $(function() {
             type:'POST',
             url: "/signin/",
             data:{
-                password: $("#login_password").val(),
-                email: $("#login_email").val()
+                password: $("#login-password").val(),
+                email: $("#login-email").val()
             },
             success:function(data){
                 if (data['error']) {
