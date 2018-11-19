@@ -1,5 +1,8 @@
 {% autoescape off %}
 Hi {{ user.username }},
-Please click on the link to confirm your registration,
+You created an account on Cree Tutor. 
+To confirm your registration, please click on the link below:
 http://{{ domain }}{% url 'login:activate_user_account' uidb64=uid token=token %}
+
+If you didn't create an account, please ignore this email.
 {% endautoescape %}
