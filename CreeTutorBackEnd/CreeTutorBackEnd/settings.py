@@ -51,6 +51,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # custom middleware
+    'CreeTutorBackEnd.middleware.RequireLoginMiddleware.requireLogin_middleware'
 ]
 
 ROOT_URLCONF = 'CreeTutorBackEnd.urls'
@@ -151,3 +154,10 @@ EMAIL_PORT = 587
 """
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+LOGIN_URL = '/login/'
+
+# URLS that do not require user login should be placed here
+NO_LOGIN_URL = [
+    r'signin/',
+    r'signup/',
+]
