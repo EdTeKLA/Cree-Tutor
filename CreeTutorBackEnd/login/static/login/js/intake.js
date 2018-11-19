@@ -45,6 +45,19 @@ const setLanguageGroup = function(id, placeholder, fluencyLevels) {
         });
 };
 
+const setHelpText = function(id) {
+    $('#' + id + '-help').on('click', function(e) {
+        const helpText = $('#' + id + '-help-text');
+
+        if (helpText.hasClass('closed')) {
+            helpText.removeClass('closed');
+        } else {
+            helpText.addClass('closed');
+        }
+        e.preventDefault();
+    });
+};
+
 $(function () {
     $("[data-toggle=tooltip]").tooltip({
         boundary: 'viewport',
@@ -52,47 +65,43 @@ $(function () {
         container: 'body',
     });
 
+    $(".custom-tooltip").on("click", function(e) {
+        e.preventDefault();
+    });
+
     const autocomplete_options = {
         source: languages
     };
     $(document)
-        .on('keydown.autocomplete', '.first-language, .other-language', function() {
+        .on('keydown.autocomplete', '.primary-language, .additional-primary-language, .other-language', function() {
             $(this).autocomplete(autocomplete_options);
         });
 
-    setLanguageGroup('first-language', 'e.g. English', [
-        'Spoke only as a child, no longer understand or speak the language',
-        'Can still understand, but cannot speak very well',
-        'Can still understand and speak, but not fluently',
-        'Can speak fluently'
-    ]);
+    // Set the language fluency dropdown
+    setLanguageGroup('additional-primary-language', 'e.g. French');
 
     setLanguageGroup('other-language', 'e.g. Wood Cree', [
-        'Little experience, can use and understand basic sentences and questions',
-        'Some experience, can hold basic, casual conversations',
-        'Lots of experience, not quite fluent but can communicate well in the language',
-        'Fluent, no communication problems'
+        '1 - Little experience, can use and understand basic sentences and questions',
+        '2 - Some experience, can hold basic, casual conversations',
+        '3 - Lots of experience, not quite fluent but can communicate well in the language',
+        '4 - Fluent, no communication problems'
     ]);
 
-    $('#first-language-help').on('click', function(e) {
-        const firstLanguageHelpText = $('#first-language-help-text');
+    // Set the help text click event
+    setHelpText('primary-language');
+    setHelpText('additional-primary-language');
+    setHelpText('other-language');
 
-        if (firstLanguageHelpText.hasClass('closed')) {
-            firstLanguageHelpText.removeClass('closed');
-        } else {
-            firstLanguageHelpText.addClass('closed');
+    // If the user answers yes to knowing more languages, show two additional questions.
+    $('input[name=more-languages]').on('change', function() {
+        if (this.value === 'yes') {
+            $('#additional-primary-language-group').removeClass('hidden');
+            $('#other-language-group').removeClass('hidden');
         }
-        e.preventDefault();
-    });
-    $('#other-language-help').on('click', function(e) {
-        const otherLanguageHelpText = $('#other-language-help-text');
-
-        if (otherLanguageHelpText.hasClass('closed')) {
-            otherLanguageHelpText.removeClass('closed');
-        } else {
-            otherLanguageHelpText.addClass('closed');
+        if (this.value === 'no') {
+            $('#additional-primary-language-group').addClass('hidden');
+            $('#other-language-group').addClass('hidden');
         }
-        e.preventDefault();
     });
 
     // TODO: do something with the data?

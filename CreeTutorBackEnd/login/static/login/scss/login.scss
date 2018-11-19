@@ -71,7 +71,7 @@ nav {
 
 // Intake form CSS
 
-#first-language-group, #other-language-group {
+#primary-language-group, #additional-primary-language-group, #other-language-group {
 
   .input-group {
     margin-bottom: .5rem;
@@ -81,27 +81,6 @@ nav {
 
       @media screen and (min-width: 992px) {
         display: flex;
-      }
-
-      // The first language option will not have a remove button so the dropdown should fill in that space
-      &#first-language {
-        .dropdown-toggle {
-          span {
-            width: 110px;
-
-            @media screen and (min-width: 481px) {
-              width: 165px;
-            }
-
-            @media screen and (min-width: 769px) {
-              width: 215px;
-            }
-
-            @media screen and (min-width: 992px) {
-              width: 240px;
-            }
-          }
-        }
       }
 
       .dropdown-toggle {
@@ -130,15 +109,19 @@ nav {
   }
 }
 
-#first-language-help-text, #other-language-help-text {
+.help-text {
   overflow-y: hidden;
-  max-height: 50px;
+  max-height: 100px;
   transition-property: all;
-  transition-duration: .5s;
-  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  transition-duration: .75s;
+  transition-timing-function: cubic-bezier(0.5, 1, 0.5, 1);
 
   &.closed {
     max-height: 0;
   }
 }
 
+.custom-tooltip {
+  background: transparent;
+  border: 0;
+}
