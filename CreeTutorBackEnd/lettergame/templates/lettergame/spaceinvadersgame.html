@@ -11,7 +11,6 @@
 	}
 	.osc-region {
 		background-color: grey;
-		/* width: 673px; */
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -62,7 +61,6 @@
 
 		//max width for window size takes largest number between browser automated width and 500
 		let w = Math.max(window.innerWidth * 0.6, 500);
-
 
 		//genBoundaries are used to determine stage size and contain sprites
 		let genBoundaries = { width: w, height: 500 };
@@ -353,7 +351,6 @@
 			
 			// set width of on screen controls region
 			if (document.querySelector(".osc-region")) {
-				console.log(w);
 				document.querySelector(".osc-region").style.width = w + "px";
 			};
 
@@ -365,7 +362,6 @@
 
 			// disable context menu on long presses
 			window.oncontextmenu = function() { return false; }
-
 
 			var keyboardController = new KeyboardController();
 			var onScreenController = new OnScreenController();
@@ -423,6 +419,8 @@
 		}
 
 		// on screen controls
+		// up & downHandler: event handlers that set the isDown/isUp flags
+		// when the respective event happens for the given button.
 		function onScreenControls(buttonID) {
 			let btn = {};
 			btn.el = document.querySelector(buttonID);
@@ -465,9 +463,9 @@
 		KeyboardController.prototype = new GameController();
 
 		function OnScreenController() {
-			this.left = onScreenControls("#osc-left"),
-			this.shoot = onScreenControls("#osc-shoot"),
-			this.right = onScreenControls("#osc-right")
+			this.left = onScreenControls("#osc-left");
+			this.shoot = onScreenControls("#osc-shoot");
+			this.right = onScreenControls("#osc-right");
 		}
 		OnScreenController.prototype = new GameController();
 
@@ -987,9 +985,9 @@ function changeBar(hitCheck, wrongCheck){
 </script>
 </center>
 <div class="osc-region no-zoom"  unselectable="on" onselectstart="return false;" >
-		<button id="osc-left" class="osc-btn">left</button>
-		<button id="osc-shoot" class="osc-btn">shoot</button>
-		<button id="osc-right" class="osc-btn">right</button>
+	<button id="osc-left" class="osc-btn">left</button>
+	<button id="osc-shoot" class="osc-btn">shoot</button>
+	<button id="osc-right" class="osc-btn">right</button>
 </div>
 <font size="2.5" color="white" face="arial">
 	<center>
