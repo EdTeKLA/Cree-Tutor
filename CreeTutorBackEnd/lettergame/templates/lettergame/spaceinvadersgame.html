@@ -53,6 +53,8 @@
 		let w = Math.max(window.innerWidth * 0.6, 500);
 		//genBoundaries are used to determine stage size and contain sprites
 		let genBoundaries = { width: w, height: 500 };
+		PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+
 		//stage, with boundaries based on max and browser size, app is called when anything is related to the stage
 		var app = new PIXI.Application(genBoundaries.width, genBoundaries.height, false, false);
 
@@ -610,7 +612,7 @@ function populateInvaders(options, correc, sound) {
 	//spacing = 30;
 
 	if (level === 'easy') {
-		speed = 3;
+		speed = genBoundaries.width * 0.003;
 		spacing = 70;
 		xOffset = 0;
 	} else if (level === 'med') {
@@ -629,6 +631,9 @@ function populateInvaders(options, correc, sound) {
 	barIndex = app.stage.getChildIndex(gamesBar);
 	for (let i = 0; i < numofInvaders; i++) {
 		invader = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invader3.png' %}"].texture);
+
+		invader.width = genBoundaries.width / 20;
+		invader.height = genBoundaries.width / 20;
 
 		let x = spacing * i + xOffset;
 		let y = -30 * i;
