@@ -15,7 +15,7 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 2. Install pip
 3. Install mysql
 4. Install mysqlclient
-5. Install django-sass-processor
+5. Install [django-sass-processor](https://github.com/jrief/django-sass-processor)
 6. Install Django 2.0.x
 7. Open or create the file `CreeTutor/CreeTutorBackEnd/CreeTutorBackEnd/settings_secret.py`
 8. Make the contents of settings_secret.py look like this:
