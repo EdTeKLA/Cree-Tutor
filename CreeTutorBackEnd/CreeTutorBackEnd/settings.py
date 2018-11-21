@@ -150,4 +150,6 @@ LOGIN_URL = '/login/'
 NO_LOGIN_URL = [
     r'signin/',
     r'signup/',
+    r'password_reset/',
+    r'reset/',
 ]
