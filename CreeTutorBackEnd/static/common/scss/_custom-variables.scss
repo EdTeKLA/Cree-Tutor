@@ -56,7 +56,7 @@ $navbar-light-toggler-icon-bg:      str-replace(url("data:image/svg+xml;charset=
 $navbar-light-toggler-border-color: rgba($maximum-yellow-red, .1) !default;
 
 // Override input colours
-$input-focus-border-color:              lighten($primary, 10%) !default;
+$input-focus-border-color:          lighten($secondary, 10%) !default;
 
-$link-hover-color:          darken($primary, 35%) !default;
+$link-hover-color:                  darken($primary, 35%) !default;
 

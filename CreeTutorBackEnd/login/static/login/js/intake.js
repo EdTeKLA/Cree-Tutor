@@ -7,17 +7,22 @@ const setLanguageGroup = function(id, placeholder, fluencyLevels) {
 
     if (fluencyLevels && fluencyLevels.length > 0) {
         inputGroupString +=
-            "<div class=\"dropdown input-group-append\">\n" +
-            "    <a class=\"btn btn-secondary dropdown-toggle\" data-display=\"static\" href=\"#\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
-            "        <span>Fluency</span>\n" +
-            "    </a>\n" +
-            "    <div class=\"dropdown-menu dropdown-menu-right\">\n" +
-            "        <a class=\"dropdown-item\" href=\"\" value=\"1\">" + fluencyLevels[0] + "</a>\n" +
-            "        <a class=\"dropdown-item\" href=\"\" value=\"2\">" + fluencyLevels[1] + "</a>\n" +
-            "        <a class=\"dropdown-item\" href=\"\" value=\"3\">" + fluencyLevels[2] + "</a>\n" +
-            "        <a class=\"dropdown-item\" href=\"\" value=\"4\">" + fluencyLevels[3] + "</a>\n" +
-            "    </div>\n" +
-            "</div>\n";
+            "<div class=\"dropdown-wrap input-group-append\" data-content=\"\">\n" +
+            "    <select class=\"dropdown\">\n" +
+            "        <option value=\"" + fluencyLevels[0] +"\">\n" +
+            "        " + fluencyLevels[0] +
+            "        </option>\n" +
+            "        <option value=\"" + fluencyLevels[1] +"\">\n" +
+            "        " + fluencyLevels[1] +
+            "        </option>\n" +
+            "        <option value=\"" + fluencyLevels[2] +"\">\n" +
+            "        " + fluencyLevels[2] +
+            "        </option>\n" +
+            "        <option value=\"" + fluencyLevels[3] +"\">\n" +
+            "        " + fluencyLevels[3] +
+            "        </option>\n" +
+            "    </select>\n" +
+            "</div>"
     }
 
     inputGroupString +=
@@ -28,19 +33,17 @@ const setLanguageGroup = function(id, placeholder, fluencyLevels) {
         "    </div>" +
         "</div>";
 
+    setSelect($("#" + id + "-group div.input-group"));
+
     $("#" + id + "-group")
         .on('click', '.add-' + id, function(e) {
-            $("#" + id + "-input-group").append($(inputGroupString));
+            let toAppend = $(inputGroupString);
+            setSelect(toAppend);
+            $("#" + id + "-input-group").append(toAppend);
             e.preventDefault();
         })
         .on('click', '.remove-' + id, function(e) {
             $(this).closest('.input-group').remove();
-            e.preventDefault();
-        })
-        .on('click', '.dropdown-menu a', function(e) {
-            let optionText = $(this).text();
-            $(this).parents('.dropdown').find('.dropdown-toggle span')
-                .html(optionText);
             e.preventDefault();
         });
 };
@@ -55,6 +58,21 @@ const setHelpText = function(id) {
             helpText.addClass('closed');
         }
         e.preventDefault();
+    });
+};
+
+const handleSelectChange = function(e, container) {
+    container.attr('data-content', e.currentTarget.value);
+};
+
+const setSelect = function(parent) {
+    let selectContainer = parent.find("div.dropdown-wrap");
+    let select = selectContainer.find("select.dropdown");
+
+    select.value = "Fluency";
+    selectContainer.attr('data-content', select.value);
+    select.on('change', (e) => {
+        handleSelectChange(e, selectContainer);
     });
 };
 
