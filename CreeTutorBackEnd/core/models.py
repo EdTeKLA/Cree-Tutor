@@ -5,6 +5,7 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    fav_colour = models.CharField(max_length=30, blank=True)
     # add profile fields here
 
 # signal that creates a Profile. Triggered when a User is saved.

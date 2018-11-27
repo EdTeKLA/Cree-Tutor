@@ -15,5 +15,5 @@ urlpatterns = [
     url(r'^activate_user_account/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.activate_user_account, name='activate_user_account'),
     path('confirm_email/', views.confirm_email, name='confirm_email'),
-
+    path('profile_save_colour/', views.profile_save_colour, name='profile_save_colour'),
 ]

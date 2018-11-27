@@ -75,7 +75,25 @@
                         <button type="button" class="btn btn-primary">Save</button>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="list-another-section" role="tabpanel" aria-labelledby="list-another-section-list">PERHAPS SOME DEMOGRAPHIC OPTIONS - FILL IN</div>
+
+                <!-- profile setting for proof of concept -->
+                <div class="tab-pane fade" id="list-another-section" role="tabpanel" aria-labelledby="list-another-section-list">
+                    <ul class="list-group">
+                        <form action="{% url 'login:profile_save_colour' %}" method="POST">
+                            {% csrf_token %}
+                            <li class="row list-group-item">
+                                <label class="col-4" id="favourite-colour" for="old-password">What is your favourite colour?</label>
+                                <select class="col-7 dropdown" id="favourite-colour" aria-labelledby="favourite-colour" name="favourite-colour">
+                                    <option>red</option>
+                                    <option>blue</option>
+                                    <option>purple</option>
+                                </select>
+                            </li>
+                            <button type="submit" class="btn btn-primary" value="Submit">Save</button>
+                        </form>
+                    </ul>
+                </div>
+
                 <div class="tab-pane fade" id="list-third-section" role="tabpanel" aria-labelledby="list-third-section-list">PERHAPS SOME SETTINGS - FILL IN</div>
                 <div class="tab-pane fade" id="list-last-section" role="tabpanel" aria-labelledby="list-last-section-list">PERHAPS SOME INFO ABOUT THE USER MODEL- FILL IN</div>
             </div>
