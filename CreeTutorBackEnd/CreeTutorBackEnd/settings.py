@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'core.apps.CoreConfig',
     'errorpages.apps.ErrorpagesConfig',
     'login.apps.LoginConfig',
     'lettergame.apps.LettergameConfig',
