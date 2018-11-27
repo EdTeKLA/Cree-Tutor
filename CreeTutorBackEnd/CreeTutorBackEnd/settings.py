@@ -25,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6+7f6o9a78tioz_04)80$xvu7*121)qapg4i#igz&m(atx-8dw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-TEMPLATE_DEBUG = False
-ALLOWED_HOSTS = ['*']
+DEBUG = True
+
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # note: during production (DEBUG = False), scss needs to be manually
+    # compiled beforehand (manage.py compilescss)
     'sass_processor',
 ]
 
