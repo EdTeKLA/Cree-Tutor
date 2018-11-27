@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'errorpages.apps.ErrorpagesConfig',
     'login.apps.LoginConfig',
     'lettergame.apps.LettergameConfig',
     'django.contrib.admin',
@@ -41,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # note: during production (DEBUG = False), scss needs to be manually
+    # compiled beforehand (manage.py compilescss)
     'sass_processor',
 ]
 
