@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load sass_tags %}
 
 {% block styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'login/css/login.css' %}" />
+<link href="{% sass_src 'login/scss/login.scss' %}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block scripts %}
@@ -16,47 +17,53 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-lg-8">
-            <h4>Intake Form</h4>
-            <p>This is an explanation of what you will be doing here. All questions are optional.</p>
-            <p>Tip: hover over the <i class="far fa-question-circle"></i> icon next to each question for an explanation of why we are collecting this data.</p>
+            <!-- TODO: should write something about data privacy... -->
+            <h2>We want to learn more about you!</h2>
+            <p>The more we know about you, the more we can personalize your experience on CreeTutor.</p>
+            <p>The information you provide us will also help us learn more about how people learn Cree, which will help us improve the system in the future.</p>
+            <p>All questions are completely optional. You can still use the system whether you answer all of the questions or none of them.</p>
+            <p>Tip: hover over the <i class="far fa-question-circle"></i> icon next to each question to learn why we are asking you that question.</p>
             <form id="intake-form" class="form">
                 {% csrf_token %}
                 <div class="form-group row">
-                    <label for="first-name">
-                        First Name
-                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="This data will help us do a thing"></i>
-                    </label>
-                    <input type="text" class="form-control" id="first-name" placeholder="First Name">
+                    <div class="col">
+                        <label for="first-name">
+                            First Name
+                            <i class="far fa-question-circle" data-toggle="tooltip" data-title="We want to know your name so we can personalize your experience on the site and say hello to you when you log in!"></i>
+                        </label>
+                        <input type="text" class="form-control" id="first-name">
+                    </div>
+                    <div class="col">
+                        <label for="last-name">
+                            Last Name
+                            <i class="far fa-question-circle" data-toggle="tooltip" data-title="This data will help us do a thing"></i>
+                        </label>
+                        <input type="text" class="form-control" id="last-name">
+                    </div>
+
                 </div>
                 <div class="form-group row">
-                    <label for="last-name">
-                        Last Name
-                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="This data will help us do a thing"></i>
-                    </label>
-                    <input type="text" class="form-control" id="last-name" placeholder="Last Name">
-                </div>
-                <div class="form-group row">
-                    <legend class="col-form-label">
+                    <legend class="col-12 col-form-label">
                         Age Range
-                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="This data will help us do a thing"></i>
+                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="Knowing your age can help us personalize your experience and "></i>
                     </legend>
                     <div class="col-lg-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="age" id="age-range-1" value="17 or younger">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-1" value="12 or younger">
                             <label class="form-check-label" for="age-range-1">
-                                17 or younger
+                                12 or younger
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="age" id="age-range-2" value="18-20">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-2" value="12-18">
                             <label class="form-check-label" for="age-range-2">
-                                18-20
+                                12-18
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="age" id="age-range-3" value="21-29">
+                            <input class="form-check-input" type="radio" name="age" id="age-range-3" value="19-29">
                             <label class="form-check-label" for="age-range-3">
-                                21-29
+                                19-29
                             </label>
                         </div>
                         <div class="form-check">
@@ -100,45 +107,69 @@
                     </div>
                 </div>
                 <div id="first-language-group" class="form-group row">
-                    <label> <!-- TODO: for="first-language"> -->
+                    <label class="col-12" for="first-language-input-group">
                         First Language
-                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="Your first language is the language you first spoke as a child. You can add more than one if you spoke two languages equally as a child. This data will help us."></i>
+                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="Knowing your first language will help us learn how other people with your language background learn Cree."></i>
                     </label>
-                    <div id="first-language-input-group">
+                    <div class="col-12">
+                        <a href="" id="first-language-help">
+                            <small>What if I'm not sure what my first language is?</small>
+                        </a>
+                        <div id="first-language-help-text" class="closed">
+                            <small>
+                                Your first language is the language you first spoke as a child. If you spoke two or more languages equally as a child, you can add more than one.
+                            </small>
+                        </div>
+
+                    </div>
+                    <div id="first-language-input-group" class="col-12">
                         <div class="input-group">
                             <input type="text" class="form-control first-language" placeholder="e.g. English">
-                            <div class="dropdown input-group-append">
-                                <a class="btn btn-outline-secondary dropdown-toggle" data-display="static" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Fluency
+                            <div id="first-language" class="dropdown input-group-append">
+                                <a class="btn btn-secondary dropdown-toggle" data-display="static" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span>Fluency</span>
                                 </a>
                                 <!-- TODO: decide on better options -->
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="" value="1">Spoke only as a child, no longer understand or speak the language</a>
-                                    <a class="dropdown-item" href="" value="2">Can understand a little bit, but cannot speak</a>
-                                    <a class="dropdown-item" href="" value="3">Can understand and speak a little bit</a>
+                                    <a class="dropdown-item" href="" value="2">Can still understand, but cannot speak very well</a>
+                                    <a class="dropdown-item" href="" value="3">Can still understand and speak, but not fluently</a>
                                     <a class="dropdown-item" href="" value="4">Can speak fluently</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary add-first-language" type="button">
-                        Add Language
-                    </button>
+                    <div class="col-12">
+                        <button class="btn btn-primary add-first-language" type="button">
+                            Add Language
+                        </button>
+                    </div>
                 </div>
                 <div id="other-language-group" class="form-group row">
-                    <label> <!-- TODO: for="other-languages"> -->
+                    <label class="col-12" for="other-language-input-group">
                         Other Languages
-                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="Any other languages you speak that you learned after childhood or that you didn't speak at home as a child. You can add more than one. This data will help us."></i>
+                        <i class="far fa-question-circle" data-toggle="tooltip" data-title="Knowing all the languages you have learned or studied before will help us learn how other people with your language background learn Cree."></i>
                     </label>
-                    <div id="other-language-input-group">
+                    <div class="col-12">
+                        <a href="" id="other-language-help">
+                            <small>What should I include in my "Other Languages"?</small>
+                        </a>
+                        <div id="other-language-help-text" class="closed">
+                            <small>
+                                You can include any other languages you speak that you learned after childhood or that you didn't speak at home as a child. You can add more than one if you need to.
+                            </small>
+                        </div>
+
+                    </div>
+                    <div id="other-language-input-group" class="col-12">
                         <div class="input-group">
                             <input type="text" class="form-control other-language" placeholder="e.g. Wood Cree">
                             <div class="dropdown input-group-append">
-                                <a class="btn btn-outline-secondary dropdown-toggle" data-display="static" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Fluency
+                                <a class="btn btn-secondary dropdown-toggle" data-display="static" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span>Fluency</span>
                                 </a>
                                 <!-- TODO: decide on better options -->
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="" value="1">Little experience, can use and understand basic sentences and questions</a>
                                     <a class="dropdown-item" href="" value="2">Some experience, can hold basic, casual conversations</a>
                                     <a class="dropdown-item" href="" value="3">Lots of experience, not quite fluent but can communicate well in the language</a>
@@ -152,14 +183,16 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary add-other-language" type="button">
-                        Add Language
-                    </button>
+                    <div class="col-12">
+                        <button class="btn btn-primary add-other-language" type="button">
+                            Add Language
+                        </button>
+                    </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-12">
                         <button id="submit" name="submit" class="btn btn-primary">Submit</button>
-                        <button id="cancel" name="cancel" class="btn btn-secondary">Cancel</button>
+                        <button id="cancel" name="cancel" class="btn btn-outline-primary">Cancel</button>
                     </div>
                 </div>
             </form>
