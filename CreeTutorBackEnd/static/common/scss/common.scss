@@ -1,0 +1,6 @@
+// Import custom variables before Bootstrap to ensure they are applied to the Bootstrap styles.
+// Import all other custom CSS after Bootstrap
+
+@import "custom-variables";
+@import "../bootstrap/scss/bootstrap";
+@import "custom";
