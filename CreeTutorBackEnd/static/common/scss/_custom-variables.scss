@@ -14,6 +14,7 @@ $smoky-black:         #170F09 !default;
 
 $primary:       $traditional-brown !default;
 $secondary:     $maximum-yellow-red !default;
+$tertiary:      $topaz !default;
 $success:       $dark-jungle-green !default;
 $info:          $copper-red !default;
 $warning:       $topaz !default;
@@ -24,6 +25,7 @@ $dark:          $smoky-black !default;
 $theme-colors: (
   "primary":    $primary,
   "secondary":  $secondary,
+  "tertiary":   $tertiary,
   "success":    $success,
   "info":       $info,
   "warning":    $warning,
