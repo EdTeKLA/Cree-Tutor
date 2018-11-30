@@ -20,6 +20,7 @@ urlpatterns = [
     path('', include('login.urls')),
     path('lettergame/', include('lettergame.urls')),
     path('admin/', admin.site.urls),
+    path('', include('django.contrib.auth.urls')),
     path('errorpages/', include('errorpages.urls')),
 ]
 
