@@ -51,8 +51,10 @@
 
 		//max width for window size takes largest number between browser automated width and 500
 		let w = Math.max(window.innerWidth * 0.6, 500);
+		
 		//genBoundaries are used to determine stage size and contain sprites
 		let genBoundaries = { width: w, height: 500 };
+		
 		PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
 		//stage, with boundaries based on max and browser size, app is called when anything is related to the stage
