@@ -615,7 +615,7 @@ function populateInvaders(options, correc, sound) {
 		speed = genBoundaries.width * 0.003;
 		spacing = 70;
 		xOffset = 0;
-	} else if (level === 'med') {
+	} else if (level === 'medium') {
 		speed = 1.25;
 		spacing = 50;
 		xOffset = 0;
@@ -679,7 +679,7 @@ function setPosition() {
 
 	if (level === 'easy') {
 		invaderLimit = 3;
-	} else if (level === 'med') {
+	} else if (level === 'medium') {
 		invaderLimit = 4;
 	} else if (level === 'hard') {
 		invaderLimit = 5;
@@ -867,7 +867,7 @@ function checkHit() {
 			if (noHarm === false) {
 				if (level === 'easy') {
 					healthBar.outer.width -= 18;
-				} else if (level === 'med') {
+				} else if (level === 'medium') {
 					healthBar.outer.width -= 12.85;
 				} else if (level === 'hard') {
 					healthBar.outer.width -= 10;
@@ -894,7 +894,7 @@ function changeBar(hitCheck, wrongCheck){
 			pointBar.outer.width += 30;
 
 
-		} else if (level === 'med') {
+		} else if (level === 'medium') {
 			pointBar.outer.width += 45;
 		} else if (level === 'hard') {
 			pointBar.outer.width += 45;
@@ -905,7 +905,7 @@ function changeBar(hitCheck, wrongCheck){
 	if(wrongCheck){
 		if (level === 'easy') {
 			healthBar.outer.width -= 18;
-		}else if (level === 'med'){
+		}else if (level === 'medium'){
 			healthBar.outer.width -= 12.85;
 		}else if(level === 'hard'){
 			healthBar.outer.width -= 10;
