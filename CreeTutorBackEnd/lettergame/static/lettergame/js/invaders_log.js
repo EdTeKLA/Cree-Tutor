@@ -40,8 +40,8 @@ function postInvaders(){
         success: function (data) {
           console.log(data)
           populateInvaders(data['letters'], data['correct'], data['sound']);
-          console.log("ya length")
-          console.log(invaders.length)
+          // console.log("ya length")
+          // console.log(invaders.length)
         //console.log(data);
       },
       error:function(error){
