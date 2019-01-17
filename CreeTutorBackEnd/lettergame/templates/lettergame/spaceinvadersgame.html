@@ -692,7 +692,7 @@ function populateInvaders(options, correc, sound) {
 	audio = new Audio(s);
 	audio.time = new Date().getTime();
 	audio.play();
-	console.log(correct)
+	// console.log(correct)
 	// c = "{% static '' %}" + correct;
 	// correct = new String(c);
 	invadershot = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invadershot2.png' %}"].texture);
@@ -842,7 +842,7 @@ function setKeyActions(controller) {
 			bullet = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bullet2.png' %}"].texture);
 			bullets.push(bullet);
 			bullet.vy = -15;
-			bullet.y = 460;
+			bullet.y = shooter1.y;
 			bullet.x = (shooter1.x);
 			app.stage.addChild(bullet);
 			bullet.time = new Date().getTime();
