@@ -7,6 +7,7 @@ from django.forms.models import model_to_dict
 from .models import *
 import random
 import datetime
+from django.db.models import Q
 
 def index(request):
     # Takes in request and loads the index template
@@ -193,6 +194,14 @@ def invaders(request, level):
         return HttpResponse('ERROR: unknown request passed to views.invaders')
 
 
+
+
+
+
+
+###################################################################
+
+
 def lemmagame(request, type):
     """
     types: (based on lemma game whiteboard image)
@@ -211,64 +220,64 @@ def lemmagame(request, type):
             ------
         wordform
     """
-    def get_lemmagame():
-        """
-        returns a random lemmagame object
-        """
-        return sorted(LemmaGame.objects.all().order_by('wordform'), key=lambda x: random.random())[0]
+def get_lemmagame():
+    """
+    returns a random lemmagame object
+    """
+    return sorted(LemmaGame.objects.all().order_by('wordform'), key=lambda x: random.random())[0]
 
-    def get_word(game):
-        """
-        returns the characters of the target word
-        """
-        return game.wordform.word
+def get_word(game):
+    """
+    returns the characters of the target word
+    """
+    return game.wordform.word
 
-    def get_audio(game):
-        """
-        returns the audio filename for the target word
+def get_audio(game):
+    """
+    returns the audio filename for the target word
 
-        """
-        #get target audio
-        target_audio = game.wordform.sound
-        #if there is more than one audio
-        if "," in target_audio:
-            target_audio_as_list = target_audio.split(',')
-            print(target_audio_as_list)
-            return sorted(target_audio_as_list, key=lambda x: random.random())[0]
-        #if there is only one audio file
-        else:
-            print(target_audio)
-            return target_audio
+    """
+    #get target audio
+    target_audio = game.wordform.sound
+    #if there is more than one audio
+    if "," in target_audio:
+        target_audio_as_list = target_audio.split(',')
+        print(target_audio_as_list)
+        return sorted(target_audio_as_list, key=lambda x: random.random())[0]
+    #if there is only one audio file
+    else:
+        print(target_audio)
+        return target_audio
 
-    def get_distractors(game, how_many):
-        """
-        returns a list of Word objects with length (how_many) and the target
-        Word object in a random order
-        """
-        #add the target_word
-        return_list = [game.wordform]
-        distractors = sorted(game.distractors.all(), key=lambda x:random.random())
+def get_distractors(game, how_many):
+    """
+    returns a list of Word objects with length (how_many) and the target
+    Word object in a random order
+    """
+    #add the target_word
+    return_list = [game.wordform]
+    distractors = sorted(game.distractors.all(), key=lambda x:random.random())
 
-        for i in range(how_many):
-            return_list.append(distractors[i])
-        #randomize the list of distractors
-        return sorted(return_list, key=lambda x:random.random())
+    for i in range(how_many):
+        return_list.append(distractors[i])
+    #randomize the list of distractors
+    return sorted(return_list, key=lambda x:random.random())
 
-    def get_distractor_images(game, distractors):
-        """
-        return a list of image filenames based on the list of distractors passed.
+def get_distractor_images(game, distractors):
+    """
+    return a list of image filenames based on the list of distractors passed.
 
-        The list should already contain the target word and should already be in
-        a randomized order.
-        """
-        distractor_images = []
-        #cycle list of Words, add the image for each Word
-        for word in distractors:
-            distractor_images.append(word.lemmaID.image)
-        return distractor_images
+    The list should already contain the target word and should already be in
+    a randomized order.
+    """
+    distractor_images = []
+    #cycle list of Words, add the image for each Word
+    for word in distractors:
+        distractor_images.append(word.lemmaID.image)
+    return distractor_images
 
-    def get_word_image(game):
-        return game.lemma.image
+def get_word_image(game):
+    return game.lemma.image
 
     if type == "reception":
         game = get_lemmagame()

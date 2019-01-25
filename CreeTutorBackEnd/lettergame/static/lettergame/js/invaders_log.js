@@ -1,3 +1,4 @@
+// TODO: we can probably delete this because it's now in static/common/js/common.js but leaving for now until we can test to make sure
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -38,7 +39,9 @@ function postInvaders(){
       },
         success: function (data) {
           console.log(data)
-        populateInvaders(data['letters'], data['correct'], data['sound']);
+          populateInvaders(data['letters'], data['correct'], data['sound']);
+          // console.log("ya length")
+          // console.log(invaders.length)
         //console.log(data);
       },
       error:function(error){
