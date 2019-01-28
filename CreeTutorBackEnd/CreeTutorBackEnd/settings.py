@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'errorpages.apps.ErrorpagesConfig',
     'login.apps.LoginConfig',
     'lettergame.apps.LettergameConfig',
     'django.contrib.admin',
@@ -41,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # note: during production (DEBUG = False), scss needs to be manually
+    # compiled beforehand (manage.py compilescss)
     'sass_processor',
 ]
 
@@ -147,10 +151,32 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'sass_processor.finders.CssFinder',
 ]
+
+"""
+TEST EMAIL SERVER only for debugging purposes.
+sends "email" to stdout. We'll need to remove this and link an SMTP server
+for this to actually work for deployment
+
+Something like this:
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'youremail@gmail.com'
+EMAIL_HOST_PASSWORD = 'yourpassword'
+EMAIL_PORT = 587
+
+(ref https://medium.com/@frfahim/django-registration-with-confirmation-email-bb5da011e4ef)
+"""
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 LOGIN_URL = '/login/'
 
 # URLS that do not require user login should be placed here
 NO_LOGIN_URL = [
     r'signin/',
     r'signup/',
+    r'password_reset/',
+    r'reset/',
+    r'confirm_email',
+    r'activate_user_account',
 ]
