@@ -71,74 +71,83 @@
 
 // Intake form CSS
 
-#first-language-group, #other-language-group {
-
-  .input-group {
-    margin-bottom: .5rem;
-
-    .input-group-append {
-      display: flex;
-
-      @media screen and (min-width: 992px) {
-        display: flex;
-      }
-
-      // The first language option will not have a remove button so the dropdown should fill in that space
-      &#first-language {
-        .dropdown-toggle {
-          span {
-            width: 110px;
-
-            @media screen and (min-width: 481px) {
-              width: 165px;
-            }
-
-            @media screen and (min-width: 769px) {
-              width: 215px;
-            }
-
-            @media screen and (min-width: 992px) {
-              width: 240px;
-            }
-          }
-        }
-      }
-
-      .dropdown-toggle {
-        span {
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
-          display: inline-block;
-          vertical-align: middle;
-          width: 70px;
-
-          @media screen and (min-width: 481px) {
-            width: 125px;
-          }
-
-          @media screen and (min-width: 769px) {
-            width: 175px;
-          }
-
-          @media screen and (min-width: 992px) {
-            width: 200px;
-          }
-        }
-      }
-    }
-  }
+.input-group {
+  margin-bottom: .5rem;
 }
 
-#first-language-help-text, #other-language-help-text {
+.help-text {
   overflow-y: hidden;
-  max-height: 50px;
+  max-height: 100px;
   transition-property: all;
-  transition-duration: .5s;
-  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  transition-duration: .75s;
+  transition-timing-function: cubic-bezier(0.5, 1, 0.5, 1);
 
   &.closed {
     max-height: 0;
   }
 }
 
+.custom-tooltip {
+  background: transparent;
+  border: 0;
+  border-radius: 1em;
+}
+
+.dropdown-wrap {
+  height: 40px;
+  border: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100px;
+
+  @media screen and (min-width: 481px) {
+    width: 125px;
+  }
+
+  @media screen and (min-width: 769px) {
+    width: 175px;
+  }
+
+  @media screen and (min-width: 992px) {
+    width: 200px;
+  }
+
+  &::before {
+    content: attr(data-content);
+    position: absolute;
+    top: 0;
+    right: 15px;
+    bottom: 0;
+    left: 0;
+    padding: 7px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  &::after {
+    content:"\f107 ";
+    font-family: "Font Awesome\ 5 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 0;
+    top: 0;
+    line-height: 40px;
+    padding-right: 10px;
+    z-index: 1;
+    pointer-events: none;
+  }
+}
+
+select.dropdown {
+  color: transparent;
+  background: transparent;
+  height: 40px;
+  padding: 10px;
+  border: 0;
+  border-radius: 0;
+  width: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
