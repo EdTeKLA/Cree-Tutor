@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'errorpages.apps.ErrorpagesConfig',
     'login.apps.LoginConfig',
     'lettergame.apps.LettergameConfig',
     'django.contrib.admin',
@@ -41,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # note: during production (DEBUG = False), scss needs to be manually
+    # compiled beforehand (manage.py compilescss)
     'sass_processor',
 ]
 
@@ -52,6 +56,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # custom middleware
+    'CreeTutorBackEnd.middleware.RequireLoginMiddleware.requireLogin_middleware'
 ]
 
 ROOT_URLCONF = 'CreeTutorBackEnd.urls'
@@ -129,7 +136,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_ROOT = 'static'
+# Where the webserver will collect all static files into a single directory
+# for deployment
+# https://docs.djangoproject.com/en/2.1/howto/static-files/#deployment
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_collected')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
@@ -140,4 +150,33 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'sass_processor.finders.CssFinder',
+]
+
+"""
+TEST EMAIL SERVER only for debugging purposes.
+sends "email" to stdout. We'll need to remove this and link an SMTP server
+for this to actually work for deployment
+
+Something like this:
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'youremail@gmail.com'
+EMAIL_HOST_PASSWORD = 'yourpassword'
+EMAIL_PORT = 587
+
+(ref https://medium.com/@frfahim/django-registration-with-confirmation-email-bb5da011e4ef)
+"""
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+LOGIN_URL = '/login/'
+
+# URLS that do not require user login should be placed here
+NO_LOGIN_URL = [
+    r'signin/',
+    r'signup/',
+    r'password_reset/',
+    r'reset/',
+    r'confirm_email',
+    r'activate_user_account',
 ]
