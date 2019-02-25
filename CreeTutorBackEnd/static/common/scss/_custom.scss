@@ -1,0 +1,29 @@
+// Additional custom CSS classes
+
+// Default error styles
+.error {
+  color: $danger;
+}
+
+.error-border {
+  border: $danger 1px solid;
+}
+
+.container {
+  margin-top: 15px;
+}
+
+.dropdown-wrap {
+  background: $tertiary;
+}
+
+:focus {
+  outline: none !important;
+  border-color: $secondary;
+  box-shadow: 0 0 10px $secondary;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+}

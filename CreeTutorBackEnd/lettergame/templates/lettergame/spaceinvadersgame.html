@@ -9,6 +9,16 @@
 	body {
 		background-color: #BBc9b3;
 	}
+	.osc-region {
+		background-color: grey;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0 auto;
+	}
+	.osc-btn {
+		background: white;
+	}
 	</style>
 	<!--  for when we have an icon -->
 	<link rel="shortcut icon" href="favicon.ico" />
@@ -51,7 +61,6 @@
 
 		//max width for window size takes largest number between browser automated width and 500
 		let w = Math.max(window.innerWidth * 0.6, 500);
-		
 		//genBoundaries are used to determine stage size and contain sprites
 		let genBoundaries = { width: w, height: 500 };
 		
@@ -136,14 +145,14 @@
 				startBox.addChild(start);
 
 				if (startEnd[i] === 'start' || startEnd[i] === 'try again'){
-					startBox.on('click', onClick);
+					startBox.on('pointerdown', onClick);
 				}else if(startEnd[i] === 'instructions'){
-					startBox.on('click', onClick);
+					startBox.on('pointerdown', onClick);
 				}else if(startEnd[i] === 'quit'){
-					startBox.on('click', leaveGame);
+					startBox.on('pointerdown', leaveGame);
 				}
 				else if(startEnd[i] ==='next level'){
-					startBox.on('click', nextLevel);
+					startBox.on('pointerdown', nextLevel);
 				}
 				startOptions.addChild(startBox);
 				prevPos = start.width + 30;
@@ -340,8 +349,30 @@
 
 			app.stage.addChild(gamesBar);
 			let startEnd = ['start', 'instructions', 'quit'];
-		    startScreen(startEnd);
-			setKeyActions();
+			startScreen(startEnd);
+			
+			// set width of on screen controls region
+			if (document.querySelector(".osc-region")) {
+				document.querySelector(".osc-region").style.width = w + "px";
+			};
+
+			// disable zoom on double taps
+			$('.no-zoom').bind('touchend', function(e) {
+				e.preventDefault();
+				$(this).click();
+			})
+
+			// disable context menu on long presses
+			window.oncontextmenu = function() { return false; }
+
+			var keyboardController = new KeyboardController();
+			var onScreenController = new OnScreenController();
+
+			// set keyboard controls
+			setKeyActions(keyboardController);
+
+			// set on screen controls
+			setKeyActions(onScreenController);
 
 			//Set the game state
 			//call function 'play'
@@ -388,6 +419,59 @@
 			window.addEventListener("keyup", key.upHandler.bind(key), false);
 			return key;
 		}
+
+		// on screen controls
+		// up & downHandler: event handlers that set the isDown/isUp flags
+		// when the respective event happens for the given button.
+		function onScreenControls(buttonID) {
+			let btn = {};
+			btn.el = document.querySelector(buttonID);
+			btn.isDown = false;
+			btn.isUp = true;
+			btn.press = undefined;
+			btn.release = undefined;
+
+			//The `downHandler`
+			btn.downHandler = event => {
+				if (btn.isUp && btn.press) btn.press();
+				btn.isDown = true;
+				btn.isUp = false;
+				event.preventDefault();
+			};
+
+			//The `upHandler`
+			btn.upHandler = event => {
+				if (btn.isDown && btn.release) btn.release();
+				btn.isDown = false;
+				btn.isUp = true;
+				event.preventDefault();
+			};
+
+			//Attach event listeners
+			btn.el.addEventListener("pointerdown", btn.downHandler.bind(btn), false);
+			btn.el.addEventListener("pointerup", btn.upHandler.bind(btn), false);
+			return btn;
+		}
+
+		function GameController() {
+
+		}
+
+		function KeyboardController() {
+			this.left = keyboard(37);
+			this.shoot = keyboard(32);
+			this.right = keyboard(39);
+		}
+		KeyboardController.prototype = new GameController();
+
+		function OnScreenController() {
+			this.left = onScreenControls("#osc-left");
+			this.shoot = onScreenControls("#osc-shoot");
+			this.right = onScreenControls("#osc-right");
+		}
+		OnScreenController.prototype = new GameController();
+
+
 		/*function sets gameLoop*/
 		function gameLoop(delta) {
 			//function will update the current game state:
@@ -729,32 +813,29 @@ function flipEm() {
 
 /* sets what happens when each key is activated
 sets shooter 1's key commands, (move left, right, shoot)*/
-function setKeyActions() {
-	let left = keyboard(37),
-	shoot = keyboard(32),
-	right = keyboard(39),
-	down = keyboard(40);
+function setKeyActions(controller) {
 	upCount = 0;
+
 
 	//Left arrow key `press` method
 	//Change the shooter1's velocity when the key is pressed
-	left.press = () => {
+	controller.left.press = () => {
 		shooter1.vx = -3;
 		shooter1.vy = 0;
 	};
 
 	//Left arrow key `release` method
-	left.release = () => {
+	controller.left.release = () => {
 		//If the left arrow has been released, and the right arrow isn't down,
 		//and the shooter1 isn't moving vertically:
 		//Stop the shooter1
-		if (!right.isDown && shooter1.vy === 0) {
+		if (!controller.right.isDown && shooter1.vy === 0) {
 			shooter1.vx = 0;
 		}
 	};
 
 	//Space bar shoot
-	shoot.press = () => {
+	controller.shoot.press = () => {
 		if (wait(500, bullet) === true) {
 			upCount++
 			let bulletNum = upCount;
@@ -767,29 +848,19 @@ function setKeyActions() {
 			bullet.time = new Date().getTime();
 		}
 	};
-	shoot.release = () => {
-		if (!down.isDown && shooter1.vx === 0) {
+	controller.shoot.release = () => {
+		if (shooter1.vx === 0) {
 			shooter1.vy = 0;
 		}
 	};
 	//Right
-	right.press = () => {
+	controller.right.press = () => {
 		shooter1.vx = 3;
 		shooter1.vy = 0;
 	};
-	right.release = () => {
-		if (!left.isDown && shooter1.vy === 0) {
+	controller.right.release = () => {
+		if (!controller.left.isDown && shooter1.vy === 0) {
 			shooter1.vx = 0;
-		}
-	};
-	//Down
-	down.press = () => {
-		shooter1.vy = 0;
-		shooter1.vx = 0;
-	};
-	down.release = () => {
-		if (!shoot.isDown && shooter1.vx === 0) {
-			shooter1.vy = 0;
 		}
 	};
 }
@@ -918,6 +989,11 @@ function changeBar(hitCheck, wrongCheck){
 
 </script>
 </center>
+<div class="osc-region no-zoom"  unselectable="on" onselectstart="return false;" >
+	<button id="osc-left" class="osc-btn">left</button>
+	<button id="osc-shoot" class="osc-btn">shoot</button>
+	<button id="osc-right" class="osc-btn">right</button>
+</div>
 <font size="2.5" color="white" face="arial">
 	<center>
 		INSTRUCTIONS

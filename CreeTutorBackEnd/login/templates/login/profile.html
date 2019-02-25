@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load sass_tags %}
 
 {% block styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'login/css/login.css' %}" />
+<link href="{% sass_src 'login/scss/login.scss' %}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block scripts %}
@@ -14,7 +15,7 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-lg-3">
-            <nav>
+            <nav id="profile-page-navigation">
                 <!-- Standard profile page navigation menu-->
                 <div class="list-group" id="list-tab" role="tablist">
                     <a class="list-group-item list-group-item-action active" id="list-account-information-list" data-toggle="list" href="#list-account-information" role="tab" aria-controls="list-account-information">Account Information</a>
@@ -25,7 +26,7 @@
 
                 <!-- Profile page navigation menu as dropdown for mobile web -->
                 <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle" data-display="static" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="btn btn-primary dropdown-toggle" data-display="static" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Account Information
                     </a>
 
