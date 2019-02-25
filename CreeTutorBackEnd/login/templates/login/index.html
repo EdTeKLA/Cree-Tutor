@@ -53,6 +53,9 @@
                                     <button class="form-control btn btn-primary" type="submit" name="submit" value="log_in">Log In</button>
                                 </div>
                             </div>
+                            <div class="row justify-content-md-center">
+                                <a href="{% url 'password_reset' %}">Forgot your password?</a>
+                            </div>
                         </form>
                         <form id="signup-form" class="form">
                             {% csrf_token %}
