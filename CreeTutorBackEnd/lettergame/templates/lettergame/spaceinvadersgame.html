@@ -1,5 +1,6 @@
 <!doctype html>
 {% load static %}
+{% csrf_token %}
 <html>
 <head>
 
@@ -7,7 +8,7 @@
 	<title>Space Invader !!</title>
 	<style>
 	body {
-		background-color: #BBc9b3;
+		background-color: #171515;
 	}
 	.osc-region {
 		background-color: grey;
@@ -24,7 +25,7 @@
 	<link rel="shortcut icon" href="favicon.ico" />
 </head>
 
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://pixijs.download/release/pixi.min.js"></script>
 <script src="{% static 'lettergame/js/pixi.min.js' %}"></script>
 <script src="{% static 'lettergame/js/jquery-3.3.1.min.js' %}"></script>
@@ -35,11 +36,11 @@
 
 <body>
 
-	<font size="6" color="white" face="arial">
+	<!-- <font size="6" color="white" face="arial">
 		<center>
 			<p>space invaders and it kinda works now! >:^) </p>
 		</center>
-	</font>
+	</font> -->
 
 
 	<center>
@@ -60,6 +61,7 @@
 		*/
 
 		//max width for window size takes largest number between browser automated width and 500
+
 		let w = Math.max(window.innerWidth * 0.6, 500);
 		//genBoundaries are used to determine stage size and contain sprites
 		let genBoundaries = { width: w, height: 500 };
@@ -193,11 +195,13 @@
 		}
 		/*This code creates green background, fading to darker as screen goes higher
 		with slowly more opacity in black rectangles
-		creates bottom geass line
+		creates bottom grass line
 		*/
 		function boundaries() {
+			console.log("Height:")
+			console.log(Math.floor(genBoundaries.height/50))
 			//-------------------  creates background green
-			let bg = 12,
+			let bg = Math.floor(genBoundaries.height/50),
 			bgs = [];
 			for (let i = 0; i < bg; i++) {
 				let backGrass = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bg.png' %}"].texture);
@@ -249,7 +253,7 @@
 			- creates new sound, letter, correct values from backend
 			- creates and places bullet on stage
 			- creates and places infoBar (with health and points) on stage
-			- calls populateInvaders at beginninf of game
+			- calls populateInvaders at beginning of game
 			- calls setKeyActions for keyboard commands
 			- calls state and gameLoop to set play
 		*/
@@ -350,7 +354,7 @@
 			app.stage.addChild(gamesBar);
 			let startEnd = ['start', 'instructions', 'quit'];
 			startScreen(startEnd);
-			
+
 			// set width of on screen controls region
 			if (document.querySelector(".osc-region")) {
 				document.querySelector(".osc-region").style.width = w + "px";
@@ -689,7 +693,7 @@ function populateInvaders(options, correc, sound) {
 	audio = new Audio(s);
 	audio.time = new Date().getTime();
 	audio.play();
-	console.log(correct)
+	// console.log(correct)
 	// c = "{% static '' %}" + correct;
 	// correct = new String(c);
 	invadershot = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invadershot2.png' %}"].texture);
@@ -842,7 +846,7 @@ function setKeyActions(controller) {
 			bullet = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bullet2.png' %}"].texture);
 			bullets.push(bullet);
 			bullet.vy = -15;
-			bullet.y = 460;
+			bullet.y = shooter1.y;
 			bullet.x = (shooter1.x);
 			app.stage.addChild(bullet);
 			bullet.time = new Date().getTime();

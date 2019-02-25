@@ -1,0 +1,88 @@
+#signup-form {
+  display: none; }
+
+.hidden {
+  display: none; }
+
+/*
+ * This is to mimic the spacing in the .form-group bootstrap styling and the
+ * height of the input field for the form field error messages
+ */
+.form-field-message {
+  padding-bottom: 1rem;
+  margin-top: -1rem; }
+  @media screen and (min-width: 992px) {
+    .form-field-message .form-field-message {
+      padding-top: 30px;
+      padding-bottom: 30px;
+      padding-left: 0;
+      line-height: 38px; } }
+
+nav .dropdown {
+  display: none; }
+
+@media screen and (max-width: 991px) {
+  nav .list-group {
+    display: none; }
+  nav .dropdown {
+    display: inline-block; } }
+
+.panel-heading .nav a {
+  text-align: center;
+  font-size: 1.2em; }
+  .panel-heading .nav a.active {
+    font-weight: bold; }
+
+.form-message {
+  padding-bottom: 1rem; }
+
+.profile-section {
+  margin: 1em; }
+  .profile-section .list-group .list-group-item {
+    border: none; }
+
+#first-language-group .input-group, #other-language-group .input-group {
+  margin-bottom: .5rem; }
+  #first-language-group .input-group .input-group-append, #other-language-group .input-group .input-group-append {
+    display: flex; }
+    @media screen and (min-width: 992px) {
+      #first-language-group .input-group .input-group-append, #other-language-group .input-group .input-group-append {
+        display: flex; } }
+    #first-language-group .input-group .input-group-append#first-language .dropdown-toggle span, #other-language-group .input-group .input-group-append#first-language .dropdown-toggle span {
+      width: 110px; }
+      @media screen and (min-width: 481px) {
+        #first-language-group .input-group .input-group-append#first-language .dropdown-toggle span, #other-language-group .input-group .input-group-append#first-language .dropdown-toggle span {
+          width: 165px; } }
+      @media screen and (min-width: 769px) {
+        #first-language-group .input-group .input-group-append#first-language .dropdown-toggle span, #other-language-group .input-group .input-group-append#first-language .dropdown-toggle span {
+          width: 215px; } }
+      @media screen and (min-width: 992px) {
+        #first-language-group .input-group .input-group-append#first-language .dropdown-toggle span, #other-language-group .input-group .input-group-append#first-language .dropdown-toggle span {
+          width: 240px; } }
+    #first-language-group .input-group .input-group-append .dropdown-toggle span, #other-language-group .input-group .input-group-append .dropdown-toggle span {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: middle;
+      width: 70px; }
+      @media screen and (min-width: 481px) {
+        #first-language-group .input-group .input-group-append .dropdown-toggle span, #other-language-group .input-group .input-group-append .dropdown-toggle span {
+          width: 125px; } }
+      @media screen and (min-width: 769px) {
+        #first-language-group .input-group .input-group-append .dropdown-toggle span, #other-language-group .input-group .input-group-append .dropdown-toggle span {
+          width: 175px; } }
+      @media screen and (min-width: 992px) {
+        #first-language-group .input-group .input-group-append .dropdown-toggle span, #other-language-group .input-group .input-group-append .dropdown-toggle span {
+          width: 200px; } }
+
+#first-language-help-text, #other-language-help-text {
+  overflow-y: hidden;
+  max-height: 50px;
+  transition-property: all;
+  transition-duration: .5s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1); }
+  #first-language-help-text.closed, #other-language-help-text.closed {
+    max-height: 0; }
+
+/*# sourceMappingURL=login.css.map */

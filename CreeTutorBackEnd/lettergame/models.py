@@ -105,10 +105,17 @@ class LetterUserSeen(models.Model):
     Class contains letters that a user has seen at least once.
     - "user_id" identifies user
     - "letter" identifies which letter user has seen
+    - "amount_seen" counts the amount of times this has been seen
+    Other information can be found in the stats models of single letter games.
     '''
 
     user_id = models.IntegerField(blank=True, null=True)
     letter = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='letter')
+    amount_seen = models.IntegerField(default = 0, blank=True, null=True)
+
+    # def initalize(self):
+    #     all_letters = Alphabet.object.all()
+    #     for i in all_letters
 
     class Meta:
         db_table = "letter_user_seen"
