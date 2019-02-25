@@ -175,6 +175,8 @@ LOGIN_URL = '/login/'
 NO_LOGIN_URL = [
     r'signin/',
     r'signup/',
+    r'password_reset/',
+    r'reset/',
     r'confirm_email',
     r'activate_user_account',
 ]

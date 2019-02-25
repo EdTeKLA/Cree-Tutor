@@ -14,6 +14,7 @@ $smoky-black:         #170F09 !default;
 
 $primary:       $traditional-brown !default;
 $secondary:     $maximum-yellow-red !default;
+$tertiary:      $topaz !default;
 $success:       $dark-jungle-green !default;
 $info:          $copper-red !default;
 $warning:       $topaz !default;
@@ -24,6 +25,7 @@ $dark:          $smoky-black !default;
 $theme-colors: (
   "primary":    $primary,
   "secondary":  $secondary,
+  "tertiary":   $tertiary,
   "success":    $success,
   "info":       $info,
   "warning":    $warning,
@@ -41,8 +43,8 @@ $body-color: $dark;
 
 // Override navbar colours.
 
-$navbar-dark-color:                 rgba($up-maroon, .5) !default;
-$navbar-dark-hover-color:           rgba($up-maroon, .75) !default;
+$navbar-dark-color:                 rgba($up-maroon, .70) !default;
+$navbar-dark-hover-color:           rgba($up-maroon, .90) !default;
 $navbar-dark-active-color:          $up-maroon !default;
 $navbar-dark-disabled-color:        rgba($up-maroon, .25) !default;
 $navbar-dark-toggler-icon-bg:       str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-dark-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23") !default;
@@ -56,7 +58,8 @@ $navbar-light-toggler-icon-bg:      str-replace(url("data:image/svg+xml;charset=
 $navbar-light-toggler-border-color: rgba($maximum-yellow-red, .1) !default;
 
 // Override input colours
-$input-focus-border-color:              lighten($primary, 10%) !default;
 
-$link-hover-color:          darken($primary, 35%) !default;
+$input-focus-border-color:          lighten($primary, 10%) !default;
+
+$link-hover-color:                  darken($primary, 35%) !default;
 
