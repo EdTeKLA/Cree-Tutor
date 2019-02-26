@@ -20,6 +20,7 @@ function getTime(){
     wT = new Date();
     // console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
     whichTime = wT.toISOString();
+    console.log(whichTime);
     return whichTime;
 }
 

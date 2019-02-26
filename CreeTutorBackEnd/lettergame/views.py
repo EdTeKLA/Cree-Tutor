@@ -200,7 +200,9 @@ def invaders(request, level):
         id = invadersSession.objects.filter(user=user).latest("session_id")
         invStats = invadersStats()
         invStats.sesh_id = id
-        invStats.timestamp = request.POST['timestamp']
+        ts = time.time()
+        invStats.timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+        invStats.correct = request.POST['correct']
         invStats.save()
         if int(request.POST['numInvadersLeft']) < num +1:
             letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())

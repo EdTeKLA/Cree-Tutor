@@ -1,13 +1,5 @@
 // TODO: we can probably delete this because it's now in static/common/js/common.js but leaving for now until we can test to make sure
 
-function getTime(){
-    // Function gets current date and converts it into ISO format
-    // returns the date
-    wT = new Date();
-    // console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
-    whichTime = wT.toISOString();
-    return whichTime;
-}
 
 function getCookie(name) {
     var cookieValue = null;
@@ -40,15 +32,14 @@ $.ajaxSetup({
 
 function postInvaders(){
     // e.preventDefault();
-    time_stamp = getTime()
+
     return $.ajax({
       type:'POST',
       url: "",
       data:{
         correct: correct,
         numInvadersLeft: invaders.length,
-        'onScreen[]':invaders,
-        timestamp:time_stamp
+        'onScreen[]':invaders
       },
         success: function (data) {
           console.log(data)
