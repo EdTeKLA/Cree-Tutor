@@ -65,7 +65,7 @@
 		let w = Math.max(window.innerWidth * 0.6, 500);
 		//genBoundaries are used to determine stage size and contain sprites
 		let genBoundaries = { width: w, height: 500 };
-		
+
 		PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
 		//stage, with boundaries based on max and browser size, app is called when anything is related to the stage
@@ -109,7 +109,7 @@
 		let incorrArr = [];
 		let level = "{{level}}";
 
-		var text, audio, gamesBar;
+		var text, audio, gamesBar, empty;
 		var invaders = [];
 		var invaderBoundaries = genBoundaries.height + 30;
 
@@ -503,6 +503,12 @@
 			}
 			//-------------------
 
+			if (wait(1000, empty) === true) {
+				console.log("IM GONNA DIE");
+				emptyStage();
+				empty.time = new Date().getTime();
+			}
+
 			//------------------- Checks if shooter has hit boundary and moves it accordingly
 			let shooter1Hit;
 			let Contain = { x: 0, y: 0, width: genBoundaries.width, height: genBoundaries.heigth };
@@ -533,6 +539,7 @@
 			arraySplice(bullets, hitInvader);
 			arraySplice(invaders, gotHit);
 			arraySplice(pow_array, goodbye_pow);
+
 
 			//-------------------for loop iterates through all bullets in array and checks if any have hit the top, if so removes them from array, else creates their velocity
 			out_of_bounds = [];
@@ -569,6 +576,18 @@
 			}
 			//-------------------
 }
+
+/*
+*
+*/
+function emptyStage(){
+	if (invaders.length == 0){
+		postInvaders();
+		console.log(invaders.length)
+	}
+}
+
+
 /*function gives objects boundaries within the game, contains sprite to
 certain parameters to within or off stage
 */
@@ -690,6 +709,8 @@ adds invader to array
 function populateInvaders(options, correc, sound) {
 	correct = correc;
 	s = "{% static '' %}" + sound;
+	empty = new Audio(s); // Hack fix
+	empty.time = new Date().getTime();
 	audio = new Audio(s);
 	audio.time = new Date().getTime();
 	audio.play();
@@ -702,21 +723,27 @@ function populateInvaders(options, correc, sound) {
 	//spacing = 30;
 
 	if (level === 'easy') {
-		speed = genBoundaries.width * 0.003;
+		speedx = genBoundaries.width * 0.003;
+		speedy = .25;
 		spacing = 70;
 		xOffset = 0;
 	} else if (level === 'medium') {
-		speed = 1.25;
+		speedx = genBoundaries.width * 0.004;
+		speedy = 0.75;
 		spacing = 50;
 		xOffset = 0;
 	} else if (level === 'hard') {
-		speed = 1.5;
+		speedx = genBoundaries.width * 0.005;
+		speedy = 1;
 		spacing = 30;
 		xOffset = -10;
 	}else{
 		console.log("ERROR: Level not properly passed in spaceinvadersgame.html, lines 262 - 274");
 	}
 	direction = 1;
+	if(Math.random() >= 0.5){
+		direction = -1;
+	}
 
 	barIndex = app.stage.getChildIndex(gamesBar);
 	for (let i = 0; i < numofInvaders; i++) {
@@ -725,12 +752,14 @@ function populateInvaders(options, correc, sound) {
 		invader.width = genBoundaries.width / 20;
 		invader.height = genBoundaries.width / 20;
 
-		let x = spacing * i + xOffset;
-		let y = -30 * i;
+		let x = Math.floor((Math.random() * genBoundaries.width) + 1);
+		x = x % genBoundaries.width;
+		let y = -40 * i;
 		invader.x = x;
 		invader.y = y;
-
-		invader.vx = speed * direction;
+		invader.vy = speedy;
+		invader.vx = speedx;
+		// invader.vx *= direction;
 		// direction *= -1;
 		var style = new PIXI.TextStyle({
 			fontFamily: 'Arial',
@@ -779,15 +808,14 @@ function setPosition() {
 		j = i % invaderLimit;
 		s = genBoundaries.width / (invaderLimit);
 		let Width = ((j) * s) + s;
-		let x = (j) * s + 20;
-		invaders[i].leftBound = x;
 		invaders[i].widthBound = Width;
 		//let invaderhitsWall = contain(invaders[i], { x: x, y: -50, width: Width, height: invaderBoundaries });
 		for (let j = 0; j < invaders.length; j++) {
 			// if checks if invaders have save x value, if they do then it may be required to shoot the wrong deer to shoot
 			// the correct deer, which is bad :(
-			if (invaders[i].x === invaders[j].x && i != j) {
-				invaders[i].x += 20;
+			if ((Math.abs(invaders[i].x - invaders[j].x) < 50) && i != j) {
+				invaders[i].x += 100;
+				invaders[i].x = invaders[i].x % genBoundaries.width;
 			}
 			// BUGFIX: When 2 invaders left the screen at the same time, the wrong invaders were taken from the invader array, so
 			// now they can't leave at the same time
@@ -805,13 +833,14 @@ also makes sure text attached is alwyas facing readable direction*/
 function flipEm() {
 	for (let i = 0; i < invaders.length; i++) {
 		invaders[i].x += invaders[i].vx;
-		let invaderhitsWall = contain(invaders[i], { x: invaders[i].leftBound, y: -50, width: invaders[i].widthBound, height: invaderBoundaries });
+		let invaderhitsWall = contain(invaders[i], { x: 0, y: -50, width: genBoundaries.width, height: invaderBoundaries });
 		if (invaderhitsWall === "right" || invaderhitsWall === "left") {
 			invaders[i].vx *= -1;
-			invaders[i].y += 10;
+			// invaders[i].y += 10;
 			invaders[i].scale.x *= -1;    /* flip vertically */
 			invaders[i].children[0].scale.x *= -1;
 		}
+		invaders[i].y += invaders[i].vy;
 	}
 }
 
@@ -929,7 +958,7 @@ function checkHit() {
 			gotHit.push(j);
 			invaders[j].vx = 0;
 			//Make the explorer semi-transparent
-			shooter1.alpha = 0.5;
+			// shooter1.alpha = 0.5;
 			/*insert 3 if or else loops to create the level of health removed
 			 depending on the level of difficulty you're playing on */
 			//Reduce the width of the health bar's inner rectangle by 1 pixel
