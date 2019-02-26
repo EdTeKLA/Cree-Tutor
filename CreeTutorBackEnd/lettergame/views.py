@@ -8,6 +8,7 @@ from .models import *
 import random
 import datetime
 from django.db.models import Q
+import time
 
 def index(request):
     # Takes in request and loads the index template
@@ -156,6 +157,7 @@ def savePostStats(request, option, whichStats, stats, whichDist, level):
 
 def invaderslevel(request):
     # Takes in request and loads the invadersmain template
+
     return render(request, 'lettergame/invadersmain.html')
 
 
@@ -165,6 +167,10 @@ def invaders(request, level):
     Currently takes __ numbers of options from the Alphabet table at random. Will be updated to follow the same procedure and use the same functions as letterGames.
     Returns a JsonResponse or HttpResponse.
     '''
+
+    user = None
+    if request.user.is_authenticated:
+        user = request.user
 
     if level == 'easy':
         num = 3
@@ -176,6 +182,14 @@ def invaders(request, level):
         return HttpResponse('ERROR: variable "level" not passed properly')
 
     if request.method == 'GET':
+
+        new_invaders_session = invadersSession()
+        new_invaders_session.user = user
+        ts = time.time()
+        new_invaders_session.sessionBegin = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+        new_invaders_session.level = level
+        new_invaders_session.save()
+
         letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
         letters = letters[:num]
         context = getOptions(Alphabet, 'letter', level)
@@ -183,11 +197,17 @@ def invaders(request, level):
         return render(request, 'lettergame/spaceinvadersgame.html', context)
 
     elif request.method == 'POST':
-        letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
-        letters = letters[:num]
-        context = getOptions(Alphabet, 'letter', level)
-        context['level'] = level
-        return JsonResponse(context)
+        id = invadersSession.objects.filter(user=user).latest("session_id")
+        invStats = invadersStats()
+        invStats.sesh_id = id
+        invStats.timestamp = request.POST['timestamp']
+        invStats.save()
+        if int(request.POST['numInvadersLeft']) < num +1:
+            letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
+            letters = letters[:num]
+            context = getOptions(Alphabet, 'letter', level)
+            context['level'] = level
+            return JsonResponse(context)
 
     else:
         # For debugging -- To be removed before deployment
