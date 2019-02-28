@@ -263,7 +263,7 @@ def inv_distractors(num, onScreen):
         distset.update(distractors6)
         distset.update(distractors8)
 
-        if len(distset) < 3:
+        if len(distset) < 4:
             distractors7 = LetterDistractor.objects.filter(letter=lettr).filter(type=7)
             distset.update(distractors7)
 
@@ -282,7 +282,40 @@ def inv_distractors(num, onScreen):
                 if len(dists) == num:
                     break
 
-    # elif num == 5:
+    elif num == 5:
+        distset = set()
+        distractors1 = LetterDistractor.objects.filter(letter=lettr).filter(type=1)
+        distractors2 = LetterDistractor.objects.filter(letter=lettr).filter(type=2)
+        distractors3 = LetterDistractor.objects.filter(letter=lettr).filter(type=3)
+        distractors4 = LetterDistractor.objects.filter(letter=lettr).filter(type=4)
+        distractors5 = LetterDistractor.objects.filter(letter=lettr).filter(type=5)
+        distractors6 = LetterDistractor.objects.filter(letter=lettr).filter(type=6)
+        distset.update(distractors1)
+        distset.update(distractors2)
+        distset.update(distractors3)
+        distset.update(distractors4)
+        distset.update(distractors5)
+        distset.update(distractors6)
+
+        if len(distset) < 5:
+            distractors7 = LetterDistractor.objects.filter(letter=lettr).filter(type=7)
+            distset.update(distractors7)
+
+        distractors = random.shuffle(list(distset))
+        for i in distractors:
+            if i not in onScreen:
+                dists.add(i)
+            if len(dists) == num:
+                break
+
+        if len(dists) < num:
+            distractors7 = LetterDistractor.objects.filter(letter=lettr).filter(type=7)
+            distractors7 = random.shuffle(distractors7)
+            for i in distractors7:
+                if i not in onScreen and i not in dists:
+                    dists.add(i)
+                if len(dists) == num:
+                    break
 
 
     sound = lettr.sound
