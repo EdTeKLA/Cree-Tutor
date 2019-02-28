@@ -47,7 +47,7 @@ function postInvaders(){
       url: "",
       data:{
         correct: correct,
-        populate: "true",
+        populate: populate,
         numInvadersLeft: invaders.length,
         'onScreenLetters[]':letters,
         'positions[]':positions,

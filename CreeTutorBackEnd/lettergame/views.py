@@ -192,7 +192,8 @@ def invaders(request, level):
 
         letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
         letters = letters[:num]
-        context = getOptions(Alphabet, 'letter', level)
+        # context = getOptions(Alphabet, 'letter', level)
+        context = inv_distractors(level, set())
         context['level'] = level
         return render(request, 'lettergame/spaceinvadersgame.html', context)
 
@@ -221,7 +222,6 @@ def invaders(request, level):
             letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
             letters = letters[:num]
             context = inv_distractors(level, onScreen)
-            # context = getOptions(Alphabet, 'letter', level)
             context['level'] = level
             return JsonResponse(context)
         # TODO else return empty JsonResponse
@@ -243,21 +243,15 @@ def inv_distractors(level, onScreen):
     lettr = correct.letter
     dists.add(lettr)
     sound = correct.sound
-    f = open("UM.txt", "w")
-    f.write(str(dists))
     if level == "easy":
         num = 3
         distractors = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=7), key=lambda x: random.random())
 
-        f.write("On SCreen: ")
-        f.write(str(onScreen))
         for i in range(len(distractors)):
-            f.write(distractors[i].distractor)
             if distractors[i].distractor not in onScreen:
                 dists.add(distractors[i].distractor)
             if len(dists) == num:
-                break
-        f.write(str(dists))
+
 
     elif level == "medium":
         num = 4
@@ -326,8 +320,6 @@ def inv_distractors(level, onScreen):
                     break
 
 
-    f.write(str(dists))
-    f.close()
     context = {'letters': list(dists), 'sound':sound, 'game':'double', 'correct':lettr}
 
     return context
