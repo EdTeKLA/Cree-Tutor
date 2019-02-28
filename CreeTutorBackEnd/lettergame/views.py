@@ -177,7 +177,7 @@ def invaders(request, level):
     elif level == 'medium':
         num = 4
     elif level == 'hard':
-        num = 5
+        num = 4
     else:
         return HttpResponse('ERROR: variable "level" not passed properly')
 
@@ -214,14 +214,14 @@ def invaders(request, level):
             invStats.letter = letters[i]
             invStats.hit_or_left = hits[i]
             if hits[i] == "false":
-                onScreen.add(hits[i])
+                onScreen.add(letters[i])
             invStats.save()
         more_inv = request.POST['populate']
         if int(request.POST['numInvadersLeft']) < num +1 and more_inv == "true":
             letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
             letters = letters[:num]
-            # context = inv_distractors(num, onScreen)
-            context = getOptions(Alphabet, 'letter', level)
+            context = inv_distractors(level, onScreen)
+            # context = getOptions(Alphabet, 'letter', level)
             context['level'] = level
             return JsonResponse(context)
         # TODO else return empty JsonResponse
@@ -231,63 +231,73 @@ def invaders(request, level):
         return HttpResponse('ERROR: unknown request passed to views.invaders')
 
 
-def inv_distractors(num, onScreen):
-    letters = Alphabet.objects.all()
+def inv_distractors(level, onScreen):
+    letters = sorted(Alphabet.objects.all(), key=lambda x: random.random())
     tr = True
     while tr:
-        lettr = random.choice(letters)
-        if lettr not in onScreen:
+        correct = random.choice(letters)
+        if correct.letter not in onScreen:
             tr = False
     del letters
     dists = set()
+    lettr = correct.letter
     dists.add(lettr)
-    if num == 3:
-        distractors = LetterDistractor.objects.filter(letter=lettr).filter(type=7)
-        distractors = random.shuffle(distractors)
-        for i in distractors:
-            if i not in onScreen:
-                dists.add(i)
+    sound = correct.sound
+    f = open("UM.txt", "w")
+    f.write(str(dists))
+    if level == "easy":
+        num = 3
+        distractors = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=7), key=lambda x: random.random())
+
+        f.write("On SCreen: ")
+        f.write(str(onScreen))
+        for i in range(len(distractors)):
+            f.write(distractors[i].distractor)
+            if distractors[i].distractor not in onScreen:
+                dists.add(distractors[i].distractor)
             if len(dists) == num:
                 break
+        f.write(str(dists))
 
-    elif num == 4:
+    elif level == "medium":
+        num = 4
         distset = set()
-        distractors3 = LetterDistractor.objects.filter(letter=lettr).filter(type=3)
-        distractors4 = LetterDistractor.objects.filter(letter=lettr).filter(type=4)
-        distractors5 = LetterDistractor.objects.filter(letter=lettr).filter(type=5)
-        distractors6 = LetterDistractor.objects.filter(letter=lettr).filter(type=6)
-        distractors8 = LetterDistractor.objects.filter(letter=lettr).filter(type=8)
+        distractors3 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=3), key=lambda x: random.random())
+        distractors4 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=4), key=lambda x: random.random())
+        distractors5 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=5), key=lambda x: random.random())
+        distractors6 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=6), key=lambda x: random.random())
+        distractors8 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=8), key=lambda x: random.random())
         distset.update(distractors3)
         distset.update(distractors4)
         distset.update(distractors5)
         distset.update(distractors6)
         distset.update(distractors8)
 
-        if len(distset) < 4:
-            distractors7 = LetterDistractor.objects.filter(letter=lettr).filter(type=7)
+        if len(distset) < num:
+            distractors7 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=7), key=lambda x: random.random())
             distset.update(distractors7)
 
-        distractors = random.shuffle(list(distset))
-        for i in distractors:
+        for i in distset:
             if i not in onScreen:
-                dists.add(i)
-            if len(dists) == num:
+                dists.add(i.distractor)
+            if len(dists) >= num:
                 break
+
         if len(dists) < num:
-            distractors7 = LetterDistractor.objects.filter(letter=lettr).filter(type=7)
-            distractors7 = random.shuffle(distractors7)
-            for i in distractors7:
-                if i not in onScreen and i not in dists:
-                    dists.add(i)
-                if len(dists) == num:
+            distractors7 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=7), key=lambda x: random.random())
+            for i in range(len(distractors7)):
+                if distractors7[i] not in onScreen and distractors7[i] not in dists:
+                    dists.add(distractors7[i].distractor)
+                if len(dists) >= num:
                     break
 
-    elif num == 5:
+    elif level == "hard":
+        num = 4
         distset = set()
-        distractors1 = LetterDistractor.objects.filter(letter=lettr).filter(type=1)
-        distractors2 = LetterDistractor.objects.filter(letter=lettr).filter(type=2)
-        distractors3 = LetterDistractor.objects.filter(letter=lettr).filter(type=3)
-        distractors4 = LetterDistractor.objects.filter(letter=lettr).filter(type=4)
+        distractors1 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=1), key=lambda x: random.random())
+        distractors2 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=2), key=lambda x: random.random())
+        distractors3 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=3), key=lambda x: random.random())
+        distractors4 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=4), key=lambda x: random.random())
         distractors5 = LetterDistractor.objects.filter(letter=lettr).filter(type=5)
         distractors6 = LetterDistractor.objects.filter(letter=lettr).filter(type=6)
         distset.update(distractors1)
@@ -297,29 +307,29 @@ def inv_distractors(num, onScreen):
         distset.update(distractors5)
         distset.update(distractors6)
 
-        if len(distset) < 5:
-            distractors7 = LetterDistractor.objects.filter(letter=lettr).filter(type=7)
+        if len(distset) < num:
+            distractors7 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=7), key=lambda x: random.random())
             distset.update(distractors7)
 
-        distractors = random.shuffle(list(distset))
-        for i in distractors:
+        for i in distset:
             if i not in onScreen:
-                dists.add(i)
-            if len(dists) == num:
+                dists.add(i.distractor)
+            if len(dists) >= num:
                 break
 
         if len(dists) < num:
-            distractors7 = LetterDistractor.objects.filter(letter=lettr).filter(type=7)
-            distractors7 = random.shuffle(distractors7)
-            for i in distractors7:
-                if i not in onScreen and i not in dists:
-                    dists.add(i)
-                if len(dists) == num:
+            distractors7 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=7), key=lambda x: random.random())
+            for i in range(len(distractors7)):
+                if distractors7[i] not in onScreen and distractors7[i] not in dists:
+                    dists.add(distractors7[i].distractor)
+                if len(dists) >= num:
                     break
 
 
-    sound = lettr.sound
-    context = {'letters': dists, 'sound':sound, 'game':'double', 'correct':lettr}
+    f.write(str(dists))
+    f.close()
+    context = {'letters': list(dists), 'sound':sound, 'game':'double', 'correct':lettr}
+
     return context
 
 
