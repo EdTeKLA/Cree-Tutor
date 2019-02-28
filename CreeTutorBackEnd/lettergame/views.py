@@ -239,12 +239,54 @@ def inv_distractors(num, onScreen):
         if lettr not in onScreen:
             tr = False
     del letters
+    dists = set()
+    dists.add(lettr)
     if num == 3:
-        distractors = LetterDistractor.objects.filter(letter=lettr).filter(type=7)[0:1]
-        distractors.add(lettr)
+        distractors = LetterDistractor.objects.filter(letter=lettr).filter(type=7)
+        distractors = random.shuffle(distractors)
+        for i in distractors:
+            if i not in onScreen:
+                dists.add(i)
+            if len(dists) == num:
+                break
+
+    elif num == 4:
+        distset = set()
+        distractors3 = LetterDistractor.objects.filter(letter=lettr).filter(type=3)
+        distractors4 = LetterDistractor.objects.filter(letter=lettr).filter(type=4)
+        distractors5 = LetterDistractor.objects.filter(letter=lettr).filter(type=5)
+        distractors6 = LetterDistractor.objects.filter(letter=lettr).filter(type=6)
+        distractors8 = LetterDistractor.objects.filter(letter=lettr).filter(type=8)
+        distset.update(distractors3)
+        distset.update(distractors4)
+        distset.update(distractors5)
+        distset.update(distractors6)
+        distset.update(distractors8)
+
+        if len(distset) < 3:
+            distractors7 = LetterDistractor.objects.filter(letter=lettr).filter(type=7)
+            distset.update(distractors7)
+
+        distractors = random.shuffle(list(distset))
+        for i in distractors:
+            if i not in onScreen:
+                dists.add(i)
+            if len(dists) == num:
+                break
+        if len(dists) < num:
+            distractors7 = LetterDistractor.objects.filter(letter=lettr).filter(type=7)
+            distractors7 = random.shuffle(distractors7)
+            for i in distractors7:
+                if i not in onScreen and i not in dists:
+                    dists.add(i)
+                if len(dists) == num:
+                    break
+
+    # elif num == 5:
+
 
     sound = lettr.sound
-    context = {'letters': distractors, 'sound':sound, 'game':'double', 'correct':lettr}
+    context = {'letters': dists, 'sound':sound, 'game':'double', 'correct':lettr}
     return context
 
 
