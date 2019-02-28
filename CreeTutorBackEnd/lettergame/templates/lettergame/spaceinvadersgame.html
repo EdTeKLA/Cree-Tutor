@@ -763,6 +763,7 @@ function populateInvaders(options, correc, sound) {
 
 		invader.width = genBoundaries.width / 20;
 		invader.height = genBoundaries.width / 20;
+		invader.hit = "false";
 
 		let x = Math.floor((Math.random() * genBoundaries.width) + 1);
 		x = x % genBoundaries.width;
@@ -945,6 +946,7 @@ function checkHit() {
 				// If hit, remove from stage and add index to gotHit array
 				app.stage.removeChild(invaders[j]);
 				app.stage.removeChild(bullets[i]);
+				invaders[j].hit = "true";
 				gotHit.push(j);
 				hitInvader.push(i);
 				invaders[j].vx = 0;

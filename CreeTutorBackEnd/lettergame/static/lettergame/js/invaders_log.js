@@ -32,6 +32,15 @@ $.ajaxSetup({
 
 function postInvaders(){
     // e.preventDefault();
+    let letters = [];
+    let positions = [];
+    let hit = [];
+    for(let i = 0; i < invaders.length; i++){
+        letters.push(invaders[i].children[0].text);
+        pos = Math.floor(invaders[i].x) + "," + Math.floor(invaders[i].y);
+        positions.push(pos)
+        hit.push(invaders[i].hit);
+    }
 
     return $.ajax({
       type:'POST',
@@ -40,7 +49,9 @@ function postInvaders(){
         correct: correct,
         populate: "true",
         numInvadersLeft: invaders.length,
-        'onScreen[]':invaders
+        'onScreenLetters[]':letters,
+        'positions[]':positions,
+        'hit[]':hit
       },
         success: function (data) {
           console.log(data)

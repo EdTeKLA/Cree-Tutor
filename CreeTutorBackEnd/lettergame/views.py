@@ -198,12 +198,21 @@ def invaders(request, level):
 
     elif request.method == 'POST':
         id = invadersSession.objects.filter(user=user).latest("session_id")
-        invStats = invadersStats()
-        invStats.sesh_id = id
         ts = time.time()
-        invStats.timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-        invStats.correct = request.POST['correct']
-        invStats.save()
+        ts = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+        letters = request.POST.getlist('onScreenLetters[]')
+        positions = request.POST.getlist('positions[]')
+        hits = request.POST.getlist('hit[]')
+        correct = request.POST['correct']
+        for i in range(len(letters)):
+            invStats = invadersStats()
+            invStats.timeStamp = ts
+            invStats.sesh_id = id
+            invStats.correct = correct
+            invStats.screen_position = positions[i]
+            invStats.letter = letters[i]
+            invStats.hit_or_left = hits[i]
+            invStats.save()
         more_inv = request.POST['populate']
         if int(request.POST['numInvadersLeft']) < num +1 and more_inv == "true":
             letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
