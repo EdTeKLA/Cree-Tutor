@@ -526,7 +526,7 @@
 			checkHit();
 
 			if (wait(500, empty) === true) {
-				sparseStage();
+				sparseStage(false, 0);
 				empty.time = new Date().getTime();
 			}
 
@@ -584,7 +584,7 @@
 /*
 *
 */
-function sparseStage(){
+function sparseStage(hit, num){
 	if (level === 'easy') {
 		invaderLimit = 3;
 	} else if (level === 'medium') {
@@ -592,7 +592,7 @@ function sparseStage(){
 	} else if (level === 'hard') {
 		invaderLimit = 4;
 	}
-	if (invaders.length < invaderLimit){
+	if ((invaders.length <= invaderLimit && hit == true) || invaders.length == 0){
 		populate = "true";
 		postInvaders();
 		populate = "false";
@@ -720,6 +720,7 @@ adds invader to array
 */
 function populateInvaders(options, correc, sound) {
 	let onScreen = invaders.length
+	console.log(onScreen);
 	correct = correc;
 	s = "{% static '' %}" + sound;
 	empty = new Audio(s); // Hack fix
@@ -739,12 +740,12 @@ function populateInvaders(options, correc, sound) {
 
 	if (level === 'easy') {
 		speedx = genBoundaries.width * 0.003;
-		speedy = .25;
+		speedy = .75;
 		spacing = 70;
 		xOffset = 0;
 	} else if (level === 'medium') {
 		speedx = genBoundaries.width * 0.0035;
-		speedy = 0.25;
+		speedy = 0.5;
 		spacing = 50;
 		xOffset = 0;
 	} else if (level === 'hard') {
@@ -831,14 +832,15 @@ function setPosition(onScreen) {
 			// the correct deer, which is bad :(
 			if (i >= onScreen){
 				if ((Math.abs(invaders[i].x - invaders[j].x) < 50) && i != j) {
-
+						console.log(invaders[i].children[0])
+						console.log(invaders[j].children[0])
 						invaders[i].x += 100;
 						invaders[i].x = invaders[i].x % genBoundaries.width;
 				}
 				// BUGFIX: When 2 invaders left the screen at the same time, the wrong invaders were taken from the invader array, so
 				// now they can't leave at the same time
-				if (invaders[i].y === invaders[j].y && i != j) {
-					invaders[i].y -= 5;
+				if ((Math.abs(invaders[i].y - invaders[j].y) < 50) && i != j) {
+					invaders[i].y += 50;
 				}
 			}
 		}
@@ -966,11 +968,12 @@ function checkHit() {
 				if (hitCheck === true){
 					audio.muted = true;
 					populate = "true";
-					postInvaders();
+					// postInvaders();
+					sparseStage(hitCheck, 1);
 					populate = "false";
 				}else if (hitCheck === false && destroyInvader === true){
 					populate = "false";
-					postInvaders();
+					sparseStage(hitCheck, 1);
 				}
 				destroyInvader = false;
 			}
@@ -998,13 +1001,14 @@ function checkHit() {
 			// if the correct invader leaves the screen, user loses health
 			if (noHarm === false) {
 				if (level === 'easy') {
-					healthBar.outer.width -= 18;
+					healthBar.outer.width -= Math.floor(90/10);
 				} else if (level === 'medium') {
-					healthBar.outer.width -= 12.85;
+					healthBar.outer.width -= Math.floor(90/8);
 				} else if (level === 'hard') {
-					healthBar.outer.width -= 10;
+					healthBar.outer.width -= Math.floor(90/6);
 				}
 				// noHarm = true;
+				healthBar.outer.width = Math.max(0, healthBar.outer.width)
 			}
 		} else {
 			//Make the explorer fully opaque (non-transparent) if it hasn't been hit
@@ -1023,14 +1027,15 @@ if incorrect subtracts points based on Level
 function changeBar(hitCheck, wrongCheck){
 	if (hitCheck) {
 		if (level === 'easy') {
-			pointBar.outer.width += 30;
+			pointBar.outer.width += Math.ceil(90/17);
 
 
 		} else if (level === 'medium') {
-			pointBar.outer.width += 45;
+			pointBar.outer.width +=  Math.ceil(90/17);
 		} else if (level === 'hard') {
-			pointBar.outer.width += 45;
+			pointBar.outer.width +=  Math.ceil(90/17);
 		}
+		pointBar.outer.width = Math.min(pointBar.outer.width, 90);
 		hitCheck = false;
 	}
 
@@ -1042,6 +1047,7 @@ function changeBar(hitCheck, wrongCheck){
 		}else if(level === 'hard'){
 			healthBar.outer.width -= 10;
 		}
+		healthBar.outer.width = Math.max(healthBar.outer.width, 0);
 	}
 	return;
 }

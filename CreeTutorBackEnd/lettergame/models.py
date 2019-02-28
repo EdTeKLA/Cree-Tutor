@@ -468,7 +468,6 @@ class invadersSession(models.Model):
     session_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     sessionBegin = models.DateTimeField(blank=True, null=True)
-    sessionEnd = models.DateTimeField(blank=True, null=True)
     level = models.CharField(max_length=8, blank=True)
 
     class Meta:
@@ -486,6 +485,12 @@ class invadersStats(models.Model):
     class Meta:
         db_table = 'invaders_stats'
 
+class invadersUserCorrect(models.Model):
+    sesh_id = models.ForeignKey(invadersSession, on_delete=models.CASCADE)
+    letter = models.CharField(max_length=8)
+
+    class Meta:
+        db_table = "invaders_user_correct"
 
 
 

@@ -189,11 +189,8 @@ def invaders(request, level):
         new_invaders_session.sessionBegin = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
         new_invaders_session.level = level
         new_invaders_session.save()
-
-        letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
-        letters = letters[:num]
-        # context = getOptions(Alphabet, 'letter', level)
-        context = inv_distractors(level, set())
+        id = invadersSession.objects.filter(user=user).latest("session_id")
+        context = inv_distractors(level, set(), id)
         context['level'] = level
         return render(request, 'lettergame/spaceinvadersgame.html', context)
 
@@ -216,12 +213,18 @@ def invaders(request, level):
             invStats.hit_or_left = hits[i]
             if hits[i] == "false":
                 onScreen.add(letters[i])
+            else:
+                if letters[i] == correct:
+                    userCorrect = invadersUserCorrect()
+                    userCorrect.sesh_id = id
+                    userCorrect.letter = letters[i]
+                    userCorrect.save()
             invStats.save()
         more_inv = request.POST['populate']
         if int(request.POST['numInvadersLeft']) < num +1 and more_inv == "true":
             letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
             letters = letters[:num]
-            context = inv_distractors(level, onScreen)
+            context = inv_distractors(level, onScreen, id)
             context['level'] = level
             return JsonResponse(context)
         # TODO else return empty JsonResponse
@@ -231,8 +234,9 @@ def invaders(request, level):
         return HttpResponse('ERROR: unknown request passed to views.invaders')
 
 
-def inv_distractors(level, onScreen):
+def inv_distractors(level, onScreen, id):
     letters = sorted(Alphabet.objects.all(), key=lambda x: random.random())
+    correct = sorted(invadersUserCorrect.objects.filter(sesh_id=id), key=lambda x: random.random())
     tr = True
     while tr:
         correct = random.choice(letters)
@@ -251,6 +255,7 @@ def inv_distractors(level, onScreen):
             if distractors[i].distractor not in onScreen:
                 dists.add(distractors[i].distractor)
             if len(dists) == num:
+                break
 
 
     elif level == "medium":
