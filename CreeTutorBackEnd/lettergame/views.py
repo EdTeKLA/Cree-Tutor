@@ -201,15 +201,17 @@ def invaders(request, level):
         invStats = invadersStats()
         invStats.sesh_id = id
         ts = time.time()
-        invStats.timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+        invStats.timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
         invStats.correct = request.POST['correct']
         invStats.save()
-        if int(request.POST['numInvadersLeft']) < num +1:
+        more_inv = request.POST['populate']
+        if int(request.POST['numInvadersLeft']) < num +1 and more_inv == "true":
             letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
             letters = letters[:num]
             context = getOptions(Alphabet, 'letter', level)
             context['level'] = level
             return JsonResponse(context)
+        # TODO else return empty JsonResponse
 
     else:
         # For debugging -- To be removed before deployment

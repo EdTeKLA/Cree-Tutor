@@ -112,6 +112,8 @@
 
 		var text, audio, gamesBar, empty;
 		var invaders = [];
+		var hit = null;
+		var more_invaders = "false";
 		var invaderBoundaries = genBoundaries.height + 30;
 
 		/*This function Creates start screen, fades out game with black rectangle
@@ -589,6 +591,7 @@ function sparseStage(){
 		invaderLimit = 5;
 	}
 	if (invaders.length < invaderLimit){
+		more_invaders = "true";
 		postInvaders();
 		console.log(invaders.length)
 	}
@@ -954,6 +957,10 @@ function checkHit() {
 				// If hit, request more
 				if (hitCheck === true){
 					audio.muted = true;
+					moreInvaders = "true";
+					postInvaders();
+				}else if (hitCheck === false && destroyInvader === true){
+					more_invaders = "false";
 					postInvaders();
 				}
 				destroyInvader = false;

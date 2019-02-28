@@ -38,6 +38,7 @@ function postInvaders(){
       url: "",
       data:{
         correct: correct,
+        populate: "true",
         numInvadersLeft: invaders.length,
         'onScreen[]':invaders
       },
