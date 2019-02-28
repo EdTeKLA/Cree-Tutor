@@ -197,6 +197,7 @@ def invaders(request, level):
         return render(request, 'lettergame/spaceinvadersgame.html', context)
 
     elif request.method == 'POST':
+        onScreen = set()
         id = invadersSession.objects.filter(user=user).latest("session_id")
         ts = time.time()
         ts = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
@@ -212,11 +213,14 @@ def invaders(request, level):
             invStats.screen_position = positions[i]
             invStats.letter = letters[i]
             invStats.hit_or_left = hits[i]
+            if hits[i] == "false":
+                onScreen.add(hits[i])
             invStats.save()
         more_inv = request.POST['populate']
         if int(request.POST['numInvadersLeft']) < num +1 and more_inv == "true":
             letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
             letters = letters[:num]
+            # context = inv_distractors(num, onScreen)
             context = getOptions(Alphabet, 'letter', level)
             context['level'] = level
             return JsonResponse(context)
@@ -227,8 +231,21 @@ def invaders(request, level):
         return HttpResponse('ERROR: unknown request passed to views.invaders')
 
 
+def inv_distractors(num, onScreen):
+    letters = Alphabet.objects.all()
+    tr = True
+    while tr:
+        lettr = random.choice(letters)
+        if lettr not in onScreen:
+            tr = False
+    del letters
+    if num == 3:
+        distractors = LetterDistractor.objects.filter(letter=lettr).filter(type=7)[0:1]
+        distractors.add(lettr)
 
-
+    sound = lettr.sound
+    context = {'letters': distractors, 'sound':sound, 'game':'double', 'correct':lettr}
+    return context
 
 
 
