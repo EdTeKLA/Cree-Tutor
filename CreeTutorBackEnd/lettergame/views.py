@@ -221,13 +221,15 @@ def invaders(request, level):
                     userCorrect.save()
             invStats.save()
         more_inv = request.POST['populate']
+
+        context = {'letters': [], 'sound':"", 'game':'single', 'correct':'', 'level':level}
+
         if int(request.POST['numInvadersLeft']) < num +1 and more_inv == "true":
-            letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
-            letters = letters[:num]
             context = inv_distractors(level, onScreen, id)
             context['level'] = level
-            return JsonResponse(context)
-        # TODO else return empty JsonResponse
+
+        return JsonResponse(context)
+
 
     else:
         # For debugging -- To be removed before deployment

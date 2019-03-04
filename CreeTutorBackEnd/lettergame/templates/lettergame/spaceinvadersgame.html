@@ -97,6 +97,7 @@
 		.add("{% static 'lettergame/image/invadershot2.png' %}")
 		.add("{% static 'lettergame/image/bg.png' %}")
 		.add("{% static 'lettergame/image/invaderR3.png'%}")
+		.add("{% static 'lettergame/image/correct.png'%}")
 		//calls function 'setup'
 		.load(boundaries)
 		.load(setup);
@@ -112,6 +113,7 @@
 
 		var text, audio, gamesBar, empty;
 		var invaders = [];
+		var corrects = [];
 		var hit = null;
 		var populate = "false";
 		var invaderBoundaries = genBoundaries.height + 30;
@@ -500,13 +502,14 @@
 		*/
 		function play(delta) {
 			//------------------- plays audio every 2 seconds
+
 			if (wait(2000, audio) === true) {
 				audio.play();
 				audio.time = new Date().getTime();
 			}
 			//-------------------
 
-
+			fadeCorrect();
 
 			//------------------- Checks if shooter has hit boundary and moves it accordingly
 			let shooter1Hit;
@@ -579,6 +582,23 @@
 				state = start;
 			}
 			//-------------------
+}
+
+function fadeCorrect(){
+	let splicem = [];
+	for (i = 0; i < corrects.length; i++){
+		console.log(correct[i].alpha);
+		corrects[i].alpha -= 1/60;
+		corrects[i].alpha = Math.max(corrects[i].alpha, 0);
+		if (corrects[i].alpha == 0){
+			splicem.push(i);
+			app.stage.removeChild(corrects[i]);
+		}
+	}
+	if (corrects.length > 0 && splicem.length > 0){
+		arraySplice(corrects, splicem);
+	}
+
 }
 
 /*
@@ -874,7 +894,7 @@ function setKeyActions(controller) {
 	//Left arrow key `press` method
 	//Change the shooter1's velocity when the key is pressed
 	controller.left.press = () => {
-		shooter1.vx = -3;
+		shooter1.vx = -4;
 		shooter1.vy = 0;
 	};
 
@@ -909,7 +929,7 @@ function setKeyActions(controller) {
 	};
 	//Right
 	controller.right.press = () => {
-		shooter1.vx = 3;
+		shooter1.vx = 4;
 		shooter1.vy = 0;
 	};
 	controller.right.release = () => {
@@ -966,6 +986,13 @@ function checkHit() {
 				app.stage.addChild(pow_array[pow_array.length - 1]);
 				// If hit, request more
 				if (hitCheck === true){
+					let newCorrect = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/correct.png' %}"].texture);
+					newCorrect.x = invaders[j].x;
+					newCorrect.y = invaders[j].y;
+					newCorrect.width = invaders[j].width;
+					newCorrect.height = invaders[j].height;
+					app.stage.addChild(newCorrect);
+					corrects.push(newCorrect);
 					audio.muted = true;
 					populate = "true";
 					// postInvaders();
