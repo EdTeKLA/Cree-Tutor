@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 '''
 HOW TO:
@@ -462,6 +463,35 @@ class Creedictionarydotcom(models.Model):
     class Meta:
         db_table = 'creedictionarydotcom'
         unique_together = (('word', 'pos', 'translation', 'dictionary'),)
+
+class invadersSession(models.Model):
+    session_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    sessionBegin = models.DateTimeField(blank=True, null=True)
+    level = models.CharField(max_length=8, blank=True)
+
+    class Meta:
+        db_table = "invaders_session"
+        unique_together = (("sessionBegin", "user"),)
+
+class invadersStats(models.Model):
+    sesh_id = models.ForeignKey(invadersSession, on_delete=models.CASCADE)
+    timeStamp = models.DateTimeField(blank=True, null=True)
+    letter = models.CharField(max_length=8)
+    correct = models.CharField(max_length=8)
+    screen_position = models.CharField(max_length=20)
+    hit_or_left = models.CharField(max_length=20, null=True)
+
+    class Meta:
+        db_table = 'invaders_stats'
+
+class invadersUserCorrect(models.Model):
+    sesh_id = models.ForeignKey(invadersSession, on_delete=models.CASCADE)
+    letter = models.CharField(max_length=8)
+
+    class Meta:
+        db_table = "invaders_user_correct"
+
 
 
 #________ The following classes are being set up to create games for listening to specific sounds within words ________#

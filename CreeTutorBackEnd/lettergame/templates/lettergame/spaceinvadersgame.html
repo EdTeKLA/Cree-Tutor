@@ -63,9 +63,10 @@
 		//max width for window size takes largest number between browser automated width and 500
 
 		let w = Math.max(window.innerWidth * 0.6, 500);
+		w = Math.min(w, 1000);
 		//genBoundaries are used to determine stage size and contain sprites
 		let genBoundaries = { width: w, height: 500 };
-		
+
 		PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
 		//stage, with boundaries based on max and browser size, app is called when anything is related to the stage
@@ -96,6 +97,7 @@
 		.add("{% static 'lettergame/image/invadershot2.png' %}")
 		.add("{% static 'lettergame/image/bg.png' %}")
 		.add("{% static 'lettergame/image/invaderR3.png'%}")
+		.add("{% static 'lettergame/image/correct.png'%}")
 		//calls function 'setup'
 		.load(boundaries)
 		.load(setup);
@@ -109,8 +111,11 @@
 		let incorrArr = [];
 		let level = "{{level}}";
 
-		var text, audio, gamesBar;
+		var text, audio, gamesBar, empty;
 		var invaders = [];
+		var corrects = [];
+		var hit = null;
+		var populate = "false";
 		var invaderBoundaries = genBoundaries.height + 30;
 
 		/*This function Creates start screen, fades out game with black rectangle
@@ -497,11 +502,14 @@
 		*/
 		function play(delta) {
 			//------------------- plays audio every 2 seconds
+
 			if (wait(2000, audio) === true) {
 				audio.play();
 				audio.time = new Date().getTime();
 			}
 			//-------------------
+
+			fadeCorrect();
 
 			//------------------- Checks if shooter has hit boundary and moves it accordingly
 			let shooter1Hit;
@@ -520,6 +528,11 @@
 			//checks through invader and bullet array to see if any have interacted
 			checkHit();
 
+			if (wait(500, empty) === true) {
+				sparseStage(false, 0);
+				empty.time = new Date().getTime();
+			}
+
 			//creates 'pow' image and deletes it after half a second
 			goodbye_pow = [];
 			for (let i = 0, l = pow_array.length; i < l; i += 1) {
@@ -533,6 +546,7 @@
 			arraySplice(bullets, hitInvader);
 			arraySplice(invaders, gotHit);
 			arraySplice(pow_array, goodbye_pow);
+
 
 			//-------------------for loop iterates through all bullets in array and checks if any have hit the top, if so removes them from array, else creates their velocity
 			out_of_bounds = [];
@@ -569,6 +583,43 @@
 			}
 			//-------------------
 }
+
+function fadeCorrect(){
+	let splicem = [];
+	for (i = 0; i < corrects.length; i++){
+		console.log(correct[i].alpha);
+		corrects[i].alpha -= 1/60;
+		corrects[i].alpha = Math.max(corrects[i].alpha, 0);
+		if (corrects[i].alpha == 0){
+			splicem.push(i);
+			app.stage.removeChild(corrects[i]);
+		}
+	}
+	if (corrects.length > 0 && splicem.length > 0){
+		arraySplice(corrects, splicem);
+	}
+
+}
+
+/*
+*
+*/
+function sparseStage(hit, num){
+	if (level === 'easy') {
+		invaderLimit = 3;
+	} else if (level === 'medium') {
+		invaderLimit = 4;
+	} else if (level === 'hard') {
+		invaderLimit = 4;
+	}
+	if ((invaders.length <= invaderLimit && hit == true) || invaders.length == 0){
+		populate = "true";
+		postInvaders();
+		populate = "false";
+	}
+}
+
+
 /*function gives objects boundaries within the game, contains sprite to
 certain parameters to within or off stage
 */
@@ -688,9 +739,15 @@ creates text and attaches it to invader thru parent child relationship
 adds invader to array
 */
 function populateInvaders(options, correc, sound) {
+	let onScreen = invaders.length
+	console.log(onScreen);
 	correct = correc;
 	s = "{% static '' %}" + sound;
+	empty = new Audio(s); // Hack fix
+	empty.time = new Date().getTime();
+
 	audio = new Audio(s);
+	audio.mute = false;
 	audio.time = new Date().getTime();
 	audio.play();
 	// console.log(correct)
@@ -702,21 +759,27 @@ function populateInvaders(options, correc, sound) {
 	//spacing = 30;
 
 	if (level === 'easy') {
-		speed = genBoundaries.width * 0.003;
+		speedx = genBoundaries.width * 0.003;
+		speedy = .75;
 		spacing = 70;
 		xOffset = 0;
 	} else if (level === 'medium') {
-		speed = 1.25;
+		speedx = genBoundaries.width * 0.0035;
+		speedy = 0.5;
 		spacing = 50;
 		xOffset = 0;
 	} else if (level === 'hard') {
-		speed = 1.5;
+		speedx = genBoundaries.width * 0.0035;
+		speedy = 0.75;
 		spacing = 30;
 		xOffset = -10;
 	}else{
 		console.log("ERROR: Level not properly passed in spaceinvadersgame.html, lines 262 - 274");
 	}
 	direction = 1;
+	if(Math.random() >= 0.5){
+		direction = -1;
+	}
 
 	barIndex = app.stage.getChildIndex(gamesBar);
 	for (let i = 0; i < numofInvaders; i++) {
@@ -724,13 +787,16 @@ function populateInvaders(options, correc, sound) {
 
 		invader.width = genBoundaries.width / 20;
 		invader.height = genBoundaries.width / 20;
+		invader.hit = "false";
 
-		let x = spacing * i + xOffset;
-		let y = -30 * i;
+		let x = Math.floor((Math.random() * genBoundaries.width) + 1);
+		x = x % genBoundaries.width;
+		let y = -40 * i;
 		invader.x = x;
 		invader.y = y;
-
-		invader.vx = speed * direction;
+		invader.vy = speedy;
+		invader.vx = speedx;
+		// invader.vx *= direction;
 		// direction *= -1;
 		var style = new PIXI.TextStyle({
 			fontFamily: 'Arial',
@@ -758,14 +824,14 @@ function populateInvaders(options, correc, sound) {
 		//add invader to stage
 		app.stage.addChildAt(invader, barIndex - 1);
 	}
-	setPosition();
+	setPosition(onScreen);
 
 }
 
 /*Function sets boundaries and speed fir each invader basedon
 level, amount of invaders and how many columns per invader
 */
-function setPosition() {
+function setPosition(onScreen) {
 
 	if (level === 'easy') {
 		invaderLimit = 3;
@@ -779,20 +845,23 @@ function setPosition() {
 		j = i % invaderLimit;
 		s = genBoundaries.width / (invaderLimit);
 		let Width = ((j) * s) + s;
-		let x = (j) * s + 20;
-		invaders[i].leftBound = x;
 		invaders[i].widthBound = Width;
 		//let invaderhitsWall = contain(invaders[i], { x: x, y: -50, width: Width, height: invaderBoundaries });
 		for (let j = 0; j < invaders.length; j++) {
 			// if checks if invaders have save x value, if they do then it may be required to shoot the wrong deer to shoot
 			// the correct deer, which is bad :(
-			if (invaders[i].x === invaders[j].x && i != j) {
-				invaders[i].x += 20;
-			}
-			// BUGFIX: When 2 invaders left the screen at the same time, the wrong invaders were taken from the invader array, so
-			// now they can't leave at the same time
-			if (invaders[i].y === invaders[j].y && i != j) {
-				invaders[i].y -= 5;
+			if (i >= onScreen){
+				if ((Math.abs(invaders[i].x - invaders[j].x) < 50) && i != j) {
+						console.log(invaders[i].children[0])
+						console.log(invaders[j].children[0])
+						invaders[i].x += 100;
+						invaders[i].x = invaders[i].x % genBoundaries.width;
+				}
+				// BUGFIX: When 2 invaders left the screen at the same time, the wrong invaders were taken from the invader array, so
+				// now they can't leave at the same time
+				if ((Math.abs(invaders[i].y - invaders[j].y) < 50) && i != j) {
+					invaders[i].y += 50;
+				}
 			}
 		}
 	}
@@ -805,13 +874,14 @@ also makes sure text attached is alwyas facing readable direction*/
 function flipEm() {
 	for (let i = 0; i < invaders.length; i++) {
 		invaders[i].x += invaders[i].vx;
-		let invaderhitsWall = contain(invaders[i], { x: invaders[i].leftBound, y: -50, width: invaders[i].widthBound, height: invaderBoundaries });
+		let invaderhitsWall = contain(invaders[i], { x: 0, y: -50, width: genBoundaries.width, height: invaderBoundaries });
 		if (invaderhitsWall === "right" || invaderhitsWall === "left") {
 			invaders[i].vx *= -1;
-			invaders[i].y += 10;
+			// invaders[i].y += 10;
 			invaders[i].scale.x *= -1;    /* flip vertically */
 			invaders[i].children[0].scale.x *= -1;
 		}
+		invaders[i].y += invaders[i].vy;
 	}
 }
 
@@ -824,7 +894,7 @@ function setKeyActions(controller) {
 	//Left arrow key `press` method
 	//Change the shooter1's velocity when the key is pressed
 	controller.left.press = () => {
-		shooter1.vx = -3;
+		shooter1.vx = -4;
 		shooter1.vy = 0;
 	};
 
@@ -859,7 +929,7 @@ function setKeyActions(controller) {
 	};
 	//Right
 	controller.right.press = () => {
-		shooter1.vx = 3;
+		shooter1.vx = 4;
 		shooter1.vy = 0;
 	};
 	controller.right.release = () => {
@@ -904,6 +974,7 @@ function checkHit() {
 				// If hit, remove from stage and add index to gotHit array
 				app.stage.removeChild(invaders[j]);
 				app.stage.removeChild(bullets[i]);
+				invaders[j].hit = "true";
 				gotHit.push(j);
 				hitInvader.push(i);
 				invaders[j].vx = 0;
@@ -915,7 +986,21 @@ function checkHit() {
 				app.stage.addChild(pow_array[pow_array.length - 1]);
 				// If hit, request more
 				if (hitCheck === true){
-					postInvaders();
+					let newCorrect = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/correct.png' %}"].texture);
+					newCorrect.x = invaders[j].x;
+					newCorrect.y = invaders[j].y;
+					newCorrect.width = invaders[j].width;
+					newCorrect.height = invaders[j].height;
+					app.stage.addChild(newCorrect);
+					corrects.push(newCorrect);
+					audio.muted = true;
+					populate = "true";
+					// postInvaders();
+					sparseStage(hitCheck, 1);
+					populate = "false";
+				}else if (hitCheck === false && destroyInvader === true){
+					populate = "false";
+					sparseStage(hitCheck, 1);
 				}
 				destroyInvader = false;
 			}
@@ -929,7 +1014,7 @@ function checkHit() {
 			gotHit.push(j);
 			invaders[j].vx = 0;
 			//Make the explorer semi-transparent
-			shooter1.alpha = 0.5;
+			// shooter1.alpha = 0.5;
 			/*insert 3 if or else loops to create the level of health removed
 			 depending on the level of difficulty you're playing on */
 			//Reduce the width of the health bar's inner rectangle by 1 pixel
@@ -943,13 +1028,14 @@ function checkHit() {
 			// if the correct invader leaves the screen, user loses health
 			if (noHarm === false) {
 				if (level === 'easy') {
-					healthBar.outer.width -= 18;
+					healthBar.outer.width -= Math.floor(90/10);
 				} else if (level === 'medium') {
-					healthBar.outer.width -= 12.85;
+					healthBar.outer.width -= Math.floor(90/8);
 				} else if (level === 'hard') {
-					healthBar.outer.width -= 10;
+					healthBar.outer.width -= Math.floor(90/6);
 				}
 				// noHarm = true;
+				healthBar.outer.width = Math.max(0, healthBar.outer.width)
 			}
 		} else {
 			//Make the explorer fully opaque (non-transparent) if it hasn't been hit
@@ -968,14 +1054,15 @@ if incorrect subtracts points based on Level
 function changeBar(hitCheck, wrongCheck){
 	if (hitCheck) {
 		if (level === 'easy') {
-			pointBar.outer.width += 30;
+			pointBar.outer.width += Math.ceil(90/17);
 
 
 		} else if (level === 'medium') {
-			pointBar.outer.width += 45;
+			pointBar.outer.width +=  Math.ceil(90/17);
 		} else if (level === 'hard') {
-			pointBar.outer.width += 45;
+			pointBar.outer.width +=  Math.ceil(90/17);
 		}
+		pointBar.outer.width = Math.min(pointBar.outer.width, 90);
 		hitCheck = false;
 	}
 
@@ -987,6 +1074,7 @@ function changeBar(hitCheck, wrongCheck){
 		}else if(level === 'hard'){
 			healthBar.outer.width -= 10;
 		}
+		healthBar.outer.width = Math.max(healthBar.outer.width, 0);
 	}
 	return;
 }
