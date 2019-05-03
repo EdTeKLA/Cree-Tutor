@@ -6,16 +6,16 @@ from . import views
 
 app_name = 'login'
 urlpatterns = [
-    path('login/', views.index, name='index'),
-    path('signin/', views.signin, name='signin'),
-    path('signout/', views.signout, name='signout'),
-    path('signup/', views.create, name='signup'),
-    path('profile/', views.profile, name='profile'),
+    path('login/', views.Login.as_view(), name='index'),
+    path('signin/', views.SignIn.as_view(), name='signin'),
+    path('signout/', views.SignOut.as_view(), name='signout'),
+    path('signup/', views.SignUp.as_view(), name='signup'),
+    path('profile/', views.Profile.as_view(), name='profile'),
     path('intake/', views.intake, name='intake'),
-    path('submit_intake/', views.submit_intake, name="submit_intake"),
-    path('submit_intake/', views.submit_intake, name="submit_intake"),
+    path('submit_intake/', views.SubmitIntake.as_view(), name="submit_intake"),
+    path('submit_intake/', views.SubmitIntake.as_view(), name="submit_intake"),
     url(r'^activate_user_account/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        views.activate_user_account, name='activate_user_account'),
+        views.ActivateAccount.as_view(), name='activate_user_account'),
     path('confirm_email/', views.confirm_email, name='confirm_email'),
 
     # builtin django password reset views
