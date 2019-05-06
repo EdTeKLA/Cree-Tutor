@@ -135,8 +135,20 @@ class SignIn(View):
                 context = {'redirect': '/lettergame'}
                 return JsonResponse(context)
             else:
+                # Try to get the user obejct using the email
+                try:
+                    user = User.objects.get(username=email)
+                except User.DoesNotExist:
+                    # Didn't get it, account doesn't exist
+                    context = {'error':"No account with this email exists.", 'email':email, 'password':password}
+                else:
+                    # User found, but the email has not been confirmed, so return an error
+                    if not user.is_active:
+                        context={'error':"Confirm email to log in.", 'email':email, 'password':password}
+                    else:
+                        # Some other error occured, most likely the password is wrong.
+                        context={'error':"Email or password is incorrect.", 'email':email, 'password':password}
                 # Otherwise just return an error saying the login was unsuccessful
-                context={'error':"Email or password is incorrect.", 'email':email, 'password':password}
                 return JsonResponse(context)
         except KeyError as ex:
             print(ex)

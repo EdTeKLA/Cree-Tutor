@@ -19,8 +19,6 @@ class Index(TemplateView):
     Class was created to render and return the main page for games.
     """
     template_name = 'lettergame/index.html'
-    # def get(self, request):
-    #     return render(request, 'lettergame/index.html')
 
 class WhichGame(View):
     """
