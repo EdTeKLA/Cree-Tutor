@@ -18,6 +18,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path('', include('login.urls')),
+    path('', include('home.urls')),
     path('lettergame/', include('lettergame.urls')),
     path('admin/', admin.site.urls),
     path('', include('django.contrib.auth.urls')),
@@ -25,4 +26,4 @@ urlpatterns = [
 ]
 
 handler404 = 'errorpages.views.view_404'
-handler500 = 'errorpages.views.view_500' 
+handler500 = 'errorpages.views.view_500'
