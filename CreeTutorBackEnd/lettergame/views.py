@@ -14,6 +14,9 @@ def index(request):
     # Takes in request and loads the index template
     return render(request, 'lettergame/index.html')
 
+def handleOptions(function, request):
+    function(request)
+
 def whichGame(request, game):
     '''
     Function takes in request (presumably GET request) and game variable.
@@ -22,7 +25,7 @@ def whichGame(request, game):
     '''
 
     levels = ['learn', 'easy', 'medium', 'hard']
-    context = {'game': game, 'levels':levels}
+    context = {'game': game, 'levels':levels, 'gameType':'letterGames'}
 
     return render(request, 'lettergame/level.html', context)
 
@@ -155,11 +158,21 @@ def savePostStats(request, option, whichStats, stats, whichDist, level):
     return
 
 
-def invaderslevel(request):
+def invadersgame(request):
     # Takes in request and loads the invadersmain template
+    game = ''
+    levels = ['single', 'double', 'minimalpair', 'word']
+    context = {'game': game, 'levels':levels, 'gameType':'invaderslevel'}
 
-    return render(request, 'lettergame/invadersmain.html')
+    return render(request, 'lettergame/invadersgame.html', context)
 
+    # return render(request, 'lettergame/invadersmain.html')
+
+def invaderslevel(request, game, level):
+
+    context = {'game':game}
+
+    return render(request, 'lettergame/invadersmain.html', context)
 
 def invaders(request, level):
     '''
