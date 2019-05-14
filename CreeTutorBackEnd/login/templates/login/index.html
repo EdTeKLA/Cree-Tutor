@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block styles %}
+<link href="{% sass_src 'login/scss/login.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'login/js/login.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-12">
+            <div class="panel-heading">
+                <div class="row justify-content-md-center">
+                    <div class="col-lg-6">
+                        <nav class="row nav justify-content-center nav-fill row">
+                            <a id="login-form-tab" class="col-6 nav-link active" href="#">Login</a>
+                            <a id="signup-form-tab" class="col-6 nav-link" href="#">Sign up</a>
+                        </nav>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row justify-content-md-center">
+                    <div class="col-lg-12">
+                        <form id="login-form" class="form">
+                            {% csrf_token %}
+                            <div class="row justify-content-md-center">
+                                <div class="col-lg-6 form-group">
+                                    <label for="login-email">Email</label>
+                                    <input id="login-email" class="form-control" type="text" name="email">
+                                    <small id="login-email-help" class="form-text text-muted">Example: name@example.com</small>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-lg-6 form-group">
+                                    <label for="login-password">Password</label>
+                                    <input id="login-password" class="form-control" type="password" name="password">
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-lg-6 form-group">
+                                    <div class="form-message error hidden">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <span></span>
+                                    </div>
+                                    <button class="form-control btn btn-primary" type="submit" name="submit" value="log_in">Log In</button>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <a href="{% url 'password_reset' %}">Forgot your password?</a>
+                            </div>
+                        </form>
+                        <form id="signup-form" class="form">
+                            {% csrf_token %}
+                            <div id="email-group" class="row">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-6 form-group">
+                                    <label for="email">Email</label>
+                                    <input id="email" class="form-control" type="text" name="email">
+                                    <small id="email-help" class="form-text text-muted">Example: name@example.com</small>
+                                </div>
+                                <div class="col-lg-3 form-field-message error hidden">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-6 form-group">
+                                    <label for="password">Password</label>
+                                    <input id="password" class="form-control" type="password" name="password">
+                                </div>
+                                <div class="col-lg-3"></div>
+                            </div>
+                            <div id="confirm-password-group" class="row">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-6 form-group">
+                                    <label for="confirm-password">Confirm Password</label>
+                                    <input id="confirm-password" class="form-control" type="password" name="confirm-password">
+                                </div>
+                                <div class="col-lg-3 form-field-message error hidden">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-6 form-group">
+                                    <button id="signup-button" class="form-control btn btn-primary" type="submit" name="submit" value="sign_up" disabled>Sign Up</button>
+                                </div>
+                                <div class="col-lg-3"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -7,6 +7,8 @@ from django.forms.models import model_to_dict
 from .models import *
 import random
 import datetime
+from django.db.models import Q
+import time
 
 def index(request):
     # Takes in request and loads the index template
@@ -155,6 +157,7 @@ def savePostStats(request, option, whichStats, stats, whichDist, level):
 
 def invaderslevel(request):
     # Takes in request and loads the invadersmain template
+
     return render(request, 'lettergame/invadersmain.html')
 
 
@@ -165,32 +168,172 @@ def invaders(request, level):
     Returns a JsonResponse or HttpResponse.
     '''
 
+    user = None
+    if request.user.is_authenticated:
+        user = request.user
+
     if level == 'easy':
         num = 3
     elif level == 'medium':
         num = 4
     elif level == 'hard':
-        num = 5
+        num = 4
     else:
         return HttpResponse('ERROR: variable "level" not passed properly')
 
     if request.method == 'GET':
-        letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
-        letters = letters[:num]
-        context = getOptions(Alphabet, 'letter', level)
+
+        new_invaders_session = invadersSession()
+        new_invaders_session.user = user
+        ts = time.time()
+        new_invaders_session.sessionBegin = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+        new_invaders_session.level = level
+        new_invaders_session.save()
+        id = invadersSession.objects.filter(user=user).latest("session_id")
+        context = inv_distractors(level, set(), id)
         context['level'] = level
         return render(request, 'lettergame/spaceinvadersgame.html', context)
 
     elif request.method == 'POST':
-        letters = sorted(Alphabet.objects.all().order_by('letter'), key=lambda x: random.random())
-        letters = letters[:num]
-        context = getOptions(Alphabet, 'letter', level)
-        context['level'] = level
+        onScreen = set()
+        id = invadersSession.objects.filter(user=user).latest("session_id")
+        ts = time.time()
+        ts = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+        letters = request.POST.getlist('onScreenLetters[]')
+        positions = request.POST.getlist('positions[]')
+        hits = request.POST.getlist('hit[]')
+        correct = request.POST['correct']
+        for i in range(len(letters)):
+            invStats = invadersStats()
+            invStats.timeStamp = ts
+            invStats.sesh_id = id
+            invStats.correct = correct
+            invStats.screen_position = positions[i]
+            invStats.letter = letters[i]
+            invStats.hit_or_left = hits[i]
+            if hits[i] == "false":
+                onScreen.add(letters[i])
+            else:
+                if letters[i] == correct:
+                    userCorrect = invadersUserCorrect()
+                    userCorrect.sesh_id = id
+                    userCorrect.letter = letters[i]
+                    userCorrect.save()
+            invStats.save()
+        more_inv = request.POST['populate']
+
+        context = {'letters': [], 'sound':"", 'game':'single', 'correct':'', 'level':level}
+
+        if int(request.POST['numInvadersLeft']) < num +1 and more_inv == "true":
+            context = inv_distractors(level, onScreen, id)
+            context['level'] = level
+
         return JsonResponse(context)
+
 
     else:
         # For debugging -- To be removed before deployment
         return HttpResponse('ERROR: unknown request passed to views.invaders')
+
+
+def inv_distractors(level, onScreen, id):
+    letters = sorted(Alphabet.objects.all(), key=lambda x: random.random())
+    correct = sorted(invadersUserCorrect.objects.filter(sesh_id=id), key=lambda x: random.random())
+    tr = True
+    while tr:
+        correct = random.choice(letters)
+        if correct.letter not in onScreen:
+            tr = False
+    del letters
+    dists = set()
+    lettr = correct.letter
+    dists.add(lettr)
+    sound = correct.sound
+    if level == "easy":
+        num = 3
+        distractors = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=7), key=lambda x: random.random())
+
+        for i in range(len(distractors)):
+            if distractors[i].distractor not in onScreen:
+                dists.add(distractors[i].distractor)
+            if len(dists) == num:
+                break
+
+
+    elif level == "medium":
+        num = 4
+        distset = set()
+        distractors3 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=3), key=lambda x: random.random())
+        distractors4 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=4), key=lambda x: random.random())
+        distractors5 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=5), key=lambda x: random.random())
+        distractors6 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=6), key=lambda x: random.random())
+        distractors8 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=8), key=lambda x: random.random())
+        distset.update(distractors3)
+        distset.update(distractors4)
+        distset.update(distractors5)
+        distset.update(distractors6)
+        distset.update(distractors8)
+
+        if len(distset) < num:
+            distractors7 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=7), key=lambda x: random.random())
+            distset.update(distractors7)
+
+        for i in distset:
+            if i not in onScreen:
+                dists.add(i.distractor)
+            if len(dists) >= num:
+                break
+
+        if len(dists) < num:
+            distractors7 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=7), key=lambda x: random.random())
+            for i in range(len(distractors7)):
+                if distractors7[i] not in onScreen and distractors7[i] not in dists:
+                    dists.add(distractors7[i].distractor)
+                if len(dists) >= num:
+                    break
+
+    elif level == "hard":
+        num = 4
+        distset = set()
+        distractors1 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=1), key=lambda x: random.random())
+        distractors2 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=2), key=lambda x: random.random())
+        distractors3 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=3), key=lambda x: random.random())
+        distractors4 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=4), key=lambda x: random.random())
+        distractors5 = LetterDistractor.objects.filter(letter=lettr).filter(type=5)
+        distractors6 = LetterDistractor.objects.filter(letter=lettr).filter(type=6)
+        distset.update(distractors1)
+        distset.update(distractors2)
+        distset.update(distractors3)
+        distset.update(distractors4)
+        distset.update(distractors5)
+        distset.update(distractors6)
+
+        if len(distset) < num:
+            distractors7 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=7), key=lambda x: random.random())
+            distset.update(distractors7)
+
+        for i in distset:
+            if i not in onScreen:
+                dists.add(i.distractor)
+            if len(dists) >= num:
+                break
+
+        if len(dists) < num:
+            distractors7 = sorted(LetterDistractor.objects.filter(letter=lettr).filter(type=7), key=lambda x: random.random())
+            for i in range(len(distractors7)):
+                if distractors7[i] not in onScreen and distractors7[i] not in dists:
+                    dists.add(distractors7[i].distractor)
+                if len(dists) >= num:
+                    break
+
+
+    context = {'letters': list(dists), 'sound':sound, 'game':'double', 'correct':lettr}
+
+    return context
+
+
+
+###################################################################
 
 
 def lemmagame(request, type):
@@ -211,64 +354,64 @@ def lemmagame(request, type):
             ------
         wordform
     """
-    def get_lemmagame():
-        """
-        returns a random lemmagame object
-        """
-        return sorted(LemmaGame.objects.all().order_by('wordform'), key=lambda x: random.random())[0]
+def get_lemmagame():
+    """
+    returns a random lemmagame object
+    """
+    return sorted(LemmaGame.objects.all().order_by('wordform'), key=lambda x: random.random())[0]
 
-    def get_word(game):
-        """
-        returns the characters of the target word
-        """
-        return game.wordform.word
+def get_word(game):
+    """
+    returns the characters of the target word
+    """
+    return game.wordform.word
 
-    def get_audio(game):
-        """
-        returns the audio filename for the target word
+def get_audio(game):
+    """
+    returns the audio filename for the target word
 
-        """
-        #get target audio
-        target_audio = game.wordform.sound
-        #if there is more than one audio
-        if "," in target_audio:
-            target_audio_as_list = target_audio.split(',')
-            print(target_audio_as_list)
-            return sorted(target_audio_as_list, key=lambda x: random.random())[0]
-        #if there is only one audio file
-        else:
-            print(target_audio)
-            return target_audio
+    """
+    #get target audio
+    target_audio = game.wordform.sound
+    #if there is more than one audio
+    if "," in target_audio:
+        target_audio_as_list = target_audio.split(',')
+        print(target_audio_as_list)
+        return sorted(target_audio_as_list, key=lambda x: random.random())[0]
+    #if there is only one audio file
+    else:
+        print(target_audio)
+        return target_audio
 
-    def get_distractors(game, how_many):
-        """
-        returns a list of Word objects with length (how_many) and the target
-        Word object in a random order
-        """
-        #add the target_word
-        return_list = [game.wordform]
-        distractors = sorted(game.distractors.all(), key=lambda x:random.random())
+def get_distractors(game, how_many):
+    """
+    returns a list of Word objects with length (how_many) and the target
+    Word object in a random order
+    """
+    #add the target_word
+    return_list = [game.wordform]
+    distractors = sorted(game.distractors.all(), key=lambda x:random.random())
 
-        for i in range(how_many):
-            return_list.append(distractors[i])
-        #randomize the list of distractors
-        return sorted(return_list, key=lambda x:random.random())
+    for i in range(how_many):
+        return_list.append(distractors[i])
+    #randomize the list of distractors
+    return sorted(return_list, key=lambda x:random.random())
 
-    def get_distractor_images(game, distractors):
-        """
-        return a list of image filenames based on the list of distractors passed.
+def get_distractor_images(game, distractors):
+    """
+    return a list of image filenames based on the list of distractors passed.
 
-        The list should already contain the target word and should already be in
-        a randomized order.
-        """
-        distractor_images = []
-        #cycle list of Words, add the image for each Word
-        for word in distractors:
-            distractor_images.append(word.lemmaID.image)
-        return distractor_images
+    The list should already contain the target word and should already be in
+    a randomized order.
+    """
+    distractor_images = []
+    #cycle list of Words, add the image for each Word
+    for word in distractors:
+        distractor_images.append(word.lemmaID.image)
+    return distractor_images
 
-    def get_word_image(game):
-        return game.lemma.image
+def get_word_image(game):
+    return game.lemma.image
 
     if type == "reception":
         game = get_lemmagame()

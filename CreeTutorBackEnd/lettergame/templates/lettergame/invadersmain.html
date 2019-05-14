@@ -1,20 +1,18 @@
-﻿{% extends 'lettergame/base.html' %}
-{% load static %}
+﻿{% extends 'base.html' %}
+{% load sass_tags %}
 
-	{% block styles %}
-	<link rel="stylesheet" type="text/css" href="{% static 'lettergame/css/style.css' %}" />
- 	<link rel="shortcut icon" href="lettergame/invader" />
-	{% endblock %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% sass_src 'lettergame/scss/lettergame.scss' %}" />
+<link rel="shortcut icon" href="lettergame/invader" />
+{% endblock %}
 
-	{% block content %}
-<div class="gamelinks">
-    <a class="choose" href="{% url 'lettergame:invaders' 'easy' %}">Easy</a>
-    <a class="choose" href="{% url 'lettergame:invaders' 'medium' %}">Medium</a>
-    <a class="choose" href="{% url 'lettergame:invaders' 'hard' %}">Hard</a>
+{% block content %}
+<div class="container">
+    <h3 class="row justify-content-md-center">Choose your difficulty level! </h3>
+    <div class="row justify-content-md-center">
+        <a class="btn btn-primary col-2" href="{% url 'lettergame:invaders' 'easy' %}">Easy</a>
+        <a class="btn btn-primary col-2" href="{% url 'lettergame:invaders' 'medium' %}">Medium</a>
+        <a class="btn btn-primary col-2" href="{% url 'lettergame:invaders' 'hard' %}">Hard</a>
+    </div>
 </div>
-<body>
-    <font size="6" face="Comic Sans MS">
-        <p>Choose your difficulty level! </p>
-</body>
-
-    {% endblock content %}
+{% endblock content %}

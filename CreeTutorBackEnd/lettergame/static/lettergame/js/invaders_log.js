@@ -1,3 +1,6 @@
+// TODO: we can probably delete this because it's now in static/common/js/common.js but leaving for now until we can test to make sure
+
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -29,16 +32,32 @@ $.ajaxSetup({
 
 function postInvaders(){
     // e.preventDefault();
+    let letters = [];
+    let positions = [];
+    let hit = [];
+    for(let i = 0; i < invaders.length; i++){
+        letters.push(invaders[i].children[0].text);
+        pos = Math.floor(invaders[i].x) + "," + Math.floor(invaders[i].y);
+        positions.push(pos)
+        hit.push(invaders[i].hit);
+    }
+
     return $.ajax({
       type:'POST',
       url: "",
       data:{
-        correct: "correct",
-        more: "more"
+        correct: correct,
+        populate: populate,
+        numInvadersLeft: invaders.length,
+        'onScreenLetters[]':letters,
+        'positions[]':positions,
+        'hit[]':hit
       },
         success: function (data) {
           console.log(data)
-        populateInvaders(data['letters'], data['correct'], data['sound']);
+          populateInvaders(data['letters'], data['correct'], data['sound']);
+          // console.log("ya length")
+          // console.log(invaders.length)
         //console.log(data);
       },
       error:function(error){

@@ -1,0 +1,8 @@
+1:audiovisual:yes
+2:audiovisual:no
+3:audio:yes
+4:audio:no
+5:visual:yes
+6:visual:no
+7:dissimilar:yes
+8:dissimilar:no

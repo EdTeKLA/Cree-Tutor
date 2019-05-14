@@ -1,32 +1,32 @@
-	{% extends 'lettergame/base.html' %}
-	{% load static %}
-	{% csrf_token %}
-	{% block styles %}
-	<meta name="csrf-token" />{% csrf_token %}
-	 <link rel="stylesheet" type="text/css" href="{% static 'lettergame/css/gamestyle.css' %}" />
-	 <script src="{% static 'lettergame/js/jquery-3.3.1.min.js' %}"></script>
-	 <script src="{% static 'lettergame/js/logging.js' %}"></script>
+{% extends 'base.html' %}
+{% load static %}
 
-  {% endblock %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'lettergame/css/gamestyle.css' %}" />
+{% endblock %}
 
-	{% block content %}
+{% block scripts %}
+<script src="{% static 'lettergame/js/logging.js' %}"></script>
+{% endblock %}
 
-    <div class="game_div">
+{% block content %}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-4">
+            <audio controls controlsList="nodownload" id="aud">
+                <source src="{% static ''%}{{sound}}" type="audio/wav" id="sound">
+                Your browser does not support the sound type
+            </audio>
+            <input type="hidden" id="correct_r" name= "correct_r" value="{{ correct }}" />
+            <form id="game_ans">
+                {% for letter in letters %}
+                    <input id="letter-{{ letter }}" type="radio" name= "user_r" value="{{ letter }}" required/>
+                    <label for="letter-{{ letter }}">{{ letter }}</label><br class="choice_button"/>
+                {% endfor %}
+                <input class="btn btn-primary" id="sub" type="submit" value="submit"/>
+            </form>
+        </div>
 
-    	<audio controls controlsList="nodownload" id="aud">
-				<source src="{% static ''%}{{sound}}" type="audio/wav" id="sound">
-					Your browser does not support the sound type
-			</audio>
-			<input type="hidden" id="correct_r" name= "correct_r" value="{{ correct }}" />
-    	<form id="game_ans" class="option" >
-         {% for letter in letters %}
-					<input class="choice_button" type="radio" name= "user_r" value="{{ letter }}" required/>
-					<label class ="choice_button" for="{{ letter }}">{{ letter }}</label><br class="choice_button"/>
-			   {% endfor %}
-
-         <input id="sub" class="choice_button" type="submit" value="submit"/>
-		  </form>
-		 </div>
-	{% endblock content %}
-
-</html>
+    </div>
+</div>
+{% endblock content %}

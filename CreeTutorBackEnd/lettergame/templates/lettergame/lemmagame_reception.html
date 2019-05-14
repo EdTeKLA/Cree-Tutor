@@ -1,9 +1,8 @@
-{% extends 'lettergame/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% csrf_token %}
 {% block styles %}
 <meta name="csrf-token" />{% csrf_token %}
- <link rel="stylesheet" type="text/css" href="{% static 'lettergame/css/gamestyle.css' %}" />
  <script src="{% static 'lettergame/js/jquery-3.3.1.min.js' %}"></script>
  <script src="{% static 'lettergame/js/logging.js' %}"></script>
 

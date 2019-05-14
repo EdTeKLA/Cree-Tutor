@@ -17,6 +17,12 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
+    path('', include('login.urls')),
     path('lettergame/', include('lettergame.urls')),
     path('admin/', admin.site.urls),
+    path('', include('django.contrib.auth.urls')),
+    path('errorpages/', include('errorpages.urls')),
 ]
+
+handler404 = 'errorpages.views.view_404'
+handler500 = 'errorpages.views.view_500' 
