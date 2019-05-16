@@ -119,15 +119,9 @@ function modifyForm(formID, data){
     var correct = document.getElementById("correct_r");
     correct.setAttribute("value", data['correct']);
 
-    // All of the children of the form in game.html have the id sub. Delete them
-    // $("#sub").remove();
+    // All of the children of the form in game.html have the class 'choice_button'. Delete them
+    $(".choice_button").remove();
     var form = document.getElementById(formID);
-
-    // Remove the last choices
-    var elements = $(".choice_button")
-    for (var i = 0, i < elements.length; i++){
-        elements[i].remove()
-    }
 
     // Update the src path of the audio file and load the new audio file
     var audio = document.getElementById("aud");
@@ -137,7 +131,7 @@ function modifyForm(formID, data){
     audio.load();
 
     // Create the new radio options
-    for(var i = 0, l = data['letters'].length; i < l; i++) {
+    for(var i = 0, l = data['letters'].length; i < l; i++){
         var datum = data['letters'][i];
         var rad = document.createElement("INPUT");
         rad.setAttribute("type", "radio");
@@ -158,8 +152,7 @@ function modifyForm(formID, data){
 
     //Re-create the new submit button
     var sub = document.createElement("INPUT");
-    sub.setAttribute("id", "sub")
-    sub.setAttribute("class","choice_button btn btn-primary");
+    sub.setAttribute("class","choice_button");
     sub.setAttribute("type", "submit");
     sub.setAttribute("value","submit");
     form.appendChild(sub);
