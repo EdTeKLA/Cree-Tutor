@@ -508,7 +508,7 @@ def main():
     cycleLetters(alphabet)
     cycleSound(sound)
 
-    addLemmaGames()
+    # addLemmaGames()
 
 
     db.commit()
