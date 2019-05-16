@@ -152,7 +152,7 @@ function modifyForm(formID, data){
 
     //Re-create the new submit button
     var sub = document.createElement("INPUT");
-    sub.setAttribute("class","choice_button");
+    sub.setAttribute("class","btn btn-primary choice_button");
     sub.setAttribute("type", "submit");
     sub.setAttribute("value","submit");
     form.appendChild(sub);
