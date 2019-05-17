@@ -4,10 +4,11 @@ from django.views.generic.base import RedirectView
 from lettergame.view_helper import *
 from time import gmtime, strftime
 from django.http import HttpResponse
+from django.views.generic.base import TemplateView
 
 # Create your views here.
-class Home(RedirectView):
+class Home(TemplateView):
     """
     Class was created to render and return the main page for games.
     """
-    pattern_name = 'login:index'
+    template_name = 'home/index.html'

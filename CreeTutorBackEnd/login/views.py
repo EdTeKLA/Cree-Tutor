@@ -29,7 +29,7 @@ class Login(View):
         """
         # If the user is authenticated, send them to the homepage
         if request.user.is_authenticated:
-            return HttpResponseRedirect(reverse('lettergame:index'))
+            return HttpResponseRedirect(reverse('home:index'))
         else:
             # Otherwise render a login/signup page
             return render(request, 'login/index.html')
@@ -132,7 +132,7 @@ class SignIn(View):
             # If user found, redirect to the homepage
             if user is not None:
                 login(request, user)
-                context = {'redirect': '/lettergame'}
+                context = {'redirect': '/'}
                 return JsonResponse(context)
             else:
                 # Try to get the user obejct using the email
@@ -214,7 +214,7 @@ class SubmitIntake(View):
         """
         Just redirects the user. When actaully saving data, use post NOT get.
         """
-        context = {'redirect': '/lettergame'}
+        context = {'redirect': '/'}
         return JsonResponse(context)
 
 def intake(request):
