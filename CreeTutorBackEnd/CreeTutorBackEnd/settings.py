@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'errorpages.apps.ErrorpagesConfig',
+    'home.apps.HomeConfig',
     'login.apps.LoginConfig',
     'lettergame.apps.LettergameConfig',
     'shadowing.apps.ShadowingConfig',

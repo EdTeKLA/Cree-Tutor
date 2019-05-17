@@ -4,7 +4,6 @@ from . import views
 app_name = 'lettergame'
 
 urlpatterns = [
-    path('', views.Index.as_view(), name='index'),
     path('invaders/<str:level>/', views.Invaders.as_view(), name="invaders"), # url path to invaders game
     path('introsound/<str:game>/', views.WhichGame.as_view(), name="whichGame"), # url path to choose level of difficulty for letter games
     path('introsound/<str:game>/<str:level>', views.LetterGames.as_view(), name="letterGames"), # url path to letter games

@@ -41,7 +41,7 @@
 <body>
     <nav class="navbar navbar-dark bg-tertiary navbar-expand-lg">
         {% if user.is_authenticated %}
-        <a class="navbar-brand" href="{% url 'lettergame:index' %}">Cree Tutor</a>
+        <a class="navbar-brand" href="{% url 'home:index' %}">Cree Tutor</a>
         {% else %}
         <a class="navbar-brand" href="#" onclick="return false;">Cree Tutor</a>
         {% endif %}

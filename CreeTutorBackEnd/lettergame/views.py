@@ -14,11 +14,6 @@ from django.views.generic.base import TemplateView
 from lettergame.view_helper import *
 from time import gmtime, strftime
 
-class Index(TemplateView):
-    """
-    Class was created to render and return the main page for games.
-    """
-    template_name = 'lettergame/index.html'
 
 class WhichGame(View):
     """
