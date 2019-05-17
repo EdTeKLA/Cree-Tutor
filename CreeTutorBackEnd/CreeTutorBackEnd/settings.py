@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'errorpages.apps.ErrorpagesConfig',
     'login.apps.LoginConfig',
     'lettergame.apps.LettergameConfig',
+    'shadowing.apps.ShadowingConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
