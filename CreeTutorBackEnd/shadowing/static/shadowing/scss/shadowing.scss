@@ -151,3 +151,13 @@ select.dropdown {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
+
+.hide {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+}
+
+.large-padding {
+  padding: 15px;
+}
