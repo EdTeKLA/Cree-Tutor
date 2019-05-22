@@ -56,6 +56,7 @@ def savePostStats(request, option, whichStats, stats, whichDist, level):
     """
 
     answer = stats() # stats is either the class SingleLetterStats or DoubleLetterStats
+    print(answer)
     # retreive posted data
     user_response = request.POST['user_r']
     correct_response = request.POST['correct_r']

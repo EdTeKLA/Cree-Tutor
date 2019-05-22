@@ -1,5 +1,5 @@
-var startTime = undefined
-var endTime = undefined
+var startTime = undefined;
+var endTime = undefined;
 var hoveredArr = [];
 var startHover = undefined;
 var endHover = undefined;
@@ -9,8 +9,6 @@ var distractors;
 $(window).on("load", function(e){
     // Onload, function sets StartTime to when the user started looking at this page
     startTime = getTime();
-    // gets list of distractors for later post-ing
-    getDistractors();
     return;
 });
 
@@ -20,7 +18,7 @@ function getTime(){
     wT = new Date();
     // console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
     whichTime = wT.toISOString();
-    console.log(whichTime);
+    // console.log(whichTime);
     return whichTime;
 }
 
@@ -35,6 +33,7 @@ function getDistractors(){
             distractors.push(letters[i].value);
         }
     }
+    // console.log(distractors);
     return;
 }
 
@@ -53,42 +52,8 @@ $('body').on('mouseout', 'input[type=radio]', function(){
     return;
 });
 
-// TODO: we can probably delete this because it's now in static/common/js/common.js but leaving for now until we can test to make sure
-//----------- The following code for acquiring the CSRF token was taken directly from https://docs.djangoproject.com/en/2.1/ref/csrf/
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-var csrftoken = getCookie('csrftoken');
-
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-
-
-$.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        }
-    }
-});
-//----------------------
-
 $(document).on('submit', '#game_ans', function(e){
+    getDistractors();
     e.preventDefault();
     endTime = getTime();
 
@@ -114,7 +79,7 @@ $(document).on('submit', '#game_ans', function(e){
 
 
 function modifyForm(formID, data){
-
+    console.log("modifyForm");
     // Update the correct response
     var correct = document.getElementById("correct_r");
     correct.setAttribute("value", data['correct']);

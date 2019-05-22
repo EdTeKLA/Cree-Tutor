@@ -13,6 +13,7 @@
 //$smoky-black:         #170F09 !default;
 
 $snow:                #F5F5F5 !default;
+$gray: #d6d6d6 !default;
 $dark-blue:           #031B4D !default;
 $green:               #0BB763 !default;
 $red:                 #F24343 !default;
@@ -20,10 +21,11 @@ $white:               #FFFFFF !default;
 $darker-blue:         #172B25 !default;
 $smoky-black:         #170F09 !default;
 
+$default:       $smoky-black !default;
 $primary:       $green !default;
 $secondary:     $dark-blue !default;
 $tertiary:      $dark-blue !default;
-$success: $darker-blue !default;
+$success:       $darker-blue !default;
 $info:          $dark-blue !default;
 $warning:       $dark-blue !default;
 $danger:        $red !default;
@@ -31,15 +33,16 @@ $light:         $snow !default;
 $dark:          $smoky-black !default;
 
 $theme-colors: (
-  "primary":    $primary,
-  "secondary":  $secondary,
-  "tertiary":   $tertiary,
-  "success":    $success,
-  "info":       $info,
-  "warning":    $warning,
-  "danger":     $danger,
-  "light":      $light,
-  "dark":       $dark
+        "primary":    $primary,
+        "default":    $gray,
+        "secondary":  $secondary,
+        "tertiary":   $tertiary,
+        "success":    $success,
+        "info":       $info,
+        "warning":    $warning,
+        "danger":     $danger,
+        "light":      $light,
+        "dark":       $dark,
 );
 
 // Body
