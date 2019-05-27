@@ -50,9 +50,7 @@ class Shadowing(View):
             # empty line
             # If empty line, finished, move on to next set
             # DO NOT CHANGE THE ORDER OF FIRST TWO!!!
-            if line == "SIG_TERM":
-                break
-            elif re.match('\d{2}:\d{2}:\d{2}[,.]\d{3} --> \d{2}:\d{2}:\d{2}[,]\d{3}', line):
+            if re.match('\d{2}:\d{2}:\d{2}[,.]\d{3} --> \d{2}:\d{2}:\d{2}[,]\d{3}', line):
                 current_sentence['time'] = line.strip().split(" --> ")
             elif re.match('(\d+)\n', line):
                 current_sentence['ln'] = line.strip()

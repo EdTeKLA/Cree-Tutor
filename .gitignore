@@ -48,3 +48,4 @@ CreeTutorBackEnd/lettergame/static/lettergame/sound
 
 # VirtualEnv folder #
 env/
+.idea/workspace.xml

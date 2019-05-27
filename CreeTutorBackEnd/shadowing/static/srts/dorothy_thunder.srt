@@ -12,7 +12,7 @@ aya Dorothy Thunder nitisiyihkâson
 
 5
 00:00:20,100 --> 00:00:24,000
-o tân'te ohci   aya minahikosihk ohci niya
+o tân'te ohci aya minahikosihk ohci niya
 
 6
 00:00:24,000 --> 00:00:25,500
@@ -24,7 +24,7 @@ ekota nîsta namoya osâm wahyaw kîskihkomâninâhk nîya ohci
 
 8
 00:00:29,555 --> 00:00:32,595
-oh  ekwa awîna kinîkihikwak
+oh ekwa awîna kinîkihikwak
 
 10
 00:00:33,000 --> 00:00:36,500
@@ -36,7 +36,7 @@ ekwa nohtâwîpan kîhisiyihkâsow Hubert Thunder
 
 13
 00:00:40,575 --> 00:00:43,575
-oh  kîya mâka  nîsta aniki
+oh kîya mâka nîsta aniki
 
 14
 00:00:43,575 --> 00:00:47,065
@@ -68,7 +68,7 @@ tân'si kesimasinahamân
 
 21
 00:01:03,105 --> 00:01:06,065
-mmm miywâsin    ekosi anima
+mmm miywâsin ekosi anima
 
 22
 00:01:06,065 --> 00:01:08,657
@@ -76,7 +76,7 @@ toni mâka metoni nîsta ehâhkameyihtamân
 
 23
 00:01:08,657 --> 00:01:11,291
-mmhmm  kakwenisitohtamân  ekosi mâka
+mmhmm kakwenisitohtamân ekosi mâka
 
 24
 00:01:11,291 --> 00:01:14,505
@@ -88,4 +88,4 @@ tâp'we mâka kâmiywâsin mâka
 
 26
 00:01:17,075 --> 00:01:20,035
-ekosi    ekosi mâka  miywâsin
+ekosi ekosi mâka miywâsin

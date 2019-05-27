@@ -73,7 +73,6 @@ function microphoneLevels(callback){
 function makePlayActive(baselineStatus, downloadStatus, audio, callback){
     // Check if both the required components have finished work
     if (baselineStatus && downloadStatus && audio != null) {
-        console.log(123);
         $('#loading-spinner').remove();
         $('#play-button').removeClass("hide");
         callback();
