@@ -93,9 +93,10 @@ function highLightActiveWord(audio, time_stamped_words) {
                 break;
             }
         }
-    } else if (audio.currentTime == audio.duration){
+    } else if (audio.currentTime >= audio.duration){
         // If the current time is equal to the end time.
         $(".shadowing_word_span").css('color', '#000000');
+        $("#finished_button").removeClass("hide")
     }
 }
 

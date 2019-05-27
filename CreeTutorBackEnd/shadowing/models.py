@@ -22,9 +22,24 @@ class AudioAndSubtitleFilesForShadowing(models.Model):
     min = models.FloatField(default=default_for_stats)
     max = models.FloatField(default=default_for_stats)
     words_per_minute = models.FloatField(default=default_for_stats)
-    characters_per_minute = models.FloatField(default=default_for_stats)
+    chars_per_minute = models.FloatField(default=default_for_stats)
     number_of_words = models.IntegerField(default=default_for_stats)
-    number_of_characters = models.IntegerField(default=default_for_stats)
+    number_of_chars = models.IntegerField(default=default_for_stats)
     
     class Meta:
         db_table = "audio_and_subtitle_files_for_shadowing"
+
+class ShadowingUserStats:
+    pass
+
+class ShadowingLogStorySelection:
+    pass
+
+class ShadowingLogPlayPause:
+    pass
+
+class ShadowingLogFinished:
+    pass
+
+class ShadowingLogAnswers:
+    pass

@@ -41,9 +41,9 @@ class SRTFileStatistics:
             'min': np.min(words_len),
             'max': np.max(words_len),
             'words_per_minute': len(words)/(total_time/60),
-            'characters_per_minute': np.sum(words_len)/(total_time/60),
+            'chars_per_minute': np.sum(words_len)/(total_time/60),
             'number_of_words': len(words),
-            'number_of_characters': np.sum(words_len)
+            'number_of_chars': np.sum(words_len)
         }
 
         return stats

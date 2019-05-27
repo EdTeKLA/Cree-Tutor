@@ -8,6 +8,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 
 class Index(View):
     """
+    Renders and shows the list of stories in the db.
     """
     def get(self, request):
         all_stories = AudioAndSubtitleFilesForShadowing.objects.all()
@@ -18,6 +19,7 @@ class Index(View):
 
 class Shadowing(View):
     """
+    Class was created to render the shadowing page where the story is displayed.
     """
     def get(self, request, story_index):
         try:
@@ -103,3 +105,16 @@ class Shadowing(View):
             int(time_comps[0]) * 3600 + int(time_comps[1]) * 60 + int(time_comps[2])
         ) * 1000 + int(time_comps[3])
         return time
+
+
+class ShadowingQuestions:
+    """
+    Renders the answers.
+
+    Saves the logs for how the person answered and updates the values of what where they score is.
+    """
+    def get(self, request):
+        all_stories = AudioAndSubtitleFilesForShadowing.objects.all()
+        context = { "all_stories": all_stories}
+
+        return render(request, 'shadowing/index.html', context)
