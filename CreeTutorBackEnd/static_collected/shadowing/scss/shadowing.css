@@ -1,14 +1,8 @@
-// Hidden elements
-
 #signup-form {
-  display: none;
-}
+  display: none; }
 
 .hidden {
-  display: none;
-}
-
-// Login Page CSS
+  display: none; }
 
 /*
  * This is to mimic the spacing in the .form-group bootstrap styling and the
@@ -16,103 +10,70 @@
  */
 .form-field-message {
   padding-bottom: 1rem;
-  margin-top: -1rem;
-
+  margin-top: -1rem; }
   @media screen and (min-width: 992px) {
-    .form-field-message {
+    .form-field-message .form-field-message {
       padding-top: 30px;
       padding-bottom: 30px;
       padding-left: 0;
-      line-height: 38px;
-    }
-  }
-}
+      line-height: 38px; } }
 
-// Profile Page CSS
+#profile-page-navigation .dropdown {
+  display: none; }
 
-#profile-page-navigation {
-  .dropdown {
-    display: none;
-  }
-
-  @media screen and (max-width: 991px) {
-    .list-group {
-      display: none;
-    }
-
-    .dropdown {
-      display: inline-block;
-    }
-  }
-}
-
-// Spacing
+@media screen and (max-width: 991px) {
+  #profile-page-navigation .list-group {
+    display: none; }
+  #profile-page-navigation .dropdown {
+    display: inline-block; } }
 
 .panel-heading .nav a {
   text-align: center;
-  font-size: 1.2em;
-
-  &.active {
-    font-weight: bold;
-  }
-}
+  font-size: 1.2em; }
+  .panel-heading .nav a.active {
+    font-weight: bold; }
 
 .form-message {
-  padding-bottom: 1rem;
-}
+  padding-bottom: 1rem; }
 
 .profile-section {
-  margin: 1em;
-
-  .list-group .list-group-item {
-    border: none;
-  }
-}
-
-// Intake form CSS
+  margin: 1em; }
+  .profile-section .list-group .list-group-item {
+    border: none; }
 
 .input-group {
-  margin-bottom: .5rem;
-}
+  margin-bottom: .5rem; }
 
 .help-text {
   overflow-y: hidden;
   max-height: 100px;
   transition-property: all;
   transition-duration: .75s;
-  transition-timing-function: cubic-bezier(0.5, 1, 0.5, 1);
-
-  &.closed {
-    max-height: 0;
-  }
-}
+  transition-timing-function: cubic-bezier(0.5, 1, 0.5, 1); }
+  .help-text.closed {
+    max-height: 0; }
 
 .custom-tooltip {
   background: transparent;
   border: 0;
-  border-radius: 1em;
-}
+  border-radius: 1em; }
 
 .dropdown-wrap {
   height: 40px;
   border: 0;
   overflow: hidden;
   position: relative;
-  width: 100px;
-
+  width: 100px; }
   @media screen and (min-width: 481px) {
-    width: 125px;
-  }
-
+    .dropdown-wrap {
+      width: 125px; } }
   @media screen and (min-width: 769px) {
-    width: 175px;
-  }
-
+    .dropdown-wrap {
+      width: 175px; } }
   @media screen and (min-width: 992px) {
-    width: 200px;
-  }
-
-  &::before {
+    .dropdown-wrap {
+      width: 200px; } }
+  .dropdown-wrap::before {
     content: attr(data-content);
     position: absolute;
     top: 0;
@@ -123,11 +84,9 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    pointer-events: none;
-  }
-
-  &::after {
-    content:"\f107 ";
+    pointer-events: none; }
+  .dropdown-wrap::after {
+    content: "\f107 ";
     font-family: "Font Awesome\ 5 Free";
     font-weight: 900;
     position: absolute;
@@ -136,9 +95,7 @@
     line-height: 40px;
     padding-right: 10px;
     z-index: 1;
-    pointer-events: none;
-  }
-}
+    pointer-events: none; }
 
 select.dropdown {
   color: transparent;
@@ -149,5 +106,17 @@ select.dropdown {
   border-radius: 0;
   width: inherit;
   -webkit-appearance: none;
-  -moz-appearance: none;
-}
+  -moz-appearance: none; }
+
+.hide {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important; }
+
+.large-button-padding {
+  padding: 15px; }
+
+.very-large-button-padding {
+  padding: 19px 32px 19px 32px; }
+
+/*# sourceMappingURL=shadowing.css.map */

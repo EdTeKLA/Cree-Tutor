@@ -6,27 +6,34 @@
 {% endblock %}
 
 {% block scripts %}
+<script>
+    var audioFileLocation = '{% static ''%}{{sound}}';
+</script>
 <script src="{% static 'lettergame/js/logging.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="row justify-content-md-center">
-        <div class="col-4">
-            <audio controls controlsList="nodownload" id="aud">
-                <source src="{% static ''%}{{sound}}" type="audio/wav" id="sound">
-                Your browser does not support the sound type
-            </audio>
-            <input type="hidden" id="correct_r" name= "correct_r" value="{{ correct }}" />
-            <form id="game_ans">
-                {% for letter in letters %}
-                    <input class="choice_button" id="letter-{{ letter }}" type="radio" name= "user_r" value="{{ letter }}" required/>
-                    <label class="choice_button" for="letter-{{ letter }}">{{ letter }}</label><br class="choice_button"/>
-                {% endfor %}
-                <input class="choice_button btn btn-primary" id="sub" type="submit" value="submit"/>
-            </form>
-        </div>
+    <div class="row">
+        <div class="col-centered">
+            <button id="speaker-button" class="btn btn-primary nav-link btn-lg btn-sq" data-toggle="tooltip" data-placement="right" title="Click to play">
+                <img id="speaker-button-img" class="largest-button-padding" src="{% static 'lettergame/image/speaker_button.png' %}" />
+            </button>
 
+            <h2 class="text-center">Select the answer:</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-centered">
+            <span id="buttons_for_answers">
+                <form id="game_ans">
+                    <input type="hidden" id="correct_r" name= "correct_r" value="{{ correct }}" />
+                    {% for letter in letters %}
+                        <input class="btn btn-default m-3 pl-5 pr-5 submit_answer" type="submit" value={{letter}}>
+                    {% endfor %}
+                </form>
+            </span>
+        </div>
     </div>
 </div>
 {% endblock content %}
