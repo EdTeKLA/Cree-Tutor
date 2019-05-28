@@ -35,8 +35,10 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'errorpages.apps.ErrorpagesConfig',
+    'home.apps.HomeConfig',
     'login.apps.LoginConfig',
     'lettergame.apps.LettergameConfig',
+    'shadowing.apps.ShadowingConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -176,6 +178,8 @@ LOGIN_URL = '/login/'
 NO_LOGIN_URL = [
     r'signin/',
     r'signup/',
+    r'password_reset/',
+    r'reset/',
     r'confirm_email',
     r'activate_user_account',
 ]

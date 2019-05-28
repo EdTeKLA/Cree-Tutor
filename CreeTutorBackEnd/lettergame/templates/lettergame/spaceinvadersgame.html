@@ -1,5 +1,6 @@
 <!doctype html>
 {% load static %}
+{% csrf_token %}
 <html>
 <head>
 
@@ -7,14 +8,24 @@
 	<title>Space Invader !!</title>
 	<style>
 	body {
-		background-color: #BBc9b3;
+		background-color: #171515;
+	}
+	.osc-region {
+		background-color: grey;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0 auto;
+	}
+	.osc-btn {
+		background: white;
 	}
 	</style>
 	<!--  for when we have an icon -->
 	<link rel="shortcut icon" href="favicon.ico" />
 </head>
 
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://pixijs.download/release/pixi.min.js"></script>
 <script src="{% static 'lettergame/js/pixi.min.js' %}"></script>
 <script src="{% static 'lettergame/js/jquery-3.3.1.min.js' %}"></script>
@@ -25,11 +36,11 @@
 
 <body>
 
-	<font size="6" color="white" face="arial">
+	<!-- <font size="6" color="white" face="arial">
 		<center>
 			<p>space invaders and it kinda works now! >:^) </p>
 		</center>
-	</font>
+	</font> -->
 
 
 	<center>
@@ -50,9 +61,14 @@
 		*/
 
 		//max width for window size takes largest number between browser automated width and 500
+
 		let w = Math.max(window.innerWidth * 0.6, 500);
+		w = Math.min(w, 1000);
 		//genBoundaries are used to determine stage size and contain sprites
 		let genBoundaries = { width: w, height: 500 };
+
+		PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+
 		//stage, with boundaries based on max and browser size, app is called when anything is related to the stage
 		var app = new PIXI.Application(genBoundaries.width, genBoundaries.height, false, false);
 
@@ -81,6 +97,7 @@
 		.add("{% static 'lettergame/image/invadershot2.png' %}")
 		.add("{% static 'lettergame/image/bg.png' %}")
 		.add("{% static 'lettergame/image/invaderR3.png'%}")
+		.add("{% static 'lettergame/image/correct.png'%}")
 		//calls function 'setup'
 		.load(boundaries)
 		.load(setup);
@@ -94,8 +111,11 @@
 		let incorrArr = [];
 		let level = "{{level}}";
 
-		var text, audio, gamesBar;
+		var text, audio, gamesBar, empty;
 		var invaders = [];
+		var corrects = [];
+		var hit = null;
+		var populate = "false";
 		var invaderBoundaries = genBoundaries.height + 30;
 
 		/*This function Creates start screen, fades out game with black rectangle
@@ -132,14 +152,14 @@
 				startBox.addChild(start);
 
 				if (startEnd[i] === 'start' || startEnd[i] === 'try again'){
-					startBox.on('click', onClick);
+					startBox.on('pointerdown', onClick);
 				}else if(startEnd[i] === 'instructions'){
-					startBox.on('click', onClick);
+					startBox.on('pointerdown', onClick);
 				}else if(startEnd[i] === 'quit'){
-					startBox.on('click', leaveGame);
+					startBox.on('pointerdown', leaveGame);
 				}
 				else if(startEnd[i] ==='next level'){
-					startBox.on('click', nextLevel);
+					startBox.on('pointerdown', nextLevel);
 				}
 				startOptions.addChild(startBox);
 				prevPos = start.width + 30;
@@ -167,7 +187,7 @@
 		}
 
 		function leaveGame(){
-			window.location.href = '/lettergame/invaderslevel';
+			window.location.href = '/lettergame/invadersgame';
 			return;
 		}
 		function nextLevel(){
@@ -180,11 +200,13 @@
 		}
 		/*This code creates green background, fading to darker as screen goes higher
 		with slowly more opacity in black rectangles
-		creates bottom geass line
+		creates bottom grass line
 		*/
 		function boundaries() {
+			console.log("Height:")
+			console.log(Math.floor(genBoundaries.height/50))
 			//-------------------  creates background green
-			let bg = 12,
+			let bg = Math.floor(genBoundaries.height/50),
 			bgs = [];
 			for (let i = 0; i < bg; i++) {
 				let backGrass = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bg.png' %}"].texture);
@@ -236,7 +258,7 @@
 			- creates new sound, letter, correct values from backend
 			- creates and places bullet on stage
 			- creates and places infoBar (with health and points) on stage
-			- calls populateInvaders at beginninf of game
+			- calls populateInvaders at beginning of game
 			- calls setKeyActions for keyboard commands
 			- calls state and gameLoop to set play
 		*/
@@ -336,8 +358,30 @@
 
 			app.stage.addChild(gamesBar);
 			let startEnd = ['start', 'instructions', 'quit'];
-		    startScreen(startEnd);
-			setKeyActions();
+			startScreen(startEnd);
+
+			// set width of on screen controls region
+			if (document.querySelector(".osc-region")) {
+				document.querySelector(".osc-region").style.width = w + "px";
+			};
+
+			// disable zoom on double taps
+			$('.no-zoom').bind('touchend', function(e) {
+				e.preventDefault();
+				$(this).click();
+			})
+
+			// disable context menu on long presses
+			window.oncontextmenu = function() { return false; }
+
+			var keyboardController = new KeyboardController();
+			var onScreenController = new OnScreenController();
+
+			// set keyboard controls
+			setKeyActions(keyboardController);
+
+			// set on screen controls
+			setKeyActions(onScreenController);
 
 			//Set the game state
 			//call function 'play'
@@ -384,6 +428,59 @@
 			window.addEventListener("keyup", key.upHandler.bind(key), false);
 			return key;
 		}
+
+		// on screen controls
+		// up & downHandler: event handlers that set the isDown/isUp flags
+		// when the respective event happens for the given button.
+		function onScreenControls(buttonID) {
+			let btn = {};
+			btn.el = document.querySelector(buttonID);
+			btn.isDown = false;
+			btn.isUp = true;
+			btn.press = undefined;
+			btn.release = undefined;
+
+			//The `downHandler`
+			btn.downHandler = event => {
+				if (btn.isUp && btn.press) btn.press();
+				btn.isDown = true;
+				btn.isUp = false;
+				event.preventDefault();
+			};
+
+			//The `upHandler`
+			btn.upHandler = event => {
+				if (btn.isDown && btn.release) btn.release();
+				btn.isDown = false;
+				btn.isUp = true;
+				event.preventDefault();
+			};
+
+			//Attach event listeners
+			btn.el.addEventListener("pointerdown", btn.downHandler.bind(btn), false);
+			btn.el.addEventListener("pointerup", btn.upHandler.bind(btn), false);
+			return btn;
+		}
+
+		function GameController() {
+
+		}
+
+		function KeyboardController() {
+			this.left = keyboard(37);
+			this.shoot = keyboard(32);
+			this.right = keyboard(39);
+		}
+		KeyboardController.prototype = new GameController();
+
+		function OnScreenController() {
+			this.left = onScreenControls("#osc-left");
+			this.shoot = onScreenControls("#osc-shoot");
+			this.right = onScreenControls("#osc-right");
+		}
+		OnScreenController.prototype = new GameController();
+
+
 		/*function sets gameLoop*/
 		function gameLoop(delta) {
 			//function will update the current game state:
@@ -405,11 +502,14 @@
 		*/
 		function play(delta) {
 			//------------------- plays audio every 2 seconds
+
 			if (wait(2000, audio) === true) {
 				audio.play();
 				audio.time = new Date().getTime();
 			}
 			//-------------------
+
+			fadeCorrect();
 
 			//------------------- Checks if shooter has hit boundary and moves it accordingly
 			let shooter1Hit;
@@ -428,6 +528,11 @@
 			//checks through invader and bullet array to see if any have interacted
 			checkHit();
 
+			if (wait(500, empty) === true) {
+				sparseStage(false, 0);
+				empty.time = new Date().getTime();
+			}
+
 			//creates 'pow' image and deletes it after half a second
 			goodbye_pow = [];
 			for (let i = 0, l = pow_array.length; i < l; i += 1) {
@@ -441,6 +546,7 @@
 			arraySplice(bullets, hitInvader);
 			arraySplice(invaders, gotHit);
 			arraySplice(pow_array, goodbye_pow);
+
 
 			//-------------------for loop iterates through all bullets in array and checks if any have hit the top, if so removes them from array, else creates their velocity
 			out_of_bounds = [];
@@ -477,6 +583,43 @@
 			}
 			//-------------------
 }
+
+function fadeCorrect(){
+	let splicem = [];
+	for (i = 0; i < corrects.length; i++){
+		console.log(correct[i].alpha);
+		corrects[i].alpha -= 1/60;
+		corrects[i].alpha = Math.max(corrects[i].alpha, 0);
+		if (corrects[i].alpha == 0){
+			splicem.push(i);
+			app.stage.removeChild(corrects[i]);
+		}
+	}
+	if (corrects.length > 0 && splicem.length > 0){
+		arraySplice(corrects, splicem);
+	}
+
+}
+
+/*
+*
+*/
+function sparseStage(hit, num){
+	if (level === 'easy') {
+		invaderLimit = 3;
+	} else if (level === 'medium') {
+		invaderLimit = 4;
+	} else if (level === 'hard') {
+		invaderLimit = 4;
+	}
+	if ((invaders.length <= invaderLimit && hit == true) || invaders.length == 0){
+		populate = "true";
+		postInvaders();
+		populate = "false";
+	}
+}
+
+
 /*function gives objects boundaries within the game, contains sprite to
 certain parameters to within or off stage
 */
@@ -596,12 +739,18 @@ creates text and attaches it to invader thru parent child relationship
 adds invader to array
 */
 function populateInvaders(options, correc, sound) {
+	let onScreen = invaders.length
+	console.log(onScreen);
 	correct = correc;
 	s = "{% static '' %}" + sound;
+	empty = new Audio(s); // Hack fix
+	empty.time = new Date().getTime();
+
 	audio = new Audio(s);
+	audio.mute = false;
 	audio.time = new Date().getTime();
 	audio.play();
-	console.log(correct)
+	// console.log(correct)
 	// c = "{% static '' %}" + correct;
 	// correct = new String(c);
 	invadershot = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invadershot2.png' %}"].texture);
@@ -610,32 +759,44 @@ function populateInvaders(options, correc, sound) {
 	//spacing = 30;
 
 	if (level === 'easy') {
-		speed = 3;
+		speedx = genBoundaries.width * 0.003;
+		speedy = .75;
 		spacing = 70;
 		xOffset = 0;
-	} else if (level === 'med') {
-		speed = 1.25;
+	} else if (level === 'medium') {
+		speedx = genBoundaries.width * 0.0035;
+		speedy = 0.5;
 		spacing = 50;
 		xOffset = 0;
 	} else if (level === 'hard') {
-		speed = 1.5;
+		speedx = genBoundaries.width * 0.0035;
+		speedy = 0.75;
 		spacing = 30;
 		xOffset = -10;
 	}else{
 		console.log("ERROR: Level not properly passed in spaceinvadersgame.html, lines 262 - 274");
 	}
 	direction = 1;
+	if(Math.random() >= 0.5){
+		direction = -1;
+	}
 
 	barIndex = app.stage.getChildIndex(gamesBar);
 	for (let i = 0; i < numofInvaders; i++) {
 		invader = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/invader3.png' %}"].texture);
 
-		let x = spacing * i + xOffset;
-		let y = -30 * i;
+		invader.width = genBoundaries.width / 20;
+		invader.height = genBoundaries.width / 20;
+		invader.hit = "false";
+
+		let x = Math.floor((Math.random() * genBoundaries.width) + 1);
+		x = x % genBoundaries.width;
+		let y = -40 * i;
 		invader.x = x;
 		invader.y = y;
-
-		invader.vx = speed * direction;
+		invader.vy = speedy;
+		invader.vx = speedx;
+		// invader.vx *= direction;
 		// direction *= -1;
 		var style = new PIXI.TextStyle({
 			fontFamily: 'Arial',
@@ -663,18 +824,18 @@ function populateInvaders(options, correc, sound) {
 		//add invader to stage
 		app.stage.addChildAt(invader, barIndex - 1);
 	}
-	setPosition();
+	setPosition(onScreen);
 
 }
 
 /*Function sets boundaries and speed fir each invader basedon
 level, amount of invaders and how many columns per invader
 */
-function setPosition() {
+function setPosition(onScreen) {
 
 	if (level === 'easy') {
 		invaderLimit = 3;
-	} else if (level === 'med') {
+	} else if (level === 'medium') {
 		invaderLimit = 4;
 	} else if (level === 'hard') {
 		invaderLimit = 5;
@@ -684,20 +845,23 @@ function setPosition() {
 		j = i % invaderLimit;
 		s = genBoundaries.width / (invaderLimit);
 		let Width = ((j) * s) + s;
-		let x = (j) * s + 20;
-		invaders[i].leftBound = x;
 		invaders[i].widthBound = Width;
 		//let invaderhitsWall = contain(invaders[i], { x: x, y: -50, width: Width, height: invaderBoundaries });
 		for (let j = 0; j < invaders.length; j++) {
 			// if checks if invaders have save x value, if they do then it may be required to shoot the wrong deer to shoot
 			// the correct deer, which is bad :(
-			if (invaders[i].x === invaders[j].x && i != j) {
-				invaders[i].x += 20;
-			}
-			// BUGFIX: When 2 invaders left the screen at the same time, the wrong invaders were taken from the invader array, so
-			// now they can't leave at the same time
-			if (invaders[i].y === invaders[j].y && i != j) {
-				invaders[i].y -= 5;
+			if (i >= onScreen){
+				if ((Math.abs(invaders[i].x - invaders[j].x) < 50) && i != j) {
+						console.log(invaders[i].children[0])
+						console.log(invaders[j].children[0])
+						invaders[i].x += 100;
+						invaders[i].x = invaders[i].x % genBoundaries.width;
+				}
+				// BUGFIX: When 2 invaders left the screen at the same time, the wrong invaders were taken from the invader array, so
+				// now they can't leave at the same time
+				if ((Math.abs(invaders[i].y - invaders[j].y) < 50) && i != j) {
+					invaders[i].y += 50;
+				}
 			}
 		}
 	}
@@ -710,79 +874,67 @@ also makes sure text attached is alwyas facing readable direction*/
 function flipEm() {
 	for (let i = 0; i < invaders.length; i++) {
 		invaders[i].x += invaders[i].vx;
-		let invaderhitsWall = contain(invaders[i], { x: invaders[i].leftBound, y: -50, width: invaders[i].widthBound, height: invaderBoundaries });
+		let invaderhitsWall = contain(invaders[i], { x: 0, y: -50, width: genBoundaries.width, height: invaderBoundaries });
 		if (invaderhitsWall === "right" || invaderhitsWall === "left") {
 			invaders[i].vx *= -1;
-			invaders[i].y += 10;
+			// invaders[i].y += 10;
 			invaders[i].scale.x *= -1;    /* flip vertically */
 			invaders[i].children[0].scale.x *= -1;
 		}
+		invaders[i].y += invaders[i].vy;
 	}
 }
 
 /* sets what happens when each key is activated
 sets shooter 1's key commands, (move left, right, shoot)*/
-function setKeyActions() {
-	let left = keyboard(37),
-	shoot = keyboard(32),
-	right = keyboard(39),
-	down = keyboard(40);
+function setKeyActions(controller) {
 	upCount = 0;
+
 
 	//Left arrow key `press` method
 	//Change the shooter1's velocity when the key is pressed
-	left.press = () => {
-		shooter1.vx = -3;
+	controller.left.press = () => {
+		shooter1.vx = -4;
 		shooter1.vy = 0;
 	};
 
 	//Left arrow key `release` method
-	left.release = () => {
+	controller.left.release = () => {
 		//If the left arrow has been released, and the right arrow isn't down,
 		//and the shooter1 isn't moving vertically:
 		//Stop the shooter1
-		if (!right.isDown && shooter1.vy === 0) {
+		if (!controller.right.isDown && shooter1.vy === 0) {
 			shooter1.vx = 0;
 		}
 	};
 
 	//Space bar shoot
-	shoot.press = () => {
+	controller.shoot.press = () => {
 		if (wait(500, bullet) === true) {
 			upCount++
 			let bulletNum = upCount;
 			bullet = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/bullet2.png' %}"].texture);
 			bullets.push(bullet);
 			bullet.vy = -15;
-			bullet.y = 460;
+			bullet.y = shooter1.y;
 			bullet.x = (shooter1.x);
 			app.stage.addChild(bullet);
 			bullet.time = new Date().getTime();
 		}
 	};
-	shoot.release = () => {
-		if (!down.isDown && shooter1.vx === 0) {
+	controller.shoot.release = () => {
+		if (shooter1.vx === 0) {
 			shooter1.vy = 0;
 		}
 	};
 	//Right
-	right.press = () => {
-		shooter1.vx = 3;
+	controller.right.press = () => {
+		shooter1.vx = 4;
 		shooter1.vy = 0;
 	};
-	right.release = () => {
-		if (!left.isDown && shooter1.vy === 0) {
+	controller.right.release = () => {
+		if (!controller.left.isDown && shooter1.vy === 0) {
 			shooter1.vx = 0;
-		}
-	};
-	//Down
-	down.press = () => {
-		shooter1.vy = 0;
-		shooter1.vx = 0;
-	};
-	down.release = () => {
-		if (!shoot.isDown && shooter1.vx === 0) {
-			shooter1.vy = 0;
 		}
 	};
 }
@@ -822,6 +974,7 @@ function checkHit() {
 				// If hit, remove from stage and add index to gotHit array
 				app.stage.removeChild(invaders[j]);
 				app.stage.removeChild(bullets[i]);
+				invaders[j].hit = "true";
 				gotHit.push(j);
 				hitInvader.push(i);
 				invaders[j].vx = 0;
@@ -833,7 +986,21 @@ function checkHit() {
 				app.stage.addChild(pow_array[pow_array.length - 1]);
 				// If hit, request more
 				if (hitCheck === true){
-					postInvaders();
+					let newCorrect = new PIXI.Sprite(PIXI.loader.resources["{% static 'lettergame/image/correct.png' %}"].texture);
+					newCorrect.x = invaders[j].x;
+					newCorrect.y = invaders[j].y;
+					newCorrect.width = invaders[j].width;
+					newCorrect.height = invaders[j].height;
+					app.stage.addChild(newCorrect);
+					corrects.push(newCorrect);
+					audio.muted = true;
+					populate = "true";
+					// postInvaders();
+					sparseStage(hitCheck, 1);
+					populate = "false";
+				}else if (hitCheck === false && destroyInvader === true){
+					populate = "false";
+					sparseStage(hitCheck, 1);
 				}
 				destroyInvader = false;
 			}
@@ -847,7 +1014,7 @@ function checkHit() {
 			gotHit.push(j);
 			invaders[j].vx = 0;
 			//Make the explorer semi-transparent
-			shooter1.alpha = 0.5;
+			// shooter1.alpha = 0.5;
 			/*insert 3 if or else loops to create the level of health removed
 			 depending on the level of difficulty you're playing on */
 			//Reduce the width of the health bar's inner rectangle by 1 pixel
@@ -861,13 +1028,14 @@ function checkHit() {
 			// if the correct invader leaves the screen, user loses health
 			if (noHarm === false) {
 				if (level === 'easy') {
-					healthBar.outer.width -= 18;
-				} else if (level === 'med') {
-					healthBar.outer.width -= 12.85;
+					healthBar.outer.width -= Math.floor(90/10);
+				} else if (level === 'medium') {
+					healthBar.outer.width -= Math.floor(90/8);
 				} else if (level === 'hard') {
-					healthBar.outer.width -= 10;
+					healthBar.outer.width -= Math.floor(90/6);
 				}
 				// noHarm = true;
+				healthBar.outer.width = Math.max(0, healthBar.outer.width)
 			}
 		} else {
 			//Make the explorer fully opaque (non-transparent) if it hasn't been hit
@@ -886,31 +1054,38 @@ if incorrect subtracts points based on Level
 function changeBar(hitCheck, wrongCheck){
 	if (hitCheck) {
 		if (level === 'easy') {
-			pointBar.outer.width += 30;
+			pointBar.outer.width += Math.ceil(90/17);
 
 
-		} else if (level === 'med') {
-			pointBar.outer.width += 45;
+		} else if (level === 'medium') {
+			pointBar.outer.width +=  Math.ceil(90/17);
 		} else if (level === 'hard') {
-			pointBar.outer.width += 45;
+			pointBar.outer.width +=  Math.ceil(90/17);
 		}
+		pointBar.outer.width = Math.min(pointBar.outer.width, 90);
 		hitCheck = false;
 	}
 
 	if(wrongCheck){
 		if (level === 'easy') {
 			healthBar.outer.width -= 18;
-		}else if (level === 'med'){
+		}else if (level === 'medium'){
 			healthBar.outer.width -= 12.85;
 		}else if(level === 'hard'){
 			healthBar.outer.width -= 10;
 		}
+		healthBar.outer.width = Math.max(healthBar.outer.width, 0);
 	}
 	return;
 }
 
 </script>
 </center>
+<div class="osc-region no-zoom"  unselectable="on" onselectstart="return false;" >
+	<button id="osc-left" class="osc-btn">left</button>
+	<button id="osc-shoot" class="osc-btn">shoot</button>
+	<button id="osc-right" class="osc-btn">right</button>
+</div>
 <font size="2.5" color="white" face="arial">
 	<center>
 		INSTRUCTIONS

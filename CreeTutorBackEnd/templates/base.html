@@ -39,40 +39,31 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-secondary navbar-expand-lg">
+    <nav class="navbar navbar-dark bg-tertiary navbar-expand-lg">
         {% if user.is_authenticated %}
-        <a class="navbar-brand" href="{% url 'lettergame:index' %}">Cree Tutor</a>
+        <a class="navbar-brand" href="{% url 'home:index' %}">Cree Tutor</a>
         {% else %}
         <a class="navbar-brand" href="#" onclick="return false;">Cree Tutor</a>
         {% endif %}
 
-        <div>
-            {% if user.is_authenticated %}
-            YOU ARE LOGGED IN
-            {% else %}
-            YOU ARE NOT LOGGED IN
-            {% endif %}
-        </div>
-
         {% if user.is_authenticated %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Some text
+                        Options
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url 'login:profile' %}">Profile</a>
-                        <a class="dropdown-item" href="#">Settings</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{% url 'login:signout' %}">Log Out <span class="sr-only">(current)</span></a>
                     </div>
                 </li>
             </ul>
         </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
-        </button>
         {% endif %}
 
     </nav>

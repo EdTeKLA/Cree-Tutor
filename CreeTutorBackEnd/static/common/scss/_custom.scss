@@ -12,3 +12,49 @@
 .container {
   margin-top: 15px;
 }
+
+.dropdown-wrap {
+  background: $tertiary;
+}
+
+:focus {
+  outline: none !important;
+  border-color: $secondary;
+  box-shadow: 0 0 10px $secondary;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+.dropdown-item {
+  box-shadow: none;
+
+}
+
+.list-group-item {
+  box-shadow: none;
+}
+
+.hide {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important; }
+
+.large-button-padding {
+  padding: 15px;
+}
+
+.very-large-button-padding {
+  padding: 19px 32px 19px 32px;
+}
+
+.largest-button-padding {
+  padding: 32px;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}

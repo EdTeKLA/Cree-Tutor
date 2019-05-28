@@ -1,35 +1,48 @@
 // Override theme colours.
 
-$snow:                #FDFBF6 !default;
-$old-lace:            #F7F5E6 !default;
-$champagne:           #F7EACE !default;
-$topaz:               #EAC67A !default;
-$maximum-yellow-red:  #EDBF4D !default;
-$copper-red:          #C96F40 !default;
-$traditional-brown:   #A44200 !default;
-$smoky-topaz:         #984B43 !default;
-$up-maroon:           #69140E !default;
-$dark-jungle-green:   #172B25 !default;
+//$snow:                #FDFBF6 !default;
+//$old-lace:            #F7F5E6 !default;
+//$champagne:           #F7EACE !default;
+//$topaz:               #EAC67A !default;
+//$maximum-yellow-red:  #EDBF4D !default;
+//$copper-red:          #C96F40 !default;
+//$traditional-brown:   #A44200 !default;
+//$smoky-topaz:         #984B43 !default;
+//$up-maroon:           #69140E !default;
+//$dark-jungle-green:   #172B25 !default;
+//$smoky-black:         #170F09 !default;
+
+$snow:                #F5F5F5 !default;
+$gray:                #d6d6d6 !default;
+$dark-blue:           #031B4D !default;
+$green:               #0BB763 !default;
+$red:                 #F24343 !default;
+$white:               #FFFFFF !default;
+$darker-blue:         #172B25 !default;
 $smoky-black:         #170F09 !default;
 
-$primary:       $traditional-brown !default;
-$secondary:     $maximum-yellow-red !default;
-$success:       $dark-jungle-green !default;
-$info:          $copper-red !default;
-$warning:       $topaz !default;
-$danger:        $smoky-topaz !default;
+$default:       $smoky-black !default;
+$primary:       $green !default;
+$secondary:     $dark-blue !default;
+$tertiary:      $dark-blue !default;
+$success:       $darker-blue !default;
+$info:          $dark-blue !default;
+$warning:       $dark-blue !default;
+$danger:        $red !default;
 $light:         $snow !default;
 $dark:          $smoky-black !default;
 
 $theme-colors: (
-  "primary":    $primary,
-  "secondary":  $secondary,
-  "success":    $success,
-  "info":       $info,
-  "warning":    $warning,
-  "danger":     $danger,
-  "light":      $light,
-  "dark":       $dark
+        "primary":    $primary,
+        "default":    $gray,
+        "secondary":  $secondary,
+        "tertiary":   $tertiary,
+        "success":    $success,
+        "info":       $info,
+        "warning":    $warning,
+        "danger":     $danger,
+        "light":      $light,
+        "dark":       $dark,
 );
 
 // Body
@@ -41,22 +54,23 @@ $body-color: $dark;
 
 // Override navbar colours.
 
-$navbar-dark-color:                 rgba($up-maroon, .5) !default;
-$navbar-dark-hover-color:           rgba($up-maroon, .75) !default;
-$navbar-dark-active-color:          $up-maroon !default;
-$navbar-dark-disabled-color:        rgba($up-maroon, .25) !default;
+$navbar-dark-color:                 rgba($white, .70) !default;
+$navbar-dark-hover-color:           rgba($white, .90) !default;
+$navbar-dark-active-color: $white !default;
+$navbar-dark-disabled-color:        rgba($white, .25) !default;
 $navbar-dark-toggler-icon-bg:       str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-dark-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23") !default;
-$navbar-dark-toggler-border-color:  rgba($up-maroon, .1) !default;
+$navbar-dark-toggler-border-color:  rgba($white, .1) !default;
 
-$navbar-light-color:                rgba($maximum-yellow-red, .5) !default;
-$navbar-light-hover-color:          rgba($maximum-yellow-red, .7) !default;
-$navbar-light-active-color:         rgba($maximum-yellow-red, .9) !default;
-$navbar-light-disabled-color:       rgba($maximum-yellow-red, .3) !default;
+$navbar-light-color:                rgba($dark-blue, .5) !default;
+$navbar-light-hover-color:          rgba($dark-blue, .7) !default;
+$navbar-light-active-color:         rgba($dark-blue, .9) !default;
+$navbar-light-disabled-color:       rgba($dark-blue, .3) !default;
 $navbar-light-toggler-icon-bg:      str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-light-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23") !default;
-$navbar-light-toggler-border-color: rgba($maximum-yellow-red, .1) !default;
+$navbar-light-toggler-border-color: rgba($dark-blue, .1) !default;
 
 // Override input colours
-$input-focus-border-color:              lighten($primary, 10%) !default;
 
-$link-hover-color:          darken($primary, 35%) !default;
+$input-focus-border-color:          lighten($primary, 10%) !default;
+
+$link-hover-color:                  darken($primary, 35%) !default;
 

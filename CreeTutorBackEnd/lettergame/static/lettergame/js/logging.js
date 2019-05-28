@@ -1,33 +1,55 @@
-var startTime = undefined
-var endTime = undefined
+var startTime = undefined;
+var endTime = undefined;
 var hoveredArr = [];
 var startHover = undefined;
 var endHover = undefined;
 var hovered = 'not changed';
 var distractors;
+var audio = undefined;
 
 $(window).on("load", function(e){
     // Onload, function sets StartTime to when the user started looking at this page
     startTime = getTime();
-    // gets list of distractors for later post-ing
-    getDistractors();
+    // Show the tooltip that suggests that the person click the speaker button to play the audio for 1500ms
+    $('[data-toggle="tooltip"]').tooltip();
+    $("#speaker-button").tooltip('show');
+    setTimeout(function(){ $("#speaker-button").tooltip('hide'); }, 1500);
+    // Get the audio file and click the speaker
+    getAudioAndClickSpeaker();
+
     return;
 });
+
+function getAudioAndClickSpeaker(){
+    // Get the audio file from the server
+    audio = new Audio(audioFileLocation, playAudio);
+    // Click the speaker button to play the audio
+    $("#speaker-button").click();
+}
+
+$(document).on('click', '#speaker-button', function (e) {
+    // When the speaker-button is clicked, the function that plays audio is called
+    playAudio();
+});
+
+function playAudio(){
+    // Function plays the audio
+    audio.play();
+}
 
 function getTime(){
     // Function gets current date and converts it into ISO format
     // returns the date
     wT = new Date();
-    // console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
     whichTime = wT.toISOString();
     return whichTime;
 }
 
 
 function getDistractors(){
-    // gets all the values of the radio buttons, except for the correct answer, and pushes them onto a global list
+    // gets all the values of the submit buttons, except for the correct answer, and pushes them onto a global list
     distractors = [];
-    let letters = $('input[type=radio]').each(function(){$(this).attr('value')});
+    let letters = $('[type=submit]').each(function () { $(this).attr('value'); });
     let correct = $('#correct_r').attr('value');
     for(let i = 0; i < letters.length; i++){
         if(letters[i].value != correct){
@@ -38,11 +60,12 @@ function getDistractors(){
 }
 
 
-$('body').on('mouseenter', 'input[type=radio]', function(){
+$(document).on('mouseenter', '[type=submit]', function(){
     // Gets the time for when user hovers over a radio input
     startHover = getTime();
 });
-$('body').on('mouseout', 'input[type=radio]', function(){
+
+$(document).on('mouseout', '[type=submit]', function(){
     // Gets the time for when a user leaves hover over a radio input
     hovered = $(this).attr('value');
     endHover = getTime();
@@ -52,50 +75,17 @@ $('body').on('mouseout', 'input[type=radio]', function(){
     return;
 });
 
-// TODO: we can probably delete this because it's now in static/common/js/common.js but leaving for now until we can test to make sure
-//----------- The following code for acquiring the CSRF token was taken directly from https://docs.djangoproject.com/en/2.1/ref/csrf/
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-var csrftoken = getCookie('csrftoken');
-
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-
-
-$.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        }
-    }
-});
-//----------------------
-
-$(document).on('submit', '#game_ans', function(e){
+$(document).on('click', '[type=submit]', function(e){
+    // When a button is pushed, send a POST request logging the event and getting a new set up of questions
     e.preventDefault();
+    getDistractors();
     endTime = getTime();
 
     $.ajax({
         type:'POST',
         url: "",
         data:{
-            user_r:$('input[name=user_r]:checked').val(),
+            user_r:$(this).attr('value'),
             correct_r:$("#correct_r").val(),
             time_s: startTime,
             time_e: endTime,
@@ -108,53 +98,33 @@ $(document).on('submit', '#game_ans', function(e){
         },
         error:function(error){console.log(error)}
     });
+
     startTime = getTime();
 });
 
 
 function modifyForm(formID, data){
-
     // Update the correct response
     var correct = document.getElementById("correct_r");
     correct.setAttribute("value", data['correct']);
 
     // All of the children of the form in game.html have the class 'choice_button'. Delete them
-    $(".choice_button").remove();
+    $(".submit_answer").remove();
     var form = document.getElementById(formID);
 
-    // Update the src path of the audio file and load the new audio file
-    var audio = document.getElementById("aud");
-    path = '/static/' + data['sound'];
-    var sound = document.getElementById("sound");
-    sound.setAttribute("src", path);
-    audio.load();
+    // Load the new audio file once you get the new links
+    audioFileLocation = '/static/' + data['sound'];
+    getAudioAndClickSpeaker();
 
     // Create the new radio options
     for(var i = 0, l = data['letters'].length; i < l; i++){
         var datum = data['letters'][i];
         var rad = document.createElement("INPUT");
-        rad.setAttribute("type", "radio");
-        rad.setAttribute("class", "choice_button");
-        rad.setAttribute("required", true);
-        rad.setAttribute("name", "user_r");
+        rad.setAttribute("type", "submit");
+        rad.setAttribute("class", "btn btn-default m-3 pl-5 pr-5 submit_answer");
         rad.setAttribute("value", datum);
-        var lab = document.createElement("LABEL");
-        lab.setAttribute("for", datum);
-        lab.setAttribute("class", "choice_button");
-        lab.innerHTML = datum;
-        linebreak = document.createElement("br");
-        linebreak.setAttribute("class", "choice_button");
         form.appendChild(rad);
-        form.appendChild(lab);
-        form.appendChild(linebreak);
     }
-
-    //Re-create the new submit button
-    var sub = document.createElement("INPUT");
-    sub.setAttribute("class","choice_button");
-    sub.setAttribute("type", "submit");
-    sub.setAttribute("value","submit");
-    form.appendChild(sub);
 
     return;
 }
