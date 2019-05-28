@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 
 
@@ -32,14 +34,24 @@ class AudioAndSubtitleFilesForShadowing(models.Model):
 class ShadowingUserStats:
     pass
 
-class ShadowingLogStorySelection:
-    pass
+class ShadowingLogStorySelection(models.Model):
+    """
+    Model was created to log a user's interactions with a story. Can include
+        - Play
+        - Pause
+        - Selection
+        - Finished
 
-class ShadowingLogPlayPause:
-    pass
+    The logging happens when a user click on the title of a story on at /shadowing/
+    """
+    # The id/primary key
+    id = models.BigAutoField(primary_key=True)
+    # Name of the story
+    story_id = models.ForeignKey(AudioAndSubtitleFilesForShadowing, on_delete=models.CASCADE)
+    # Where the person clicked
+    time = models.DateTimeField(default=datetime.now)
+    # Action
 
-class ShadowingLogFinished:
-    pass
 
-class ShadowingLogAnswers:
-    pass
+    class Meta:
+        db_table = "shadowing_log_story_selection"
