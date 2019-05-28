@@ -48,10 +48,10 @@ class ShadowingLogStorySelection(models.Model):
     id = models.BigAutoField(primary_key=True)
     # Name of the story
     story_id = models.ForeignKey(AudioAndSubtitleFilesForShadowing, on_delete=models.CASCADE)
-    # Where the person clicked
+    # When the person clicked the button
     time = models.DateTimeField(default=datetime.now)
-    # Action
-
+    # The time at which the action took place during the recording
+    story_time = models.DateTimeField
 
     class Meta:
         db_table = "shadowing_log_story_selection"

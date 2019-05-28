@@ -17,12 +17,13 @@
         var downloadStatus = false;
         var playing = false;
         var audioFile = null;
+        var story_id = '{{story_id}}';
 
         time_stamped_words = [
             {% for word in audio_transcript_list %}
-        ["{{word.1}}", "{{word.2}}"],
-        {% endfor %}
-    ];
+                ["{{word.1}}", "{{word.2}}"],
+            {% endfor %}
+        ];
 
         var highlightCallFrequency = 33;
         // Baseline has been established, change status and call function to do more work
@@ -119,6 +120,10 @@
                     </div>
                     <span class="col-xs-2 col-sm-2 col-md-2 col-lg-1"></span>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-8">
+                        <div id="error_message" class="hide ml-0 mt-2 form-field-message error ">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span></span>
+                        </div>
                         <p>
                             {% for word in audio_transcript_list %}
                             <span id="shadowing_word_{{word.0}}" class="shadowing_word_span">{{word.3}}</span>
@@ -130,7 +135,7 @@
                 <div class="row">
                     <span class="col-sm-9 col-md-10 col-lg-10 col-xl-11"></span>
                     <form id="finished">
-                        <input class="btn btn-default submit_finished hide" id="finished_button" type="submit" value="Finished">
+                        <input class="btn btn-primary submit_finished" id="finished_button" type="submit" value="Finished">
                     </form>
                 </div>
                 </div>

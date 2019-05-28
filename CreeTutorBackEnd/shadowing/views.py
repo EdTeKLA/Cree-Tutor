@@ -25,7 +25,8 @@ class Shadowing(View):
         try:
             story_info = AudioAndSubtitleFilesForShadowing.objects.get(id=story_index)
             context = {"audio_file_loc": story_info.sound_location,
-                       "audio_transcript_list": self.__read_file(story_info.sub_location)}
+                       "audio_transcript_list": self.__read_file(story_info.sub_location),
+                       "story_id": story_index}
             return render(request, 'shadowing/story.html', context)
         except AudioAndSubtitleFilesForShadowing.DoesNotExist:
             return HttpResponseNotFound("Page Not Found")
@@ -107,7 +108,7 @@ class Shadowing(View):
         return time
 
 
-class ShadowingQuestions:
+class ShadowingQuestions(View):
     """
     Renders the answers.
 
@@ -118,3 +119,13 @@ class ShadowingQuestions:
         context = { "all_stories": all_stories}
 
         return render(request, 'shadowing/index.html', context)
+
+
+class ShadowingLogging(View):
+    """
+    Only takes post request. Logs the information for the shadowing questions.
+    """
+    def get(self, request, story_id, action, time):
+        print("123")
+    def post(self, request, story_id, action, time):
+        print("123")

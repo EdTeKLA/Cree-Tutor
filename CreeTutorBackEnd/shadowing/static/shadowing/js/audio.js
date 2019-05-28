@@ -1,4 +1,23 @@
 function getAudioFile(callback, location){
+    // Sent a POST request to log that a story has been selected
+    // $.ajax({
+    //     type:'POST',
+    //     url: "logging/" + ,
+    //     data:{
+    //         user_r:$(this).attr('value'),
+    //         correct_r:$("#correct_r").val(),
+    //         time_s: startTime,
+    //         time_e: endTime,
+    //         'arrHov[]': hoveredArr,
+    //         'distract[]': distractors
+    //     },
+    //     success:function(data){
+    //         // if the post is a success, modify the form for the next question
+    //         modifyForm('game_ans', data);
+    //     },
+    //     error:function(error){console.log(error)}
+    // });
+
     audio_obj = new Audio(location);
     callback(audio_obj);
 }
@@ -66,8 +85,17 @@ function microphoneLevels(callback){
 
     // If we successfully got access to the microphone, call handleSuccess
     navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-        .then(handleSuccess);
+        .then(handleSuccess)
+        .catch(showMicrophoneError)
 
+}
+
+function showMicrophoneError() {
+    // Function was created to show microphone error incase the device does not have a microphone or the user denies us
+    // access
+    $("#error_message").removeClass("hide");
+    $("#error_message span").text("Microphone access needed to perform this activity, " +
+        "please refresh and allow microphone access.");
 }
 
 function makePlayActive(baselineStatus, downloadStatus, audio, callback){
@@ -96,7 +124,9 @@ function highLightActiveWord(audio, time_stamped_words) {
     } else if (audio.currentTime >= audio.duration){
         // If the current time is equal to the end time.
         $(".shadowing_word_span").css('color', '#000000');
-        $("#finished_button").removeClass("hide")
+        $("#finished_button").removeClass("hide");
+        $("#play_button").addClass("disabled");
+        $("#play_button").attr("disabled", true);
     }
 }
 
