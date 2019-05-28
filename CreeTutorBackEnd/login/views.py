@@ -10,6 +10,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.core.mail import EmailMessage
+from core.models import Profile
 
 import re
 
@@ -216,6 +217,13 @@ class SubmitIntake(View):
         """
         context = {'redirect': '/'}
         return JsonResponse(context)
+
+# sample user profile update
+def profile_save_colour(request):
+    profile = request.user.profile
+    profile.fav_colour = request.POST.get('favourite-colour', False)
+    profile.save()
+    return HttpResponse("Success!")
 
 def intake(request):
     """

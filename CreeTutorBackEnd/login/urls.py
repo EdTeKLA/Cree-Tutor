@@ -17,7 +17,7 @@ urlpatterns = [
     url(r'^activate_user_account/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.ActivateAccount.as_view(), name='activate_user_account'),
     path('confirm_email/', views.confirm_email, name='confirm_email'),
-
+    path('profile_save_colour/', views.profile_save_colour, name='profile_save_colour'),
     # builtin django password reset views
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
