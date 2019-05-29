@@ -1,25 +1,24 @@
-function getAudioFile(callback, location){
+function getAudioFile(callback, location, story_id){
     // Sent a POST request to log that a story has been selected
-    // $.ajax({
-    //     type:'POST',
-    //     url: "logging/" + ,
-    //     data:{
-    //         user_r:$(this).attr('value'),
-    //         correct_r:$("#correct_r").val(),
-    //         time_s: startTime,
-    //         time_e: endTime,
-    //         'arrHov[]': hoveredArr,
-    //         'distract[]': distractors
-    //     },
-    //     success:function(data){
-    //         // if the post is a success, modify the form for the next question
-    //         modifyForm('game_ans', data);
-    //     },
-    //     error:function(error){console.log(error)}
-    // });
+    sendPostRequestForLogging("select", 0.0, story_id);
 
+    // Load the audio
     audio_obj = new Audio(location);
     callback(audio_obj);
+}
+
+function sendPostRequestForLogging(action, time, story_id){
+    // Sent a POST request to log that a story has been selected/played/paused/finished
+    $.ajax({
+        type:'POST',
+        url: "/shadowing/log/" + story_id + "/" + action +  "/" + time + "/",
+        data:{
+        },
+        success:function(data){
+            // Do nothing
+        },
+        error:function(error){console.log(error)}
+    });
 }
 
 function microphoneLevels(callback){
@@ -107,7 +106,9 @@ function makePlayActive(baselineStatus, downloadStatus, audio, callback){
     }
 }
 
-function highLightActiveWord(audio, time_stamped_words) {
+var finished = false;
+
+function highLightActiveWord(audio, time_stamped_words, story_id) {
     // Make all the words black
     // Called to check which word should be highlighted every 33 milliseconds
     // 33 milliseconds because thats more than enough for smooth playback
@@ -121,12 +122,14 @@ function highLightActiveWord(audio, time_stamped_words) {
                 break;
             }
         }
-    } else if (audio.currentTime >= audio.duration){
+    } else if (audio.currentTime >= audio.duration && !finished){
+        finished = true;
         // If the current time is equal to the end time.
         $(".shadowing_word_span").css('color', '#000000');
         $("#finished_button").removeClass("hide");
         $("#play_button").addClass("disabled");
         $("#play_button").attr("disabled", true);
+        sendPostRequestForLogging("finish", audio.currentTime, story_id);
     }
 }
 

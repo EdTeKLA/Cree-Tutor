@@ -1,9 +1,11 @@
+from time import gmtime, strftime
+
 import re
 import os
 from django.shortcuts import render
 from django.views import View
-from shadowing.models import AudioAndSubtitleFilesForShadowing
-from django.http import HttpResponse, HttpResponseNotFound
+from shadowing.models import AudioAndSubtitleFilesForShadowing, ShadowingFeedbackQuestions, ShadowingLogActions
+from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 
 
 class Index(View):
@@ -79,7 +81,6 @@ class Shadowing(View):
 
             words_lens = [len(word) for word in words]
             total_chars = sum(words_lens)
-            print(words_lens)
 
             # Now getting the percentages for each part of the sentences
             percentages = [float(word_len)/float(total_chars) for word_len in words_lens]
@@ -108,24 +109,59 @@ class Shadowing(View):
         return time
 
 
-class ShadowingQuestions(View):
+class ShadowingFeedBack(View):
     """
     Renders the answers.
 
     Saves the logs for how the person answered and updates the values of what where they score is.
     """
-    def get(self, request):
-        all_stories = AudioAndSubtitleFilesForShadowing.objects.all()
-        context = { "all_stories": all_stories}
+    def get(self, request, story_id):
+        """
+        Gets all the questions from the database for shadowing questions and puts it into a context to show the user.
+        :param request:
+        :param story_id:
+        :return:
+        """
+        questions = ShadowingFeedbackQuestions.objects.all()
 
-        return render(request, 'shadowing/index.html', context)
+        # Create the context and render
+        context = { "story_id": story_id, "questions": questions }
+        return render(request, 'shadowing/feedback.html', context)
+
+    def post(self, request, story_id):
+        """
+        Logs all the answers to the question of the person and updates the stats of the user depending on their
+        feedback.
+        :param request:
+        :param story_id:
+        :return:
+        """
 
 
 class ShadowingLogging(View):
     """
     Only takes post request. Logs the information for the shadowing questions.
     """
-    def get(self, request, story_id, action, time):
-        print("123")
     def post(self, request, story_id, action, time):
-        print("123")
+        """
+        Logs the information for shadowing. This includes the information in ShadowingLogStorySelection model.
+        :param request:
+        :param story_id:
+        :param action:
+        :param time:
+        :return:
+        """
+        # Attempts to log the action and returns the status
+        try:
+            log = ShadowingLogActions(
+                user=request.user,
+                story_id=story_id,
+                action=action,
+                story_time=time,
+                time=strftime('%Y-%m-%d %H:%M:%S.%s%z', gmtime())
+            )
+
+            log.save()
+            return JsonResponse({"status": "success"})
+        except:
+            return JsonResponse({"status": "error"})

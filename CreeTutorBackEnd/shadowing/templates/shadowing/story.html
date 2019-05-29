@@ -29,36 +29,48 @@
         // Baseline has been established, change status and call function to do more work
         baselineEstablisedCallback = function baselineEstablised(){
             baselineStatus = true;
-            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWord, highlightCallFrequency, audioFile, time_stamped_words);});
+            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWord, highlightCallFrequency, audioFile, time_stamped_words, story_id);});
         };
 
         // Download has been completed, change status and call the function to do more work
         downCompleteCallback = function downloadComplete(data){
             downloadStatus = true;
             audioFile = data;
-            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWord, highlightCallFrequency, audioFile, time_stamped_words);});
+            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWord, highlightCallFrequency, audioFile, time_stamped_words, story_id);});
         };
 
         // Call the function to get the microphone baseline/monitor the audio level and download the audiofile
         s = "{% static '' %}" + '{{audio_file_loc}}';
-        getAudioFile(downCompleteCallback, s);
+        getAudioFile(downCompleteCallback, s, story_id);
         microphoneLevels(baselineEstablisedCallback);
 
         $('#play_button').click(
             function () {
                 if (baselineStatus == true && downloadStatus == true) {
                     if (playing == true){
+                        // Is play, pause
+                        sendPostRequestForLogging("pause", audioFile.currentTime, story_id);
                         $('#play-button').removeClass("hide");
                         $('#pause-button').addClass("hide");
                         playing = false;
                         audioFile.pause();
                     } else{
+                        // Is paused, play
+                        sendPostRequestForLogging("play", audioFile.currentTime, story_id);
                         $('#play-button').addClass("hide");
                         $('#pause-button').removeClass("hide");
                         playing = true;
                         audioFile.play();
                     }
                 }
+            }
+        );
+
+        $('#finished_button').click(
+            function () {
+                sendPostRequestForLogging("start_feedback", audioFile.currentTime, story_id);
+                window.location.href = "/shadowing/feedback/" + story_id;
+                return false;
             }
         );
     });

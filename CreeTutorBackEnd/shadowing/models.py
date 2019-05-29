@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.contrib.auth.models import User
 
 from django.db import models
 
@@ -11,11 +12,11 @@ class AudioAndSubtitleFilesForShadowing(models.Model):
     # The id/primary key
     id = models.BigAutoField(primary_key=True)
     # Name of the story
-    name = models.TextField(unique=True)
+    name = models.TextField()
     # The location of the subtitles
-    sub_location = models.TextField(unique=True)
+    sub_location = models.TextField()
     # The location of the sound file
-    sound_location = models.TextField(unique=True)
+    sound_location = models.TextField()
 
     # File stats
     default_for_stats = 0
@@ -31,10 +32,48 @@ class AudioAndSubtitleFilesForShadowing(models.Model):
     class Meta:
         db_table = "audio_and_subtitle_files_for_shadowing"
 
-class ShadowingUserStats:
-    pass
 
-class ShadowingLogStorySelection(models.Model):
+class ShadowingFeedbackQuestions(models.Model):
+    """
+    Model was created to store question that we will ask the user after a reading is finished.
+    """
+    # The id/primary key
+    id = models.BigAutoField(primary_key=True)
+    # Name of the story
+    question = models.TextField()
+    # The location of the subtitles
+    yes_answer = models.TextField()
+    # The location of the sound file
+    no_answer = models.TextField()
+
+    class Meta:
+        db_table = "shadowing_feedback_questions"
+
+class ShadowingUserStats(models.Model):
+    """
+    Class was created to store user stats, depends on how they did in the past.
+    """
+    # The id/primary key
+    id = models.BigAutoField(primary_key=True)
+    # The user for which the stats exist
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    # The stats
+    default_for_stats = 0
+    mean = models.FloatField(default=default_for_stats)
+    median = models.FloatField(default=default_for_stats)
+    min = models.FloatField(default=default_for_stats)
+    max = models.FloatField(default=default_for_stats)
+    words_per_minute = models.FloatField(default=default_for_stats)
+    chars_per_minute = models.FloatField(default=default_for_stats)
+    number_of_words = models.IntegerField(default=default_for_stats)
+    number_of_chars = models.IntegerField(default=default_for_stats)
+
+    class Meta:
+        db_table = "shadowing_user_stats"
+
+
+class ShadowingLogActions(models.Model):
     """
     Model was created to log a user's interactions with a story. Can include
         - Play
@@ -46,12 +85,16 @@ class ShadowingLogStorySelection(models.Model):
     """
     # The id/primary key
     id = models.BigAutoField(primary_key=True)
+    # The user this is connected to
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     # Name of the story
-    story_id = models.ForeignKey(AudioAndSubtitleFilesForShadowing, on_delete=models.CASCADE)
+    story = models.ForeignKey(AudioAndSubtitleFilesForShadowing, on_delete=models.CASCADE)
+    # The time at which the action took place during the recording, in milliseconds
+    story_time = models.FloatField()
+    # What the person did
+    action = models.TextField()
     # When the person clicked the button
     time = models.DateTimeField(default=datetime.now)
-    # The time at which the action took place during the recording
-    story_time = models.DateTimeField
 
     class Meta:
-        db_table = "shadowing_log_story_selection"
+        db_table = "shadowing_log_actions"
