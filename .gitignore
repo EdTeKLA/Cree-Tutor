@@ -50,3 +50,4 @@ CreeTutorBackEnd/lettergame/static/lettergame/sound
 env/
 .idea/workspace.xml
 .idea/inspectionProfiles/Project_Default.xml
+*.srt
