@@ -49,6 +49,7 @@ class ShadowingFeedbackQuestions(models.Model):
     class Meta:
         db_table = "shadowing_feedback_questions"
 
+
 class ShadowingUserStats(models.Model):
     """
     Class was created to store user stats, depends on how they did in the past.
@@ -60,14 +61,7 @@ class ShadowingUserStats(models.Model):
 
     # The stats
     default_for_stats = 0
-    mean = models.FloatField(default=default_for_stats)
-    median = models.FloatField(default=default_for_stats)
-    min = models.FloatField(default=default_for_stats)
-    max = models.FloatField(default=default_for_stats)
-    words_per_minute = models.FloatField(default=default_for_stats)
     chars_per_minute = models.FloatField(default=default_for_stats)
-    number_of_words = models.IntegerField(default=default_for_stats)
-    number_of_chars = models.IntegerField(default=default_for_stats)
 
     class Meta:
         db_table = "shadowing_user_stats"
@@ -98,3 +92,22 @@ class ShadowingLogActions(models.Model):
 
     class Meta:
         db_table = "shadowing_log_actions"
+
+
+class ShadowingLogFeedbackAnswers(models.Model):
+    """
+    Models was created to log the responses of the user to feedback questions.
+    """
+    # The user that answered the question
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # Which story this feed back is connected to
+    story = models.ForeignKey(AudioAndSubtitleFilesForShadowing, on_delete=models.DO_NOTHING)
+    # The question that was answered
+    question = models.ForeignKey(ShadowingFeedbackQuestions, on_delete=models.DO_NOTHING)
+    # The answers, whether it was yes/no or could/could not, etc
+    answer = models.BooleanField()
+    # The time at which the the feedback was given
+    time = models.DateTimeField(default=datetime.now)
+
+    class Meta:
+        db_table = "shadowing_log_feedback_answers"

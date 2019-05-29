@@ -1,11 +1,14 @@
 from time import gmtime, strftime
 
+import json
 import re
 import os
 from django.shortcuts import render
 from django.views import View
-from shadowing.models import AudioAndSubtitleFilesForShadowing, ShadowingFeedbackQuestions, ShadowingLogActions
+from shadowing.models import AudioAndSubtitleFilesForShadowing, ShadowingFeedbackQuestions, ShadowingLogActions, \
+    ShadowingUserStats, ShadowingLogFeedbackAnswers
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
+from django.db.models import Min, F, Max
 
 
 class Index(View):
@@ -13,7 +16,31 @@ class Index(View):
     Renders and shows the list of stories in the db.
     """
     def get(self, request):
-        all_stories = AudioAndSubtitleFilesForShadowing.objects.all()
+        """
+        Uses a sliding window to show stories that might be relevent to this user.
+        :param request:
+        :return:
+        """
+        sliding_window_size = 30
+        # First we try to get the statistics of the user that is request the page
+        try:
+            user_stats = ShadowingUserStats.objects.get(user_id = request.user.id)
+        except ShadowingUserStats.DoesNotExist:
+            user_stats = ShadowingUserStats(
+                user=request.user,
+                chars_per_minute=AudioAndSubtitleFilesForShadowing.objects.aggregate(
+                    Min('chars_per_minute'))['chars_per_minute__min']
+            )
+
+            user_stats.save()
+
+        # Now filtering the stories according to the window size and
+        min_chars_per_minute = user_stats.chars_per_minute - sliding_window_size
+        max_chars_per_minute = user_stats.chars_per_minute + sliding_window_size
+        all_stories = AudioAndSubtitleFilesForShadowing.objects.filter(
+            chars_per_minute__range=(min_chars_per_minute, max_chars_per_minute)
+        )
+
         context = { "all_stories": all_stories}
 
         return render(request, 'shadowing/index.html', context)
@@ -136,6 +163,47 @@ class ShadowingFeedBack(View):
         :param story_id:
         :return:
         """
+        change_score_by = 30
+        # Variables hold the number of question that will change the person's score up or down
+        yes_ratio_for_increase = 0.80
+        no_ratio_for_decrease = 0.40
+        # The count of the answers
+        count = 0
+        yes_answers = 0
+
+        # Log the user's responses
+        for q_id, answer in json.loads(request.POST['answers']).items():
+            # Count he answers to get the percentages later
+            if answer == 'True':
+                yes_answers += 1
+            count += 1
+
+            to_log = ShadowingLogFeedbackAnswers(
+                story_id=story_id,
+                user=request.user,
+                question_id = q_id,
+                answer=answer,
+                time=strftime('%Y-%m-%d %H:%M:%S.%s%z', gmtime()),
+            )
+            to_log.save()
+
+        # Update the user's stats according to the feedback
+        # Make sure they the chars_per_minute does not become higher than the higest chars_per_minute and lower than the
+        # lowest chars_per_minute
+        percentage = yes_answers/count
+        if percentage >= yes_ratio_for_increase and \
+                ShadowingUserStats.objects.get(user=request.user).chars_per_minute < \
+                AudioAndSubtitleFilesForShadowing.objects.aggregate(Max('chars_per_minute'))['chars_per_minute__max']:
+            # P.objects.filter(username="John Smith").update(accvalue=F("accvalue") + 50)
+            ShadowingUserStats.objects.\
+                filter(user=request.user).update(chars_per_minute = F("chars_per_minute") + change_score_by)
+        elif percentage <= no_ratio_for_decrease and \
+                ShadowingUserStats.objects.get(user=request.user).chars_per_minute > \
+                AudioAndSubtitleFilesForShadowing.objects.aggregate(Min('chars_per_minute'))['chars_per_minute__min'] :
+            ShadowingUserStats.objects.\
+                filter(user=request.user).update(chars_per_minute = F("chars_per_minute") - change_score_by)
+
+        return JsonResponse({'redirect': '/shadowing/'})
 
 
 class ShadowingLogging(View):

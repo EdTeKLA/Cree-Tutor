@@ -1,0 +1,676 @@
+1
+00:00:05,450 --> 00:00:08,210
+Herzlich Willkommen bei Schlaumal, heute mit
+dem Thema
+
+2
+00:00:08,210 --> 00:00:10,690
+“Warum unser Konsum der Umwelt schadet"
+
+3
+00:00:14,019 --> 00:00:20,120
+Das neuste Handy, der hochauflösendste Flachbildschirm,
+das zwanzigste paar Schuhe?
+
+4
+00:00:20,120 --> 00:00:26,500
+Für viele Menschen in den modernen Industrieländern
+gehört Shopping zu den beliebtesten Freizeitbeschäftigungen.
+
+5
+00:00:26,500 --> 00:00:31,090
+10.000 Dinge besitzt ein Europäer im Durchschnitt
+und ständig kommen mehr dazu.
+
+6
+00:00:31,090 --> 00:00:36,770
+Der Bereich des Konsums macht in Deutschland
+ca. 75 % der Wirtschaftsleistung aus, 50-60%
+
+7
+00:00:36,770 --> 00:00:38,950
+davon sind privater Konsum.
+
+8
+00:00:38,950 --> 00:00:42,530
+Nun könnte man sich fragen: Ja und, wo liegt
+das Problem?
+
+9
+00:00:42,530 --> 00:00:45,820
+Konsum stärkt doch die Wirtschaft und die
+Wirtschaft muss wachsen!
+
+10
+00:00:45,820 --> 00:00:48,100
+Das ist auch erklärtes Ziel der meisten Regierungen.
+
+11
+00:00:48,100 --> 00:00:52,280
+Und dafür gibt es gute Gründe: Ohne Wirtschaftswachstum
+kein Sozialstaat.
+
+12
+00:00:52,280 --> 00:00:56,310
+Die Arbeitslosigkeit würde steigen und die
+Schulden könnten nicht mehr abbezahlt werden.
+
+13
+00:00:56,310 --> 00:01:00,970
+Eines der Probleme am Wirtschaftswachstum
+ist, dass unser Planet nicht mitwächst.
+
+14
+00:01:00,970 --> 00:01:04,470
+In jedem Produkt das wir besitzen steckt ein
+Stück unserer Erde,
+
+15
+00:01:04,470 --> 00:01:08,110
+denn bei der Herstellung, dem Gebrauch und
+der Entsorgung eines Produktes werden Energie
+
+16
+00:01:08,110 --> 00:01:13,200
+und natürliche Ressourcen wie Wasser, Boden,
+Luft, Wälder und Rohstoffe verbraucht.
+
+17
+00:01:13,200 --> 00:01:18,659
+Mit dem Konzept des sogenannten Ökologischen
+Rucksacks, lässt sich sinnbildlich darstellen,
+
+18
+00:01:18,659 --> 00:01:20,880
+wie viele Ressourcen in einem Produkt stecken.
+
+19
+00:01:20,880 --> 00:01:24,920
+Je schwerer der ökologische Rucksack eines
+Produktes ist, desto umweltschädlicher ist
+
+20
+00:01:24,920 --> 00:01:25,920
+es.
+
+21
+00:01:25,920 --> 00:01:29,329
+Für die Berechnung der Gewichtsangaben wird
+der gesamte Lebenszyklus eines Konsumgutes
+
+22
+00:01:29,329 --> 00:01:30,329
+betrachtet.
+
+23
+00:01:30,329 --> 00:01:35,049
+Ein T-Shirt wiegt zwar in etwa nur 100 Gramm,
+hat aber einen ökologischen Rucksack von
+
+24
+00:01:35,049 --> 00:01:36,049
+ca.
+
+25
+00:01:36,049 --> 00:01:38,100
+226 Kilogramm.
+
+26
+00:01:38,100 --> 00:01:43,689
+Der Ökologische Rucksack eines Laptops wiegt
+ca. 743, der eines Handys 75 Kilogramm.
+
+27
+00:01:43,689 --> 00:01:48,219
+Um besser verstehen zu können wie solche
+Zahlen zustande kommen, ist es hilfreich sich
+
+28
+00:01:48,219 --> 00:01:52,090
+den Lebenszyklus eines Produktes, z.B. den
+eines Handys, genauer anzuschauen:
+
+29
+00:01:53,920 --> 00:01:54,700
+Der Abbau:
+
+30
+00:01:54,709 --> 00:01:57,709
+In einem Mobiltelefon befinden sich ca.
+
+31
+00:01:57,709 --> 00:02:03,020
+60 Rohstoffe: Kunststoffe, Glas, Keramik und
+rund 30 verschiedene Metalle.
+
+32
+00:02:03,020 --> 00:02:11,069
+Von Kupfer, Gold, Aluminium und Zinn über
+Silber, Eisen und Platin bis hin zu seltenen
+
+33
+00:02:11,069 --> 00:02:16,400
+Metallen wie Indium, Kobalt, Wolfram und Gallium,
+ist alles im Handy enthalten.
+
+34
+00:02:16,400 --> 00:02:19,860
+Der Abbau der Metalle ist sehr umweltbelastend.
+
+35
+00:02:19,860 --> 00:02:24,590
+Wälder werden gerodet und damit Lebensräume
+zerstört, viele Tonnen Gestein gesprengt,
+
+36
+00:02:24,590 --> 00:02:26,430
+Luft, Wasser und Böden verschmutzt.
+
+37
+00:02:26,430 --> 00:02:31,290
+Um die Rohstoffe vom Gestein zu trennen werden
+giftige Chemikalien wie Quecksilber oder Zyanide
+
+38
+00:02:31,290 --> 00:02:35,620
+eingesetzt, die in Flüsse und Meere gelangen
+können.
+
+39
+00:02:35,620 --> 00:02:38,209
+Die Produktion:
+
+40
+00:02:38,209 --> 00:02:41,709
+Die einzelnen Produktionsschritte erfolgen
+in verschiedenen Ländern.
+
+41
+00:02:41,709 --> 00:02:44,599
+Nach dem Transport und der Aufbereitung der
+Rohstoffe folgen
+
+42
+00:02:44,599 --> 00:02:48,409
+die Fertigung der zahlreichen Handybauteile
+von rund 270 Zulieferern,
+
+43
+00:02:48,409 --> 00:02:51,060
+die Endmontage des fertigen Geräts,
+
+44
+00:02:51,060 --> 00:02:53,819
+dessen Transport zum Zwischenhändler
+
+45
+00:02:53,819 --> 00:02:56,840
+und schließlich der weltweite Verkauf an
+den Endkunden.
+
+46
+00:02:56,840 --> 00:03:00,689
+All diese Arbeitsschritte sind sehr energie-
+sowie ressourcenintensiv.
+
+47
+00:03:00,689 --> 00:03:02,590
+Es entstehen Abwässer und Abfälle.
+
+48
+00:03:02,590 --> 00:03:07,299
+Giftige Chemikalien werden eingesetzt und
+große Mengen an Treibhausgasemissionen verursacht.
+
+49
+00:03:09,340 --> 00:03:10,840
+Die Nutzung:
+
+50
+00:03:10,960 --> 00:03:15,360
+In der darauffolgenden Phase der Handynutzung,
+wird beim Aufladen des Akkus Strom verbraucht
+
+51
+00:03:15,370 --> 00:03:19,700
+und mit jedem Anruf und jeder SMS wird das
+Funknetz – das seinerseits Energie und Rohstoffe
+
+52
+00:03:19,700 --> 00:03:21,129
+benötigt, genutzt.
+
+53
+00:03:21,129 --> 00:03:26,000
+In Deutschland wird das Gerät durchschnittlich
+1,5 Jahre lang benutzt und dann durch ein
+
+54
+00:03:26,000 --> 00:03:28,040
+Neues, vermeintlich besseres Modell ersetzt.
+
+55
+00:03:32,340 --> 00:03:33,780
+Die Entsorgung:
+
+56
+00:03:34,280 --> 00:03:38,900
+Mit großer Wahrscheinlichkeit wird das Althandy
+nicht richtig entsorgt, denn über 100 Millionen
+
+57
+00:03:38,910 --> 00:03:41,140
+Handys verstauben derzeit in deutschen Schubladen.
+
+58
+00:03:41,140 --> 00:03:48,810
+In ihnen stecken umgerechnet rund 745 Tonnen
+Kupfer, 325 Tonnen Kobalt, 22 Tonnen Silber
+
+59
+00:03:48,810 --> 00:03:52,480
+und 2 Tonnen Gold, die für das Recycling
+verloren sind.
+
+60
+00:03:52,480 --> 00:03:56,470
+Die wertvollen Rohstoffe für neue Geräte
+müssen also erneut aufwendig abgebaut und
+
+61
+00:03:56,470 --> 00:03:57,470
+aufbereitet werden.
+
+62
+00:03:58,700 --> 00:04:03,280
+Am Beispiel eines Handys kann man also gut
+erkennen, dass im Laufe des Lebenszyklus eines
+
+63
+00:04:03,280 --> 00:04:05,829
+Produktes natürliche Ressourcen verbraucht
+werden.
+
+64
+00:04:05,829 --> 00:04:09,409
+Diese Naturgüter bilden allerdings unsere
+Lebensgrundlage.
+
+65
+00:04:09,409 --> 00:04:13,709
+Indem wir weiter bewusstlos konsumieren und
+produzieren sägen wir an dem Ast auf dem
+
+66
+00:04:13,709 --> 00:04:14,709
+wir alle sitzen.
+
+67
+00:04:14,709 --> 00:04:19,360
+Von dem Wirtschaftswissenschaftler Kenneth
+Boulding stammt das berühmte Zitat:
+
+68
+00:04:19,360 --> 00:04:22,570
+“Jeder, der glaubt, dass exponentielles
+Wachstum in einer endlichen Welt für immer
+
+69
+00:04:22,570 --> 00:04:26,540
+weitergehen kann, ist entweder verrückt oder
+ein Ökonom."
+
+70
+00:04:26,540 --> 00:04:29,100
+Bereits jetzt leben wir über unsere Verhältnisse:
+
+71
+00:04:29,100 --> 00:04:33,360
+Seit mehr als 40 Jahren nutzen wir Menschen
+mehr natürliche Ressourcen, als die Erde
+
+72
+00:04:33,360 --> 00:04:35,680
+erneuern kann.
+
+73
+00:04:35,680 --> 00:04:39,650
+Der Ökologische Fußabdruck, also die Fläche
+auf der Erde, die notwendig ist, um unseren
+
+74
+00:04:39,650 --> 00:04:43,310
+Lebensstil zu ermöglichen, wächst zusammen
+mit der Weltbevölkerung.
+
+75
+00:04:43,310 --> 00:04:47,680
+Die biologische Kapazität hingegen konnte
+durch technologischen Fortschritt bisher nur
+
+76
+00:04:47,680 --> 00:04:49,180
+geringfügig gesteigert werden.
+
+77
+00:04:49,180 --> 00:04:54,060
+Die Folgen der Übernutzung des Planeten kann
+man bereits heute erkennen.
+
+78
+00:04:54,060 --> 00:04:59,250
+Fast 50% aller Wälder sind abgeholzt, Böden
+und Wasser verschmutzt, Fischbestände und
+
+79
+00:04:59,250 --> 00:05:03,140
+Artenvielfalt reduziert und in vielen Ländern
+ist das Wasser knapp.
+
+80
+00:05:03,140 --> 00:05:08,000
+Bereits rund 60% der weltweiten Ökosysteme
+sind geschädigt oder übernutzt.
+
+81
+00:05:08,000 --> 00:05:12,200
+Das führt zu immer mehr Klimakatastrophen
+und Hungersnöten, vor allem in Afrika und
+
+82
+00:05:12,200 --> 00:05:13,200
+Asien.
+
+83
+00:05:13,200 --> 00:05:16,900
+Es sind jedoch vor allem die reichen Länder,
+die verantwortlich für den Raubbau sind.
+
+84
+00:05:16,900 --> 00:05:21,570
+Jeder Deutsche verbraucht im Jahr doppelt
+so viele Ressourcen, wie ihm zustehen würden.
+
+85
+00:05:21,570 --> 00:05:25,950
+Unseren Lebensstil können wir nur deshalb
+beibehalten, weil wir auf Kosten anderer Länder
+
+86
+00:05:25,950 --> 00:05:26,950
+leben.
+
+87
+00:05:26,950 --> 00:05:32,040
+Allein in Südamerika wird auf 2,2 Millionen
+Hektar Land Soja für Deutschland angebaut.
+
+88
+00:05:32,040 --> 00:05:33,790
+Das sind umgerechnet über 3 Mio.
+
+89
+00:05:33,790 --> 00:05:34,790
+Fußballfelder.
+
+90
+00:05:34,790 --> 00:05:39,570
+Das Soja wird nicht etwa von unseren Veganern
+verspeist, sondern von den rund 3,7 Millionen
+
+91
+00:05:39,570 --> 00:05:45,440
+Rindern, 58 Millionen Schweinen und 680 Millionen
+Geflügeltieren die jedes Jahr in Deutschland
+
+92
+00:05:45,440 --> 00:05:47,740
+geschlachtet werden um auf unseren Tellern
+zu landen.
+
+93
+00:05:47,740 --> 00:05:52,910
+Um Kosten zu sparen wird ein Großteil unserer
+Konsumgüter in Entwicklungs- und Schwellenländern
+
+94
+00:05:52,910 --> 00:05:54,050
+produziert.
+
+95
+00:05:54,050 --> 00:05:59,030
+Es kommt zur Ausbeutung menschlicher Arbeitskraft,
+was zu sozialer Ungleichheit, Konflikten und
+
+96
+00:05:59,030 --> 00:06:00,510
+Kriegen führt.
+
+97
+00:06:00,510 --> 00:06:04,960
+Würden alle Menschen so leben wie wir Deutschen,
+dann würde unsere Erde kollabieren.
+
+98
+00:06:04,960 --> 00:06:07,750
+Trotzdem ist unser Wachstumsmodell zum Vorbild
+für die Welt geworden.
+
+99
+00:06:07,750 --> 00:06:13,440
+Laut einer Studie des WWF sind derzeit 1,6
+Erden nötig, um den aktuellen Ressourcenverbrauch
+
+100
+00:06:13,440 --> 00:06:14,990
+der Menschheit nachhaltig zu decken.
+
+101
+00:06:14,990 --> 00:06:20,180
+Und wächst die Weltbevölkerung wie prognostiziert
+bis 2050 auf 9,6 Mrd.
+
+102
+00:06:20,180 --> 00:06:23,150
+Menschen an bräuchten wir knapp drei Erden.
+
+103
+00:06:23,150 --> 00:06:26,870
+Nun stellt sich die Frage: Warum konsumieren
+wir überhaupt so ausschweifend?
+
+104
+00:06:26,870 --> 00:06:30,360
+Die meisten Dinge, die wir kaufen, brauchen
+wir nicht - ca.
+
+105
+00:06:30,360 --> 00:06:33,270
+40 Prozent unserer Kleidung wird selten oder
+nie getragen.
+
+106
+00:06:33,270 --> 00:06:38,410
+Auf der anderen Seite macht Einkaufen glücklich,
+zumindest kurzfristig.
+
+107
+00:06:38,410 --> 00:06:42,690
+Nach dem Kauf wird das Belohnungssystem im
+Gehirn angeregt und Dopamin wird ausgeschüttet.
+
+108
+00:06:42,690 --> 00:06:47,570
+Das Glücksgefühl des Konsumenten verschwindet
+jedoch so schnell wie es gekommen ist - immer
+
+109
+00:06:47,570 --> 00:06:49,470
+mehr kann nie genug sein.
+
+110
+00:06:49,470 --> 00:06:52,530
+Nachhaltig glücklich macht materieller Konsum
+nicht.
+
+111
+00:06:52,530 --> 00:06:56,300
+Studien zur Lebenszufriedenheit haben ergeben,
+dass eine Erhöhung des Einkommens ab einem
+
+112
+00:06:56,300 --> 00:07:00,120
+bestimmten Niveau keinen weiteren Zuwachs
+an Wohlbefinden mit sich bringt.
+
+113
+00:07:00,120 --> 00:07:02,960
+Es kommt vermehrt zu Konkurrenzdenken und
+Druck.
+
+114
+00:07:02,960 --> 00:07:07,770
+Hirnforscher haben herausgefunden, dass glückliche
+Menschen, seltener unnötige Dinge kaufen
+
+115
+00:07:07,770 --> 00:07:09,320
+als unzufriedene Menschen.
+
+116
+00:07:09,320 --> 00:07:15,450
+Durch den Kauf eines Produkts verspricht man
+sich bewusst oder unbewusst Anerkennung, Zugehörigkeit,
+
+117
+00:07:15,450 --> 00:07:18,230
+Identität oder man will sich von anderen
+abgrenzen.
+
+118
+00:07:18,230 --> 00:07:23,100
+Eine ganze Industrie lebt von den ungestillten
+Bedürfnissen der Menschen.
+
+119
+00:07:23,100 --> 00:07:27,470
+Tausende von Werbebotschaften prasseln täglich
+auf uns ein und zeigen uns, welche Produkte
+
+120
+00:07:27,470 --> 00:07:31,730
+wir angeblich noch brauchen um glücklicher,
+schöner, besser zu sein.
+
+121
+00:07:31,730 --> 00:07:35,630
+Wir befinden uns in einem Kreislauf von kaufen,
+wegwerfen, kaufen..
+
+122
+00:07:35,630 --> 00:07:41,210
+Die überflüssigen Güter, die wir anhäufen,
+kosten nicht nur Geld, sondern unsere Lebenszeit,
+
+123
+00:07:41,210 --> 00:07:43,370
+die wir aufwenden müssen, um dieses Geld
+zu verdienen.
+
+124
+00:07:43,370 --> 00:07:47,680
+Deshalb wäre es sinnvoll wenn jeder einmal
+sein eigenes Konsumverhalten hinterfragen
+
+125
+00:07:47,680 --> 00:07:51,770
+und darüber nachdenken würde, ob und warum
+er bestimmte Produkte wirklich braucht.
+
+126
+00:07:52,840 --> 00:07:57,160
+Wenn wir und unsere Kinder glücklich und
+gesund leben wollen, brauchen wir eine intakte
+
+127
+00:07:57,170 --> 00:08:01,710
+Erde mit funktionsfähigen Ökosystemen und
+dürfen nicht so weitermachen wie bisher.
+
+128
+00:08:01,710 --> 00:08:06,650
+Möglicherweise sind wir die letzte Generation,
+die noch einen Wandel bewirken kann.
+
+129
+00:08:06,650 --> 00:08:09,750
+Es heißt das Problem sei mit “Grünem Wachstum”
+zu lösen.
+
+130
+00:08:09,750 --> 00:08:14,300
+Technische Innovationen wie Windräder, Hybridautos
+und Solarpanels sollen das Ruder in Richtung
+
+131
+00:08:14,300 --> 00:08:16,120
+nachhaltige Entwicklung herumreißen.
+
+132
+00:08:16,120 --> 00:08:20,210
+Wachstum war bisher jedoch immer mit einem
+Mehrverbrauch verbunden und wird es wohl auch
+
+133
+00:08:20,210 --> 00:08:21,420
+bleiben.
+
+134
+00:08:21,420 --> 00:08:25,250
+Selbst für die effizienteste Technik werden
+Ressourcen benötigt.
+
+135
+00:08:25,250 --> 00:08:29,430
+Bewusster Konsum und weniger Verbrauch wären
+der wahre Fortschritt.
+
+136
+00:08:29,430 --> 00:08:33,000
+Wir sollten aber nicht darauf warten, bis
+Politiker den ersten Schritt gehen.
+
+137
+00:08:33,000 --> 00:08:37,260
+Sie wollen die Menschen nicht gegen sich aufbringen,
+indem sie ihnen etwas vorschreiben, was als
+
+138
+00:08:37,260 --> 00:08:39,180
+Freiheitsverlust empfunden werden könnte.
+
+139
+00:08:39,180 --> 00:08:44,250
+Erst wenn die Verbraucher freiwillig umdenken,
+wird auch die Politik den Mut aufbringen Gesetze
+
+140
+00:08:44,250 --> 00:08:49,070
+und Maßnahmen einzuführen, die uns helfen
+den Weg in eine nachhaltige Zukunft zu gehen.
+
+141
+00:08:50,900 --> 00:08:54,510
+Infos und weiterführende Links findet ihr
+wie immer unten in der Infobox.
+
+142
+00:08:54,510 --> 00:08:58,330
+Schreibt gerne in die Kommentare, über welches
+Thema ihr euch ein Schlaumal Video wünscht.
+
+143
+00:08:58,330 --> 00:09:01,720
+Vielen Dank fürs Zuschauen und bis zum nächsten
+Mal bei Schlaumal.
+

@@ -15,15 +15,15 @@ def insert_questions_into_db():
     Function was created to bulk insert questions into the database
     :return:
     """
-    answer_could = ["I could", "I could not"]
+    # answer_could = ["I could", "I could not"]
     answer_yes = ["Yes", "No"]
 
     questions = [
-        ["I could speak all the words aloud", answer_could],
-        ["I could pronounce all of the words correctly", answer_could],
-        ["I could keep up with the reader", answer_could],
-        ["I could understand all of the text", answer_could],
-        ["I could easily complete the activity", answer_could],
+        ["I could speak all the words aloud", answer_yes],
+        ["I could pronounce all of the words correctly", answer_yes],
+        ["I could keep up with the reader", answer_yes],
+        ["I could understand all of the text", answer_yes],
+        ["I could easily complete the activity", answer_yes],
     ]
 
     question_objs = []
