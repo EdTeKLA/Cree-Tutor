@@ -1,3 +1,4 @@
+import math
 from time import gmtime, strftime
 
 import json
@@ -21,7 +22,7 @@ class Index(View):
         :param request:
         :return:
         """
-        sliding_window_size = 30
+        sliding_window_size = 5
         # First we try to get the statistics of the user that is request the page
         try:
             user_stats = ShadowingUserStats.objects.get(user_id = request.user.id)
@@ -34,14 +35,20 @@ class Index(View):
 
             user_stats.save()
 
-        # Now filtering the stories according to the window size and
         min_chars_per_minute = user_stats.chars_per_minute - sliding_window_size
         max_chars_per_minute = user_stats.chars_per_minute + sliding_window_size
-        all_stories = AudioAndSubtitleFilesForShadowing.objects.filter(
-            chars_per_minute__range=(min_chars_per_minute, max_chars_per_minute)
-        )
 
-        context = { "all_stories": all_stories}
+        # Now filtering the stories according to the window size and
+        all_stories = []
+        while len(all_stories) < 3:
+            min_chars_per_minute -= 5
+            max_chars_per_minute += 5
+
+            all_stories = AudioAndSubtitleFilesForShadowing.objects.filter(
+                chars_per_minute__range=(min_chars_per_minute, max_chars_per_minute)
+            )
+
+        context = {"all_stories": all_stories}
 
         return render(request, 'shadowing/index.html', context)
 
@@ -163,7 +170,9 @@ class ShadowingFeedBack(View):
         :param story_id:
         :return:
         """
-        change_score_by = 30
+        # The amount the score will be changed by at the start
+        # This number will be decayed over time, using alpha
+        change_score_by_constant = 50
         # Variables hold the number of question that will change the person's score up or down
         yes_ratio_for_increase = 0.80
         no_ratio_for_decrease = 0.40
@@ -187,6 +196,15 @@ class ShadowingFeedBack(View):
             )
             to_log.save()
 
+        # Now we need to determine by how much the score should be changed by, the alpha is determined here
+        # Get the total number of entries in the ShadowingLogFeedbackAnswers by this user, divide by the number of
+        # question and then divide 1 by that number.
+        # 1 / (# of user's entries in ShadowingLogFeedbackAnswers) / (# of feedback questions)
+        alpha = max(0.2,
+                    1 / math.log((ShadowingLogFeedbackAnswers.objects.filter(user=request.user).count() /
+                         ShadowingFeedbackQuestions.objects.all().count()) + 1))
+        print(alpha)
+
         # Update the user's stats according to the feedback
         # Make sure they the chars_per_minute does not become higher than the higest chars_per_minute and lower than the
         # lowest chars_per_minute
@@ -196,12 +214,14 @@ class ShadowingFeedBack(View):
                 AudioAndSubtitleFilesForShadowing.objects.aggregate(Max('chars_per_minute'))['chars_per_minute__max']:
             # P.objects.filter(username="John Smith").update(accvalue=F("accvalue") + 50)
             ShadowingUserStats.objects.\
-                filter(user=request.user).update(chars_per_minute = F("chars_per_minute") + change_score_by)
+                filter(user=request.user).update(chars_per_minute = F("chars_per_minute") + alpha *
+                                                                    change_score_by_constant)
         elif percentage <= no_ratio_for_decrease and \
                 ShadowingUserStats.objects.get(user=request.user).chars_per_minute > \
                 AudioAndSubtitleFilesForShadowing.objects.aggregate(Min('chars_per_minute'))['chars_per_minute__min'] :
             ShadowingUserStats.objects.\
-                filter(user=request.user).update(chars_per_minute = F("chars_per_minute") - change_score_by)
+                filter(user=request.user).update(chars_per_minute = F("chars_per_minute") - alpha *
+                                                                    change_score_by_constant)
 
         return JsonResponse({'redirect': '/shadowing/'})
 
