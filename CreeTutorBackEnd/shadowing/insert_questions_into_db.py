@@ -26,18 +26,12 @@ def insert_questions_into_db():
         ["I could easily complete the activity", answer_yes],
     ]
 
-    question_objs = []
-
     for question in questions:
-        obj = ShadowingFeedbackQuestions(
+        ShadowingFeedbackQuestions.objects.get_or_create(
             question=question[0],
             yes_answer=question[1][0],
             no_answer=question[1][1],
         )
-
-        question_objs.append(obj)
-
-    ShadowingFeedbackQuestions.objects.bulk_create(question_objs)
 
 if __name__ == '__main__':
     insert_questions_into_db()

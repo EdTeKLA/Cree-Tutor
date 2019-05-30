@@ -114,7 +114,6 @@ if __name__ == '__main__':
     # Get the path to the directory
     directory_path = os.path.join(module_dir, directory)
     # Will store objects that we need to insert
-    objects_to_insert = []
 
     # Go through every path
     for file in os.listdir(directory_path):
@@ -129,8 +128,6 @@ if __name__ == '__main__':
             dict_for_insert = PrepareAdditionalInformationForFile.prepare_additional_information_for_file(
                 file,
                 file_stats)
-            # Create the object to insert and add to list
-            objects_to_insert.append(AudioAndSubtitleFilesForShadowing(**dict_for_insert))
 
-    # Now bulk insert
-    AudioAndSubtitleFilesForShadowing.objects.bulk_create(objects_to_insert)
+            # Create the object to insert and add to list
+            AudioAndSubtitleFilesForShadowing.objects.get_or_create(dict_for_insert, name=dict_for_insert['name'])

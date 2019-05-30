@@ -7,8 +7,8 @@ import os
 from django.shortcuts import render
 from django.views import View
 from shadowing.models import AudioAndSubtitleFilesForShadowing, ShadowingFeedbackQuestions, ShadowingLogActions, \
-    ShadowingUserStats, ShadowingLogFeedbackAnswers
-from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
+    ShadowingUserStats, ShadowingLogFeedbackAnswers, ShadowingConfig
+from django.http import HttpResponseNotFound, JsonResponse
 from django.db.models import Min, F, Max
 
 
@@ -22,7 +22,8 @@ class Index(View):
         :param request:
         :return:
         """
-        sliding_window_size = 5
+        sliding_window_size = float(ShadowingConfig.objects.get(name='SLIDING_WINDOW_SIZE_FOR_FETCH').config)
+        min_number_of_stories = float(ShadowingConfig.objects.get(name='MIN_NUMBER_OF_STORIES').config)
         # First we try to get the statistics of the user that is request the page
         try:
             user_stats = ShadowingUserStats.objects.get(user_id = request.user.id)
@@ -40,13 +41,13 @@ class Index(View):
 
         # Now filtering the stories according to the window size and
         all_stories = []
-        while len(all_stories) < 3:
-            min_chars_per_minute -= 5
-            max_chars_per_minute += 5
-
+        while len(all_stories) < min_number_of_stories:
             all_stories = AudioAndSubtitleFilesForShadowing.objects.filter(
                 chars_per_minute__range=(min_chars_per_minute, max_chars_per_minute)
             )
+
+            min_chars_per_minute -= sliding_window_size
+            max_chars_per_minute += sliding_window_size
 
         context = {"all_stories": all_stories}
 
@@ -58,6 +59,12 @@ class Shadowing(View):
     Class was created to render the shadowing page where the story is displayed.
     """
     def get(self, request, story_index):
+        """
+        Gets the requested story, processes the text and renders the story tempalte
+        :param request:
+        :param story_index:
+        :return:
+        """
         try:
             story_info = AudioAndSubtitleFilesForShadowing.objects.get(id=story_index)
             context = {"audio_file_loc": story_info.sound_location,
@@ -68,11 +75,21 @@ class Shadowing(View):
             return HttpResponseNotFound("Page Not Found")
 
     def __read_file(self, location):
+        """
+        Processes the file by calling helper function, return a list of timestamped words
+        :param location:
+        :return:
+        """
         unindexed_sentences = self.__get_list_of_sentences(location)
         words = self.__get_time_stamped_words(unindexed_sentences)
         return words
 
     def __get_list_of_sentences(self, location):
+        """
+        # Get a list of all the sentences from file and its time stamps for processing.
+        :param location:
+        :return:
+        """
         # Opening the file
         module_dir = os.path.dirname(__file__)  # get current directory
         file_path = os.path.join(module_dir, location)
@@ -105,6 +122,11 @@ class Shadowing(View):
         return sentences
 
     def __get_time_stamped_words(self, unindexed_sentences):
+        """
+        Takes sentences and timestamps, converts them to timestamped words.
+        :param unindexed_sentences:
+        :return:
+        """
         time_stamped_words = []
         accumulated_word_count = 0
         percen = []
@@ -134,6 +156,11 @@ class Shadowing(View):
         return time_stamped_words
 
     def __time_in_milliseconds(self, time):
+        """
+        Helper function to convert time to milliseconds.
+        :param time:
+        :return:
+        """
         # Split the time using colons and commas
         time_comps = re.split("[:,]", time)
         # Time to millseconds
@@ -172,10 +199,10 @@ class ShadowingFeedBack(View):
         """
         # The amount the score will be changed by at the start
         # This number will be decayed over time, using alpha
-        change_score_by_constant = 50
+        change_score_by_constant = float(ShadowingConfig.objects.get(name='CHANGE_SCORE_BY').config)
         # Variables hold the number of question that will change the person's score up or down
-        yes_ratio_for_increase = 0.80
-        no_ratio_for_decrease = 0.40
+        yes_ratio_for_increase = float(ShadowingConfig.objects.get(name='FEEDBACK_RATIO_TO_INCREASE_SCORE').config)
+        no_ratio_for_decrease = float(ShadowingConfig.objects.get(name='FEEDBACK_RATIO_TO_DECREASE_SCORE').config)
         # The count of the answers
         count = 0
         yes_answers = 0
@@ -200,9 +227,9 @@ class ShadowingFeedBack(View):
         # Get the total number of entries in the ShadowingLogFeedbackAnswers by this user, divide by the number of
         # question and then divide 1 by that number.
         # 1 / (# of user's entries in ShadowingLogFeedbackAnswers) / (# of feedback questions)
-        alpha = max(0.2,
-                    1 / math.log((ShadowingLogFeedbackAnswers.objects.filter(user=request.user).count() /
-                         ShadowingFeedbackQuestions.objects.all().count()) + 1))
+        alpha = max(float(ShadowingConfig.objects.get(name='SCORE_SCALAR_MIN').config),
+                    1 / math.log(len((ShadowingLogFeedbackAnswers.objects.filter(user=request.user))) /
+                         len(ShadowingFeedbackQuestions.objects.all()) + 1))
 
         # Update the user's stats according to the feedback
         # Make sure they the chars_per_minute does not become higher than the higest chars_per_minute and lower than the

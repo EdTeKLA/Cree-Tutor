@@ -8,6 +8,7 @@
 
 {% block scripts %}
 <script src="{% static 'shadowing/js/process_feedback.js' %}"></script>
+<script src="{% static 'shadowing/js/audio.js' %}"></script>
 <script>
     $(function() {
         // Store the field_set names for when fetched
@@ -18,8 +19,11 @@
     ];
         var story_id = "{{ story_id }}";
 
+        sendPostRequestForLogging("start_feedback", -1, story_id);
+
         $('#feedback_form').submit(function(e){
             processFeedbackAnswersAndSend(e, field_set_names, story_id);
+            sendPostRequestForLogging("finish_feedback", -1, story_id);
         });
     });
 </script>

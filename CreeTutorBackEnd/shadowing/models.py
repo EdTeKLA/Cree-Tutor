@@ -4,7 +4,18 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-# Create your models here.
+class ShadowingConfig(models.Model):
+    """
+    Model was created to store the config for the shadowing app.
+    """
+    # The name of the configuration
+    name = models.TextField(null=False, blank=False)
+    # The configuration settings, is a text field, but will store numbers as well
+    config = models.TextField(null=False, blank=False)
+
+    class Meta:
+        db_table = "shadowing_config"
+
 class AudioAndSubtitleFilesForShadowing(models.Model):
     """
     Model is created to store all the files we could use for Shadowing and the level
