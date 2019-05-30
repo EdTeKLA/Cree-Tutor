@@ -29,14 +29,14 @@
         // Baseline has been established, change status and call function to do more work
         baselineEstablisedCallback = function baselineEstablised(){
             baselineStatus = true;
-            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWord, highlightCallFrequency, audioFile, time_stamped_words, story_id);});
+            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWordAndProgressBar, highlightCallFrequency, audioFile, time_stamped_words, story_id);});
         };
 
         // Download has been completed, change status and call the function to do more work
         downCompleteCallback = function downloadComplete(data){
             downloadStatus = true;
             audioFile = data;
-            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWord, highlightCallFrequency, audioFile, time_stamped_words, story_id);});
+            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWordAndProgressBar, highlightCallFrequency, audioFile, time_stamped_words, story_id);});
         };
 
         // Call the function to get the microphone baseline/monitor the audio level and download the audiofile
@@ -81,8 +81,10 @@
 
 <div class="container">
         <div class="col-12">
+            <div class="progress mt-4 mb-4">
+                <div class="progress-bar" role="progressbar"></div>
+            </div>
                 <div class="row">
-                    <span class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></span>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
                         <button id="play_button" class="btn btn-primary nav-link btn-lg btn-sq" href="#"><div id="loading-spinner" class="lds-css ng-scope large-button-padding"><div style="width:100%;height:100%" class="lds-dual-ring"><div></div></div><style type="text/css">@keyframes lds-dual-ring {
                                                                                                                                                                                                                                                                                        0% {
@@ -131,7 +133,7 @@
                         </button>
                     </div>
                     <span class="col-xs-2 col-sm-2 col-md-2 col-lg-1"></span>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-8">
+                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-9">
                         <div id="error_message" class="hide ml-0 mt-2 form-field-message error ">
                             <i class="fas fa-exclamation-circle"></i>
                             <span></span>
@@ -147,7 +149,7 @@
                 <div class="row">
                     <span class="col-sm-9 col-md-10 col-lg-10 col-xl-11"></span>
                     <form id="finished">
-                        <input class="btn btn-primary submit_finished" id="finished_button" type="submit" value="Finished">
+                        <input class="btn btn-primary submit_finished hide" id="finished_button" type="submit" value="Finished">
                     </form>
                 </div>
                 </div>

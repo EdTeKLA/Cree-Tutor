@@ -3,6 +3,9 @@ File was created to get the feedback from a user, submit it and redirect.
  */
 
 function processFeedbackAnswersAndSend(e, field_set_names, story_id){
+    /*
+    Function sents the information about the feedback back to the server and redirects.
+     */
     // Preventing the page from refreshing
     e.preventDefault();
 
@@ -20,7 +23,7 @@ function processFeedbackAnswersAndSend(e, field_set_names, story_id){
             "answers": JSON.stringify(answers),
         },
         success:function(data){
-            // window.location.href = data['redirect'];
+            window.location.href = data['redirect'];
         },
         error:function(error) {
             $("#error_message").removeClass("hide");

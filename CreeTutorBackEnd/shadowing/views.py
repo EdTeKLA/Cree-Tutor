@@ -203,7 +203,6 @@ class ShadowingFeedBack(View):
         alpha = max(0.2,
                     1 / math.log((ShadowingLogFeedbackAnswers.objects.filter(user=request.user).count() /
                          ShadowingFeedbackQuestions.objects.all().count()) + 1))
-        print(alpha)
 
         # Update the user's stats according to the feedback
         # Make sure they the chars_per_minute does not become higher than the higest chars_per_minute and lower than the

@@ -108,7 +108,7 @@ function makePlayActive(baselineStatus, downloadStatus, audio, callback){
 
 var finished = false;
 
-function highLightActiveWord(audio, time_stamped_words, story_id) {
+function highLightActiveWordAndProgressBar(audio, time_stamped_words, story_id) {
     // Make all the words black
     // Called to check which word should be highlighted every 33 milliseconds
     // 33 milliseconds because thats more than enough for smooth playback
@@ -122,6 +122,9 @@ function highLightActiveWord(audio, time_stamped_words, story_id) {
                 break;
             }
         }
+
+        // Updating progress bar
+        $('.progress-bar').css({"width": ((audio.currentTime/audio.duration) * 100 + "%")});
     } else if (audio.currentTime >= audio.duration && !finished){
         finished = true;
         // If the current time is equal to the end time.
