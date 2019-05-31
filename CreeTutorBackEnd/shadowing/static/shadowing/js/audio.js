@@ -117,7 +117,6 @@ function highLightActiveWordAndProgressBar(audio, time_stamped_words, story_id, 
     // Make all the words black
     // Called to check which word should be highlighted every 33 milliseconds
     // 33 milliseconds because thats more than enough for smooth playback
-    audio.playbackRate = 50;
     if (audio.currentTime < audio.duration) {
         var time_in_milli = audio.currentTime * 1000;
         // Iterate through every words, check if the word should be highlighted, if yes, change
