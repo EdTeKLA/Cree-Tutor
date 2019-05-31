@@ -1,5 +1,6 @@
 import math
 from time import gmtime, strftime
+import uuid
 
 import json
 import re
@@ -69,7 +70,8 @@ class Shadowing(View):
             story_info = AudioAndSubtitleFilesForShadowing.objects.get(id=story_index)
             context = {"audio_file_loc": story_info.sound_location,
                        "audio_transcript_list": self.__read_file(story_info.sub_location),
-                       "story_id": story_index}
+                       "story_id": story_index,
+                       "session_id": uuid.uuid4()}
             return render(request, 'shadowing/story.html', context)
         except AudioAndSubtitleFilesForShadowing.DoesNotExist:
             return HttpResponseNotFound("Page Not Found")
@@ -176,7 +178,7 @@ class ShadowingFeedBack(View):
 
     Saves the logs for how the person answered and updates the values of what where they score is.
     """
-    def get(self, request, story_id):
+    def get(self, request, story_id, session_id):
         """
         Gets all the questions from the database for shadowing questions and puts it into a context to show the user.
         :param request:
@@ -186,10 +188,10 @@ class ShadowingFeedBack(View):
         questions = ShadowingFeedbackQuestions.objects.all()
 
         # Create the context and render
-        context = { "story_id": story_id, "questions": questions }
+        context = { "story_id": story_id, "questions": questions, "session_id":session_id }
         return render(request, 'shadowing/feedback.html', context)
 
-    def post(self, request, story_id):
+    def post(self, request, story_id, session_id):
         """
         Logs all the answers to the question of the person and updates the stats of the user depending on their
         feedback.
@@ -220,6 +222,7 @@ class ShadowingFeedBack(View):
                 question_id = q_id,
                 answer=answer,
                 time=strftime('%Y-%m-%d %H:%M:%S.%s%z', gmtime()),
+                session_id=session_id
             )
             to_log.save()
 
@@ -256,7 +259,7 @@ class ShadowingLogging(View):
     """
     Only takes post request. Logs the information for the shadowing questions.
     """
-    def post(self, request, story_id, action, time):
+    def post(self, request, story_id, action, time, session_id):
         """
         Logs the information for shadowing. This includes the information in ShadowingLogStorySelection model.
         :param request:
@@ -272,7 +275,8 @@ class ShadowingLogging(View):
                 story_id=story_id,
                 action=action,
                 story_time=time,
-                time=strftime('%Y-%m-%d %H:%M:%S.%s%z', gmtime())
+                time=strftime('%Y-%m-%d %H:%M:%S.%s%z', gmtime()),
+                session_id=session_id
             )
 
             log.save()

@@ -17,7 +17,8 @@
         var downloadStatus = false;
         var playing = false;
         var audioFile = null;
-        var story_id = '{{story_id}}';
+        var story_id = '{{ story_id }}';
+        var session_id = '{{session_id}}';
 
         time_stamped_words = [
             {% for word in audio_transcript_list %}
@@ -29,19 +30,19 @@
         // Baseline has been established, change status and call function to do more work
         baselineEstablisedCallback = function baselineEstablised(){
             baselineStatus = true;
-            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWordAndProgressBar, highlightCallFrequency, audioFile, time_stamped_words, story_id);});
+            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWordAndProgressBar, highlightCallFrequency, audioFile, time_stamped_words, story_id, session_id);});
         };
 
         // Download has been completed, change status and call the function to do more work
         downCompleteCallback = function downloadComplete(data){
             downloadStatus = true;
             audioFile = data;
-            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWordAndProgressBar, highlightCallFrequency, audioFile, time_stamped_words, story_id);});
+            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWordAndProgressBar, highlightCallFrequency, audioFile, time_stamped_words, story_id, session_id);});
         };
 
         // Call the function to get the microphone baseline/monitor the audio level and download the audiofile
         s = "{% static '' %}" + '{{audio_file_loc}}';
-        getAudioFile(downCompleteCallback, s, story_id);
+        getAudioFile(downCompleteCallback, s, story_id, session_id);
         microphoneLevels(baselineEstablisedCallback);
 
         $('#play_button').click(
@@ -49,14 +50,14 @@
                 if (baselineStatus == true && downloadStatus == true) {
                     if (playing == true){
                         // Is play, pause
-                        sendPostRequestForLogging("pause", audioFile.currentTime, story_id);
+                        sendPostRequestForLogging("pause", audioFile.currentTime, story_id, session_id);
                         $('#play-button').removeClass("hide");
                         $('#pause-button').addClass("hide");
                         playing = false;
                         audioFile.pause();
                     } else{
                         // Is paused, play
-                        sendPostRequestForLogging("play", audioFile.currentTime, story_id);
+                        sendPostRequestForLogging("play", audioFile.currentTime, story_id, session_id);
                         $('#play-button').addClass("hide");
                         $('#pause-button').removeClass("hide");
                         playing = true;
@@ -66,18 +67,17 @@
             }
         );
 
-        $('#finished_button').click(
+        $('#go-back').click(
             function () {
-                sendPostRequestForLogging("finish_button", audioFile.currentTime, story_id);
-                window.location.href = "/shadowing/feedback/" + story_id;
-                return false;
+                sendPostRequestForLogging("quit", audioFile.currentTime, story_id, session_id);
+                goBack();
             }
         );
 
-        $('#go-back').click(
+        $('#finished_button').click(
             function () {
-                sendPostRequestForLogging("quit", audioFile.currentTime, story_id);
-                goBack();
+                window.location.href = "/shadowing/feedback/" + story_id + "/" +session_id;
+                return false;
             }
         );
     });

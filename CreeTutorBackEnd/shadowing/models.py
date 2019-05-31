@@ -100,6 +100,8 @@ class ShadowingLogActions(models.Model):
     action = models.TextField()
     # When the person clicked the button
     time = models.DateTimeField(default=datetime.now)
+    # Session id will be a guid
+    session_id = models.TextField()
 
     class Meta:
         db_table = "shadowing_log_actions"
@@ -119,6 +121,8 @@ class ShadowingLogFeedbackAnswers(models.Model):
     answer = models.BooleanField()
     # The time at which the the feedback was given
     time = models.DateTimeField(default=datetime.now)
+    # Session id will be a guid
+    session_id = models.TextField()
 
     class Meta:
         db_table = "shadowing_log_feedback_answers"

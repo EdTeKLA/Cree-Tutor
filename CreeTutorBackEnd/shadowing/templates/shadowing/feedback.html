@@ -18,12 +18,13 @@
         {% endfor %}
     ];
         var story_id = "{{ story_id }}";
+        var session_id = '{{session_id}}';
 
-        sendPostRequestForLogging("start_feedback", -1, story_id);
+        sendPostRequestForLogging("start_feedback", -1, story_id, session_id);
 
         $('#feedback_form').submit(function(e){
-            processFeedbackAnswersAndSend(e, field_set_names, story_id);
-            sendPostRequestForLogging("finish_feedback", -1, story_id);
+            processFeedbackAnswersAndSend(e, field_set_names, story_id, session_id);
+            sendPostRequestForLogging("finish_feedback", -1, story_id, session_id);
         });
     });
 </script>

@@ -3,20 +3,20 @@ function goBack(audioFile){
     window.history.back();
 }
 
-function getAudioFile(callback, location, story_id){
+function getAudioFile(callback, location, story_id, session_id){
     // Sent a POST request to log that a story has been selected
-    sendPostRequestForLogging("select", 0.0, story_id);
+    sendPostRequestForLogging("select", 0.0, story_id, session_id);
 
     // Load the audio
     audio_obj = new Audio(location);
     callback(audio_obj);
 }
 
-function sendPostRequestForLogging(action, time, story_id){
+function sendPostRequestForLogging(action, time, story_id, session_id){
     // Sent a POST request to log that a story has been selected/played/paused/finished
     $.ajax({
         type:'POST',
-        url: "/shadowing/log/" + story_id + "/" + action +  "/" + time + "/",
+        url: "/shadowing/log/" + story_id + "/" + action +  "/" + time + "/" + session_id + "/",
         data:{
         },
         success:function(data){
@@ -113,10 +113,11 @@ function makePlayActive(baselineStatus, downloadStatus, audio, callback){
 
 var finished = false;
 
-function highLightActiveWordAndProgressBar(audio, time_stamped_words, story_id) {
+function highLightActiveWordAndProgressBar(audio, time_stamped_words, story_id, session_id) {
     // Make all the words black
     // Called to check which word should be highlighted every 33 milliseconds
     // 33 milliseconds because thats more than enough for smooth playback
+    audio.playbackRate = 50;
     if (audio.currentTime < audio.duration) {
         var time_in_milli = audio.currentTime * 1000;
         // Iterate through every words, check if the word should be highlighted, if yes, change
@@ -137,7 +138,7 @@ function highLightActiveWordAndProgressBar(audio, time_stamped_words, story_id) 
         $("#finished_button").removeClass("hide");
         $("#play_button").addClass("disabled");
         $("#play_button").attr("disabled", true);
-        sendPostRequestForLogging("finish", audio.currentTime, story_id);
+        sendPostRequestForLogging("finish", audio.currentTime, story_id, session_id);
     }
 }
 

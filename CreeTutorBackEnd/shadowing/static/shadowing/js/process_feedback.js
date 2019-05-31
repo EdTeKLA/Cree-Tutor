@@ -2,7 +2,7 @@
 File was created to get the feedback from a user, submit it and redirect.
  */
 
-function processFeedbackAnswersAndSend(e, field_set_names, story_id){
+function processFeedbackAnswersAndSend(e, field_set_names, story_id, session_id){
     /*
     Function sents the information about the feedback back to the server and redirects.
      */
@@ -18,7 +18,7 @@ function processFeedbackAnswersAndSend(e, field_set_names, story_id){
     // Now send of information to server
     $.ajax({
         type:'POST',
-        url: "/shadowing/feedback/" + story_id + "/",
+        url: "/shadowing/feedback/" + story_id + "/" + session_id + "/",
         data:{
             "answers": JSON.stringify(answers),
         },
