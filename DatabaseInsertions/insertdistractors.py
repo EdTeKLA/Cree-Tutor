@@ -1,9 +1,16 @@
 from getpass import getpass
-import MySQLdb
+import psycopg2
 import os
 import sys
 import re
 import unicodedata
+
+#Get db_root, db_pass, and filepaths from settings.py
+sys.path.append(os.path.join(os.path.dirname(sys.path[0]),'CreeTutorBackEnd'))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "CreeTutorBackEnd.settings")
+import django
+django.setup()
+from CreeTutorBackEnd import settings_secret
 
 db = None
 cursor = None
@@ -15,8 +22,7 @@ def connect(user, pw):
     '''
 
     global db, cursor
-    db = MySQLdb.connect("localhost", "root", "2240498", 'CreeTutordb' )
-    db.set_character_set('utf8')
+    db = psycopg2.connect(host="localhost", user=user, password=pw, database='cree_tutor_db')
     cursor = db.cursor()
 
     #MySQL must be reminded many times to use nothing but UNICODE
@@ -28,14 +34,14 @@ def connect(user, pw):
     return
 
 def letter_distractors():
-    f.open("letter_distractor.txt", "r")
+    f = open("letter_distractor.txt", "r")
     for line in f:
         line = line.split(":")
         letter = line[0].strip()
         distractor = line[1].strip()
         type = line[2].strip()
         if len(line) == 3:
-            e = "INSERT INTO letter_distractor ('{}', '{}', '{}')".format(distractor, type, letter)
+            e = "INSERT INTO letter_distractor(distractor, type, letter) VALUES ('{}', '{}', '{}')".format(distractor, type, letter)
             cursor.execute(e)
 
     db.commit()
@@ -58,7 +64,7 @@ def pair_distractors():
     return
 
 def main():
-    connect("root", "pw")
+    connect(settings_secret.DB_ROOT, settings_secret.DB_PASS)
     letter_distractors()
     pair_distractors()
     db.commit()

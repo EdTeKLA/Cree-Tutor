@@ -1,14 +1,21 @@
 from getpass import getpass
-import MySQLdb
+import psycopg2
 import os
 import sys
 import re
 import unicodedata
 
+#Get db_root, db_pass, and filepaths from settings.py
+sys.path.append(os.path.join(os.path.dirname(sys.path[0]),'CreeTutorBackEnd'))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "CreeTutorBackEnd.settings")
+import django
+django.setup()
+from CreeTutorBackEnd import settings_secret
+
 db = None
 cursor = None
 
-def connect():
+def connect(user, pw):
     '''
     Function takes in password and connects to database
     Returns None
@@ -17,10 +24,8 @@ def connect():
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "CreeTutorBackEnd.settings")
     import django
     django.setup()
-    from CreeTutorBackEnd import settings
     global db, cursor
-    db = MySQLdb.connect("localhost", settings.DB_ROOT, settings.DB_PASS, 'CreeTutordb' )
-    db.set_character_set('utf8')
+    db = psycopg2.connect(host="localhost", user=user, password=pw, database='cree_tutor_db')
     cursor = db.cursor()
 
     #MySQL must be reminded many times to use nothing but UNICODE
@@ -32,7 +37,7 @@ def connect():
     return
 
 def main():
-    connect()
+    connect(settings_secret.DB_ROOT, settings_secret.DB_PASS)
     f = open("distractor_type.txt", "r")
     s = "delete from distractor_type"
     cursor.execute(s)
@@ -63,6 +68,12 @@ def main():
         s = "insert into letter_distractor (letter, distractor, type) values ('{}', '{}', {})".format(spli[0], spli[1], spli[2])
         # print(s)
         cursor.execute(s)
+
+    game_levels = {0: 'learn', 1: 'easy', 2: 'medium', 3: 'hard'}
+    for key, value in game_levels.items():
+        s = "INSERT INTO game_levels(level, name, description) VALUES ('{}', '{}', '{}')".format(key, value, '')
+        cursor.execute(s)
+
     f.close()
     db.commit()
     db.close()

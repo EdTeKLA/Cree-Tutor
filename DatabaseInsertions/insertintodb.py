@@ -1,5 +1,5 @@
+import psycopg2
 from getpass import getpass
-import MySQLdb
 import os
 import sys
 import re
@@ -34,8 +34,7 @@ def connect(user, pw):
     '''
 
     global db, cursor
-    db = MySQLdb.connect("localhost", user, pw, 'CreeTutordb' )
-    db.set_character_set('utf8')
+    db = psycopg2.connect(host="localhost", user=user, password=pw, database='cree_tutor_db' )
     cursor = db.cursor()
 
     #MySQL must be reminded many times to use nothing but UNICODE
@@ -114,7 +113,7 @@ def cycleSound(directory_in_str):
             new = unicodedata.normalize('NFC', new)
             first = unicodedata.normalize('NFC', first)
             second = unicodedata.normalize('NFC', second)
-            executestring = "INSERT INTO letter_pair VALUES ('{}','{}','{}','{}')".format(new, finalpath, first, second)
+            executestring = "INSERT INTO letter_pair(pair, sound, first_letter, second_letter) VALUES ('{}','{}','{}','{}')".format(new, finalpath, first, second)
             cursor.execute(executestring)
 
     db.commit()
@@ -157,7 +156,7 @@ def cycleWords(directory_in_str, lemma_dict):
 
 
     word_id = 0
-    executestring = "INSERT INTO word VALUES"
+    executestring = "INSERT INTO word() VALUES"
     directory = directory_in_str
 
     #read in file
@@ -236,14 +235,15 @@ def cycleWords(directory_in_str, lemma_dict):
                 print("This should look like \n[97, 107, 226, 109, 97, 115, 107, 238, 104, 107]")
                 print(lemma)
                 print("This should look like \nakâmaskîhk")
-            executestring = "INSERT INTO word(word_id, word, translation, num_syllables, sound, lemmaID_id, gram_code_id) VALUES"
+            executestring = "INSERT INTO word(word_id, word, translation, num_syllables, sound, lemmaid_id, gram_code_id) VALUES"
             executestring += add_to_executestring
             executestring = executestring.replace("\n", "")
             executestring = executestring[0:-1]
             try:
                 cursor.execute(executestring)
-            except:
+            except Exception as ex:
                 print(executestring)
+                print(ex)
                 count += 1
 
             word_id +=1
