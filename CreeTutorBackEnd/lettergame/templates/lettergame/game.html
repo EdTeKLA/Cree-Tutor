@@ -8,12 +8,24 @@
 {% block scripts %}
 <script src="{% static 'lettergame/js/logging.js' %}"></script>
 <script>
+    $('#go-back').click(
+        function () {
+            goBack();
+        }
+    );
+
     var audioFileLocation = '{% static ''%}{{sound}}';
 </script>
 {% endblock %}
 
 {% block content %}
 <div class="container">
+    <a class="btn no-padding">
+        <div id="go-back" class="display-block grey-back-text no-padding mb-0 mt-1">
+            <img id="back-button" alt="Back button" src="{% static 'common/images/back_button.png' %}" />
+            <span class="">Back</span>
+        </div>
+    </a>
     <div class="row">
         <div class="col-centered">
             <button id="speaker-button" class="btn btn-primary nav-link btn-lg btn-sq" data-toggle="tooltip" data-placement="right" title="Click to play">

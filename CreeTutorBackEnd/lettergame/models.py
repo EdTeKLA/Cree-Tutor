@@ -69,7 +69,6 @@ TROUBLESHOOTING:
 
 '''
 
-
 class GameLevels(models.Model):
     '''
     Class describes what level the current games may operate at.
@@ -85,6 +84,19 @@ class GameLevels(models.Model):
     class Meta:
         db_table = 'game_levels'
 
+
+class LetterGameOrPairGameSession(models.Model):
+    """
+    Start and end of a session is logged here with the level at which the session was done at.
+    """
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    session_begin = models.DateTimeField(blank=True, null=True)
+    session_end = models.DateTimeField(blank=True, null=True)
+    level = models.ForeignKey(GameLevels, on_delete=models.DO_NOTHING)
+
+    class Meta:
+        db_table = 'letter_game_or_pair_game_session'
 
 class Alphabet(models.Model):
     '''

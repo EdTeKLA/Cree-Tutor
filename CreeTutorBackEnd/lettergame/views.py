@@ -57,7 +57,7 @@ class LetterGames(View):
         # Save stats, then get new options for next question
         savePostStats(request, option, whichStats, stats, whichDist, level)
         context = getOptions(option, type, level)
-        print(context)
+
         return JsonResponse(context)
 
     def __prepare_options(self, request, game, level):

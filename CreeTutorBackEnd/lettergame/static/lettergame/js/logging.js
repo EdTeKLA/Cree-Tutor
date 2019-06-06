@@ -99,6 +99,7 @@ $(document).on('click', '[type=submit]', function(e){
         error:function(error){console.log(error)}
     });
 
+    hoveredArr = [];
     startTime = getTime();
 });
 
