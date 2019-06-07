@@ -2,10 +2,9 @@
 File contains all the helpers needed by views in views.py
 """
 
-from .models import *
 import random
-import datetime
-import time
+from .models import *
+
 
 def getOptions(option, type, level):
     """

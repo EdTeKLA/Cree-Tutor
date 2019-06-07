@@ -8,10 +8,10 @@ db = None
 cursor = None
 
 def connect(pw):
-    '''
+    """
     Function takes in password and connects to database
     Returns None
-    '''
+    """
 
     global db, cursor
     db = MySQLdb.connect("localhost","root", pw, db )
@@ -20,13 +20,13 @@ def connect(pw):
 
 
 def cyclethru(directory_in_str):
-    '''
+    """
     Function takes in a string path to the desired directory. Directory must be in static folder of django project.
     Cycles through directory and extracts individual names and paths. Passes individual names to function syllables to count the
     number of syllables in word. Inserts names, paths, number of syllables, and an id into pre-made words table
     in database. Strips names of any non-alpha character and does not allow names with whitespace or duplicate names.
     Returns None
-    '''
+    """
 
     word_id = 0
     executestring = "INSERT INTO words VALUES"
@@ -61,11 +61,11 @@ def cyclethru(directory_in_str):
     return
 
 def syllables(word):
-    '''
+    """
     Function takes in word string and counts the number of syllables.
     Returns int, number of syllables
     Ref: https://stackoverflow.com/questions/46759492/syllable-count-in-python
-    '''
+    """
 
     # TODO: Consider whether 'ew' counts as two syllables
 

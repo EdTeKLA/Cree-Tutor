@@ -53,15 +53,26 @@
     </div>
 
     <div class="row">
-        <div class="col-centered">
+        <div id="speaker" class="col-centered">
             <button id="speaker-button" class="btn btn-primary nav-link btn-lg btn-sq" data-toggle="tooltip" data-placement="right" title="Click to play">
                 <img id="speaker-button-img" class="largest-button-padding" src="{% static 'lettergame/image/speaker_button.png' %}" />
             </button>
 
-            <h2 class="text-center">Select the answer:</h2>
         </div>
     </div>
 
+    <div class="row">
+        <div id="correct" class="col-centered hide">
+            <button id="correct-button" class="btn btn-primary nav-link btn-lg btn-sq" data-toggle="tooltip" data-placement="right" title="Click to play">
+                <div>
+                    <img id="correct-button-img" class="largest-button-padding" src="{% static 'common/images/checkmark.png' %}" />
+                    <h2>Correct</h2>
+                </div>
+            </button>
+
+        </div>
+    </div>
+    <h2 class="text-center">Select the answer:</h2>
     <div class="d-flex justify-content-center">
         <span id="buttons_for_answers">
             <form id="game_ans">
@@ -72,17 +83,17 @@
             </form>
         </span>
     </div>
-</div>
-<div class="container">
     <div class="d-flex justify-content-between">
-        <a class="btn m-3 pl-5 pr-5">
+        <a class="">
         </a>
-        <a id="next-button" class="btn m-3 pl-5 pr-5 hide">
+
+        <a id="next-button" class="btn btn ml-3 mr-3 mt-1 mt-1 pl-5 pr-5 hide">
             <div class="display-block no-padding centering">
-                <span class="white-bold-text">Next</span>
+                <span id="next-text" class="white-bold-text">Next</span>
                 <img alt="Next button" src="{% static 'common/images/next_button.png' %}" />
             </div>
         </a>
     </div>
 </div>
+
 {% endblock content %}

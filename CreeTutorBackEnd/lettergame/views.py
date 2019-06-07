@@ -1,18 +1,12 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.http import JsonResponse
-import json
-from django.template import loader
-from django.forms.models import model_to_dict
-from .models import *
-import random
-import datetime
-from django.db.models import Q
 import time
+from time import gmtime, strftime
+import datetime
+from django.http import JsonResponse
+from django.shortcuts import render
 from django.views import View
 from django.views.generic.base import TemplateView
 from lettergame.view_helper import *
-from time import gmtime, strftime
+from .models import *
 
 
 class WhichGame(View):
@@ -43,7 +37,7 @@ class LetterGames(View):
         """
         session = LetterGameOrPairGameSession(
             user=request.user,
-            session_begin=datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'),
+            session_begin=strftime('%Y-%m-%d %H:%M:%S.%s%z', gmtime()),
             level=GameLevels.objects.get(name=level),
         )
 
@@ -74,7 +68,7 @@ class LetterGames(View):
         # If questions are complete, complete, log session end
         if int(request.POST['questions_left']) <= 1:
             session = LetterGameOrPairGameSession.objects.get(id=request.POST['session_id'])
-            session.session_end = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+            session.session_end = strftime('%Y-%m-%d %H:%M:%S.%s%z', gmtime())
             session.save()
 
 

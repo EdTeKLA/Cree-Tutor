@@ -28,10 +28,10 @@ from lettergame.models import LemmaGame, Word, Lemma
 
 
 def connect(user, pw):
-    '''
+    """
     Function takes in password and connects to database
     Returns None
-    '''
+    """
 
     global db, cursor
     db = psycopg2.connect(host="localhost", user=user, password=pw, database='cree_tutor_db' )
@@ -84,14 +84,14 @@ def emptyDb():
 
 
 def cycleSound(directory_in_str):
-    '''
+    """
     Function takes in a string path to the desired directory. Directory must be in static folder of django project.
     Cycles through directory and extracts individual pairs and paths. Passes pair to getfirstsecond to identify the first
     and second letter of the letter pair, and return them.
     Inserts names, first letters, second letters, and paths into pre-made Alphabet table
     in database.
     Returns None
-    '''
+    """
 
 
     # Cycle through directory
@@ -258,13 +258,13 @@ def cycleWords(directory_in_str, lemma_dict):
     return
 
 """ Delaneys cycleWords
-    '''
+    """
     Function takes in a string path to the desired directory. Directory must be in static folder of django project.
     Cycles through directory and extracts individual names and paths. Passes individual names to function syllables to count the
     number of syllables in word. Inserts names, paths, number of syllables, and an id into pre-made word table
     in database. Strips names of any non-alpha character and does not allow names with whitespace or duplicate names.
     Returns None
-    '''
+    """
     # Cycle through directory
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
@@ -298,11 +298,11 @@ def cycleWords(directory_in_str, lemma_dict):
 """
 
 def syllables(word):
-    '''
+    """
     Function takes in word string and counts the number of syllables.
     Returns int, number of syllables
     Ref: https://stackoverflow.com/questions/46759492/syllable-count-in-python
-    '''
+    """
 
     # TODO: Consider whether 'ew' counts as two syllables
 
@@ -319,12 +319,12 @@ def syllables(word):
     return count
 
 def cycleLetters(directory_in_str):
-    '''
+    """
     Function takes in a string path to the desired directory. Directory must be in static folder of django project.
     Cycles through directory and extracts individual names and paths. Inserts names and paths pre-made Alphabet table
     in database.
     Returns None
-    '''
+    """
 
 
     # Cycle through directory
@@ -354,12 +354,12 @@ def cycleLetters(directory_in_str):
 
 
 def namevowel():
-    '''
+    """
     Function takes in no arguments.
     Function executes SQL script to update the vowel state of the vowels inserted into the database by
     cyclethru.
     Returns nothings.
-    '''
+    """
 
     vowels = ['a', 'e', 'i', 'o']
     for v in vowels:
@@ -370,12 +370,12 @@ def namevowel():
     return
 
 def semivowel():
-    '''
+    """
     Function takes in no arguments.
     Function executes SQL script to update the vowel state of the semivowels inserted into the database by
     cyclethru.
     Returns nothings.
-    '''
+    """
 
     executestring = "UPDATE alphabet SET vowel = 'semivowel' where letter = 'y' or letter = 'w'"
     cursor.execute(executestring)
@@ -384,12 +384,12 @@ def semivowel():
     return
 
 def consonant():
-    '''
+    """
     Function takes in no arguments.
     Function executes SQL script to update the vowel state of the consonants inserted into the database by
     cyclethru.
     Returns nothings.
-    '''
+    """
 
     executestring = "UPDATE alphabet SET vowel = 'consonant' where vowel = ''"
     cursor.execute(executestring)

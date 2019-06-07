@@ -7,10 +7,10 @@ db = None
 cursor = None
 
 def connect(pw):
-    '''
+    """
     Function takes in password and connects to database
     Returns None
-    '''
+    """
 
     global db, cursor
     db = MySQLdb.connect("localhost","root", pw, db )
@@ -20,12 +20,12 @@ def connect(pw):
 
 
 def cyclethru(directory_in_str):
-    '''
+    """
     Function takes in a string path to the desired directory. Directory must be in static folder of django project.
     Cycles through directory and extracts individual names and paths. Inserts names and paths pre-made Alphabet table
     in database.
     Returns None
-    '''
+    """
 
     # Cycle through directory
     directory = os.fsencode(directory_in_str)
@@ -47,12 +47,12 @@ def cyclethru(directory_in_str):
 
 
 def namevowel():
-    '''
+    """
     Function takes in no arguments.
     Function executes SQL script to update the vowel state of the vowels inserted into the database by
     cyclethru.
     Returns nothings.
-    '''
+    """
 
     vowels = ['a', 'e', 'i', 'o']
     for v in vowels:
@@ -64,12 +64,12 @@ def namevowel():
     return
 
 def semivowel():
-    '''
+    """
     Function takes in no arguments.
     Function executes SQL script to update the vowel state of the semivowels inserted into the database by
     cyclethru.
     Returns nothings.
-    '''
+    """
 
     executestring = "UPDATE Alphabet SET vowel = 'semivowel' where name = 'y' or name = 'w'"
     print(executestring)
@@ -79,12 +79,12 @@ def semivowel():
     return
 
 def consonant():
-    '''
+    """
     Function takes in no arguments.
     Function executes SQL script to update the vowel state of the consonants inserted into the database by
     cyclethru.
     Returns nothings.
-    '''
+    """
 
     executestring = "UPDATE Alphabet SET vowel = 'consonant' where vowel = ''"
     print(executestring)

@@ -105,9 +105,6 @@ $(document).on('click', '[type=submit]', function(e){
         error:function(error){console.log(error)}
     });
 
-    // Updating progress bar
-    $('.progress-bar').css({"width": (((total_questions - questions_left + 1)/total_questions) * 100 + "%")});
-
     hoveredArr = [];
     startTime = getTime();
 
@@ -118,8 +115,15 @@ $(document).on('click', '[type=submit]', function(e){
     var next_button = $("#next-button");
     // Save the pushed button
     var pushed_button = $(this);
+    var speaker_button = $("#speaker");
+    var correct_button = $("#correct");
 
     if (correct_r.val() === pushed_button.val()){
+        // Updating progress bar
+        $('.progress-bar').css({"width": (((total_questions - questions_left + 1)/total_questions) * 100 + "%")});
+
+        speaker_button.addClass("hide");
+        correct_button.removeClass("hide");
         // Highlight the correct answer in green
         correct_r.addClass("btn-primary");
         // Now show the next button
@@ -136,7 +140,6 @@ $(document).on('click', '[type=submit]', function(e){
         pushed_button.removeClass("disabled");
         pushed_button.removeClass("btn-default");
         // Get the speaker button
-        var speaker_button = $("#speaker-button");
         speaker_button_img = speaker_button.find('#speaker-button-img');
         // Get the buttons for the incorrect answer
         var try_again = $("#try-again-button");
@@ -169,7 +172,7 @@ $(document).on('click', '#try-again-button', function(e){
 
     // Show the speaker again and remove the wrong buttons
     // Get the speaker button
-    var speaker_button = $("#speaker-button");
+    var speaker_button = $("#speaker");
     speaker_button.removeClass("hide");
     // Get the buttons for the incorrect answer
     var try_again = $("#try-again-button");
@@ -239,7 +242,10 @@ function getInputFormButtons(){
 }
 
 $(document).on('click', '#next-button', function (e) {
-        // If we have run out of questions, we go back
+    // Updating progress bar
+    $('.progress-bar').css({"width": (((total_questions - questions_left + 1)/total_questions) * 100 + "%")});
+
+    // If we have run out of questions, we go back
     if (questions_left <= 1){
         goBack();
     }
@@ -255,9 +261,14 @@ $(document).on('click', '#next-button', function (e) {
     $('#try-again-button').addClass('hide');
     $('#show-answer-button').addClass('hide');
     // Now show the speaker
-    $('#speaker-button').removeClass('hide');
+    $('#speaker').removeClass('hide');
+    $('#correct').addClass("hide");
     // Decrement the number of questions left
     questions_left--;
+
+    if (questions_left <= 1){
+        $("#next-text").text("Done");
+    }
 });
 
 function modifyForm(formID, data){

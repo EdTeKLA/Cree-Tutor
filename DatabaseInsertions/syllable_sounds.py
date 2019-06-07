@@ -8,10 +8,10 @@ db = None
 cursor = None
 
 def connect():
-    '''
+    """
     Function takes in password and connects to database
     Returns None
-    '''
+    """
 
     global db, cursor
     db = MySQLdb.connect("localhost","root", '2718nehiyawewin', 'CreeTutordb' )

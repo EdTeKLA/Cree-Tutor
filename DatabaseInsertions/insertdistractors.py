@@ -16,10 +16,10 @@ db = None
 cursor = None
 
 def connect(user, pw):
-    '''
+    """
     Function takes in password and connects to database
     Returns None
-    '''
+    """
 
     global db, cursor
     db = psycopg2.connect(host="localhost", user=user, password=pw, database='cree_tutor_db')

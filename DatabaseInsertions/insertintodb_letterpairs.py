@@ -8,10 +8,10 @@ db = None
 cursor = None
 
 def connect(pw):
-    '''
+    """
     Function takes in password and connects to database
     Returns None
-    '''
+    """
 
     global db, cursor
     db = MySQLdb.connect("localhost","root", pw, db )
@@ -20,14 +20,14 @@ def connect(pw):
     return
 
 def cyclethru(directory_in_str):
-    '''
+    """
     Function takes in a string path to the desired directory. Directory must be in static folder of django project.
     Cycles through directory and extracts individual names and paths. Passes name to getfirstsecond to identify the first
     and second letter of the letter pair, and return them.
     Inserts names, first letters, second letters, and paths into pre-made Alphabet table
     in database.
     Returns None
-    '''
+    """
 
     # Cycle through directory
     directory = os.fsencode(directory_in_str)
