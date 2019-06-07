@@ -40,11 +40,14 @@ class LetterGames(View):
         """
         Method passes appropriate parameters to getOptions and then renders the game.html template.
         """
+        number_of_questions = 10
         # Get the options to render the context
         option, whichStats, type, stats, whichDist = self.__prepare_options(request, game, level)
 
         # get new options for game
-        context =  getOptions(option, type, level)
+        context = getOptions(option, type, level)
+        context['number_of_questions'] = number_of_questions
+
         return render(request, 'lettergame/game.html', context)
 
     def post(self, request, game, level):

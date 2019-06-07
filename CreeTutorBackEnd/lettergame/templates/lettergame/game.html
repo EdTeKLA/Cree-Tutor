@@ -15,17 +15,36 @@
     );
 
     var audioFileLocation = '{% static ''%}{{sound}}';
+    var total_number_of_questions_left = '{{ number_of_questions }}';
+    var wrong_answers = [];
 </script>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <a class="btn no-padding">
-        <div id="go-back" class="display-block grey-back-text no-padding mb-0 mt-1">
-            <img id="back-button" alt="Back button" src="{% static 'common/images/back_button.png' %}" />
-            <span class="">Back</span>
+    <div class="d-flex justify-content-between">
+        <a class="btn m-3 pl-5 pr-5">
+            <div id="go-back" class="display-block grey-bold-text no-padding">
+                <img id="back-button" alt="Back button" src="{% static 'common/images/back_button.png' %}" />
+                <span>Back</span>
+            </div>
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-centered two_wrong_buttons">
+            <button id="try-again-button" class="btn btn-danger nav-link btn-lg btn-sq hide">
+                Try Again!
+            </button>
         </div>
-    </a>
+    </div>
+    <div class="row">
+        <div class="col-centered two_wrong_buttons">
+            <button id="show-answer-button" class="btn btn-danger nav-link btn-lg btn-sq hide">
+                Show Answer
+            </button>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-centered">
             <button id="speaker-button" class="btn btn-primary nav-link btn-lg btn-sq" data-toggle="tooltip" data-placement="right" title="Click to play">
@@ -35,17 +54,28 @@
             <h2 class="text-center">Select the answer:</h2>
         </div>
     </div>
-    <div class="row">
-        <div class="col-centered">
-            <span id="buttons_for_answers">
-                <form id="game_ans">
-                    <input type="hidden" id="correct_r" name= "correct_r" value="{{ correct }}" />
-                    {% for letter in letters %}
-                        <input class="btn btn-default m-3 pl-5 pr-5 submit_answer" type="submit" value={{letter}}>
-                    {% endfor %}
-                </form>
-            </span>
-        </div>
+
+    <div class="d-flex justify-content-center">
+        <span id="buttons_for_answers">
+            <form id="game_ans">
+                <input type="hidden" id="correct_r" name= "correct_r" value="{{ correct }}" />
+                {% for letter in letters %}
+                <input class="btn btn-default m-3 pl-5 pr-5 submit_answer" type="submit" value={{letter}}>
+                {% endfor %}
+            </form>
+        </span>
+    </div>
+</div>
+<div class="container">
+    <div class="d-flex justify-content-between">
+        <a class="btn m-3 pl-5 pr-5">
+        </a>
+        <a id="next-button" class="btn m-3 pl-5 pr-5 hide">
+            <div class="display-block no-padding centering">
+                <span class="white-bold-text">Next</span>
+                <img alt="Next button" src="{% static 'common/images/next_button.png' %}" />
+            </div>
+        </a>
     </div>
 </div>
 {% endblock content %}

@@ -6289,11 +6289,28 @@ body {
   float: none;
   margin: 0 auto; }
 
-#go-back {
+#go-back, #continue {
   margin-top: -3px; }
 
-.grey-back-text {
+.grey-bold-text {
   color: #A5A5A5;
   font-weight: bold; }
+
+.white-bold-text {
+  color: #FFFFFF;
+  font-weight: bold; }
+
+.no-padding-hor {
+  padding-left: 0;
+  padding-right: 0; }
+
+.fixed-position {
+  position: fixed; }
+
+.no-padding {
+  padding: 0; }
+
+.centering {
+  height: 100%; }
 
 /*# sourceMappingURL=common.css.map */
