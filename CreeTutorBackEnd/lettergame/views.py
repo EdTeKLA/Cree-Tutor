@@ -38,15 +38,25 @@ class LetterGames(View):
     """
     def get(self, request, game, level):
         """
-        Method passes appropriate parameters to getOptions and then renders the game.html template.
+        Method passes appropriate parameters to getOptions and then renders the game.html template. Also creates a
+        session that the games will be played in.
         """
-        number_of_questions = 10
+        session = LetterGameOrPairGameSession(
+            user=request.user,
+            session_begin=datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'),
+            level=GameLevels.objects.get(name=level),
+        )
+
+        session.save()
+
+        questions_left = 3
         # Get the options to render the context
         option, whichStats, type, stats, whichDist = self.__prepare_options(request, game, level)
 
         # get new options for game
         context = getOptions(option, type, level)
-        context['number_of_questions'] = number_of_questions
+        context['questions_left'] = questions_left
+        context['session_id'] = session.id
 
         return render(request, 'lettergame/game.html', context)
 
@@ -60,6 +70,16 @@ class LetterGames(View):
         # Save stats, then get new options for next question
         savePostStats(request, option, whichStats, stats, whichDist, level)
         context = getOptions(option, type, level)
+
+        # If questions are complete, complete, log session end
+        if int(request.POST['questions_left']) <= 1:
+            session = LetterGameOrPairGameSession.objects.get(id=request.POST['session_id'])
+            session.session_end = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+            session.save()
+
+
+        context['questions_left'] = request.POST['questions_left']
+        context['session_id'] = request.POST['session_id']
 
         return JsonResponse(context)
 

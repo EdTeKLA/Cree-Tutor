@@ -15,20 +15,27 @@
     );
 
     var audioFileLocation = '{% static ''%}{{sound}}';
-    var total_number_of_questions_left = '{{ number_of_questions }}';
+    var session_id = '{{ session_id }}';
+    var total_questions = '{{ questions_left }}';
+    var questions_left = '{{ questions_left }}';
     var wrong_answers = [];
 </script>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="d-flex justify-content-between">
-        <a class="btn m-3 pl-5 pr-5">
+    <div class="justify-content-between">
+        <a class="col-1 btn ml-3 mr-3 mt-1 mt-1 pl-5 pr-5">
             <div id="go-back" class="display-block grey-bold-text no-padding">
                 <img id="back-button" alt="Back button" src="{% static 'common/images/back_button.png' %}" />
                 <span>Back</span>
             </div>
         </a>
+    </div>
+    <div class="ml-3 mr-3 pl-5 pr-5 no-padding-hor">
+        <div class="progress no-padding mb-3 mt-2">
+            <div class="progress-bar" role="progressbar"></div>
+        </div>
     </div>
     <div class="row">
         <div class="col-centered two_wrong_buttons">

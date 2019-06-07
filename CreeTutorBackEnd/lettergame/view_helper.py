@@ -27,6 +27,7 @@ def getOptions(option, type, level):
     options = sorted(option.objects.all(), key=lambda x: random.random())
     options = options[:num]
     sound = random.choice(options)
+
     # Front end javascript does not jive well with Django model objects, and so we pass instead specific strings instead
     if type == 'letter':
         correct = sound.letter
@@ -70,6 +71,7 @@ def savePostStats(request, option, whichStats, stats, whichDist, level):
     answer.time_ended = endTime
     answer.user_id = request.user.id
     answer.level = GameLevels.objects.get(name = level)
+    answer.session_id = request.POST['session_id']
     answer.save()
     # For both games, the distractedby and distractors table depend on the answer_id from the _LetterStats submission
     a_id = stats.objects.latest('answer_id')
@@ -81,12 +83,14 @@ def savePostStats(request, option, whichStats, stats, whichDist, level):
         answer_dist.answer_id = a_id
         answer_dist.time_hover_start = j[1]
         answer_dist.time_hover_end = j[2]
+        answer_dist.session_id = request.POST['session_id']
         answer_dist.save()
     # Insert the distractors
     for i in dists:
         distractors = whichDist()
         distractors.distractor = option.objects.get(pk = i)
         distractors.answer_id = a_id
+        distractors.session_id = request.POST['session_id']
         distractors.save()
 
 def inv_distractors(level, onScreen, id):

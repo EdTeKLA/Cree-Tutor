@@ -269,6 +269,7 @@ class SingleLetterStats(models.Model):
     correct_answer = models.CharField(max_length=4, blank=True, null=True)
     time_started = models.DateTimeField(blank=True, null=True)
     time_ended = models.DateTimeField(blank=True, null=True)
+    session = models.ForeignKey(LetterGameOrPairGameSession, on_delete=models.DO_NOTHING)
 
     class Meta:
         db_table = "single_letter_stats"
@@ -287,6 +288,7 @@ class SLSDistractedBy(models.Model):
     distracted_by = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='letter')
     time_hover_start = models.DateTimeField(blank=True, null=True)
     time_hover_end = models.DateTimeField(blank=True, null=True)
+    session = models.ForeignKey(LetterGameOrPairGameSession, on_delete=models.DO_NOTHING)
 
     class Meta:
         db_table = "sls_distractedby"
@@ -302,6 +304,7 @@ class SLSDistractors(models.Model):
 
     answer_id = models.ForeignKey(SingleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
     distractor = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='letter')
+    session = models.ForeignKey(LetterGameOrPairGameSession, on_delete=models.DO_NOTHING)
 
     class Meta:
         db_table = 'sls_distractors'
@@ -344,6 +347,7 @@ class DoubleLetterStats(models.Model):
     correct_answer = models.TextField(blank=True, null=True)
     time_started = models.DateTimeField(blank=True, null=True)
     time_ended = models.DateTimeField(blank=True, null=True)
+    session = models.ForeignKey(LetterGameOrPairGameSession, on_delete=models.DO_NOTHING)
 
     class Meta:
         db_table = "double_letter_stats"
@@ -362,6 +366,7 @@ class DLSDistractedBy(models.Model):
     distracted_by = models.ForeignKey(LetterPair, models.DO_NOTHING, db_column='pair')
     time_hover_start = models.DateTimeField(blank=True, null=True)
     time_hover_end = models.DateTimeField(blank=True, null=True)
+    session = models.ForeignKey(LetterGameOrPairGameSession, on_delete=models.DO_NOTHING)
 
     class Meta:
         db_table = "dls_distractedby"
@@ -377,6 +382,7 @@ class DLSDistractors(models.Model):
 
     answer_id = models.ForeignKey(DoubleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
     distractor = models.ForeignKey(LetterPair, models.DO_NOTHING, db_column='pair')
+    session = models.ForeignKey(LetterGameOrPairGameSession, on_delete=models.DO_NOTHING)
 
     class Meta:
         db_table = 'dls_distractors'

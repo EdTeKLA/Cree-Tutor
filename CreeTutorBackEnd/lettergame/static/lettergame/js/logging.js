@@ -94,7 +94,9 @@ $(document).on('click', '[type=submit]', function(e){
             time_s: startTime,
             time_e: endTime,
             'arrHov[]': hoveredArr,
-            'distract[]': distractors
+            'distract[]': distractors,
+            session_id: session_id,
+            questions_left: questions_left
         },
         success:function(data){
             // // if the post is a success, modify the form for the next question
@@ -103,7 +105,9 @@ $(document).on('click', '[type=submit]', function(e){
         error:function(error){console.log(error)}
     });
 
-    //
+    // Updating progress bar
+    $('.progress-bar').css({"width": (((total_questions - questions_left + 1)/total_questions) * 100 + "%")});
+
     hoveredArr = [];
     startTime = getTime();
 
@@ -235,6 +239,11 @@ function getInputFormButtons(){
 }
 
 $(document).on('click', '#next-button', function (e) {
+        // If we have run out of questions, we go back
+    if (questions_left <= 1){
+        goBack();
+    }
+
     // Clear the screen, show the speaker and modify the form
     var next_button = $("#next-button");
     next_button.addClass('hide');
@@ -247,6 +256,8 @@ $(document).on('click', '#next-button', function (e) {
     $('#show-answer-button').addClass('hide');
     // Now show the speaker
     $('#speaker-button').removeClass('hide');
+    // Decrement the number of questions left
+    questions_left--;
 });
 
 function modifyForm(formID, data){
@@ -271,6 +282,4 @@ function modifyForm(formID, data){
         rad.setAttribute("value", datum);
         form.appendChild(rad);
     }
-
-    return;
 }
