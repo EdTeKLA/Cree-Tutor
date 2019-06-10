@@ -30,7 +30,7 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 **This command must be run every time you restart your computer, postgres does not automatically start in docker when you computer starts.** 
         
         All OS: 
-            sudo docker run --rm --name pg-docker -e POSTGRES_PASSWORD=ygh8a9bm -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres
+            sudo docker run --rm --name pg-docker -e POSTGRES_PASSWORD=**Your_Password** -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres
             
 5. Install psql, Postgres client:
     
