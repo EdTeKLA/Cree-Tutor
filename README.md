@@ -23,9 +23,11 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
     
         Ubuntu: https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04
         MacOS: https://docs.docker.com/v17.12/docker-for-mac/install/
-        Windows: ¯\_(ツ)_/¯
+        Windows: https://docs.docker.com/docker-for-windows/install/
 
 4. Install and start Postgres on docker, change **Your_Password** to the actual password you will be using:
+
+**This command must be run every time you restart your computer, postgres does not automatically start in docker when you computer starts.** 
         
         All OS: 
             sudo docker run --rm --name pg-docker -e POSTGRES_PASSWORD=ygh8a9bm -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres
