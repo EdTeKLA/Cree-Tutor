@@ -31,4 +31,15 @@ $(function () {
         }
     });
     //----------------------
+
+    $('#go-back').click(
+        function () {
+            goBack();
+        }
+    );
 });
+
+function goBack(){
+    // Send the user back after back button is clicked
+    window.history.back();
+}

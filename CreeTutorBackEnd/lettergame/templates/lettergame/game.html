@@ -8,32 +8,91 @@
 {% block scripts %}
 <script src="{% static 'lettergame/js/logging.js' %}"></script>
 <script>
+    $('#go-back').click(
+        function () {
+            goBack();
+        }
+    );
+
     var audioFileLocation = '{% static ''%}{{sound}}';
+    var session_id = '{{ session_id }}';
+    var total_questions = '{{ questions_left }}';
+    var questions_left = '{{ questions_left }}';
+    var wrong_answers = [];
 </script>
 {% endblock %}
 
 {% block content %}
 <div class="container">
+    <div class="justify-content-between">
+        <a class="col-1 btn ml-3 mr-3 mt-1 mt-1 pl-5 pr-5">
+            <div id="go-back" class="display-block grey-bold-text no-padding">
+                <img id="back-button" alt="Back button" src="{% static 'common/images/back_button.png' %}" />
+                <span>Back</span>
+            </div>
+        </a>
+    </div>
+    <div class="ml-3 mr-3 pl-5 pr-5 no-padding-hor">
+        <div class="progress no-padding mb-3 mt-2">
+            <div class="progress-bar" role="progressbar"></div>
+        </div>
+    </div>
     <div class="row">
-        <div class="col-centered">
+        <div class="col-centered two_wrong_buttons">
+            <button id="try-again-button" class="btn btn-danger nav-link btn-lg btn-sq hide">
+                Try Again!
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-centered two_wrong_buttons">
+            <button id="show-answer-button" class="btn btn-danger nav-link btn-lg btn-sq hide">
+                Show Answer
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="speaker" class="col-centered">
             <button id="speaker-button" class="btn btn-primary nav-link btn-lg btn-sq" data-toggle="tooltip" data-placement="right" title="Click to play">
                 <img id="speaker-button-img" class="largest-button-padding" src="{% static 'lettergame/image/speaker_button.png' %}" />
             </button>
 
-            <h2 class="text-center">Select the answer:</h2>
         </div>
     </div>
+
     <div class="row">
-        <div class="col-centered">
-            <span id="buttons_for_answers">
-                <form id="game_ans">
-                    <input type="hidden" id="correct_r" name= "correct_r" value="{{ correct }}" />
-                    {% for letter in letters %}
-                        <input class="btn btn-default m-3 pl-5 pr-5 submit_answer" type="submit" value={{letter}}>
-                    {% endfor %}
-                </form>
-            </span>
+        <div id="correct" class="col-centered hide">
+            <button id="correct-button" class="btn btn-primary nav-link btn-lg btn-sq" data-toggle="tooltip" data-placement="right" title="Click to play">
+                <div>
+                    <img id="correct-button-img" class="largest-button-padding" src="{% static 'common/images/checkmark.png' %}" />
+                    <h2>Correct</h2>
+                </div>
+            </button>
+
         </div>
+    </div>
+    <h2 class="text-center">Select the answer:</h2>
+    <div class="d-flex justify-content-center">
+        <span id="buttons_for_answers">
+            <form id="game_ans">
+                <input type="hidden" id="correct_r" name= "correct_r" value="{{ correct }}" />
+                {% for letter in letters %}
+                <input class="btn btn-default m-3 pl-5 pr-5 submit_answer" type="submit" value={{letter}}>
+                {% endfor %}
+            </form>
+        </span>
+    </div>
+    <div class="d-flex justify-content-between">
+        <a class="">
+        </a>
+
+        <a id="next-button" class="btn btn ml-3 mr-3 mt-1 mt-1 pl-5 pr-5 hide">
+            <div class="display-block no-padding centering">
+                <span id="next-text" class="white-bold-text">Next</span>
+                <img alt="Next button" src="{% static 'common/images/next_button.png' %}" />
+            </div>
+        </a>
     </div>
 </div>
 {% endblock content %}

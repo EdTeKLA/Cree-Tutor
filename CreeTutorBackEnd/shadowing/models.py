@@ -16,6 +16,7 @@ class ShadowingConfig(models.Model):
     class Meta:
         db_table = "shadowing_config"
 
+
 class AudioAndSubtitleFilesForShadowing(models.Model):
     """
     Model is created to store all the files we could use for Shadowing and the level

@@ -16,10 +16,10 @@ db = None
 cursor = None
 
 def connect(user, pw):
-    '''
+    """
     Function takes in password and connects to database
     Returns None
-    '''
+    """
     sys.path.append(os.path.join(os.path.dirname(sys.path[0]),'CreeTutorBackEnd'))
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "CreeTutorBackEnd.settings")
     import django

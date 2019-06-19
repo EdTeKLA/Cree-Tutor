@@ -1,18 +1,12 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.http import JsonResponse
-import json
-from django.template import loader
-from django.forms.models import model_to_dict
-from .models import *
-import random
-import datetime
-from django.db.models import Q
 import time
+from time import gmtime, strftime
+import datetime
+from django.http import JsonResponse
+from django.shortcuts import render
 from django.views import View
 from django.views.generic.base import TemplateView
 from lettergame.view_helper import *
-from time import gmtime, strftime
+from .models import *
 
 
 class WhichGame(View):
@@ -38,13 +32,26 @@ class LetterGames(View):
     """
     def get(self, request, game, level):
         """
-        Method passes appropriate parameters to getOptions and then renders the game.html template.
+        Method passes appropriate parameters to getOptions and then renders the game.html template. Also creates a
+        session that the games will be played in.
         """
+        session = LetterGameOrPairGameSession(
+            user=request.user,
+            session_begin=strftime('%Y-%m-%d %H:%M:%S.%s%z', gmtime()),
+            level=GameLevels.objects.get(name=level),
+        )
+
+        session.save()
+
+        questions_left = 3
         # Get the options to render the context
         option, whichStats, type, stats, whichDist = self.__prepare_options(request, game, level)
 
         # get new options for game
-        context =  getOptions(option, type, level)
+        context = getOptions(option, type, level)
+        context['questions_left'] = questions_left
+        context['session_id'] = session.id
+
         return render(request, 'lettergame/game.html', context)
 
     def post(self, request, game, level):
@@ -57,7 +64,17 @@ class LetterGames(View):
         # Save stats, then get new options for next question
         savePostStats(request, option, whichStats, stats, whichDist, level)
         context = getOptions(option, type, level)
-        print(context)
+
+        # If questions are complete, complete, log session end
+        if int(request.POST['questions_left']) <= 1:
+            session = LetterGameOrPairGameSession.objects.get(id=request.POST['session_id'])
+            session.session_end = strftime('%Y-%m-%d %H:%M:%S.%s%z', gmtime())
+            session.save()
+
+
+        context['questions_left'] = request.POST['questions_left']
+        context['session_id'] = request.POST['session_id']
+
         return JsonResponse(context)
 
     def __prepare_options(self, request, game, level):

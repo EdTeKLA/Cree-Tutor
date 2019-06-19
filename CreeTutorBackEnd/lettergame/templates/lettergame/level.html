@@ -4,6 +4,7 @@
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="{% sass_src 'lettergame/scss/lettergame.scss' %}" />
 <link rel="shortcut icon" href="lettergame/invader" />
+{% load staticfiles %}
 {% endblock %}
 
 {% block content %}
@@ -11,7 +12,7 @@
     <h3 class="row justify-content-md-center">Choose your difficulty level! </h3>
     <div class="row justify-content-md-center">
         {% for level in levels %}
-            <a class="btn btn-primary col-lg-3" href="{% url 'lettergame:letterGames' game level %}">{{level}}</a>
+        <a class="btn btn-primary col-lg-3" href="{% url 'lettergame:letterGames' game level %}">{{level}}</a>
         {%endfor%}
     </div>
 </div>

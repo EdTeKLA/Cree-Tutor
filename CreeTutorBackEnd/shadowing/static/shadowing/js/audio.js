@@ -1,8 +1,3 @@
-function goBack(audioFile){
-    // Send the user back after back button is clicked
-    window.history.back();
-}
-
 function getAudioFile(callback, location, story_id, session_id){
     // Sent a POST request to log that a story has been selected
     sendPostRequestForLogging("select", 0.0, story_id, session_id);

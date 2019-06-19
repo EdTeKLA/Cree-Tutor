@@ -1,7 +1,4 @@
-from django.db import models
-from django.contrib.auth.models import User
-
-'''
+"""
 HOW TO:
 -Create a model with Django:
     https://docs.djangoproject.com/en/2.0/topics/db/models/
@@ -67,16 +64,18 @@ TROUBLESHOOTING:
     Note: There will still be a json file with all of the data that was in the database that has
     all the data information from the database, which may be deleted.
 
-'''
+"""
 
+from django.db import models
+from django.contrib.auth.models import User
 
 class GameLevels(models.Model):
-    '''
+    """
     Class describes what level the current games may operate at.
     - "level" is the integer id and primary key (e.g. 0)
     - "name" is the name of the level (e.g. "easy")
     - "description" describes what makes it that level (e.g. "contains __ number of distractors of type __")
-    '''
+    """
 
     level = models.IntegerField(primary_key=True)
     name = models.TextField(blank=True, null=True)
@@ -86,13 +85,26 @@ class GameLevels(models.Model):
         db_table = 'game_levels'
 
 
+class LetterGameOrPairGameSession(models.Model):
+    """
+    Start and end of a session is logged here with the level at which the session was done at.
+    """
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    session_begin = models.DateTimeField(blank=True, null=True)
+    session_end = models.DateTimeField(blank=True, null=True)
+    level = models.ForeignKey(GameLevels, on_delete=models.DO_NOTHING)
+
+    class Meta:
+        db_table = 'letter_game_or_pair_game_session'
+
 class Alphabet(models.Model):
-    '''
+    """
     Class contains the Standard Roman Orthography for Plains Cree.
     - "letter" is self explanitory and is primary key (e.g. "a")
     - "vowel" is class of speech sound (i.e. "vowel", "semi-vowel", "consonant")
     - "sound" contains the path to the recording of the letter
-    '''
+    """
 
     letter = models.CharField(primary_key=True, max_length=2)
     vowel = models.TextField(blank=True, null=True)
@@ -102,13 +114,13 @@ class Alphabet(models.Model):
         db_table = "alphabet"
 
 class LetterUserSeen(models.Model):
-    '''
+    """
     Class contains letters that a user has seen at least once.
     - "user_id" identifies user
     - "letter" identifies which letter user has seen
     - "amount_seen" counts the amount of times this has been seen
     Other information can be found in the stats models of single letter games.
-    '''
+    """
 
     user_id = models.IntegerField(blank=True, null=True)
     letter = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='letter')
@@ -124,12 +136,12 @@ class LetterUserSeen(models.Model):
 
 
 class LetterPair(models.Model):
-    '''
+    """
     Class contains pairs of letters from Standard Roman Orthography for Plains Cree.
     - "pair" is the pair of letters and is primary key (e.g. "aw")
     - "first_letter"/"second_letter" contain the first and second letters, respectively, of the letter pair.
     - "sound" contains the path to the recording of the pair
-    '''
+    """
 
     pair = models.CharField(primary_key=True, max_length=4)
     first_letter = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='first_letter', blank=True, null=True)
@@ -141,11 +153,11 @@ class LetterPair(models.Model):
 
 
 class PairUserSeen(models.Model):
-    '''
+    """
     Class contains letter pairs that a user has seen at least once.
     - "user_id" identifies user
     - "pair" identifies which pair user has seen
-    '''
+    """
 
     user_id = models.IntegerField(blank=True, null=True)
     pair = models.ForeignKey(LetterPair, models.DO_NOTHING, db_column='pair')
@@ -156,12 +168,12 @@ class PairUserSeen(models.Model):
 
 
 class DistractorType(models.Model):
-    '''
+    """
     Class describes in what way an object might be distracting.
     - "type" is the integer id and primary key (e.g. 1)
     - "distraction" describes how it is distracting (e.g. "audiovisual", "dissimilar")
     - "insro" dictates whether the distraction is in Cree SRO (i.e. "yes", "no")
-    '''
+    """
 
     type = models.IntegerField(primary_key=True)
     distraction = models.TextField(blank=True, null=True)
@@ -172,12 +184,12 @@ class DistractorType(models.Model):
 
 
 class PairDistractor(models.Model):
-    '''
+    """
     Class contains pairs from the class "LetterPair" and conrresponding distractor pairs.
     - "pair" is simply an SRO pair from class "LetterPair" (e.g. "ka")
     - "distractor" is a pair of letters which may or may not be in SRO (e.g. "ga")
     - "type" refers to the types of distractors described in class DistractorType
-    '''
+    """
 
     pair = models.ForeignKey(LetterPair, models.DO_NOTHING, db_column='pair')
     distractor = models.CharField(max_length=16)
@@ -189,11 +201,11 @@ class PairDistractor(models.Model):
 
 
 class PartOfSpeech(models.Model):
-    '''
+    """
     Class defines possible options for describing "part of speech"
     Possibilities are restricted to:
             V N IPC Pron Num
-    '''
+    """
 
     pos = models.CharField(primary_key=True, max_length=10)
 
@@ -201,12 +213,12 @@ class PartOfSpeech(models.Model):
         db_table = "part_of_speech"
 
 class Transitive(models.Model):
-    '''
+    """
     Class defines possible options for describing transitivity of verbs
     Possibilities are restricted to:
             II AI TI TA NULL
             TODO: Spell out what each option is
-    '''
+    """
 
     transitive = models.CharField(primary_key=True, max_length=8)
 
@@ -215,11 +227,11 @@ class Transitive(models.Model):
 
 
 class Animate(models.Model):
-    '''
+    """
     Class defines possible options for describing animacy of nouns
     Possibilities are restricted to:
             AN IN NULL
-    '''
+    """
 
     animate = models.CharField(primary_key=True, max_length=25)
 
@@ -227,10 +239,10 @@ class Animate(models.Model):
         db_table = "animate"
 
 class GramCode(models.Model):
-    '''
+    """
     Class defines possible options for grammar codes.
     Possibilities are defined and are available in Linguistics/sorted_gram_codes.txt
-    '''
+    """
 
     gram_code = models.CharField(primary_key=True, max_length=100, unique=True)
 
@@ -239,7 +251,7 @@ class GramCode(models.Model):
 
 
 class SingleLetterStats(models.Model):
-    '''
+    """
     Class contains related information logged when users play the "Single Letter Game".
     - "answer_id" is the integer ID and primary key. Is automatically incremented.
     - "user_id" identifies user.
@@ -248,7 +260,7 @@ class SingleLetterStats(models.Model):
     - "correct_answer" is the correct answer
     - "time_started" is the time, in ISO format, that the user started the specific question
     - "time_ended" is the time, in ISO format, that the user ended the specific question
-    '''
+    """
 
     answer_id = models.AutoField(primary_key=True)
     user_id = models.IntegerField(blank=True, null=True)
@@ -257,24 +269,26 @@ class SingleLetterStats(models.Model):
     correct_answer = models.CharField(max_length=4, blank=True, null=True)
     time_started = models.DateTimeField(blank=True, null=True)
     time_ended = models.DateTimeField(blank=True, null=True)
+    session = models.ForeignKey(LetterGameOrPairGameSession, on_delete=models.DO_NOTHING)
 
     class Meta:
         db_table = "single_letter_stats"
 
 
 class SLSDistractedBy(models.Model):
-    '''
+    """
     Class contains logged interactions of user hovering over potential answers when playing the "Single Letter Game".
     - "answer_id" refers to the primary key of the class SingleLetterStats
     - "distracted_by" is the potential answer the user hovered over
     - "time_hover_start" is the time, in ISO format, that the user started hovering over potential answer
     - "time_hover_end" is the time, in ISO format, that the user ended hovering over potential answer
-    '''
+    """
 
     answer_id = models.ForeignKey(SingleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
     distracted_by = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='letter')
     time_hover_start = models.DateTimeField(blank=True, null=True)
     time_hover_end = models.DateTimeField(blank=True, null=True)
+    session = models.ForeignKey(LetterGameOrPairGameSession, on_delete=models.DO_NOTHING)
 
     class Meta:
         db_table = "sls_distractedby"
@@ -282,14 +296,15 @@ class SLSDistractedBy(models.Model):
 
 
 class SLSDistractors(models.Model):
-    '''
+    """
     Class contains the incorrect options given to user as distractors when playing "Single Letter Game".
     - "answer_id" refers to the primary key of the class SingleLetterStats
     - "distractor" refers to the incorrect option given
-    '''
+    """
 
     answer_id = models.ForeignKey(SingleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
     distractor = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='letter')
+    session = models.ForeignKey(LetterGameOrPairGameSession, on_delete=models.DO_NOTHING)
 
     class Meta:
         db_table = 'sls_distractors'
@@ -297,12 +312,12 @@ class SLSDistractors(models.Model):
 
 
 class LetterDistractor(models.Model):
-    '''
+    """
     Class contains pairs from the class "LetterPair" and conrresponding distractor pairs.
     - "pair" is simply an SRO letter from class "Alphabet" (e.g. "t")
     - "distractor" is a letter which may or may not be in SRO (e.g. "d")
     - "type" refers to the types of distractors described in class DistractorType
-    '''
+    """
 
     letter = models.ForeignKey(Alphabet, models.DO_NOTHING, db_column='letter')
     distractor = models.CharField(max_length=4)
@@ -314,7 +329,7 @@ class LetterDistractor(models.Model):
 
 
 class DoubleLetterStats(models.Model):
-    '''
+    """
     Class contains related information logged when users play the "Double Letter Game".
     - "answer_id" is the integer ID and primary key. Is automatically incremented.
     - "user_id" identifies user.
@@ -323,7 +338,7 @@ class DoubleLetterStats(models.Model):
     - "correct_answer" is the correct answer
     - "time_started" is the time, in ISO format, that the user started the specific question
     - "time_ended" is the time, in ISO format, that the user ended the specific question
-    '''
+    """
 
     answer_id = models.AutoField(primary_key=True)
     user_id = models.IntegerField(blank=True, null=True)
@@ -332,24 +347,26 @@ class DoubleLetterStats(models.Model):
     correct_answer = models.TextField(blank=True, null=True)
     time_started = models.DateTimeField(blank=True, null=True)
     time_ended = models.DateTimeField(blank=True, null=True)
+    session = models.ForeignKey(LetterGameOrPairGameSession, on_delete=models.DO_NOTHING)
 
     class Meta:
         db_table = "double_letter_stats"
 
 
 class DLSDistractedBy(models.Model):
-    '''
+    """
     Class contains logged interactions of user hovering over potential answers when playing the "Double Letter Game".
     - "answer_id" refers to the primary key of the class DoubleLetterStats
     - "distracted_by" is the potential answer the user hovered over
     - "time_hover_start" is the time, in ISO format, that the user started hovering over potential answer
     - "time_hover_end" is the time, in ISO format, that the user ended hovering over potential answer
-    '''
+    """
 
     answer_id = models.ForeignKey(DoubleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
     distracted_by = models.ForeignKey(LetterPair, models.DO_NOTHING, db_column='pair')
     time_hover_start = models.DateTimeField(blank=True, null=True)
     time_hover_end = models.DateTimeField(blank=True, null=True)
+    session = models.ForeignKey(LetterGameOrPairGameSession, on_delete=models.DO_NOTHING)
 
     class Meta:
         db_table = "dls_distractedby"
@@ -357,14 +374,15 @@ class DLSDistractedBy(models.Model):
 
 
 class DLSDistractors(models.Model):
-    '''
+    """
     Class contains the incorrect options given to user as distractors when playing "Double Letter Game".
     - "answer_id" refers to the primary key of the class DoubleLetterStats
     - "distractor" refers to the incorrect option given
-    '''
+    """
 
     answer_id = models.ForeignKey(DoubleLetterStats, models.DO_NOTHING, null=True, db_column='answer_id')
     distractor = models.ForeignKey(LetterPair, models.DO_NOTHING, db_column='pair')
+    session = models.ForeignKey(LetterGameOrPairGameSession, on_delete=models.DO_NOTHING)
 
     class Meta:
         db_table = 'dls_distractors'
@@ -372,7 +390,7 @@ class DLSDistractors(models.Model):
 
 
 class Lemma(models.Model):
-    '''
+    """
     Class contains necessary properties to describe a lemma.
     - "id" contains integer ID and primary key.
     - "lemma" is the SRO spelling of lemma.
@@ -382,7 +400,7 @@ class Lemma(models.Model):
     - "transitive" describes the transitivity of lemma, as described in class Transitive
     - "translation" contains the english translation
     - "image" contains the path to a related descriptive image
-    '''
+    """
 
     id = models.IntegerField(primary_key=True)
     lemma = models.CharField(max_length=255, blank=True, null=True)
@@ -402,7 +420,7 @@ class Lemma(models.Model):
 
 
 class Word(models.Model):
-    '''
+    """
     Class contains necessary properties to describe a word form.
     - "word_id" contains integer ID and primary key.
     - "word" is the SRO spelling of word form.
@@ -411,7 +429,7 @@ class Word(models.Model):
     - "num_syllables" is, loosely, the number of syllables in the word
     - "lemmaID" is the integer id referring to the relevant lemma descibed in the class Lemma
     - "sound" contains the path to the recording of the word
-    '''
+    """
 
     word_id = models.IntegerField(primary_key=True, default=0)
     word = models.CharField(max_length=255, blank=True, null=True)
@@ -449,10 +467,10 @@ class LemmaGame(models.Model):
 
 
 class Creedictionarydotcom(models.Model):
-    '''
+    """
     Temporary class used for manupulating words scraped from creedictionary.com
     Scraped data NOT to be pushed to github
-    '''
+    """
 
     word = models.CharField(primary_key=True, max_length=250)
     plural = models.CharField(max_length=250, blank=True, null=True)
