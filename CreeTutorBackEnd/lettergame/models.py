@@ -447,6 +447,7 @@ class LemmaGame(models.Model):
     class Meta:
         db_table = 'lemma_game'
 
+
 class Creedictionarydotcom(models.Model):
     '''
     Temporary class used for manupulating words scraped from creedictionary.com

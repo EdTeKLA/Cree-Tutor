@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% sass_src 'shadowing/scss/shadowing.scss' %}" />
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'shadowing/js/process_feedback.js' %}"></script>
+<script src="{% static 'shadowing/js/audio.js' %}"></script>
+<script>
+    $(function() {
+        // Store the field_set names for when fetched
+        var field_set_names = [
+            {% for question in questions %}
+        "{{ question.id }}",
+        {% endfor %}
+    ];
+        var story_id = "{{ story_id }}";
+        var session_id = '{{session_id}}';
+
+        sendPostRequestForLogging("start_feedback", -1, story_id, session_id);
+
+        $('#feedback_form').submit(function(e){
+            processFeedbackAnswersAndSend(e, field_set_names, story_id, session_id);
+            sendPostRequestForLogging("finish_feedback", -1, story_id, session_id);
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 class="row justify-content-md-center">Please answer these question regarding the story you just read:</h3>
+    <div class="row justify-content-md-center">
+        <div id="error_message" class="hide form-field-message mt-0 error row justify-content-md-center">
+            <i class="fas fa-exclamation-circle"></i>
+            <span></span>
+        </div>
+        <form id="feedback_form">
+            {% for question in questions %}
+            <fieldset id="q_{{ question.id }}_field_set">
+                <span class="col-12">{{ question.question }}</span>
+
+                <span class="col-12" style="display:block;">
+                    <input type="radio" value="True" name="q_{{ question.id }}" required />
+                        <label>{{ question.yes_answer }}</label>
+
+                    <input type="radio" value="False" name="q_{{ question.id }}" />
+                        <label>{{ question.no_answer }}</label>
+                </span>
+            </fieldset>
+            {% endfor %}
+            <input class="btn btn-primary ml-3 submit_finished" type="submit" value="Submit"/>
+        </form>
+    </div>
+</div>
+{% endblock content %}

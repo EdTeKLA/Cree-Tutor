@@ -1,6 +1,29 @@
-function getAudioFile(callback, location){
+function goBack(audioFile){
+    // Send the user back after back button is clicked
+    window.history.back();
+}
+
+function getAudioFile(callback, location, story_id, session_id){
+    // Sent a POST request to log that a story has been selected
+    sendPostRequestForLogging("select", 0.0, story_id, session_id);
+
+    // Load the audio
     audio_obj = new Audio(location);
     callback(audio_obj);
+}
+
+function sendPostRequestForLogging(action, time, story_id, session_id){
+    // Sent a POST request to log that a story has been selected/played/paused/finished
+    $.ajax({
+        type:'POST',
+        url: "/shadowing/log/" + story_id + "/" + action +  "/" + time + "/" + session_id + "/",
+        data:{
+        },
+        success:function(data){
+            // Do nothing
+        },
+        error:function(error){console.log(error)}
+    });
 }
 
 function microphoneLevels(callback){
@@ -66,21 +89,31 @@ function microphoneLevels(callback){
 
     // If we successfully got access to the microphone, call handleSuccess
     navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-        .then(handleSuccess);
+        .then(handleSuccess)
+        .catch(showMicrophoneError)
 
+}
+
+function showMicrophoneError() {
+    // Function was created to show microphone error incase the device does not have a microphone or the user denies us
+    // access
+    $("#error_message").removeClass("hide");
+    $("#error_message span").text("Microphone access needed to perform this activity, " +
+        "please refresh and allow microphone access.");
 }
 
 function makePlayActive(baselineStatus, downloadStatus, audio, callback){
     // Check if both the required components have finished work
     if (baselineStatus && downloadStatus && audio != null) {
-        console.log(123);
         $('#loading-spinner').remove();
         $('#play-button').removeClass("hide");
         callback();
     }
 }
 
-function highLightActiveWord(audio, time_stamped_words) {
+var finished = false;
+
+function highLightActiveWordAndProgressBar(audio, time_stamped_words, story_id, session_id) {
     // Make all the words black
     // Called to check which word should be highlighted every 33 milliseconds
     // 33 milliseconds because thats more than enough for smooth playback
@@ -94,9 +127,17 @@ function highLightActiveWord(audio, time_stamped_words) {
                 break;
             }
         }
-    } else if (audio.currentTime == audio.duration){
+
+        // Updating progress bar
+        $('.progress-bar').css({"width": ((audio.currentTime/audio.duration) * 100 + "%")});
+    } else if (audio.currentTime >= audio.duration && !finished){
+        finished = true;
         // If the current time is equal to the end time.
         $(".shadowing_word_span").css('color', '#000000');
+        $("#finished_button").removeClass("hide");
+        $("#play_button").addClass("disabled");
+        $("#play_button").attr("disabled", true);
+        sendPostRequestForLogging("finish", audio.currentTime, story_id, session_id);
     }
 }
 

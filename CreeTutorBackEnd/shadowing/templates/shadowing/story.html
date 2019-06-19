@@ -8,7 +8,7 @@
 
 {% block scripts %}
 {% load static %}
-<script src="{% static 'audio/audio.js' %}"></script>
+<script src="{% static 'shadowing/js/audio.js' %}"></script>
 
 <script>
     $(function() {
@@ -17,6 +17,8 @@
         var downloadStatus = false;
         var playing = false;
         var audioFile = null;
+        var story_id = '{{ story_id }}';
+        var session_id = '{{session_id}}';
 
         time_stamped_words = [
             {% for word in audio_transcript_list %}
@@ -28,36 +30,54 @@
         // Baseline has been established, change status and call function to do more work
         baselineEstablisedCallback = function baselineEstablised(){
             baselineStatus = true;
-            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWord, highlightCallFrequency, audioFile, time_stamped_words);});
+            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWordAndProgressBar, highlightCallFrequency, audioFile, time_stamped_words, story_id, session_id);});
         };
 
         // Download has been completed, change status and call the function to do more work
         downCompleteCallback = function downloadComplete(data){
             downloadStatus = true;
             audioFile = data;
-            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWord, highlightCallFrequency, audioFile, time_stamped_words);});
+            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWordAndProgressBar, highlightCallFrequency, audioFile, time_stamped_words, story_id, session_id);});
         };
 
         // Call the function to get the microphone baseline/monitor the audio level and download the audiofile
         s = "{% static '' %}" + '{{audio_file_loc}}';
-        getAudioFile(downCompleteCallback, s);
+        getAudioFile(downCompleteCallback, s, story_id, session_id);
         microphoneLevels(baselineEstablisedCallback);
 
         $('#play_button').click(
             function () {
                 if (baselineStatus == true && downloadStatus == true) {
                     if (playing == true){
+                        // Is play, pause
+                        sendPostRequestForLogging("pause", audioFile.currentTime, story_id, session_id);
                         $('#play-button').removeClass("hide");
                         $('#pause-button').addClass("hide");
                         playing = false;
                         audioFile.pause();
                     } else{
+                        // Is paused, play
+                        sendPostRequestForLogging("play", audioFile.currentTime, story_id, session_id);
                         $('#play-button').addClass("hide");
                         $('#pause-button').removeClass("hide");
                         playing = true;
                         audioFile.play();
                     }
                 }
+            }
+        );
+
+        $('#go-back').click(
+            function () {
+                sendPostRequestForLogging("quit", audioFile.currentTime, story_id, session_id);
+                goBack();
+            }
+        );
+
+        $('#finished_button').click(
+            function () {
+                window.location.href = "/shadowing/feedback/" + story_id + "/" +session_id;
+                return false;
             }
         );
     });
@@ -67,60 +87,69 @@
 {% block content %}
 
 <div class="container">
-    <div class="row justify-content-md-center">
-        <div class="col-lg-12">
-            <div class="container">
+        <div class="col-12">
                 <div class="row">
-                    <span class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></span>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
+                        <a class="btn no-padding">
+                        <div id="go-back" class="display-block grey-back-text no-padding mb-3 mt-1">
+                    <img id="back-button" alt="Back button" src="{% static 'images/back_button.png' %}" />
+                    <span class="">Back</span>
+                    </div></a>
                         <button id="play_button" class="btn btn-primary nav-link btn-lg btn-sq" href="#"><div id="loading-spinner" class="lds-css ng-scope large-button-padding"><div style="width:100%;height:100%" class="lds-dual-ring"><div></div></div><style type="text/css">@keyframes lds-dual-ring {
-                          0% {
-                            -webkit-transform: rotate(0);
-                            transform: rotate(0);
-                          }
-                          100% {
-                            -webkit-transform: rotate(360deg);
-                            transform: rotate(360deg);
-                          }
-                            }
-                            @-webkit-keyframes lds-dual-ring {
-                              0% {
+                                                                                                                                                                                                                                                                                       0% {
+                                                                                                                                                                                                                                                                                           -webkit-transform: rotate(0);
+                                                                                                                                                                                                                                                                                           transform: rotate(0);
+                                                                                                                                                                                                                                                                                       }
+                                                                                                                                                                                                                                                                                       100% {
+                                                                                                                                                                                                                                                                                           -webkit-transform: rotate(360deg);
+                                                                                                                                                                                                                                                                                           transform: rotate(360deg);
+                                                                                                                                                                                                                                                                                       }
+                                                                                                                                                                                                                                                                                   }
+                        @-webkit-keyframes lds-dual-ring {
+                            0% {
                                 -webkit-transform: rotate(0);
                                 transform: rotate(0);
-                              }
-                              100% {
+                            }
+                            100% {
                                 -webkit-transform: rotate(360deg);
                                 transform: rotate(360deg);
-                              }
                             }
-                            .lds-dual-ring {
-                              position: relative;
-                            }
-                            .lds-dual-ring div {
-                              position: absolute;
-                              width: 100px;
-                              height: 100px;
-                              top: 50px;
-                              left: 50px;
-                              border-radius: 50%;
-                              border: 8px solid #000;
-                              border-color: #fff transparent #fff transparent;
-                              -webkit-animation: lds-dual-ring 1s linear infinite;
-                              animation: lds-dual-ring 1s linear infinite;
-                            }
-                            .lds-dual-ring {
-                              width: 135px !important;
-                              height: 135px !important;
-                              -webkit-transform: translate(-67.5px, -67.5px) scale(0.675) translate(67.5px, 67.5px);
-                              transform: translate(-67.5px, -67.5px) scale(0.675) translate(67.5px, 67.5px);
-                            }
-                            </style></div>
-                            <img id="play-button" class="hide very-large-button-padding" src="{% static 'images/play_button.png' %}" />
-                            <img id="pause-button" class="hide very-large-button-padding" src="{% static 'images/pause_button.png' %}" />
+                        }
+                        .lds-dual-ring {
+                            position: relative;
+                        }
+                        .lds-dual-ring div {
+                            position: absolute;
+                            width: 100px;
+                            height: 100px;
+                            top: 50px;
+                            left: 50px;
+                            border-radius: 50%;
+                            border: 8px solid #000;
+                            border-color: #fff transparent #fff transparent;
+                            -webkit-animation: lds-dual-ring 1s linear infinite;
+                            animation: lds-dual-ring 1s linear infinite;
+                        }
+                        .lds-dual-ring {
+                            width: 135px !important;
+                            height: 135px !important;
+                            -webkit-transform: translate(-67.5px, -67.5px) scale(0.675) translate(67.5px, 67.5px);
+                            transform: translate(-67.5px, -67.5px) scale(0.675) translate(67.5px, 67.5px);
+                        }
+                        </style></div>
+                            <img id="play-button" class="hide very-large-button-padding" alt="Play button" src="{% static 'images/play_button.png' %}" />
+                            <img id="pause-button" class="hide very-large-button-padding" alt="Pause button" src="{% static 'images/pause_button.png' %}" />
                         </button>
                     </div>
                     <span class="col-xs-2 col-sm-2 col-md-2 col-lg-1"></span>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-8">
+                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-9 no-padding-hor">
+                        <div class="progress no-padding mb-3 mt-2">
+                            <div class="progress-bar" role="progressbar"></div>
+                        </div>
+                        <div id="error_message" class="hide ml-0 mt-2 form-field-message error ">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span></span>
+                        </div>
                         <p>
                             {% for word in audio_transcript_list %}
                             <span id="shadowing_word_{{word.0}}" class="shadowing_word_span">{{word.3}}</span>
@@ -128,9 +157,15 @@
                         </p>
                     </div>
                 </div>
+                <div class="container">
+                <div class="row">
+                    <span class="col-sm-9 col-md-10 col-lg-10 col-xl-11  mb-3 mt-2"></span>
+                    <form id="finished">
+                        <input class="btn btn-primary submit_finished hide" id="finished_button" type="submit" value="Finished">
+                    </form>
+                </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
 {% endblock %}

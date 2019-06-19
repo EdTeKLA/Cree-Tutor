@@ -158,10 +158,32 @@ select.dropdown {
   left: -9999px !important;
 }
 
+#go-back{
+  margin-top: -3px
+}
+
 .large-button-padding {
   padding: 15px;
 }
 
 .very-large-button-padding {
   padding: 19px 32px 19px 32px;
+}
+
+.no-padding-hor{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.grey-back-text {
+  color: #A5A5A5;
+  font-weight: bold;
+}
+
+.fixed-position{
+  position:fixed;
+}
+
+.no-padding {
+  padding: 0;
 }
