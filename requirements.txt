@@ -2,6 +2,9 @@
 #Run this command once inside your virtualenv to make sure all versions align
 #Dear Delaney, Please add the command for mac, maybe, brew install -r requirements.txt
 
-Django==2.0.5
-mysqlclient
+Django==2.2
+psycopg2-binary
 numpy
+libsass
+django-compressor
+django-sass-processor

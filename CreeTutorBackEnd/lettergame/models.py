@@ -165,7 +165,7 @@ class DistractorType(models.Model):
 
     type = models.IntegerField(primary_key=True)
     distraction = models.TextField(blank=True, null=True)
-    insro = models.CharField(db_column='InSRO', max_length=8, blank=True, null=True)
+    insro = models.CharField(db_column='insro', max_length=8, blank=True, null=True)
 
     class Meta:
         db_table = 'distractor_type'
@@ -418,7 +418,7 @@ class Word(models.Model):
     gram_code = models.ForeignKey(GramCode, models.DO_NOTHING, blank=True, null=True)
     translation = models.TextField(blank=True, null=True)
     num_syllables = models.IntegerField(blank=True, null=True)
-    lemmaID = models.ForeignKey(Lemma, models.DO_NOTHING, blank=True, null=True)
+    lemmaid = models.ForeignKey(Lemma, models.DO_NOTHING, blank=True, null=True)
     sound = models.CharField(max_length=250, blank=True, null=True)
 
     def __str__(self):

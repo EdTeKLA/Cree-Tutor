@@ -11,14 +11,34 @@ Information on Plains Cree:
 Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 
 ## Build Instructions:
-1. Install python 3.6.x
-2. Install pip
-3. Install mysql
-4. Install mysqlclient
-5. Install [django-sass-processor](https://github.com/jrief/django-sass-processor)
-6. Install Django 2.0.x
-7. Open or create the file `CreeTutor/CreeTutorBackEnd/CreeTutorBackEnd/settings_secret.py`
-8. Make the contents of settings_secret.py look like this:
+1. Install python 3.6.x: 
+
+        All OS: https://www.python.org/downloads/
+        
+2. Install pip: 
+    
+        All OS: https://www.makeuseof.com/tag/install-pip-for-python/
+
+3. Install Docker:
+    
+        Ubuntu: https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04
+        MacOS: https://docs.docker.com/v17.12/docker-for-mac/install/
+        Windows: https://docs.docker.com/docker-for-windows/install/
+
+4. Install and start Postgres on docker, change **Your_Password** to the actual password you will be using:
+
+**This command must be run every time you restart your computer, postgres does not automatically start in docker when you computer starts.** 
+        
+        All OS: 
+            sudo docker run --rm --name pg-docker -e POSTGRES_PASSWORD=**Your_Password** -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres
+            
+5. Install psql, Postgres client:
+    
+        Ubuntu: sudo apt install postgresql-client-common && sudo apt install postgresql-client
+
+6. Open or create the file `CreeTutor/CreeTutorBackEnd/CreeTutorBackEnd/settings_secret.py`
+
+7. Make the contents of settings_secret.py look like this:
 
        """  
        These settings must never be uploaded onto github.
@@ -34,22 +54,26 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
        PATH_TO_WORD = "...\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\Words"
        PATH_TO_LETTERPAIR = "...\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\LetterPairs"
 
+8. Install required python packages
+
+    Navigate to the directory `CreeTutor` and run:
+        
+        pip3 install -r requirements.txt
+
 9. Create database "CreeTutordb" and necessary tables.
 
    **How to**
 
    Navigate to the directory `CreeTutor/CreeTutorBackEnd` and run:
 
-        $ mysql -u[user] -p[password]
+        $ psql -h localhost -U postgres -d postgres
 
-   Where `[user]` and `[password]` are the user and password determined in the MySQL installation process.
+   This opens up the postgres shell. Next run the follow queries in the shell after changing "Your_DB_User" and "Your_Password" to the values above:
 
-
-   This opens up the mysql shell. Next run the follow queries in the shell:
-
-        > create database CreeTutordb DEFAULT CHARACTER SET utf8mb4;
-        > alter database CreeTutordb CHARACTER SET utf8 COLLATE utf8_bin;
-        > exit
+        postgres=# CREATE DATABASE cree_tutor_db;
+        postgres=# CREATE USER Your_DB_User WITH PASSWORD 'Your_Password';
+        postgres=# ALTER ROLE Your_DB_User SET client_encoding TO 'utf8';
+        postgres=# \q
    
    Once the database is working, you make check that is is working by running the following:
 
@@ -60,9 +84,18 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
         $ python manage.py makemigrations
         $ python manage.py migrate
 
-    This will fill the database with the models created in the file `CreeTutor/CreeTutorBackEnd/lettergame/models.py`. For   more information on models, please see the how to blurb at the top of `CreeTutorBackEnd/lettergame/models.py`.
+10. Now populate the data using the following scripts:
     
-    The database is now ready to be populated with available data.
+    In `CreeTutor/DatabaseInsertions`, run:
+        
+        python insertintodb.py
+        python savedistractors.py
+        
+    In `CreeTutor/CreeTutorBackEnd/shadowing`, run:
+        
+        python insert_questions_into_db.py
+        python insert_srt_files_and_stats.py
+        python insert_configs.py
  ---
 
 ##### References

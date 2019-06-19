@@ -9,7 +9,7 @@ class ShadowingConfig(models.Model):
     Model was created to store the config for the shadowing app.
     """
     # The name of the configuration
-    name = models.TextField(null=False, blank=False)
+    name = models.TextField(null=False, blank=False, unique=True)
     # The configuration settings, is a text field, but will store numbers as well
     config = models.TextField(null=False, blank=False)
 
@@ -23,11 +23,11 @@ class AudioAndSubtitleFilesForShadowing(models.Model):
     # The id/primary key
     id = models.BigAutoField(primary_key=True)
     # Name of the story
-    name = models.TextField()
+    name = models.TextField(unique=True)
     # The location of the subtitles
-    sub_location = models.TextField()
+    sub_location = models.TextField(unique=True)
     # The location of the sound file
-    sound_location = models.TextField()
+    sound_location = models.TextField(unique=True)
 
     # File stats
     default_for_stats = 0
@@ -51,7 +51,7 @@ class ShadowingFeedbackQuestions(models.Model):
     # The id/primary key
     id = models.BigAutoField(primary_key=True)
     # Name of the story
-    question = models.TextField()
+    question = models.TextField(unique=True)
     # The location of the subtitles
     yes_answer = models.TextField()
     # The location of the sound file

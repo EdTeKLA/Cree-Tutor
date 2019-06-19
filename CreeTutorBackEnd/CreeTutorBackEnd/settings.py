@@ -90,15 +90,12 @@ WSGI_APPLICATION = 'CreeTutorBackEnd.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'CreeTutordb',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'cree_tutor_db',
         'USER': DB_ROOT,
         'PASSWORD':DB_PASS,
         'HOST':'localhost',
-        'PORT':'',
-        'OPTIONS': {
-            'init_command': 'ALTER DATABASE CreeTutordb CHARACTER SET utf8mb4 COLLATE utf8mb4_bin',
-        },
+        'PORT':''
     }
 }
 

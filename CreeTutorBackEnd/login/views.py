@@ -67,7 +67,7 @@ class SignUp(View):
                 message = render_to_string('login/acc_active_email.html', {
                     'user': user,
                     'domain': current_site.domain,
-                    'uid':urlsafe_base64_encode(force_bytes(user.pk)).decode(),
+                    'uid':urlsafe_base64_encode(force_bytes(user.pk)),
                     'token':account_activation_token.make_token(user),
                 })
 
@@ -117,7 +117,6 @@ class SignIn(View):
     """
     Class was created to sign a user in. Only contains the post method.
     """
-    # TODO: FIX THIS SO THAT WHEN YOU HAVEN'T CONFIMED, IT TELLS YOU TO DO SO
     def post(self, request):
         """
         Method that allows a user to log/sign in
