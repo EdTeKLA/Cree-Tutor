@@ -23,8 +23,10 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
     
         Ubuntu: https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04
         MacOS: https://docs.docker.com/v17.12/docker-for-mac/install/
-        Windows: https://docs.docker.com/docker-for-windows/install/
-
+        Windows(Enterprise and Education vers only): https://docs.docker.com/docker-for-windows/install/
+        
+   To run Django with ProtgreSQL on Windows devices you will have to follow the steps highlighted in the Window's installation section.The steps 4-9 does not apply to Windows. 
+       
 4. Install and start Postgres on docker, change **Your_Password** to the actual password you will be using:
 
 **This command must be run every time you restart your computer, postgres does not automatically start in docker when you computer starts.** 
@@ -96,8 +98,156 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
         python insert_questions_into_db.py
         python insert_srt_files_and_stats.py
         python insert_configs.py
+ 
+ 
+ 
+## Windows installation process
+
+Docker does not work on Windows 10 Home, which is what many people have. Therefore, additional steps is needed for Django to run with PostgreSQL. 
+
+1. Download ProtgreSQL
+ 
+    Go to https://www.postgresql.org/download/windows/ to download the latest postgresql version.
+    
+    Set up your password and remember it, as it will be used for all future prostgresql access. The package that you download should include a management tool "pgAdmin" which will greatly help you set up databases. 
+ 
+2. Set up virtual environment (optional)
+ 
+    Run the following commands in terminal:
+    
+        $ pip install virtualenvwrapper-win
+    
+    Then create a virtual environment for this project 
+    
+        $ mkvirtualenv cree_tutor
+    
+    Now you should see (cree_tutor) next to the command prompt, this shows that you are in the virtual environment.
+    
+    Everytime you start command prompt you will have to activate the environment by using:
+    
+        $ workon cree_tutor
+
+3. Download Django
+
+   In command prompt, execute the command
+   
+         $ pip install django
+   
+   To verify that you have properly install django run
+   
+         $ python -m django --version
+   
+4. Go into `CreeTutor` folder and run the command
+  
+         $ django-admin startproject cree_tutor_db
+   
+5. Go into the `cree_tutor_db\cree_tutor_db\settings.py` file and change the `DATABASE` 
+         
+         DATABASES = {
+             'default': {
+                 'ENGINE': 'django.db.backends.postgresql',
+                 'NAME': 'CreeTutor',
+                 'USER': '[your username]',
+                 'PASSWORD': '[enter your postgresql password here]',
+                 'HOST': '127.0.0.1',
+                 'PORT': '5432'
+             }
+         }
+   
+6. Open or create the file `CreeTutor/CreeTutorBackEnd/CreeTutorBackEnd/settings_secret.py`
+
+7. Make the contents of `settings_secret.py` look like this:
+
+       """  
+       These settings must never be uploaded onto github.
+
+       Keep it secret
+       """
+
+       DB_ROOT = "[your username]"
+
+       DB_PASS = "[enter your postgresql password here]"
+
+       PATH_TO_ALPHABET = "...\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\Alphabet"
+       PATH_TO_WORD = "...\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\Words"
+       PATH_TO_LETTERPAIR = "...\CreeTutor\CreeTutorBackEnd\lettergame\static\lettergame\sound\LetterPairs"
+
+8. Downloading other necessary requirements 
+
+   Navigate to the directory `CreeTutor` and run:
+        
+        $ pip install -r requirements-windows.txt
+ 
+9. (recommended) Create database "CreeTutordb" and necessary tables using pgAdmin
+   
+    If you'd like to use command line prompts to set up your database, look at the optional step 10. Otherwise, continue on.
+   
+    Open up pgAdmin and enter in your password. You should see
+   
+        Servers
+           PostgreSQL 11
+               Databases
+                   ** other databases that you created**
+               Login/Group Roles
+               Tablespaces
+   
+    Right click on `Databases` and select `Create > Database...`. A pop-up box will show up and you can enter in the name of the database as `cree_tutor_db` and the owner to your username. (The owner can be changed later however it should match what is written in the `settings.py` and `settings_private.py` files)
+ 
+10. (optional psql) Create database "CreeTutordb" and necessary tables using psql
+    
+    If you'd like to use command line prompts to set up the database please read on, if not skip to step 9. 
+    
+    **How to**
+    
+    Try to run 
+        
+         $ psql --version
+    
+    if it shows an error you will have to add postgres onto your path. To do this, note down where you saved postgreSQL on your device and add it to the windows path. 
+    
+    For example, if your files are at `C:\Program Files\PostgreSQL\9.5\` then you can add the lib and bin folder using the following command
+    
+	       $ set PATH [C:\Program Files\PostgreSQL\9.5\lib]
+	       $ set PATH [C:\Program Files\PostgreSQL\9.5\bin]
+
+    See if you have added it to your path by restarting command prompt and running
+        
+        $ psql --version
+    
+    If it is not, manuallly add it in by going into `This PC > Properties > Advanced System Settings > Environmental Variables > System Variables`
+    
+    Click on `Edit` and in the path section add `C:\Program Files\PostgreSQL\9.5\lib` and `C:\Program Files\PostgreSQL\9.5\bin`
+    
+    Check if it has been added to your path by restarting command prompt and running
+            
+        $ psql --version
+        
+    Navigate to the directory `CreeTutor/CreeTutorBackEnd` and run:
+
+        $ psql -h localhost -U postgres -d postgres
+
+    This opens up the postgres shell. Next run the follow queries in the shell after changing your username and password:
+
+        postgres=# CREATE DATABASE cree_tutor_db;
+        postgres=# CREATE USER [your username] WITH PASSWORD '[enter your password here]';
+        postgres=# ALTER ROLE [your username] SET client_encoding TO 'utf8';
+        postgres=# \q
+ 
+11. Testing if the database is working
+
+     Once the database is working, you make check that is is working by running the following:
+
+        $ python manage.py dbshell
+
+     To create the tables, navigate into `CreeTutor\cree_tutor_db` and run the following commands:
+
+        $ python manage.py makemigrations
+        $ python manage.py migrate
+ 
+ 
  ---
 
 ##### References
   1. https://en.wikipedia.org/wiki/Plains_Cree
   2. https://en.wikipedia.org/wiki/Polysynthetic_language
+  3. https://docs.djangoproject.com/en/2.2/intro/install/
