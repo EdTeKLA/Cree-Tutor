@@ -25,6 +25,7 @@ class WhichGame(View):
 
         return render(request, 'lettergame/level.html', context)
 
+
 class LetterGames(View):
     """
     Function takes in request, game, and level parameters to determine the game (single/double) and level (learn/easy/...).
@@ -96,11 +97,13 @@ class LetterGames(View):
 
         return option, whichStats, type, stats, whichDist
 
+
 class InvadersLevel(TemplateView):
     """
     Takes in request and loads the invadersmain template
     """
     template_name = 'lettergame/invadersmain.html'
+
 
 class Invaders(View):
     """

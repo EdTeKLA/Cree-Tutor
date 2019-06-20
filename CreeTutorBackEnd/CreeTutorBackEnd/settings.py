@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'sass_processor',
 ]
 
+AUTH_USER_MODEL = 'login.ModifiedUser'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
