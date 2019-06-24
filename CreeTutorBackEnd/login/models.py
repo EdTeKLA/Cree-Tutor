@@ -34,7 +34,7 @@ class LanguageLevels(models.Model):
 
 class LanguagesSpoken(models.Model):
     """
-    Store the age levels of a person.
+    Store the language that could be spoken, id used as foreign key.
     """
     # The id which will be added into the modified user
     id = models.AutoField(primary_key=True)
@@ -47,11 +47,27 @@ class LanguagesSpoken(models.Model):
         db_table = 'languages_spoken'
 
 
+class Gender(models.Model):
+    """
+    Store the gender of a user.
+    """
+    # The id which will be added into the modified user
+    id = models.AutoField(primary_key=True)
+    # The gender of the user
+    gender = models.TextField(unique=True)
+
+    class Meta:
+        app_label = 'login'
+        managed = True
+        db_table = 'gender'
+
+
 class ModifiedUser(AbstractUser):
     """
     A modified user profile, will contain the extra fields that we need.
     """
     age_level = models.ForeignKey(AgeLevels, on_delete=DO_NOTHING, null=True)
+    gender = models.ForeignKey(Gender, on_delete=DO_NOTHING, null=True, blank=True)
     intake_finished = models.BooleanField(null=False, blank=False, default=False)
 
     def __init__(self, *args, **kwargs):

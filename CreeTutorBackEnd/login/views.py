@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.urls import reverse
 from django.contrib.sites.shortcuts import get_current_site
 
-from login.models import ModifiedUser, AgeLevels, LanguagesSpoken, UserLanguages, LanguageLevels
+from login.models import ModifiedUser, AgeLevels, LanguagesSpoken, UserLanguages, LanguageLevels, Gender
 
 from .tokens import account_activation_token
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -249,6 +249,9 @@ class Intake(View):
             # Update the age range
             user.age_level, _ = AgeLevels.objects.get_or_create(age_range=request.POST['age-range'])
 
+            # Set the gender
+            user.gender, _ = Gender.objects.get_or_create(gender=request.POST['gender'])
+
             # Get all the primary languages
             primary_languages = json.loads(request.POST.getlist('primary-language')[0])
             # Save the level of the language
@@ -285,6 +288,7 @@ class Intake(View):
         except Exception as ex:
             return HttpResponse('ERROR: ' + str(ex))
         else:
+            pass
             return JsonResponse({'redirect': '/'})
 
 

@@ -120,6 +120,15 @@ $(function () {
         }
     });
 
+    // For every gender-input element,
+    $('.gender-input').on('change', function() {
+        if (this.value === 'other') {
+            $('#gender-other-text').removeAttr('disabled');
+        } else {
+            $('#gender-other-text').attr('disabled', 'disabled');
+        }
+    });
+
     $(document).on('submit', '#intake-form', function(e){
         e.preventDefault();
         $("#other-language-group-fluency-error").addClass("hidden");
@@ -151,6 +160,12 @@ $(function () {
             }
         );
 
+        // Get gender
+        var gender = $("input[name='gender']:checked").val();
+        if (gender === 'other'){
+            gender = $('#gender-other-text').val();
+        }
+
         // Get the non-primary languages
         $.ajax({
             type:'POST',
@@ -159,6 +174,7 @@ $(function () {
                 'first-name': $('#first-name').val(),
                 'last-name': $('#last-name').val(),
                 'age-range': $("input[name='age']:checked").val(),
+                'gender': gender,
                 'primary-language': JSON.stringify(primary_languages),
                 'non-primary-languages': JSON.stringify(non_primary_languages),
             },
