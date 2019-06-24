@@ -165,8 +165,7 @@ class SignIn(View):
 
 class ActivateAccount(View):
     """
-    Class was created to activate a user account using the link sent in the
-    email.
+    Class was created to activate a user account using the link sent in the email.
     """
     def get(self, request, uidb64, token):
         """
@@ -219,11 +218,15 @@ class Profile(View):
 
 class Intake(View):
     """
-    Class was created to submit data. For now it does nothing but redirect.
+    Class was created to show the intake form if the user had not completed intake. If the user has completed intake,
+    it shows a page which indicates that.
+
+    Also contains a post method which accepts and saves all the information from a completed intake form.
     """
     def get(self, request):
         """
-        Just redirects the user. When actually saving data, use post NOT get.
+        Shows the intake form if intake has not been completed for the user. If it has been completed, shows a completed
+        intake page.
         """
         # Get all the languages
         if request.user.intake_finished:
@@ -233,7 +236,9 @@ class Intake(View):
 
     def post(self, request):
         """
-        Method was created to update the record
+        Method was created to update the user record with the first name, last name, age and gender.
+
+        Also creates records for any languages a user knows.
         :param request:
         :return:
         """
