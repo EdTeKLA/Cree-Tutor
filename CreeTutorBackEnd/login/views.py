@@ -289,7 +289,7 @@ class Intake(View):
             return HttpResponse('ERROR: ' + str(ex))
         else:
             pass
-            return JsonResponse({'redirect': '/'})
+            return JsonResponse({'redirect': '/intake'})
 
 
 # sample user profile update
