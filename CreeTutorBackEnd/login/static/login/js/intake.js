@@ -1,5 +1,3 @@
-// TODO: make fluencyLevels more dynamic
-// TODO: refactor dropdown menu... get rid of value on a element
 const setLanguageGroup = function(id, placeholder, fluencyLevels) {
     let inputGroupString =
         "<div class=\"input-group\">\n" +
@@ -99,10 +97,10 @@ $(function () {
     setLanguageGroup('additional-primary-language', 'e.g. French');
 
     setLanguageGroup('other-language', 'e.g. Wood Cree', [
-        '1 - Little experience, can use and understand basic sentences and questions',
-        '2 - Some experience, can hold basic, casual conversations',
-        '3 - Lots of experience, not quite fluent but can communicate well in the language',
-        '4 - Fluent, no communication problems'
+        'Little experience, can use and understand basic sentences and questions',
+        'Some experience, can hold basic, casual conversations',
+        'Lots of experience, not quite fluent but can communicate well in the language',
+        'Fluent, no communication problems'
     ]);
 
     // Set the help text click event
@@ -122,13 +120,64 @@ $(function () {
         }
     });
 
-    // TODO: do something with the data?
+    // For every gender-input element,
+    $('.gender-input').on('change', function() {
+        if (this.value === 'other') {
+            $('#gender-other-text').removeAttr('disabled');
+        } else {
+            $('#gender-other-text').attr('disabled', 'disabled');
+        }
+    });
+
     $(document).on('submit', '#intake-form', function(e){
         e.preventDefault();
+        $("#other-language-group-fluency-error").addClass("hidden");
 
+        // Get the primary language
+        var primary_languages = [$('.primary-language').val()];
+
+        // Also adding the additional langauges to the primary_languages array
+        $('.additional-primary-language').each(
+            function (index, item) {
+                if (item.value !== ""){
+                    primary_languages.push(item.value);
+                }
+            }
+        );
+
+        // Deal with non-primary languages
+        var non_primary_languages = [];
+        // Get all the languages
+        $('#other-language-input-group .input-group').each(
+            function (index, item) {
+                if ($('.other-language', item).val() !== "" && $('.input-group-append', item).attr('data-content') !== 'Fluency'){
+                    non_primary_languages.push(
+                        {'language': $('.other-language', item).val(), 'fluency': $('.input-group-append', item).attr('data-content')});
+                } else if ($('.input-group-append', item).attr('data-content') === 'Fluency' && $('.other-language', item).val() !== "" ){
+                    $("#other-language-group-fluency-error").removeClass("hidden");
+                    throw("ERROR: Not all 'other-language' elements have a level");
+                }
+            }
+        );
+
+        // Get gender
+        var gender = $("input[name='gender']:checked").val();
+        if (gender === 'other'){
+            gender = $('#gender-other-text').val();
+        }
+
+        // Get the non-primary languages
         $.ajax({
             type:'POST',
-            url: "/submit_intake/",
+            url: "/intake/",
+            data: {
+                'first-name': $('#first-name').val(),
+                'last-name': $('#last-name').val(),
+                'age-range': $("input[name='age']:checked").val(),
+                'gender': gender,
+                'primary-language': JSON.stringify(primary_languages),
+                'non-primary-languages': JSON.stringify(non_primary_languages),
+            },
             success: function(data) {
                 if (data.redirect) {
                     window.location.href = data.redirect;

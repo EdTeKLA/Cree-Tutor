@@ -111,6 +111,42 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <legend class="col-12 col-form-label">
+                        Gender
+                        <button class="custom-tooltip" data-toggle="tooltip" data-title="Knowing your age can help us personalize your experience.">
+                            <i class="far fa-question-circle" ></i>
+                        </button>
+                    </legend>
+                    <div class="col-lg-6">
+                        <div class="form-check">
+                            <input class="form-check-input gender-input" type="radio" name="gender" id="gender-male" value="male">
+                            <label class="form-check-label" for="age-range-1">
+                                Male
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input gender-input" type="radio" name="gender" id="gender-female" value="female">
+                            <label class="form-check-label" for="age-range-2">
+                                Female
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-check">
+                            <input class="form-check-input gender-input" type="radio" name="gender" id="gender-no" value="prefer not to say">
+                            <label class="form-check-label" for="age-range-7">
+                                Prefer not to say
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input gender-input" type="radio" name="gender" id="gender-other" value="other">
+                            <label class="form-check-label" for="age-range-6">
+                                Other: <input type="text" class="form-control" id="gender-other-text" disabled="disabled" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
                 <div id="primary-language-group" class="form-group row">
                     <label class="col-12" for="primary-language-input-group">
                         Primary Language
@@ -170,7 +206,6 @@
                                 You may or may not have any additional primary languages depending on your language background. For example, an additional primary language could be another equal primary language (if you grew up bilingual), a language that you spoke only as a child, or a language that you only speak at home since childhood.
                             </small>
                         </div>
-
                     </div>
                     <div id="additional-primary-language-input-group" class="col-12">
                         <div class="input-group">
@@ -199,6 +234,10 @@
                         <a href="" id="other-language-help">
                             <small>What should I include in my "Other Languages"?</small>
                         </a>
+                        <div id="other-language-group-fluency-error" class="form-message error hidden">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>Please select a fluency level for each language.</span>
+                        </div>
                         <div id="other-language-help-text" class="help-text closed">
                             <small>
                                 You can include any other languages you speak that you learned after childhood or that you didn't speak at home as a child. You can add as many as you need to and specify how fluent you are in each language.
@@ -212,17 +251,17 @@
                             <!-- TODO: decide on better options -->
                             <div class="dropdown-wrap input-group-append" data-content="">
                                 <select class="dropdown">
-                                    <option value="1 - Little experience, can use and understand basic sentences and questions">
-                                        1 - Little experience, can use and understand basic sentences and questions
+                                    <option value="Little experience, can use and understand basic sentences and questions">
+                                        Little experience, can use and understand basic sentences and questions
                                     </option>
-                                    <option value="2 - Some experience, can hold basic, casual conversations">
-                                        2 - Some experience, can hold basic, casual conversations
+                                    <option value="Some experience, can hold basic, casual conversations">
+                                        Some experience, can hold basic, casual conversations
                                     </option>
-                                    <option value="3 - Lots of experience, not quite fluent but can communicate well in the language">
-                                        3 - Lots of experience, not quite fluent but can communicate well in the language
+                                    <option value="Lots of experience, not quite fluent but can communicate well in the language">
+                                        Lots of experience, not quite fluent but can communicate well in the language
                                     </option>
-                                    <option value="4 - Fluent, no communication problems">
-                                        4 - Fluent, no communication problems
+                                    <option value="Fluent, no communication problems">
+                                        Fluent, no communication problems
                                     </option>
                                 </select>
                             </div>

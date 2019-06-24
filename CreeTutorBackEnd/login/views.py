@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
 from django.urls import reverse
 from django.contrib.sites.shortcuts import get_current_site
+
+from login.models import ModifiedUser, AgeLevels, LanguagesSpoken, UserLanguages, LanguageLevels, Gender
+
 from .tokens import account_activation_token
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
@@ -16,6 +18,8 @@ import re
 
 from django.urls import reverse
 from django.views import View
+
+import json
 
 
 class Login(View):
@@ -34,6 +38,7 @@ class Login(View):
         else:
             # Otherwise render a login/signup page
             return render(request, 'login/index.html')
+
 
 class SignUp(View):
     """
@@ -55,7 +60,7 @@ class SignUp(View):
             email_valid_error = SignUp.__check_if_email_valid(email)
             if email_valid_error is None:
                 # Create User object
-                user = User.objects.create_user(email, email, password)
+                user = ModifiedUser.objects.create_user(email, email, password)
 
                 # de-activate user account until email confirmation
                 user.is_active = False
@@ -84,7 +89,6 @@ class SignUp(View):
             print(ex)
             return HttpResponse('ERROR: An unknown error occured.')
 
-
     @staticmethod
     def __check_if_email_valid(email):
         """
@@ -108,10 +112,11 @@ class SignUp(View):
         # If there is an error, then we know that an account with this email does not exist,
         # so we return False, if the error does not occur, an account does exist and we return True
         try:
-            u = User.objects.get(username=email)
+            u = ModifiedUser.objects.get(username=email)
             return True
-        except User.DoesNotExist:
+        except ModifiedUser.DoesNotExist:
             return False
+
 
 class SignIn(View):
     """
@@ -132,13 +137,16 @@ class SignIn(View):
             # If user found, redirect to the homepage
             if user is not None:
                 login(request, user)
-                context = {'redirect': '/'}
+                if user.intake_finished:
+                    context = {'redirect': '/'}
+                else:
+                    context = {'redirect': '/intake/'}
                 return JsonResponse(context)
             else:
                 # Try to get the user obejct using the email
                 try:
-                    user = User.objects.get(username=email)
-                except User.DoesNotExist:
+                    user = ModifiedUser.objects.get(username=email)
+                except ModifiedUser.DoesNotExist:
                     # Didn't get it, account doesn't exist
                     context = {'error':"No account with this email exists.", 'email':email, 'password':password}
                 else:
@@ -154,10 +162,10 @@ class SignIn(View):
             print(ex)
             return HttpResponse('ERROR: ' + str(KeyError))
 
+
 class ActivateAccount(View):
     """
-    Class was created to activate a user account using the link sent in the
-    email.
+    Class was created to activate a user account using the link sent in the email.
     """
     def get(self, request, uidb64, token):
         """
@@ -167,7 +175,7 @@ class ActivateAccount(View):
         try:
             # Try to fetch the user
             uid = force_text(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(pk=uid)
+            user = ModifiedUser.objects.get(pk=uid)
             # If we found the user, we check the email token to make sure it is
             # valid
             if account_activation_token.check_token(user, token):
@@ -179,7 +187,7 @@ class ActivateAccount(View):
             else:
                 # The token is not valid
                 return render(request, "login/acc_email_not_valid.html")
-        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        except(TypeError, ValueError, OverflowError, ModifiedUser.DoesNotExist):
             # If the user can't be fetched we got a problem
             # We tell the user that the activation link is invalid
             return render(request, "login/acc_user_not_found.html")
@@ -196,6 +204,7 @@ class SignOut(View):
         logout(request)
         return redirect('/')
 
+
 class Profile(View):
     """
     Class was created to the profile of a user.
@@ -206,16 +215,87 @@ class Profile(View):
         """
         return render(request, "login/profile.html")
 
-class SubmitIntake(View):
+
+class Intake(View):
     """
-    Class was created to submit data. For now it does nothing but redirect.
+    Class was created to show the intake form if the user had not completed intake. If the user has completed intake,
+    it shows a page which indicates that.
+
+    Also contains a post method which accepts and saves all the information from a completed intake form.
     """
     def get(self, request):
         """
-        Just redirects the user. When actaully saving data, use post NOT get.
+        Shows the intake form if intake has not been completed for the user. If it has been completed, shows a completed
+        intake page.
         """
-        context = {'redirect': '/'}
-        return JsonResponse(context)
+        # Get all the languages
+        if request.user.intake_finished:
+            return render(request, "login/intake_completed.html")
+        else:
+            return render(request, "login/intake.html")
+
+    def post(self, request):
+        """
+        Method was created to update the user record with the first name, last name, age and gender.
+
+        Also creates records for any languages a user knows.
+        :param request:
+        :return:
+        """
+        # Gender information
+        try:
+            # Get the user
+            user = request.user
+
+            # Update the first and the last name
+            user.first_name = request.POST['first-name']
+            user.last_name = request.POST['last-name']
+
+            # Update the age range
+            user.age_level, _ = AgeLevels.objects.get_or_create(age_range=request.POST['age-range'])
+
+            # Set the gender
+            user.gender, _ = Gender.objects.get_or_create(gender=request.POST['gender'])
+
+            # Get all the primary languages
+            primary_languages = json.loads(request.POST.getlist('primary-language')[0])
+            # Save the level of the language
+            ll, _ = LanguageLevels.objects.get_or_create(level_of_language='primary')
+            # Save them to the database if they don't exist
+            primary_languages_objs = []
+
+            for primary_language in primary_languages:
+                ls = {'language': primary_language.lower()}
+                ls, _ = LanguagesSpoken.objects.get_or_create(language=primary_language.lower(), defaults=ls)
+
+                ul = UserLanguages(language_spoken=ls, level_of_language=ll, user=user)
+                ul.save()
+
+            # Dealing with non-primary-languages
+            non_primary_languages = json.loads(request.POST.getlist('non-primary-languages')[0])
+            # Save them to the database if they don't exist
+            non_primary_languages_objs = []
+            for non_primary_language in non_primary_languages:
+                ls = {'language': non_primary_language['language'].lower()}
+                ls, _ = LanguagesSpoken.objects.get_or_create(language=non_primary_language['language'].lower(),
+                                                              defaults=ls)
+                non_primary_languages_objs.append(ls)
+
+                ll, _ = LanguageLevels.objects.get_or_create(level_of_language=non_primary_language['fluency'].lower())
+
+                ul = UserLanguages(language_spoken=ls, level_of_language=ll, user=user)
+                ul.save()
+
+            # Saving the status of the intake
+            user.intake_finished = True
+            # Save the profile
+            user.save()
+        except Exception as ex:
+            return HttpResponse('ERROR: ' + str(ex))
+        else:
+            pass
+            return JsonResponse({'redirect': '/intake'})
+
 
 # sample user profile update
 def profile_save_colour(request):
@@ -224,11 +304,6 @@ def profile_save_colour(request):
     profile.save()
     return HttpResponse("Success!")
 
-def intake(request):
-    """
-    No idea what this does, so I left it as is.
-    """
-    return render(request, "login/intake.html");
 
 def confirm_email(request):
     """

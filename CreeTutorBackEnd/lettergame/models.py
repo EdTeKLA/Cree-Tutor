@@ -67,7 +67,9 @@ TROUBLESHOOTING:
 """
 
 from django.db import models
-from django.contrib.auth.models import User
+
+from login.models import ModifiedUser
+
 
 class GameLevels(models.Model):
     """
@@ -90,7 +92,7 @@ class LetterGameOrPairGameSession(models.Model):
     Start and end of a session is logged here with the level at which the session was done at.
     """
     id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(ModifiedUser, on_delete=models.CASCADE)
     session_begin = models.DateTimeField(blank=True, null=True)
     session_end = models.DateTimeField(blank=True, null=True)
     level = models.ForeignKey(GameLevels, on_delete=models.DO_NOTHING)
@@ -485,7 +487,7 @@ class Creedictionarydotcom(models.Model):
 
 class invadersSession(models.Model):
     session_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(ModifiedUser, on_delete=models.CASCADE)
     sessionBegin = models.DateTimeField(blank=True, null=True)
     level = models.CharField(max_length=8, blank=True)
 

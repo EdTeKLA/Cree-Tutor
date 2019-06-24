@@ -1,7 +1,8 @@
 from datetime import datetime
-from django.contrib.auth.models import User
 
 from django.db import models
+
+from login.models import ModifiedUser
 
 
 class ShadowingConfig(models.Model):
@@ -69,7 +70,7 @@ class ShadowingUserStats(models.Model):
     # The id/primary key
     id = models.BigAutoField(primary_key=True)
     # The user for which the stats exist
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(ModifiedUser, on_delete=models.CASCADE)
 
     # The stats
     default_for_stats = 0
@@ -92,7 +93,7 @@ class ShadowingLogActions(models.Model):
     # The id/primary key
     id = models.BigAutoField(primary_key=True)
     # The user this is connected to
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(ModifiedUser, on_delete=models.CASCADE)
     # Name of the story
     story = models.ForeignKey(AudioAndSubtitleFilesForShadowing, on_delete=models.CASCADE)
     # The time at which the action took place during the recording, in milliseconds
@@ -113,7 +114,7 @@ class ShadowingLogFeedbackAnswers(models.Model):
     Models was created to log the responses of the user to feedback questions.
     """
     # The user that answered the question
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(ModifiedUser, on_delete=models.CASCADE)
     # Which story this feed back is connected to
     story = models.ForeignKey(AudioAndSubtitleFilesForShadowing, on_delete=models.DO_NOTHING)
     # The question that was answered
