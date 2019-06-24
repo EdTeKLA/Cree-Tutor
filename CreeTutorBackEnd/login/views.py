@@ -137,7 +137,10 @@ class SignIn(View):
             # If user found, redirect to the homepage
             if user is not None:
                 login(request, user)
-                context = {'redirect': '/'}
+                if user.intake_finished:
+                    context = {'redirect': '/'}
+                else:
+                    context = {'redirect': '/intake/'}
                 return JsonResponse(context)
             else:
                 # Try to get the user obejct using the email
@@ -214,16 +217,19 @@ class Profile(View):
         return render(request, "login/profile.html")
 
 
-class SubmitIntake(View):
+class Intake(View):
     """
     Class was created to submit data. For now it does nothing but redirect.
     """
     def get(self, request):
         """
-        Just redirects the user. When actaully saving data, use post NOT get.
+        Just redirects the user. When actually saving data, use post NOT get.
         """
-        context = {'redirect': '/'}
-        return JsonResponse(context)
+        # Get all the languages
+        if request.user.intake_finished:
+            return render(request, "login/intake_completed.html")
+        else:
+            return render(request, "login/intake.html")
 
     def post(self, request):
         """
@@ -231,6 +237,7 @@ class SubmitIntake(View):
         :param request:
         :return:
         """
+        # Gender information
         try:
             # Get the user
             user = request.user
@@ -240,7 +247,7 @@ class SubmitIntake(View):
             user.last_name = request.POST['last-name']
 
             # Update the age range
-            user.age_level = AgeLevels.objects.get(age_range=request.POST['age-range'])
+            user.age_level, _ = AgeLevels.objects.get_or_create(age_range=request.POST['age-range'])
 
             # Get all the primary languages
             primary_languages = json.loads(request.POST.getlist('primary-language')[0])
@@ -253,7 +260,7 @@ class SubmitIntake(View):
                 ls = {'language': primary_language.lower()}
                 ls, _ = LanguagesSpoken.objects.get_or_create(language=primary_language.lower(), defaults=ls)
 
-                ul = UserLanguages(language_spoken=ls, level_of_language=ll)
+                ul = UserLanguages(language_spoken=ls, level_of_language=ll, user=user)
                 ul.save()
 
             # Dealing with non-primary-languages
@@ -268,9 +275,11 @@ class SubmitIntake(View):
 
                 ll, _ = LanguageLevels.objects.get_or_create(level_of_language=non_primary_language['fluency'].lower())
 
-                ul = UserLanguages(language_spoken=ls, level_of_language=ll)
+                ul = UserLanguages(language_spoken=ls, level_of_language=ll, user=user)
                 ul.save()
 
+            # Saving the status of the intake
+            user.intake_finished = True
             # Save the profile
             user.save()
         except Exception as ex:
@@ -285,13 +294,6 @@ def profile_save_colour(request):
     profile.fav_colour = request.POST.get('favourite-colour', False)
     profile.save()
     return HttpResponse("Success!")
-
-
-def intake(request):
-    """
-    No idea what this does, so I left it as is.
-    """
-    return render(request, "login/intake.html")
 
 
 def confirm_email(request):

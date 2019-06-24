@@ -1,5 +1,3 @@
-// TODO: make fluencyLevels more dynamic
-// TODO: refactor dropdown menu... get rid of value on a element
 const setLanguageGroup = function(id, placeholder, fluencyLevels) {
     let inputGroupString =
         "<div class=\"input-group\">\n" +
@@ -122,7 +120,6 @@ $(function () {
         }
     });
 
-    // TODO: do something with the data?
     $(document).on('submit', '#intake-form', function(e){
         e.preventDefault();
         $("#other-language-group-fluency-error").addClass("hidden");
@@ -153,13 +150,11 @@ $(function () {
                 }
             }
         );
-        console.log(non_primary_languages);
 
         // Get the non-primary languages
-
         $.ajax({
             type:'POST',
-            url: "/submit_intake/",
+            url: "/intake/",
             data: {
                 'first-name': $('#first-name').val(),
                 'last-name': $('#last-name').val(),

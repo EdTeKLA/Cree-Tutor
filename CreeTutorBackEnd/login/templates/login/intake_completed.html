@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block styles %}
+<link href="{% sass_src 'login/scss/login.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'login/js/intake.js' %}"></script>
+{% endblock %}
+
+<!-- TODO: these questions and options are all samples to play with the types of question formats we will need -->
+
+{% block content %}
+<div class="container">
+    <h2 class="d-flex justify-content-center">Intake Completed</h2>
+    <span class="d-flex justify-content-center">
+        <a href="/"><button id="submit" name="submit" class="btn btn-primary">Go to homepage</button></a>
+    </span>
+</div>
+{% endblock content %}
