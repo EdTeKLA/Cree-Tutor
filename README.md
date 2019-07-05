@@ -40,12 +40,12 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
        
 4. Install and start Postgres on docker, change **Your_Password** to the actual password you will be using:
 
-**This command must be run every time you restart your computer, postgres does not automatically start in docker when you computer starts.** 
+	**This command must be run every time you restart your computer, postgres does not automatically start in docker when you computer starts.** 
         
         MAC, Linux, Ubuntu: 
             sudo docker run --rm --name pg-docker -e POSTGRES_PASSWORD=**Your_Password** -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres
 	
-   For Windows os, go into `C:` and create the path `docker\volumes\postgres` then run the following command:
+   	For Windows os, go into `C:` and create the path `docker\volumes\postgres` then run the following command:
   
 	     docker run --rm --name pg-docker -e POSTGRES_PASSWORD=**[Your_Password]** -d -p 5432:5432 -v c:/docker/volumes/postgres:/var/lib/postgresql/data postgres
             
@@ -53,8 +53,8 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
     
    Go to: 
    
-   		ALL OS: https://www.postgresql.org/download/
-
+   		ALL OS: https://www.pgadmin.org/
+		
    Select the version appropriate for your os and install the latest version of pgAdmin.
 
 6. Clone or download the CreeTutor repository
