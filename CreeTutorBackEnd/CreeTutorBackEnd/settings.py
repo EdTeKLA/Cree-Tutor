@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 from .settings_secret import *
-#contains: db_user, db_pass
+# contains: db_user, db_pass
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     # note: during production (DEBUG = False), scss needs to be manually
     # compiled beforehand (manage.py compilescss)
     'sass_processor',
+
+    # for nice forms
+    'crispy_forms',
 ]
 
 AUTH_USER_MODEL = 'login.ModifiedUser'
@@ -95,9 +98,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'cree_tutor_db',
         'USER': DB_ROOT,
-        'PASSWORD':DB_PASS,
-        'HOST':'localhost',
-        'PORT':''
+        'PASSWORD': DB_PASS,
+        'HOST': 'localhost',
+        'PORT': ''
     }
 }
 
