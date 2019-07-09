@@ -8,3 +8,4 @@ numpy
 libsass
 django-compressor
 django-sass-processor
+django-crispy-forms
