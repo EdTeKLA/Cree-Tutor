@@ -5,22 +5,20 @@ from django.http import JsonResponse
 from django.urls import reverse
 from django.contrib.sites.shortcuts import get_current_site
 
-from login.models import ModifiedUser, AgeLevels, LanguagesSpoken, UserLanguages, LanguageLevels, Gender
-
 from .tokens import account_activation_token
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.core.mail import EmailMessage
 from core.models import Profile
-
-import re
-
 from django.urls import reverse
 from django.views import View
 
 import json
+import re
 
+from login.models import ModifiedUser, AgeLevels, LanguagesSpoken, UserLanguages, LanguageLevels, Gender
+from .forms import ProfileUpdateForm, UserLanguageUpdateForm
 
 class Login(View):
     """
@@ -207,13 +205,28 @@ class SignOut(View):
 
 class Profile(View):
     """
-    Class was created to the profile of a user.
+    Class to display the profile of a user and offer ways to change its content
     """
     def get(self, request):
         """
         Renders the profile of a user and returns the results.
         """
-        return render(request, "login/profile.html")
+        # check if the form is set to post
+        if request.method == 'POST':
+            profile_form = ProfileUpdateForm(request.POST)
+
+            if profile_form.is_valid():
+                profile_form.save()
+                messages.success(request, f'Your profile has been updated!')
+                return redirect('')
+        else:
+            profile_form = ProfileUpdateForm()
+        
+        context = {
+            'profile_form' : profile_form
+        }
+
+        return render(request, 'login/profile.html', context=context)
 
 
 class Intake(View):
