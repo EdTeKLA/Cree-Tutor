@@ -59,10 +59,10 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 
 6. Clone or download the CreeTutor repository
 
-	*NOTE: Easiest option is to download the file as a ZIP file and unzip it into a folder on your desktop named `CreeTutor-master`*
+	*NOTE: Easiest option is to download the file as a ZIP file and unzip it into a folder on your desktop named `CreeTutor`*
 	
 
-6. Create the file `CreeTutor-master/CreeTutorBackEnd/CreeTutorBackEnd/settings_secret.py`
+6. Create the file `CreeTutor/CreeTutorBackEnd/CreeTutorBackEnd/settings_secret.py`
 
 7. Make the contents of settings_secret.py look like this:
 
@@ -82,7 +82,7 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 
 8. Install required python packages
 
-    Navigate to the directory `CreeTutor-master` and run:
+    Navigate to the directory `CreeTutor` and run:
         
         pip3 install -r requirements.txt
 
