@@ -258,13 +258,13 @@ def cycleWords(directory_in_str, lemma_dict):
     return
 
 """ Delaneys cycleWords
-    """
+    
     Function takes in a string path to the desired directory. Directory must be in static folder of django project.
     Cycles through directory and extracts individual names and paths. Passes individual names to function syllables to count the
     number of syllables in word. Inserts names, paths, number of syllables, and an id into pre-made word table
     in database. Strips names of any non-alpha character and does not allow names with whitespace or duplicate names.
     Returns None
-    """
+    
     # Cycle through directory
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
