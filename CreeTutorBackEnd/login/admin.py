@@ -4,7 +4,6 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.admin import Group
 
 from .models import ModifiedUser as User
-from .models import UserLanguages
 from .forms import UserAdminChangeForm
 
 
@@ -19,20 +18,17 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ('is_superuser',)
     fieldsets = [
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ['first_name',
+        ('Personal info', {'fields': ('first_name',
                                       'last_name',
                                       'age_range',
-                                      'gender']}),
-        # # A better way of displaying language has to be made
-        # ('Language info', {'fields': ('language_spoken',
-        #                               'language_level'
-        #                               )}),
-        ('Permissions', {'fields': ['is_active',
+                                      'gender')}),
+        ('Language info', {'fields': ('language_spoken',
+                                      'language_level'
+                                      )}),
+        ('Permissions', {'fields': ('is_active',
                                     'is_staff',
-                                    'is_superuser', ]}),
-        ('Intake status', {'fields': ['intake_finished', ]}),
-        ('Account activity details', {'fields': ['date_joined',
-                                                 'last_login']}),
+                                    'is_superuser',)}),
+        ('Intake status', {'fields': ('intake_finished',)})
     ]
 
     search_fields = ('email',)
@@ -40,7 +36,7 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
-# Display the User and User languages tabs on the admin page
+# Display the User tab on the admin page
 admin.site.register(User, UserAdmin)
 
 # Remove Group Model from admin. We're not using it.

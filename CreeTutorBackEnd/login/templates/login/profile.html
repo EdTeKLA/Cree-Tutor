@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
-{% load static %} 
-{% load sass_tags %} 
-{% load crispy_forms_tags %} 
+{% load static %}
+{% load sass_tags %}
 
 {% block styles %}
 <link href="{% sass_src 'login/scss/login.scss' %}" rel="stylesheet" type="text/css" />
@@ -9,157 +8,106 @@
 
 {% block scripts %}
 <script src="{% static 'login/js/profile.js' %}"></script>
-<script src="{% static 'login/js/intake.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 
 <div class="container">
     <div class="row justify-content-md-center">
+        <div class="col-lg-3">
+            <nav id="profile-page-navigation">
+                <!-- Standard profile page navigation menu-->
+                <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active" id="list-account-information-list" data-toggle="list" href="#list-account-information" role="tab" aria-controls="list-account-information">Account Information</a>
+                    <a class="list-group-item list-group-item-action" id="list-another-section-list" data-toggle="list" href="#list-another-section" role="tab" aria-controls="list-another-section">Another Section</a>
+                    <a class="list-group-item list-group-item-action" id="list-third-section-list" data-toggle="list" href="#list-third-section" role="tab" aria-controls="list-third-section">Third Section</a>
+                    <a class="list-group-item list-group-item-action" id="list-last-section-list" data-toggle="list" href="#list-last-section" role="tab" aria-controls="list-last-section">Last Section</a>
+                </div>
 
-        <!--Navigation bar-->
-        <div class="align-top col-lg-3 mb-3">
-            <!-- Standard profile page navigation menu -->
-            <div id="wide-screen-nav">
-                <ul class="list-group">
-                    <a class="list-group-item active" href="">Profile</a>
-                    <a class="list-group-item text-dark" href="{% url 'login:profile-language' %}">Languages Information</a>
-                    <a class="list-group-item text-dark" href="{% url 'login:profile-delete' %}">Delete Account</a>
-                </ul>
-            </div>
+                <!-- Profile page navigation menu as dropdown for mobile web -->
+                <div class="dropdown">
+                    <a class="btn btn-primary dropdown-toggle" data-display="static" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Account Information
+                    </a>
 
-            <!-- Modile profile page navigation menu -->
-            <div id="small-screen-nav">
-                <button type='button' class="list-group-item" data-toggle="collapse" data-target="#menu">
-                    Menu <i class="fas fa-bars"></i>  
-                </button>
-                <div class='collapse' id='menu'>
+                    <!-- TODO: it's probably bad to have the same ids for both menus but I'm not sure how to avoid this... investigate -->
+                    <div class="dropdown-menu list-group" role="tablist" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item active" id="list-account-information-list" data-toggle="list" role="tab" aria-controls="list-account-section" href="#list-account-information">Account Information</a>
+                        <a class="dropdown-item" id="list-another-section-list" data-toggle="list" role="tab" aria-controls="list-another-section" href="#list-another-section">Another Section</a>
+                        <a class="dropdown-item" id="list-third-section-list" data-toggle="list" role="tab" aria-controls="list-third-section" href="#list-third-section">Third Section</a>
+                        <a class="dropdown-item" id="list-last-section-list" data-toggle="list" role="tab" aria-controls="list-last-section" href="#list-last-section">Last Section</a>
+                    </div>
+                </div>
+            </nav>
+
+        </div>
+        <div class="col-lg-9">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="list-account-information" role="tabpanel" aria-labelledby="list-account-information-list">
+                    <div class="profile-section">
+                        <h4>Account Information</h4>
+                        <hr>
+                        <ul class="list-group">
+                            <li class="row list-group-item">
+                                <label class="col-4">Email:</label>
+                                <input class="col-7" value="{{ request.user.username }}"/>
+                            </li>
+                            <!-- TODO: anything else? name? -->
+                        </ul>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                    <div class="profile-section">
+                        <h4>Change Password</h4>
+                        <hr>
+                        <ul class="list-group">
+                            <li class="row list-group-item">
+                                <label class="col-4" id="old-password-label" for="old-password">Old Password:</label>
+                                <input class="col-7" id="old-password" aria-labelledby="old-password-label" />
+                            </li>
+                            <li class="row list-group-item">
+                                <label class="col-4" id="new-password-label" for="new-password">New Password:</label>
+                                <input class="col-7" id="new-password" aria-labelledby="new-password-label" />
+                            </li>
+                            <li class="row list-group-item">
+                                <label class="col-4" id="confirm-password-label" for="confirm-password">Confirm New Password:</label>
+                                <input class="col-7" id="confirm-password" aria-labelledby="confirm-password-label" />
+                            </li>
+                        </ul>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+
+                <!-- profile setting for proof of concept -->
+                <div class="tab-pane fade" id="list-another-section" role="tabpanel" aria-labelledby="list-another-section-list">
                     <ul class="list-group">
-                        <a class="list-group-item active" href="">Profile</a>
-                        <a class="list-group-item text-dark" href="{% url 'login:profile-language' %}">Languages Information</a>
-                        <a class="list-group-item text-dark" href="{% url 'login:profile-delete' %}">Delete Account</a>
+                        <form action="{% url 'login:profile_save_colour' %}" method="POST">
+                            {% csrf_token %}
+                            <li class="row list-group-item">
+                                <label class="col-4" id="favourite-colour" for="old-password">What is your favourite colour?</label>
+                                <select class="col-7 dropdown" id="favourite-colour" aria-labelledby="favourite-colour" name="favourite-colour">
+                                    <option>red</option>
+                                    <option>blue</option>
+                                    <option>purple</option>
+                                </select>
+                            </li>
+                            <button type="submit" class="btn btn-primary" value="Submit">Save</button>
+                        </form>
                     </ul>
                 </div>
-            </div>
-        </div>
 
-        <!--Profile content-->
-        <div class="col-lg-9">
-            <!--Display messages if there are any-->
-            <div class='messages'>
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{message.tags}}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            </div>
-
-            <!-- Profile and account information -->
-            <div id="profile-content">
-                <h4>
-                    {{ user.first_name.capitalize }}'s Profile
-                </h4>
-                <hr>
-                <div>
-                    <small>Tip: hover over the <i class="far fa-question-circle"></i> icon for more information.</small>
-                </div>
-                <br>
-                <h5>Account Details</h5>
-
-                <!--The profile information-->
-                <div id="account-details"> 
-                    <table class="col-12 list-group-item box-display mb-3">
-                        <tr>
-                            <td class="col-3 text-muted align-text-top">Full Name:</td>
-                            <!--Display user's full name-->
-                            <td class="col-9" id="name-details">{{user.first_name.capitalize }} {{user.last_name.capitalize}} </td>
-                            <!--Display editable form with text input for user's first and last name-->
-                            <td class="col-9" id="name-form">
-                                <form action="" method="POST" class="form-inline">
-                                    {% csrf_token %}
-                                    {% crispy name_form %}
-                                </form>
-                            </td>
-                            <td><a class="small text-muted col-6" id="name-form-button">Edit</a></td>
-                        </tr>
-                        <tr>
-                            <td class="col-3 text-muted align-text-top">Gender:
-                                <button class="custom-tooltip" data-toggle="tooltip" data-title="Your gender allows us to find out who is generally using our services.">
-                                    <i class="far fa-question-circle" ></i>
-                                </button></td>
-                            <!--Display user gender-->
-                            <td class="col-9" id="gender-details">{{user.gender}} </td>
-                            <!--Display editable form with dropdown menu for user gender-->
-                            <td class="col-9" id="gender-form">
-                                <form action="" method="POST" class="form-inline">
-                                    {% csrf_token %}
-                                    {% crispy gender_form %}
-                                </form>
-                            </td>
-                            <td><a class="small text-muted col-6" id="gender-form-button">Edit</a></td>
-                        </tr>
-                        <tr>
-                            <td class="col-3 text-muted align-text-top">Age Range:
-                                <button class="custom-tooltip" data-toggle="tooltip" data-title="Your age range can help us personalize your experience.">
-                                    <i class="far fa-question-circle" ></i>
-                                </button></td>
-                            </td>
-                            <!--Display static user age range-->
-                            <td class="col-9" id="age-details">{{user.age_range}} </td>
-                            <!--Display editable form with dropdown menu for user age range-->
-                            <td class="col-9" id="age-form">
-                                <form action="" method="POST" class="form-inline">
-                                    {% csrf_token %}
-                                    {% crispy age_form %}
-                                </form>
-                            </td>
-                            <td><a class="small text-muted col-6" id="age-form-button">Edit</a></td>
-                        </tr>
-                    </table>
-                </div>
-
-                <br>
-                <br>
-
-                <h5>Login Details </h5>
-                <table class="col-12 list-group-item box-display mb-3">
-                    <!--Display the user's email address-->
-                    <tr id="email">
-                        <td class="col-3 text-muted">Email:</td>
-                        <td class="col-6">{{user.email}} </td>
-                        <td><a class="small text-muted col-6" id="email-form-button">Edit</a></td>
-                    </tr>
-
-                    <!--Email update form block-->
-                    <tr id="email-form">
-                        <td class="col-3 text-muted align-text-top">Email:</td>
-                        <td class="col-9">
-                            <form action="" method="POST" class="form-inline">
-                                {% csrf_token %}
-                                {% crispy email_form %}
-                            </form>
-                        </td>
-                    </tr>
-
-                    <!--Dispaly a random string of asterix to show a password and link the user to 
-                        the password change page -->
-                    <tr>
-                        <td class="col-3 text-muted">Password:</td>
-                        <td class="col-9"> ******* </td>
-                        <td><a class="small text-muted col-6" href="{% url 'login:password-change' %}">Edit</a></td>
-                    </tr>
-                </table>
-                <br>
-                <br>
-                <!--Display when the user joined the site-->
-                <p class="col-12 text-muted text-right">
-                    Joined on {{user.date_joined|date:"n/j/Y"}} 
-                </p>
+                <div class="tab-pane fade" id="list-third-section" role="tabpanel" aria-labelledby="list-third-section-list">PERHAPS SOME SETTINGS - FILL IN</div>
+                <div class="tab-pane fade" id="list-last-section" role="tabpanel" aria-labelledby="list-last-section-list">PERHAPS SOME INFO ABOUT THE USER MODEL- FILL IN</div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- TODO: should be a little bit different the first time they see this (when the user has no profile saved yet) -->
+<!-- after the first time it should be a standard profile page with the fields that the user can edit -->
+<!-- TODO: add little "hints" after all the fields for the user to be able to see why we're collecting that data (transparency) -->
+
+<!-- Need to be able to continue to the homepage -->
+<!-- TODO: Should also show the user where they can access the profile page later -->
+<a class="choose" href="{% url 'home:index' %}" >Save & Continue</a>
 
 {% endblock %}

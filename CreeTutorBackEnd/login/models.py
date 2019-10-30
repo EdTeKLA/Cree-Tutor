@@ -1,8 +1,7 @@
-import django
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import DO_NOTHING, CASCADE
-from django.urls import reverse
+
 
 class AgeLevels(models.Model):
     """
@@ -15,9 +14,7 @@ class AgeLevels(models.Model):
     age_range = models.TextField(unique=True)
 
     def __str__(self):
-        # Used when you call Age levels in the front end to display the values stored in
-        # the database, also capitalized for formatting
-        return self.age_range.capitalize()
+        return self.age_range
 
     class Meta:
         app_label = 'login'
@@ -31,10 +28,10 @@ class LanguageLevels(models.Model):
     """
     id = models.AutoField(primary_key=True)
     # The level of the language
-    language_level = models.TextField(unique=True)
+    level_of_language = models.TextField(unique=True)
 
     def __str__(self):
-        return self.language_level.capitalize()
+        return self.level_of_language
 
     class Meta:
         app_label = 'login'
@@ -51,9 +48,6 @@ class LanguagesSpoken(models.Model):
     # The age range
     language = models.TextField(unique=True)
 
-    def __str__(self):
-        return self.language.capitalize()
-    
     class Meta:
         app_label = 'login'
         managed = True
@@ -70,7 +64,7 @@ class Gender(models.Model):
     gender = models.TextField(unique=True)
 
     def __str__(self):
-        return self.gender.capitalize()
+        return self.gender
 
     class Meta:
         app_label = 'login'
@@ -82,30 +76,23 @@ class ModifiedUser(AbstractUser):
     """
     A modified user profile, will contain the extra fields that we need.
     """
-    # Emails and usernames should be allowed to be null because we need to be able to disable accounts and 
-    # wipe the content stored there so that users can create new accounts using previously used emails
-    email = models.EmailField(blank=True, 
-                                null=True,
-                                max_length=254, 
-                                verbose_name='email address')
-    username = models.CharField(error_messages={'unique': 'A user with that username already exists.'}, 
-                                help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.', 
-                                max_length=150, 
-                                unique=True, 
-                                validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], 
-                                verbose_name='username',
-                                null=True)
     age_range = models.ForeignKey(AgeLevels,
                                   on_delete=DO_NOTHING,
-                                  null=True, 
-                                  blank=False)
+                                  null=True)
     gender = models.ForeignKey(Gender,
                                on_delete=DO_NOTHING,
                                null=True,
-                               blank=False)
+                               blank=True)
+    language_spoken = models.ForeignKey(LanguagesSpoken,
+                                        null=True,
+                                        on_delete=DO_NOTHING)
+    language_level = models.ForeignKey(LanguageLevels,
+                                       null=True,
+                                       on_delete=DO_NOTHING)
     intake_finished = models.BooleanField(null=False,
                                           blank=False,
                                           default=False)
+
     def __init__(self, *args, **kwargs):
         """
         Adds the extra fields
@@ -113,6 +100,7 @@ class ModifiedUser(AbstractUser):
         :param kwargs:
         """
         super(ModifiedUser, self).__init__(*args, **kwargs)
+
     class Meta:
         app_label = 'login'
         managed = True
@@ -131,10 +119,10 @@ class UserLanguages(models.Model):
     # The fluency level
     language_level = models.ForeignKey(
         LanguageLevels, null=False, on_delete=DO_NOTHING)
+
     def __str__(self):
         return self.language_spoken, self.language_level
-    def get_absolute_url(self):
-        return reverse('login:profile-language-edit', kwargs={'pk': self.pk})
+
     class Meta:
         app_label = 'login'
         managed = True

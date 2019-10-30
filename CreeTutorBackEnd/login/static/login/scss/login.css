@@ -1,10 +1,8 @@
 #signup-form {
-  display: none;
-}
+  display: none; }
 
 .hidden {
-  display: none;
-}
+  display: none; }
 
 /*
  * This is to mimic the spacing in the .form-group bootstrap styling and the
@@ -12,117 +10,92 @@
  */
 .form-field-message {
   padding-bottom: 1rem;
-  margin-top: -1rem;
-}
-@media screen and (min-width: 992px) {
-  .form-field-message .form-field-message {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    padding-left: 0;
-    line-height: 38px;
-  }
-}
+  margin-top: -1rem; }
+  @media screen and (min-width: 992px) {
+    .form-field-message .form-field-message {
+      padding-top: 30px;
+      padding-bottom: 30px;
+      padding-left: 0;
+      line-height: 38px; } }
 
 #profile-page-navigation .dropdown {
-  display: none;
-}
+  display: none; }
 
 @media screen and (max-width: 991px) {
   #profile-page-navigation .list-group {
-    display: none;
-  }
+    display: none; }
   #profile-page-navigation .dropdown {
-    display: inline-block;
-  }
-}
+    display: inline-block; } }
 
 .panel-heading .nav a {
   text-align: center;
-  font-size: 1.2em;
-}
-.panel-heading .nav a.active {
-  font-weight: bold;
-}
+  font-size: 1.2em; }
+  .panel-heading .nav a.active {
+    font-weight: bold; }
 
 .form-message {
-  padding-bottom: 1rem;
-}
+  padding-bottom: 1rem; }
 
 .profile-section {
-  margin: 1em;
-}
-.profile-section .list-group .list-group-item {
-  border: none;
-}
+  margin: 1em; }
+  .profile-section .list-group .list-group-item {
+    border: none; }
 
 .input-group {
-  margin-bottom: 0.5rem;
-}
+  margin-bottom: .5rem; }
 
 .help-text {
   overflow-y: hidden;
   max-height: 100px;
   transition-property: all;
-  transition-duration: 0.75s;
-  transition-timing-function: cubic-bezier(0.5, 1, 0.5, 1);
-}
-.help-text.closed {
-  max-height: 0;
-}
+  transition-duration: .75s;
+  transition-timing-function: cubic-bezier(0.5, 1, 0.5, 1); }
+  .help-text.closed {
+    max-height: 0; }
 
 .custom-tooltip {
   background: transparent;
   border: 0;
-  border-radius: 1em;
-}
+  border-radius: 1em; }
 
 .dropdown-wrap {
   height: 40px;
   border: 0;
   overflow: hidden;
   position: relative;
-  width: 100px;
-}
-@media screen and (min-width: 481px) {
-  .dropdown-wrap {
-    width: 125px;
-  }
-}
-@media screen and (min-width: 769px) {
-  .dropdown-wrap {
-    width: 175px;
-  }
-}
-@media screen and (min-width: 992px) {
-  .dropdown-wrap {
-    width: 200px;
-  }
-}
-.dropdown-wrap::before {
-  content: attr(data-content);
-  position: absolute;
-  top: 0;
-  right: 15px;
-  bottom: 0;
-  left: 0;
-  padding: 7px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  pointer-events: none;
-}
-.dropdown-wrap::after {
-  content: "\f107 ";
-  font-family: "Font Awesome\ 5 Free";
-  font-weight: 900;
-  position: absolute;
-  right: 0;
-  top: 0;
-  line-height: 40px;
-  padding-right: 10px;
-  z-index: 1;
-  pointer-events: none;
-}
+  width: 100px; }
+  @media screen and (min-width: 481px) {
+    .dropdown-wrap {
+      width: 125px; } }
+  @media screen and (min-width: 769px) {
+    .dropdown-wrap {
+      width: 175px; } }
+  @media screen and (min-width: 992px) {
+    .dropdown-wrap {
+      width: 200px; } }
+  .dropdown-wrap::before {
+    content: attr(data-content);
+    position: absolute;
+    top: 0;
+    right: 15px;
+    bottom: 0;
+    left: 0;
+    padding: 7px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    pointer-events: none; }
+  .dropdown-wrap::after {
+    content: "\f107 ";
+    font-family: "Font Awesome\ 5 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 0;
+    top: 0;
+    line-height: 40px;
+    padding-right: 10px;
+    z-index: 1;
+    pointer-events: none; }
 
 select.dropdown {
   color: transparent;
@@ -133,36 +106,4 @@ select.dropdown {
   border-radius: 0;
   width: inherit;
   -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-
-.box-display {
-  background-color: #ffffff;
-  border-radius: 0.25em;
-}
-td,
-th {
-  border: none;
-  text-align: left;
-  padding: 8px;
-}
-.no-bullet-list {
-  list-style: none;
-  padding: 10px;
-}
-.align-text-right {
-  text-align: right;
-}
-.btn-primary {
-  color: #ffffff;
-}
-#account-details-form, #email-form, 
-#small-screen-nav, #small-screen-nav-button,
-#name-form, #gender-form, #age-form {
-  display:none;
-}
-a:hover {
-  cursor:pointer;
-  text-decoration: underline;
-}
+  -moz-appearance: none; }

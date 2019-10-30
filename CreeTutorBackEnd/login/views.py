@@ -1,32 +1,30 @@
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import EmailMessage
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
-from django.template.loader import render_to_string
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
+from django.contrib.sites.shortcuts import get_current_site
+
+from .tokens import account_activation_token
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
+from django.core.mail import EmailMessage
+from core.models import Profile
+from django.urls import reverse
 from django.views import View
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from django import forms
 
 import json
 import re
 
-from core.models import Profile
-from .tokens import account_activation_token
-from login.models import (ModifiedUser, AgeLevels, LanguagesSpoken, UserLanguages, LanguageLevels, Gender)
-from .forms import (NameUpdateForm, GenderUpdateForm, AgeRangeUpdateForm, UserLanguageUpdateForm, EmailUpdateForm, ChangePasswordForm)
-
-from dal import autocomplete
+from login.models import ModifiedUser, AgeLevels, LanguagesSpoken, UserLanguages, LanguageLevels, Gender
+from .forms import ProfileUpdateForm, UserLanguageUpdateForm
 
 class Login(View):
     """
     Class was created to show the page where the user can sign up/log in
     """
+
     def get(self, request):
         """
         Checks if the use is authenticated, if yes, redirects to the home page, otherwise it renders and returns the
@@ -72,8 +70,8 @@ class SignUp(View):
                 message = render_to_string('login/acc_active_email.html', {
                     'user': user,
                     'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token': account_activation_token.make_token(user),
+                    'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token':account_activation_token.make_token(user),
                 })
 
                 emailMessage = EmailMessage(mail_subject, message, to=[email])
@@ -82,8 +80,7 @@ class SignUp(View):
                 context = {'redirect': '/confirm_email'}
                 return JsonResponse(context)
             else:
-                context = {'email': email, 'password': password,
-                           'error': email_valid_error}
+                context={'email':email, 'password':password, 'error':email_valid_error}
                 return JsonResponse(context)
 
         except KeyError as ex:
@@ -123,7 +120,6 @@ class SignIn(View):
     """
     Class was created to sign a user in. Only contains the post method.
     """
-
     def post(self, request):
         """
         Method that allows a user to log/sign in
@@ -150,17 +146,14 @@ class SignIn(View):
                     user = ModifiedUser.objects.get(username=email)
                 except ModifiedUser.DoesNotExist:
                     # Didn't get it, account doesn't exist
-                    context = {'error': "No account with this email exists.",
-                               'email': email, 'password': password}
+                    context = {'error':"No account with this email exists.", 'email':email, 'password':password}
                 else:
                     # User found, but the email has not been confirmed, so return an error
                     if not user.is_active:
-                        context = {'error': "Confirm email to log in.",
-                                   'email': email, 'password': password}
+                        context={'error':"Confirm email to log in.", 'email':email, 'password':password}
                     else:
                         # Some other error occured, most likely the password is wrong.
-                        context = {'error': "Email or password is incorrect.",
-                                   'email': email, 'password': password}
+                        context={'error':"Email or password is incorrect.", 'email':email, 'password':password}
                 # Otherwise just return an error saying the login was unsuccessful
                 return JsonResponse(context)
         except KeyError as ex:
@@ -172,7 +165,6 @@ class ActivateAccount(View):
     """
     Class was created to activate a user account using the link sent in the email.
     """
-
     def get(self, request, uidb64, token):
         """
         Activates the account and shows the user their account has been
@@ -203,7 +195,6 @@ class SignOut(View):
     """
     Class was created to sign a user out of their account.
     """
-
     def get(self, request):
         """
         Used to sign a user out
@@ -211,24 +202,50 @@ class SignOut(View):
         logout(request)
         return redirect('/')
 
-class IntakeView(View):
+
+class Profile(View):
+    """
+    Class to display the profile of a user and offer ways to change its content
+    """
+    def get(self, request):
+        """
+        Renders the profile of a user and returns the results.
+        """
+        # check if the form is set to post
+        if request.method == 'POST':
+            profile_form = ProfileUpdateForm(request.POST)
+
+            if profile_form.is_valid():
+                profile_form.save()
+                messages.success(request, f'Your profile has been updated!')
+                return redirect('')
+        else:
+            profile_form = ProfileUpdateForm()
+        
+        context = {
+            'profile_form' : profile_form
+        }
+
+        return render(request, 'login/profile.html', context=context)
+
+
+class Intake(View):
     """
     Class was created to show the intake form if the user had not completed intake. If the user has completed intake,
     it shows a page which indicates that.
 
     Also contains a post method which accepts and saves all the information from a completed intake form.
     """
-
     def get(self, request):
         """
         Shows the intake form if intake has not been completed for the user. If it has been completed, shows a completed
         intake page.
         """
         # Get all the languages
-        if self.request.user.intake_finished:
-            return render(request, "login/modifieduser_intakesuccess.html")
+        if request.user.intake_finished:
+            return render(request, "login/intake_completed.html")
         else:
-            return render(request, "login/modifieduser_intake.html")
+            return render(request, "login/intake.html")
 
     def post(self, request):
         """
@@ -238,46 +255,37 @@ class IntakeView(View):
         :param request:
         :return:
         """
+        # Gender information
         try:
             # Get the user
-            user = self.request.user
+            user = request.user
 
             # Update the first and the last name
             user.first_name = request.POST['first-name']
             user.last_name = request.POST['last-name']
 
             # Update the age range
-            user.age_range, _ = AgeLevels.objects.get_or_create(
-                age_range=request.POST['age-range'])
+            user.age_level, _ = AgeLevels.objects.get_or_create(age_range=request.POST['age-range'])
 
             # Set the gender
-            user.gender, _ = Gender.objects.get_or_create(
-                gender=request.POST['gender'])
+            user.gender, _ = Gender.objects.get_or_create(gender=request.POST['gender'])
 
             # Get all the primary languages
-            primary_languages = json.loads(
-                request.POST.getlist('primary-language')[0])
+            primary_languages = json.loads(request.POST.getlist('primary-language')[0])
             # Save the level of the language
-
-            ll, _ = LanguageLevels.objects.get_or_create(
-                language_level='primary')
-            print(ll)
-
+            ll, _ = LanguageLevels.objects.get_or_create(level_of_language='primary')
             # Save them to the database if they don't exist
             primary_languages_objs = []
 
             for primary_language in primary_languages:
                 ls = {'language': primary_language.lower()}
-                ls, _ = LanguagesSpoken.objects.get_or_create(
-                    language=primary_language.lower(), defaults=ls)
+                ls, _ = LanguagesSpoken.objects.get_or_create(language=primary_language.lower(), defaults=ls)
 
-                ul = UserLanguages(language_spoken=ls,
-                                   language_level=ll, user=user)
+                ul = UserLanguages(language_spoken=ls, level_of_language=ll, user=user)
                 ul.save()
 
             # Dealing with non-primary-languages
-            non_primary_languages = json.loads(
-                request.POST.getlist('non-primary-languages')[0])
+            non_primary_languages = json.loads(request.POST.getlist('non-primary-languages')[0])
             # Save them to the database if they don't exist
             non_primary_languages_objs = []
             for non_primary_language in non_primary_languages:
@@ -286,11 +294,9 @@ class IntakeView(View):
                                                               defaults=ls)
                 non_primary_languages_objs.append(ls)
 
-                ll, _ = LanguageLevels.objects.get_or_create(
-                    language_level=non_primary_language['fluency'].lower())
+                ll, _ = LanguageLevels.objects.get_or_create(level_of_language=non_primary_language['fluency'].lower())
 
-                ul = UserLanguages(language_spoken=ls,
-                                   language_level=ll, user=user)
+                ul = UserLanguages(language_spoken=ls, level_of_language=ll, user=user)
                 ul.save()
 
             # Saving the status of the intake
@@ -298,223 +304,20 @@ class IntakeView(View):
             # Save the profile
             user.save()
         except Exception as ex:
-            print(ex)
             return HttpResponse('ERROR: ' + str(ex))
         else:
+            pass
             return JsonResponse({'redirect': '/intake'})
 
-class ProfileView(View):
-    """
-    Class to display the profile of a user and offer ways to change its content
-    """
-    def get(self, request):
-        '''
-        Post profile for user
-        '''
-        # set up the forms
-        name_form = NameUpdateForm(user = request.user)
-        gender_form = GenderUpdateForm()
-        age_form = AgeRangeUpdateForm()
-        email_form = EmailUpdateForm()
-
-        # Set up keywords used to refer to the forms by
-        context = {
-            'user': request.user,
-            'name_form': name_form,
-            'gender_form': gender_form,
-            'age_form': age_form,
-            'email_form': email_form
-        }
-        return render(request, 'login/profile.html', context=context)
-
-    def post(self, request):
-        """
-        Make changes when the user wants to change something in their profile
-        """
-        try:
-            # Set up the possible forms and assigns the request's user id
-            name_form = NameUpdateForm(self.request.POST, instance=self.request.user)
-            gender_form = GenderUpdateForm(self.request.POST, instance=self.request.user)
-            age_form = AgeRangeUpdateForm(self.request.POST, instance=self.request.user)
-            email_form = EmailUpdateForm(self.request.POST, instance=self.request.user)
-            # Depending on which form was submited (aka POST-ed) it will update the appropriate
-            # value in the database
-            if email_form.is_valid():
-                # Since we are using emails as username, we need to manually set the username 
-                # equal to the newly changed email
-                request.user.username = request.user.email
-                # Save the form
-                email_form.save()
-                # Pass a django message to the newly refreshed html to display a sucess message
-                messages.success(request, f'Your email was successfully updated!', extra_tags='success')
-            elif gender_form.is_valid():
-                gender_form.save()
-                messages.success(request, f'Your gender information was successfully updated!', extra_tags='success')
-            elif age_form.is_valid():
-                age_form.save()
-                messages.success(request, f'Your age range was successfully updated!', extra_tags='success')
-            elif name_form.is_valid():
-                name_form.save()
-                messages.success(request, f'Your name was successfully updated!', extra_tags='success')
-            return redirect('/profile')
-        except Exception as ex:
-            return HttpResponse('ERROR: ' + str(ex))
-        else:
-            return JsonResponse({'redirect': '/'})
-
-class LanguageInfoViewOld(View):
-    """
-    Class to display the language tab of a user and offer ways to edit the languages they know
-    """
-    model = UserLanguages
-    fields = ['language_spoken', 'language_level']
-
-    def get(self, request):
-        '''
-        Display the general layout of the page
-        '''
-        # Grab the user language data from database specific to this user
-        user_languages = UserLanguages.objects.filter(user=request.user).order_by('language_level')
-        # Set up the form names used to refer forms on in the template
-        context={'user_languages': user_languages,}
-        return render(request, 'login/profile_language.html', context=context)
-
-class LanguageAutocomplete(autocomplete.Select2QuerySetView):
-    '''
-    Class which returns a query set of all the languages stored in the language_spoken table
-    '''
-    def get_queryset(self):
-        languages_query = LanguagesSpoken.objects.all()
-        if self.q:
-            languages_query = languages_query.filter(language__startswith=self.q)
-        return languages_query
-
-class LanguageInfoView(ListView):
-    model = UserLanguages
-    # set the tempelate
-    template_name = 'login/profile_language_edit.html'
-    # set up the name the user languages will be refered as
-    context_object_name = 'user_languages'
-    # Order the posts by the 
-    ordering = ['language_level']
-    def get_queryset(self):
-        # Filter through all the languages in the user_language table to get a query of only
-        # the languages spoken by this user and order it by language level (primary-1 and so on)
-        user_languages = UserLanguages.objects.filter(user=self.request.user).order_by('language_level')
-        return user_languages
-
-class LanguageEntryView(CreateView):
-    model = UserLanguages
-    template_name = 'login/profile_language_form.html'
-    # Set up the form class so that django know
-    form_class = UserLanguageUpdateForm 
-    # Link to the main language edit page after successfully adding a language to this user
-    success_url = reverse_lazy('login:profile-language-edit')
-    def form_valid(self, form):
-        '''Set up the form validation so that the user column in the userlanguage table is not empty'''
-        # Set the language entry's user to the user sending the POST request
-        form.instance.user = self.request.user
-        # Raise a success message to display on the reloaded html page
-        messages.success(self.request, f'Your language was successfully added!', extra_tags='success')
-        # apply the changes and save
-        return super().form_valid(form)
-    
-class LanguageUpdateView(UpdateView):
-    model = UserLanguages
-    template_name = 'login/profile_language_form.html'
-    form_class = UserLanguageUpdateForm 
-    success_url = reverse_lazy('login:profile-language-edit')
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        messages.success(self.request, f'Your language was successfully updated!', extra_tags='success')
-        return super().form_valid(form)
-
-class LanguageDeleteView(DeleteView):
-    model = UserLanguages
-    success_url = reverse_lazy('login:profile-language-edit')
-    def delete(self, request, *args, **kwargs):
-        # Set up a success message for when user's language is successfully deleted
-        messages.success(self.request, f'Your languages was successfully deleted', extra_tags='success')
-        return super(LanguageDeleteView, self).delete(request, *args, **kwargs)
-
-class ChangePasswordView(View):
-    def get(self, request):
-        """
-        Render the original password change page
-        """
-        password_form = ChangePasswordForm(request.user)
-        return render(request, 'login/password_change_form.html',context={'password_form':password_form})
-
-    def post(self, request):
-        """
-        Change the password for users
-        """
-        try:
-            password_form = ChangePasswordForm(user=request.user, data=request.POST)
-            if password_form.is_valid():
-                password_form.save()
-                # necessary step to stay logged into the account with the password changed
-                update_session_auth_hash(request, password_form.user)
-                messages.success(request, f'Your password was successfully updated!')
-                return redirect('profile')
-            else:
-                messages.error(request, f'An error has occured, please try again.')
-        except Exception as ex:
-            return HttpResponse('ERROR: ' + str(ex))
-        else:
-            return JsonResponse({'redirect': '/'})
-
-class ProfileDeleteView(View):
-    def get(self, request):
-        '''
-        Display profile delete page
-        '''
-        return render(request, 'login/profile_delete.html')
-
-class ProfileDeleteConfirmView(View):
-    def get(self, request):
-        '''
-        Display profile delete confirmation page
-        '''
-        return render(request, 'login/profile_delete_confirm.html')
-    
-    def post(self, request):
-        '''
-        Execute user profile deletion
-        '''
-        try:
-            # Due to some constraints on the system because of the user dependencies
-            # in other apps (e.g. shadowing) we are unable to delete the account fully
-            # the Django documents recommends to just set is_active to False which is
-            # what is done here.
-            # TO DO: Look into the dependencies and allow for the user and the user data
-            # to be all deleted together using user.delete()
-
-            # Set the current user as the user who sent out the POST request
-            user = ModifiedUser.objects.get(pk=request.user.pk)
-            # Set the user's active state as false which disables the account
-            user.is_active = False
-            # Set the user's email and username to empty so that if this email is used again to 
-            # create another account it is allowed
-            user.email = None
-            user.username = None
-            # save everything
-            user.save()
-            # redirect user to the account deltion completion page
-            return HttpResponseRedirect(reverse_lazy('login:profile-delete-complete'))
-        except Exception as ex:
-            return HttpResponse('ERROR: ' + str(ex))
-        else:
-            return JsonResponse({'redirect': '/'})
-
-class ProfileDeleteCompleteView(View):
-    def get(self, request):
-        '''
-        Display profile delete complete page
-        '''
-        return render(request, 'login/profile_delete_complete.html')
 
 # sample user profile update
+def profile_save_colour(request):
+    profile = request.user.profile
+    profile.fav_colour = request.POST.get('favourite-colour', False)
+    profile.save()
+    return HttpResponse("Success!")
+
+
 def confirm_email(request):
     """
     Function was created to create an email for a new user account.

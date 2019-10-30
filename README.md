@@ -149,10 +149,6 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
         
         python insertintodb.py
         python savedistractors.py
-    
-    In `CreeTutor/CreeTutorBackEnd/login`, run:
-        
-        python insert_options_into_db.py
         
     In `CreeTutor/CreeTutorBackEnd/shadowing`, run:
         

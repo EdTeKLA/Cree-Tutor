@@ -72,14 +72,14 @@
 // Intake form CSS
 
 .input-group {
-  margin-bottom: 0.5rem;
+  margin-bottom: .5rem;
 }
 
 .help-text {
   overflow-y: hidden;
   max-height: 100px;
   transition-property: all;
-  transition-duration: 0.75s;
+  transition-duration: .75s;
   transition-timing-function: cubic-bezier(0.5, 1, 0.5, 1);
 
   &.closed {
@@ -127,7 +127,7 @@
   }
 
   &::after {
-    content: "\f107 ";
+    content:"\f107 ";
     font-family: "Font Awesome\ 5 Free";
     font-weight: 900;
     position: absolute;
