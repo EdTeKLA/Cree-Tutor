@@ -51,3 +51,7 @@ env/
 .idea/workspace.xml
 .idea/inspectionProfiles/Project_Default.xml
 *.srt
+
+# Other ignoSred files
+RecordingsAndTranscriptions
+CreeTutorBackEnd\familytree

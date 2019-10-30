@@ -10,3 +10,5 @@ rcssmin --install-option="--without-c-extensions"
 django-compressor
 django-sass-processor
 rjsmin --install-option="--without-c-extensions"
+django-crispy-forms
+django-autocomplete-light

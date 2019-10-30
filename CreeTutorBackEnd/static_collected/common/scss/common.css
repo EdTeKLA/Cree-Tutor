@@ -1795,8 +1795,8 @@ fieldset:disabled a.btn {
 
 .btn-light {
   color: #212529;
-  background-color: #F5F5F5;
-  border-color: #F5F5F5; }
+  background-color: rgb(207, 207, 207);
+  border-color: rgb(207, 207, 207); }
   .btn-light:hover {
     color: #212529;
     background-color: #e2e2e2;
@@ -3464,13 +3464,13 @@ tbody.collapse.show {
     color: inherit; }
 
 .alert-primary {
-  color: #065f33;
-  background-color: #cef1e0;
-  border-color: #bbebd3; }
+  color: #0c1613;
+  background-color: #d1d5d3;
+  border-color: #bec4c2; }
   .alert-primary hr {
-    border-top-color: #a7e5c6; }
+    border-top-color: #b1b8b5; }
   .alert-primary .alert-link {
-    color: #032f19; }
+    color: black;  }
 
 .alert-secondary {
   color: #020e28;
@@ -3482,13 +3482,13 @@ tbody.collapse.show {
     color: black; }
 
 .alert-success {
-  color: #0c1613;
-  background-color: #d1d5d3;
-  border-color: #bec4c2; }
+  color: #065f33;
+  background-color: #cef1e0;
+  border-color: #bbebd3;}
   .alert-success hr {
-    border-top-color: #b1b8b5; }
+    border-top-color: #a7e5c6; }
   .alert-success .alert-link {
-    color: black; }
+    color: #032f19; }
 
 .alert-info {
   color: #020e28;

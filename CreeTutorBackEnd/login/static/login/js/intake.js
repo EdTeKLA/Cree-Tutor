@@ -97,10 +97,10 @@ $(function () {
     setLanguageGroup('additional-primary-language', 'e.g. French');
 
     setLanguageGroup('other-language', 'e.g. Wood Cree', [
-        'Little experience, can use and understand basic sentences and questions',
-        'Some experience, can hold basic, casual conversations',
-        'Lots of experience, not quite fluent but can communicate well in the language',
-        'Fluent, no communication problems'
+        'little experience, can use and understand basic sentences and questions',
+        'some experience, can hold basic, casual conversations',
+        'lots of experience, not quite fluent but can communicate well in the language',
+        'fluent, no communication problems'
     ]);
 
     // Set the help text click event

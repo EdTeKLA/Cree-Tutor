@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% load sass_tags %} 
+{% load crispy_forms_tags %} 
+
+{% block styles %}
+<link href="{% sass_src 'login/scss/login.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'login/js/profile.js' %}"></script>
+<script src="{% static 'login/js/intake.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <!--Navigation bar-->
+        <div class="align-top col-lg-3 mb-3">
+            <!-- Standard profile page navigation menu -->
+            <div id="wide-screen-nav">
+                <ul class="list-group">
+                    <a class="list-group-item text-dark" href="{% url 'login:profile' %}">Profile</a>
+                    <a class="list-group-item active" href="">Languages Information</a>
+                    <a class="list-group-item text-dark" href="{% url 'login:profile-delete' %}">Delete Account</a>
+                </ul>
+            </div>
+
+            <!-- Modile profile page navigation menu -->
+            <div id="small-screen-nav">
+                <button type='button' class="list-group-item" data-toggle="collapse" data-target="#menu">
+                    Menu <i class="fas fa-bars"></i>  
+                </button>
+                <div class='collapse' id='menu'>
+                    <ul class="list-group">
+                        <a class="nav-link list-group-item text-dark" href="{% url 'login:profile' %}">Profile</a>
+                        <a class="nav-link list-group-item active" href="">Languages Information</a>
+                        <a class="nav-link list-group-item text-dark" href="{% url 'login:profile-delete' %}">Delete Account</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Language tab content-->
+        <div class='col-lg-9'>
+            <!--Display messages if there are any-->
+            <div class='messages'>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{message.tags}}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-- Primary and secondary language information -->
+            <h4>{{ user.first_name.capitalize }}'s Language Information</h4>
+            <hr>
+            <!--Static language content-->
+            <div id="language-content">    
+                <div>
+                    <small>Tip: hover over the <i class="far fa-question-circle"></i> icon for more information.</small>
+                </div>
+                <br>
+                <!--Display all the user's primary language-->
+                <h5>Primary languages:
+                    <button class="custom-tooltip" data-toggle="tooltip" data-title="A primary language is the language that you are most proficient in and feel most comfortable speaking.">
+                        <i class="far fa-question-circle" ></i>
+                    </button>
+                </h5>
+                <table class="col-12 list-group-item box-display mb-3">
+                    {% for language in user_languages %}
+                    <tr>
+                        {% if language.language_level.id == 1 %}
+                            <td class="col-3 align-text-top">
+                                {{language.language_spoken.language.capitalize}}
+                            </td>
+                            <td class="col-9 align-content-end">
+                                <small class="text-muted"> 
+                                    {{language.language_level|capfirst}} 
+                                </small>
+                            <td>
+                        {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+                <br>
+                <!--Display all the user's secondary language with language level next to it-->
+                <h5>Secondary languages:
+                    <button class="custom-tooltip" data-toggle="tooltip" data-title="A secondary language is a language that is not your native language, but learned later.">
+                        <i class="far fa-question-circle" ></i>
+                    </button>
+                </h5>
+                <table class="col-12 list-group-item box-display mb-3">
+                    {% for language in user_languages %}
+                        <tr>
+                        {% if language.language_level.id != 1 %}
+                            <td class="col-3 align-text-top">
+                                {{language.language_spoken.language.capitalize}}
+                            </td>
+                            <td class="col-9 align-content-end">
+                                <small class="text-muted"> 
+                                    {{language.language_level|capfirst}} 
+                                </small>
+                            <td>
+                        {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+
+                <!--Button to link users to the page where they can edit their language information-->
+                <a type="button" class="btn btn-primary text-white" id="language-update-button" href='{% url "login:profile-language-edit" %}'>Edit</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

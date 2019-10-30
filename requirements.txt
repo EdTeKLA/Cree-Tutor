@@ -9,3 +9,4 @@ libsass
 django-compressor
 django-sass-processor
 django-crispy-forms
+django-autocomplete-light

@@ -41,7 +41,7 @@ class AudioAndSubtitleFilesForShadowing(models.Model):
     chars_per_minute = models.FloatField(default=default_for_stats)
     number_of_words = models.IntegerField(default=default_for_stats)
     number_of_chars = models.IntegerField(default=default_for_stats)
-    
+
     class Meta:
         db_table = "audio_and_subtitle_files_for_shadowing"
 
@@ -95,7 +95,8 @@ class ShadowingLogActions(models.Model):
     # The user this is connected to
     user = models.ForeignKey(ModifiedUser, on_delete=models.CASCADE)
     # Name of the story
-    story = models.ForeignKey(AudioAndSubtitleFilesForShadowing, on_delete=models.CASCADE)
+    story = models.ForeignKey(
+        AudioAndSubtitleFilesForShadowing, on_delete=models.CASCADE)
     # The time at which the action took place during the recording, in milliseconds
     story_time = models.FloatField()
     # What the person did
@@ -116,9 +117,11 @@ class ShadowingLogFeedbackAnswers(models.Model):
     # The user that answered the question
     user = models.ForeignKey(ModifiedUser, on_delete=models.CASCADE)
     # Which story this feed back is connected to
-    story = models.ForeignKey(AudioAndSubtitleFilesForShadowing, on_delete=models.DO_NOTHING)
+    story = models.ForeignKey(
+        AudioAndSubtitleFilesForShadowing, on_delete=models.DO_NOTHING)
     # The question that was answered
-    question = models.ForeignKey(ShadowingFeedbackQuestions, on_delete=models.DO_NOTHING)
+    question = models.ForeignKey(
+        ShadowingFeedbackQuestions, on_delete=models.DO_NOTHING)
     # The answers, whether it was yes/no or could/could not, etc
     answer = models.BooleanField()
     # The time at which the the feedback was given

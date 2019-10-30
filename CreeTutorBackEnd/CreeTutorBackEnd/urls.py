@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('django.contrib.auth.urls')),
     path('errorpages/', include('errorpages.urls')),
+    path('', include('familytree.urls')),
 ]
 
 handler404 = 'errorpages.views.view_404'
