@@ -39,6 +39,11 @@ INSTALLED_APPS = [
     'login.apps.LoginConfig',
     'lettergame.apps.LettergameConfig',
     'shadowing.apps.ShadowingConfig',
+
+    # To enable autocomplete with forms
+    'dal',
+    'dal_select2',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,6 +58,9 @@ INSTALLED_APPS = [
     # for nice forms
     'crispy_forms',
 ]
+
+# Additional template pack to connect crispy forms with bootstrap for better usability
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 AUTH_USER_MODEL = 'login.ModifiedUser'
 

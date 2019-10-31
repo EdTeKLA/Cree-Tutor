@@ -14,9 +14,14 @@
 
 {% block content %}
 <div class="container">
-    <h2 class="d-flex justify-content-center">Intake Completed</h2>
+    <h2 class="d-flex justify-content-center">Submission Completed {{user.first_name}}!</h2>
+    <div>
+        Thank you for submitting information. The information given will be used to provide you better services.
+        <br>
+        <br>
+    </div>
     <span class="d-flex justify-content-center">
-        <a href="/"><button id="submit" name="submit" class="btn btn-primary">Go to homepage</button></a>
+        <a id="submit" name="submit" class="btn btn-primary" href="{% url 'home:index' %}">Go to homepage</a>
     </span>
 </div>
 {% endblock content %}
