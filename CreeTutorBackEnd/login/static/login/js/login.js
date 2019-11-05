@@ -150,15 +150,13 @@ $(function() {
         email: $("#login-email").val()
       },
       success: function(data) {
-        if (data["error"]) {
-          $(".form-group .form-message").removeClass("hidden");
-          $(".form-group .form-message span").text(data.error);
-        } else if (data["redirect"]) {
+        if (data["redirect"]) {
           window.location.href = data["redirect"];
         }
       },
       error: function(error) {
-        console.log(error);
+        $(".form-group .form-message").removeClass("hidden");
+        $(".form-group .form-message span").text(error["responseJSON"]["error"]);
       }
     });
   });

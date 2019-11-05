@@ -193,3 +193,5 @@ NO_LOGIN_URL = [
     r'confirm_email',
     r'activate_user_account',
 ]
+
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']

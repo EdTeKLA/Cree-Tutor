@@ -6,6 +6,7 @@ Django==2.2
 psycopg2-binary
 numpy
 libsass
+selenium
 django-compressor
 django-sass-processor
 django-crispy-forms
