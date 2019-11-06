@@ -59,7 +59,11 @@
             <!-- Profile and account information -->
             <div id="profile-content">
                 <h4>
-                    {{ user.first_name.capitalize }}'s Profile
+                    {% if user.first_name %}
+                        {{ user.first_name.capitalize }}'s Profile
+                    {% else %}
+                        Profile
+                    {% endif %}
                 </h4>
                 <hr>
                 <div>

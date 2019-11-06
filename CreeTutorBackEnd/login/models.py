@@ -113,6 +113,10 @@ class ModifiedUser(AbstractUser):
         :param kwargs:
         """
         super(ModifiedUser, self).__init__(*args, **kwargs)
+
+    def __str__(self):
+        return "<Modified User object: %s"%self.username
+
     class Meta:
         app_label = 'login'
         managed = True

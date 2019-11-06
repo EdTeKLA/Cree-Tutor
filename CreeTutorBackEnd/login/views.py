@@ -11,6 +11,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
 from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.contrib.auth import logout
 from django import forms
 
 import json
@@ -62,8 +63,10 @@ class SignUp(View):
             # Check if the email has been used before
             email_valid_error = SignUp.__check_if_email_valid(email)
             if email_valid_error is None:
+                SignUp.__purge_inactive_account(email)
+
                 # Create User object
-                user = ModifiedUser.objects.create_user(email, email, password)
+                user = ModifiedUser.objects.create_user(email=email, username=email, password=password)
 
                 # de-activate user account until email confirmation
                 user.is_active = False
@@ -116,10 +119,19 @@ class SignUp(View):
         # If there is an error, then we know that an account with this email does not exist,
         # so we return False, if the error does not occur, an account does exist and we return True
         try:
-            u = ModifiedUser.objects.get(email=email, is_active=True)
+            u = ModifiedUser.objects.get(username=email, is_active=True)
             return True
         except ModifiedUser.DoesNotExist:
             return False
+
+    @staticmethod
+    def __purge_inactive_account(email):
+        try:
+            u = ModifiedUser.objects.get(username=email)
+            u.delete()
+            return None
+        except ModifiedUser.DoesNotExist:
+            return None
 
 
 class SignIn(View):
@@ -149,10 +161,8 @@ class SignIn(View):
                 return JsonResponse(context, status=200)
 
         context = {'error': "Email or Password is incorrect",
-                    'email': email, 'password': password}
+                   'email': email, 'password': password}
         return JsonResponse(context, status=401)
-
-
 
 
 class ActivateAccount(View):
@@ -486,38 +496,27 @@ class ProfileDeleteConfirmView(View):
         '''
         Execute user profile deletion
         '''
-        try:
-            # Due to some constraints on the system because of the user dependencies
-            # in other apps (e.g. shadowing) we are unable to delete the account fully
-            # the Django documents recommends to just set is_active to False which is
-            # what is done here.
-            # TO DO: Look into the dependencies and allow for the user and the user data
-            # to be all deleted together using user.delete()
+        # Due to some constraints on the system because of the user dependencies
+        # in other apps (e.g. shadowing) we are unable to delete the account fully
+        # the Django documents recommends to just set is_active to False which is
+        # what is done here.
+        # TO DO: Look into the dependencies and allow for the user and the user data
+        # to be all deleted together using user.delete()
 
-            # Set the current user as the user who sent out the POST request
-            user = ModifiedUser.objects.get(pk=request.user.pk)
-            # Set the user's active state as false which disables the account
-            user.is_active = False
-            # Set the user's email and username to empty so that if this email is used again to 
-            # create another account it is allowed
-            user.email = None
-            user.username = None
-            # save everything
-            user.save()
-            # redirect user to the account deltion completion page
-            return HttpResponseRedirect(reverse_lazy('login:profile-delete-complete'))
-        except Exception as ex:
-            return HttpResponse('ERROR: ' + str(ex))
-        else:
-            return JsonResponse({'redirect': '/'})
-
-
-class ProfileDeleteCompleteView(View):
-    def get(self, request):
-        '''
-        Display profile delete complete page
-        '''
-        return render(request, 'login/profile_delete_complete.html')
+        # Set the current user as the user who sent out the POST request
+        user = ModifiedUser.objects.get(pk=request.user.pk)
+        # Set the user's active state as false which disables the account
+        user.is_active = False
+        # Set the user's email and username to empty so that if this email is used again to
+        # create another account it is allowed
+        user.email = None
+        user.username = None
+        # save everything
+        user.save()
+        logout(request)
+        # redirect user to the account deletion completion page
+        messages.success(request, f'ᐃᑯᓯ (Goodbye) \n Your account was successfully deleted!')
+        return HttpResponseRedirect(reverse('login:index'))
 
 
 # sample user profile update

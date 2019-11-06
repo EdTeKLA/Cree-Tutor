@@ -20,7 +20,6 @@ urlpatterns = [
     url(r'^language-autocomplete/$', views.LanguageAutocomplete.as_view(), name='language-autocomplete'),
     path('profile/delete/', views.ProfileDeleteView.as_view(), name='profile-delete'),
     path('profile/delete/confirm', views.ProfileDeleteConfirmView.as_view(), name='profile-delete-confirm'),
-    path('profile/delete/complete', views.ProfileDeleteCompleteView.as_view(), name='profile-delete-complete'),
 
     # Sign up urls
     path('signup/', views.SignUp.as_view(), name='signup'),
