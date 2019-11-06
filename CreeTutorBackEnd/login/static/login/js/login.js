@@ -156,7 +156,7 @@ $(function() {
       },
       error: function(error) {
         $(".form-group .form-message").removeClass("hidden");
-        $(".form-group .form-message span").text(error["responseJSON"]["error"]);
+        $(".form-group .form-message span").text(error["error"]);
       }
     });
   });

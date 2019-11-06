@@ -82,31 +82,60 @@ class SignUpTests(TestCase):
                                                      is_active=True)
         self.user.save()
 
-class SignupFunctionalTest(LiveServerTestCase):
 
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver()
+class TestPasswordResetEndpoint(TestCase):
+    def setUp(self):
+        self.user_email = "test1@test.com"
+        self.user_password = "oldsecret"
+        self.user_new_password = "newsecret"
+        self.user = ModifiedUser.objects.create(email=self.user_email,
+                                                username=self.user_email,
+                                                password=self.user_password,
+                                                is_active=False)
+        self.user.save()
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
+    def test_account_reset_endpoint_valid(self):
+        c = test.Client()
+        response = c.post('/password_reset/', {'email': self.user_email})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/password_reset/done/')
 
-    # TODO: selecting signup tab isn't switching nav view
-    # def test_create_account(self):
-    #     self.selenium.get('%s%s' % (self.live_server_url, '/login/'))
-    #     tab_xpath = "//*[@id=\"signup-form-tab\"]"
-    #     tab = WebDriverWait(self.selenium, 20).until(EC.element_to_be_clickable((By.XPATH, tab_xpath)))
-    #     tab.click()
-    #     username_input = self.selenium.find_element_by_id("email")
-    #     username_input.send_keys('test1@test.com')
-    #     password_input = self.selenium.find_element_by_id("password")
-    #     password_input.send_keys('1234')
-    #     password_input = self.selenium.find_element_by_id("confirm-password")
-    #     password_input.send_keys('1234')
-    #     self.selenium.find_element_by_id("signup-button").click()
+    def test_account_reset_endpoint_doesnt_exist(self):
+        c = test.Client()
+        response = c.post('/password_reset/', {'email': self.user_email + "12345"})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/password_reset/done/')
+
+    def test_account_reset_endpoint_invalid_email(self):
+        c = test.Client()
+        response = c.post('/password_reset/', {'email': "@@@@@..@@@@@@@"})
+        self.assertEqual(response.status_code, 200)
+
+# class SignupFunctionalTest(LiveServerTestCase):
+#
+#     @classmethod
+#     def setUpClass(cls):
+#         super().setUpClass()
+#         cls.selenium = WebDriver()
+#
+#     @classmethod
+#     def tearDownClass(cls):
+#         cls.selenium.quit()
+#         super().tearDownClass()
+#
+#     TODO: selecting signup tab isn't switching nav view
+#     def test_create_account(self):
+#         self.selenium.get('%s%s' % (self.live_server_url, '/login/'))
+#         tab_xpath = "//*[@id=\"signup-form-tab\"]"
+#         tab = WebDriverWait(self.selenium, 20).until(EC.element_to_be_clickable((By.XPATH, tab_xpath)))
+#         tab.click()
+#         username_input = self.selenium.find_element_by_id("email")
+#         username_input.send_keys('test1@test.com')
+#         password_input = self.selenium.find_element_by_id("password")
+#         password_input.send_keys('1234')
+#         password_input = self.selenium.find_element_by_id("confirm-password")
+#         password_input.send_keys('1234')
+#         self.selenium.find_element_by_id("signup-button").click()
 
 
 class LoginFunctionalTest(LiveServerTestCase):

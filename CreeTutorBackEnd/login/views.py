@@ -458,13 +458,13 @@ class ChangePasswordView(View):
                 # necessary step to stay logged into the account with the password changed
                 update_session_auth_hash(request, password_form.user)
                 messages.success(request, f'Your password was successfully updated!')
-                return redirect('profile')
+                return redirect('/profile/')
             else:
-                messages.error(request, f'An error has occured, please try again.')
+                return render(request, 'login/password_change_form.html', context={'password_form': password_form})
         except Exception as ex:
             return HttpResponse('ERROR: ' + str(ex))
         else:
-            return JsonResponse({'redirect': '/'})
+            return render(request, 'login/password_change_form.html', context={'password_form': password_form})
 
 
 class ProfileDeleteView(View):
