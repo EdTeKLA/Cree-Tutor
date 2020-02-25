@@ -130,7 +130,7 @@ class UserLanguages(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(ModifiedUser, on_delete=CASCADE)
     # The language the user speaks
-    language_spoken = models.ForeignKey(
+    language_spoken = models.OneToOneField(
         LanguagesSpoken, null=False, on_delete=DO_NOTHING)
     # The fluency level
     language_level = models.ForeignKey(
