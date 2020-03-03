@@ -127,7 +127,7 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 	
 11. Troubleshooting
 	
-	If you have changed your database username in your settings_secret.py file to something other than postgres you will have problem making migrations. The error:
+	a) If you have changed your database username in your settings_secret.py file to something other than postgres you will have problem making migrations. The error:
 	
 	
 	To solve this issue, go on pgAdmin and select `Tools > Query Tool` and paste the following text editor, after changing the `[Your_DB_Username]` to your username
@@ -142,8 +142,24 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 		python manage.py makemigrations
 		python manage.py migrate
 	
+	b)   Another possible issue that may is arise will produce an error like below.
+	```
+	CT-user@creetutor-server:~/CreeTutor/CreeTutorBackEnd$ python3 manage.py migrate
+	Operations to perform:
+	  Apply all migrations: admin, auth, contenttypes, core, lettergame, sessions
+	Running migrations:
+	  Applying admin.0001_initial...Traceback (most recent call last):
+	  File "/home/CT-user/.local/lib/python3.6/site-packages/django/db/backends/utils.py", line 84, in _execute
+	    return self.cursor.execute(sql, params)
+	psycopg2.errors.UndefinedTable: relation "modified_user" does not exist
+	``` 
+	These errors can occur sometimes with Django if migrations of different apps are applied in different order on default. To rectify this, you may attempt to makemigrations and migrate for login and then try to migrate the rest as follows:
+	`python3 manage.py makemigrations login`,
+	`python3 manage.py migrate login `,
+	`python3 manage.py makemigrations`, then finally
+	`python3 manage.py migrate`.
 
-10. Now populate the data using the following scripts:
+12. Now populate the data using the following scripts:
     
     In `CreeTutor/DatabaseInsertions`, run:
         
