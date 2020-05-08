@@ -17,7 +17,7 @@ from django import forms
 import json
 import re
 
-from core.models import Profile
+# from core.models import Profile
 from .tokens import account_activation_token
 from login.models import (ModifiedUser, AgeLevels, LanguagesSpoken, UserLanguages, LanguageLevels, Gender)
 from .forms import (NameUpdateForm, GenderUpdateForm, AgeRangeUpdateForm, UserLanguageUpdateForm, EmailUpdateForm,

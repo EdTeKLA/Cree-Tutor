@@ -1,0 +1,24 @@
+#text_input {
+  font-size: 1.5em;
+  font-family: monospace;
+}
+
+.inactive_text_color {
+  opacity: 0.4;
+}
+
+.transcription_word_sentence, .transcription_sentence_letters {
+  height: inherit;
+}
+
+.doneText {
+  opacity: 0.2;
+}
+
+.cursorActiveBackground {
+  background: black;
+}
+
+.cursorIncorrectBackground {
+  background: #F24343;
+}

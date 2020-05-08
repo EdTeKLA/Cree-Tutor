@@ -13,14 +13,14 @@
 <script>
     $(function() {
         // Variables store if baseline has been established and download of the audiofile has been completed
-        var baselineStatus = false;
+        var accessToMicGranted = false;
         var downloadStatus = false;
         var playing = false;
-        var audioFile = null;
+        var audioFile = $("#shadow_audio").get(0);
         var story_id = '{{ story_id }}';
         var session_id = '{{session_id}}';
 
-        time_stamped_words = [
+        var time_stamped_words = [
             {% for word in audio_transcript_list %}
         ["{{word.1}}", "{{word.2}}"],
         {% endfor %}
@@ -28,26 +28,24 @@
 
         var highlightCallFrequency = 33;
         // Baseline has been established, change status and call function to do more work
-        baselineEstablisedCallback = function baselineEstablised(){
-            baselineStatus = true;
-            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWordAndProgressBar, highlightCallFrequency, audioFile, time_stamped_words, story_id, session_id);});
+        accessToMicGrantedCallback = function AccessToMicGrantedCallback(){
+            accessToMicGranted = true;
+            makePlayActive(accessToMicGranted, downloadStatus, audioFile, function () {setInterval(highLightActiveWordAndProgressBar, highlightCallFrequency, audioFile, time_stamped_words, story_id, session_id);});
         };
 
         // Download has been completed, change status and call the function to do more work
         downCompleteCallback = function downloadComplete(data){
             downloadStatus = true;
-            audioFile = data;
-            makePlayActive(baselineStatus, downloadStatus, audioFile, function () {setInterval(highLightActiveWordAndProgressBar, highlightCallFrequency, audioFile, time_stamped_words, story_id, session_id);});
+            makePlayActive(accessToMicGranted, downloadStatus, audioFile, function () {setInterval(highLightActiveWordAndProgressBar, highlightCallFrequency, audioFile, time_stamped_words, story_id, session_id);});
         };
 
         // Call the function to get the microphone baseline/monitor the audio level and download the audiofile
-        s = "{% static '' %}" + '{{audio_file_loc}}';
-        getAudioFile(downCompleteCallback, s, story_id, session_id);
-        microphoneLevels(baselineEstablisedCallback);
+        s = "/static/" + '{{audio_file_loc}}';
+        $("#shadow_audio").attr('src', s);
 
         $('#play_button').click(
             function () {
-                if (baselineStatus == true && downloadStatus == true) {
+                if (accessToMicGranted == true && downloadStatus == true) {
                     if (playing == true){
                         // Is play, pause
                         sendPostRequestForLogging("pause", audioFile.currentTime, story_id, session_id);
@@ -67,6 +65,21 @@
             }
         );
 
+        $('#rewind_button').click(
+            function () {
+                // Rewind the file
+                $('#play_button').triggerHandler('click');
+                sendPostRequestForLogging("rewind_from", audioFile.currentTime, story_id, session_id);
+                console.log(audioFile.currentTime);
+                if (audioFile.currentTime < 10){
+                    audioFile.currentTime = 0;
+                } else {
+                    audioFile.currentTime = audioFile.currentTime - 10;
+                }
+                console.log(audioFile.currentTime);
+            }
+        );
+
         $('#go-back').click(
             function () {
                 sendPostRequestForLogging("quit", audioFile.currentTime, story_id, session_id);
@@ -80,6 +93,19 @@
                 return false;
             }
         );
+
+        microphoneLevels(accessToMicGrantedCallback);
+        // When the audio is ready to play, make the play button active and play the audio
+        $("#shadow_audio").get(0).oncanplay = (event) => {
+            if (downloadStatus == false) {
+                console.log(audioFile.currentTime);
+                sendPostRequestForLogging("select", 0.0, story_id, session_id);
+                downCompleteCallback();
+                $('#play_button').triggerHandler('click');
+            } else if (playing == false){
+                $('#play_button').triggerHandler('click');
+            }
+        }
     });
 </script>
 {% endblock %}
@@ -87,6 +113,9 @@
 {% block content %}
 
 <div class="container">
+    <audio id="shadow_audio">
+        <source src="{% static '' %}{{audio_file_loc}}'" type="audio/wav" /> Your browser does not support the video tag.
+    </audio>
     <a class="col-1 btn">
         <div id="go-back" class="display-block grey-bold-text no-padding mb-3 mt-1">
             <img id="back-button" alt="Back button" src="{% static 'common/images/back_button.png' %}" />
@@ -143,6 +172,9 @@
                 </style></div>
                     <img id="play-button" class="hide very-large-button-padding" alt="Play button" src="{% static 'images/play_button.png' %}" />
                     <img id="pause-button" class="hide very-large-button-padding" alt="Pause button" src="{% static 'images/pause_button.png' %}" />
+                </button>
+                <button id="rewind_button" class="hide btn btn-primary nav-link mb-3 mt-2" href="#">
+                    <img id="rewind-button" class="hide very-large-button-padding very-large-button-padding-hori" alt="Rewind 10 seconds button" src="{% static 'images/rewind_10.png' %}" />
                 </button>
             </div>
             <span class="col-xs-2 col-sm-2 col-md-2 col-lg-1"></span>

@@ -1,12 +1,3 @@
-function getAudioFile(callback, location, story_id, session_id){
-    // Sent a POST request to log that a story has been selected
-    sendPostRequestForLogging("select", 0.0, story_id, session_id);
-
-    // Load the audio
-    audio_obj = new Audio(location);
-    callback(audio_obj);
-}
-
 function sendPostRequestForLogging(action, time, story_id, session_id){
     // Sent a POST request to log that a story has been selected/played/paused/finished
     $.ajax({
@@ -23,63 +14,8 @@ function sendPostRequestForLogging(action, time, story_id, session_id){
 
 function microphoneLevels(callback){
     var handleSuccess = function(stream) {
-        var baselineEstablised = false;
-
-        var context = new AudioContext();
-        var source = context.createMediaStreamSource(stream);
-        var processor = context.createScriptProcessor(2048, 1, 1);
-        var analyser = context.createAnalyser();
-
-        source.connect(analyser);
-        analyser.connect(processor);
-
-        // Baseline created at the start, it runs for 5 seconds
-        var baseline = -1;
-        // Time we get access to the microphone
-        var date = new Date();
-        var microphoneAccessTime = date.getTime();
-        // Baseline time, this will tell the script how long the baseline should last
-        // Seconds * 1000
-        var baselineTime = 3000;
-        // Stepsize for update rule
-        alpha = 0.1;
-
-        // Processing when there is audio input
-        processor.onaudioprocess = function () {
-            // Process the frequency of the input coming in
-            var array = new Uint8Array(analyser.frequencyBinCount);
-            analyser.getByteFrequencyData(array);
-            var values = 0;
-
-            // Values for average
-            var length = array.length;
-            for (var i = 0; i < length; i++) {
-                values += (array[i]);
-            }
-
-            // Perform average
-            var average = values / length;
-
-            var date = new Date();
-            // Perform baseline update if within the time limit
-            if (date.getTime() - microphoneAccessTime <= baselineTime){
-                // Check if baseline is 0, if yes, this is the first its being called
-                if (baseline == -1){
-                    baseline = average;
-                } else {
-                    // Baseline isn't 0
-                    baseline = baseline + alpha * (average - baseline);
-                    // console.log("Baseline: " + baseline + "\t\t Average: " + average);
-                }
-            } else {
-                if (baselineEstablised == false){
-                    baselineEstablised = true;
-                    callback();
-                }
-                // Print the average, for debugging/testing
-                // console.log("Not baseline: " + average);
-            }
-        }
+        accessToMicGranted = true;
+        callback();
     };
 
     // If we successfully got access to the microphone, call handleSuccess
@@ -97,11 +33,13 @@ function showMicrophoneError() {
         "please refresh and allow microphone access.");
 }
 
-function makePlayActive(baselineStatus, downloadStatus, audio, callback){
+function makePlayActive(accessToMicGranted, downloadStatus, audio, callback){
     // Check if both the required components have finished work
-    if (baselineStatus && downloadStatus && audio != null) {
+    if (accessToMicGranted && downloadStatus && audio != null) {
         $('#loading-spinner').remove();
         $('#play-button').removeClass("hide");
+        $('#rewind-button').removeClass("hide");
+        $('#rewind_button').removeClass("hide");
         callback();
     }
 }

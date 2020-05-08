@@ -3,16 +3,8 @@ Files contains functions/classes which turns takes srt files and returns the fol
     - Words per minute
     - Character per minute
     - Word length(mean, median, min, max)
+    - Srt files names and media files name with the desired extension to be added to db
 """
-import sys
-
-import django
-import os
-
-sys.path.append('..')
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "CreeTutorBackEnd.settings")
-django.setup()
-from shadowing.models import *
 
 import re
 import numpy as np
@@ -87,7 +79,7 @@ class PrepareAdditionalInformationForFile:
     Prepares: name, sub_location and sound_location for insertion in db.
     """
     @staticmethod
-    def prepare_additional_information_for_file(file_name, file_stats):
+    def prepare_additional_information_for_file(file_name, file_stats, media_file_extension):
         """
         Takes file names and a file_stats dict and adds name, sub_location and sound_location for insertion in db.
         :param file_name:
@@ -102,32 +94,6 @@ class PrepareAdditionalInformationForFile:
         file_stats['name'] = name
         # Now add the sub_location and the sound_location
         file_stats['sub_location'] = "static/srts/" + file_name
-        file_stats['sound_location'] = "audio/" + file_name.replace(".srt", "") + ".wav"
+        file_stats['media_location'] = "media/" + file_name.replace(".srt", "") + "." + media_file_extension
 
         return file_stats
-
-if __name__ == '__main__':
-    # Opening the file
-    module_dir = os.path.dirname(__file__)  # get current directory
-    # Where the files are located
-    directory = 'static/srts'
-    # Get the path to the directory
-    directory_path = os.path.join(module_dir, directory)
-    # Will store objects that we need to insert
-
-    # Go through every path
-    for file in os.listdir(directory_path):
-        if not file.startswith('.'):
-            # Create the file path
-            file_path = directory_path + '/' + file
-            print(file_path)
-            # Open the file
-            file_pointer = open(file_path)
-            # Pass it to the methods to get stats
-            file_stats = SRTFileStatistics.get_srt_stats(file_pointer)
-            dict_for_insert = PrepareAdditionalInformationForFile.prepare_additional_information_for_file(
-                file,
-                file_stats)
-
-            # Create the object to insert and add to list
-            AudioAndSubtitleFilesForShadowing.objects.get_or_create(dict_for_insert, name=dict_for_insert['name'])

@@ -33,12 +33,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'core.apps.CoreConfig',
+    # 'core.apps.CoreConfig',
     'errorpages.apps.ErrorpagesConfig',
-    'home.apps.HomeConfig',
     'login.apps.LoginConfig',
+    'home.apps.HomeConfig',
     'lettergame.apps.LettergameConfig',
     'shadowing.apps.ShadowingConfig',
+    'transcription.apps.TranscriptionConfig',
+    'common_to_apps.apps.CommonToAppsConfig',
 
     # To enable autocomplete with forms
     'dal',

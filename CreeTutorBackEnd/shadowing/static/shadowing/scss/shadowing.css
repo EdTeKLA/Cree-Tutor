@@ -4,6 +4,9 @@
 .hidden {
   display: none; }
 
+.very-large-button-padding-hori {
+  padding: 0px 66.5px 0px 66.5px; }
+
 /*
  * This is to mimic the spacing in the .form-group bootstrap styling and the
  * height of the input field for the form field error messages

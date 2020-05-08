@@ -21,6 +21,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path('lettergame/', include('lettergame.urls')),
     path('shadowing/', include('shadowing.urls')),
+    path('transcription/', include('transcription.urls')),
     path('admin/', admin.site.urls),
     path('', include('django.contrib.auth.urls')),
     path('errorpages/', include('errorpages.urls')),
