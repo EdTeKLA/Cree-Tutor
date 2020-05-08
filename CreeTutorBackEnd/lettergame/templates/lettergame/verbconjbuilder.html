@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% csrf_token %}
+
+
+{% block head %}
+      <title>Burger Time</title>
+{% endblock %}
+
+
+
+{% block content %}
+
+
+{{ prefix_distractors|json_script:'prefix_distractors' }}
+{{ suffix_distractors|json_script:'suffix_distractors' }}
+{{ verb_distractors|json_script:'verb_distractors' }}
+{{ verb|json_script:'verb' }}
+{{ conjugation_list|json_script:'conjugation_list' }}
+{% url 'lettergame:verb_conjugator_select' as menu_url %}
+
+<a id ='menu_url' href='{{ menu_url }}'></a>
+
+
+
+<p id="countdown"></p>
+
+<script src="https://pixijs.download/release/pixi.min.js"></script>
+<script src="{% static 'lettergame/js/pixi.min.js' %}"></script>
+<script src="{% static 'lettergame/js/jquery-3.3.1.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/pixi-filters@latest/dist/pixi-filters.js"></script>
+<script src="{% static 'lettergame/js/verbconjbuilder.js' %}"></script>
+<script src="{% static 'lettergame/js/burgergame_log.js' %}"></script>
+{% endblock %}
+

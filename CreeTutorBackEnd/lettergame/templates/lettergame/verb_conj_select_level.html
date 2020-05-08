@@ -1,0 +1,18 @@
+﻿{% extends 'base.html' %}
+{% load sass_tags %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% sass_src 'lettergame/scss/lettergame.scss' %}" />
+<link rel="shortcut icon" href="lettergame/invader" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 class="row justify-content-md-center">Choose your difficulty level! </h3>
+    <div class="row justify-content-md-center">
+        <a class="btn btn-primary col-lg-3" href="{% url 'lettergame:verb_conjugator' %}?level=easy&time_limit=300000">Easy difficulty - 3 minutes</a>
+        <a class="btn btn-primary col-lg-3" href="{% url 'lettergame:verb_conjugator' %}?level=medium&time_limit=300000">Medium difficulty - 3 minutes</a>
+        <a class="btn btn-primary col-lg-3" href="{% url 'lettergame:verb_conjugator' %}?level=hard&time_limit=300000">Hard difficulty - 3 minutes</a>
+    </div>
+</div>
+{% endblock content %}

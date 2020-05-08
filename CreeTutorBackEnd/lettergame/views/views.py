@@ -1,12 +1,14 @@
 import time
+import random
+from random import choice
 from time import gmtime, strftime
 import datetime
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
 from django.views.generic.base import TemplateView
-from lettergame.view_helper import *
-from .models import *
+from .view_helper import *
+from ..models import *
 
 
 class WhichGame(View):
@@ -36,6 +38,7 @@ class LetterGames(View):
         Method passes appropriate parameters to getOptions and then renders the game.html template. Also creates a
         session that the games will be played in.
         """
+
         session = LetterGameOrPairGameSession(
             user=request.user,
             session_begin=strftime('%Y-%m-%d %H:%M:%S.%s%z', gmtime()),

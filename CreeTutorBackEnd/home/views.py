@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views import View
 from django.views.generic.base import RedirectView
-from lettergame.view_helper import *
 from time import gmtime, strftime
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView

@@ -1,0 +1,48 @@
+ni, n,independent, , ,1S, AI, I
+ki, n, independent, , , 2S, AI, You
+ , w, independent, , , 3S, AI, She/He
+ni, nân, independent, , , 2I, AI, We/Us (excluding you)
+ki, naw, independent, , , 1P, AI, We/Us (including you)
+ki, nâwâw, independent, , , 2P, AI, You all
+ , wak, independent, , , 3P, AI, They
+ , yiwa, independent, , , 3', AI, John's Son
+ni, n, independent, final e to â, ,1S, AI, I
+ki, n, independent, final e to â, , 2S, AI, You
+ , w, independent, final e to â, , 3S, AI, She/He
+ni, nân, independent, final e to â, , 2I, AI, We/Us (excluding you)
+ki, naw, independent, final e to â, , 1P, AI, We/Us (including you)
+ki, nâwâw, independent, final e to â, , 2P, AI, You all
+ , wak, independent, final e to â, , 3P, AI, They
+ , yiwa, independent, final e to â, , 3', AI, John's Son
+ni, n,independent, final e to â, t joiner,1S, AI, I
+ki, n, independent, final e to â, t joiner, 2S, AI, You
+ , w, independent, final e to â, t joiner, 3S, AI, She/He
+ni, nân, independent, final e to â, t joiner, 2I, AI, We/Us (excluding you)
+ki, naw, independent, final e to â, t joiner, 1P, AI, We/Us (including you)
+ki, nâwâw, independent, final e to â, t joiner, 2P, AI, You all
+ , wak, independent, final e to â, t joiner, 3P, AI, They
+ , yiwa, independent, final e to â, t joiner, 3', AI, John's Son
+ni, n,independent, , t joiner,1S, AI, I
+ki, n, independent, , t joiner, 2S, AI, You
+ , w, independent, , t joiner, 3S, AI, She/He
+ni, nân, independent, , t joiner, 2I, AI, We/Us (excluding you)
+ki, naw, independent, , t joiner, 1P, AI, We/Us (including you)
+ki, nâwâw, independent, , t joiner, 2P, AI, You all
+ , wak, independent, , t joiner, 3P, AI, They
+ , yiwa, independent, , t joiner, 3', AI, John's Son
+e, yân, conjunct, , , 1S, AI, I
+e, yan, conjunct, , , 2S, AI, You
+e, t, conjunct, , , 3S, AI, She/He
+e, yâhk, conjunct, , , 2I, AI, We/Us (excluding you)
+e, yahk, conjunct, , , 1P, AI, We/Us (including you)
+e, yek, conjunct, , , 2P, AI, You all
+e, cik, conjunct, , , 3P, AI, They
+e, yit, conjunct, , , 3', AI, John's Son
+e, yân, conjunct, , h joiner, 1S, AI, I
+e, yan, conjunct, , h joiner, 2S, AI, You
+e, t, conjunct, , h joiner, 3S, AI, She/He
+e, yâhk, conjunct, , h joiner, 2I, AI, We/Us (excluding you)
+e, yahk, conjunct, , h joiner, 1P, AI, We/Us (including you)
+e, yek, conjunct, , h joiner, 2P, AI, You all
+e, cik, conjunct, , h joiner, 3P, AI, They
+e, yit, conjunct, , h joiner, 3', AI, John's Son

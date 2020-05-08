@@ -103,7 +103,7 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
    
    **How to: using pgAdmin**
    
-    Open up pgAdmin and enter in your password. You should see
+    Open up pgAdmin and enter in your password. In the Browzer column, right click on Servers > Create > Server. In the General tab, enter a name for the server. In the Connection tab, enter in the host address (localhost) and password that you used in the previous step. Click Save and in the Browzer column you should see
    
         Servers
            PostgreSQL 11

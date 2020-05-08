@@ -41,7 +41,7 @@ def letter_distractors():
         distractor = line[1].strip()
         type = line[2].strip()
         if len(line) == 3:
-            e = "INSERT INTO letter_distractor(distractor, type, letter) VALUES ('{}', '{}', '{}')".format(distractor, type, letter)
+            e = "INSERT INTO ai(distractor, type, letter) VALUES ('{}', '{}', '{}')".format(distractor, type, letter)
             cursor.execute(e)
 
     db.commit()

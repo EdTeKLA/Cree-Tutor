@@ -477,7 +477,7 @@ class Creedictionarydotcom(models.Model):
     word = models.CharField(primary_key=True, max_length=250)
     plural = models.CharField(max_length=250, blank=True, null=True)
     syllabics = models.TextField(blank=True, null=True)
-    pos = models.CharField(max_length=10)
+    pos = models.CharField(max_length=50)
     translation = models.CharField(max_length=250)
     dictionary = models.CharField(max_length=8)
 
@@ -533,3 +533,48 @@ class invadersUserCorrect(models.Model):
 #
 #     class Meta:
 #         db_table = "word_syllable"
+
+class recipe(models.Model):
+    prefix = models.CharField(max_length=3, blank=True)
+    suffix = models.CharField(max_length=15)
+    independent_or_conjunct = models.CharField(max_length=200)
+    special_rule = models.CharField(max_length=200, blank=True)
+    joiner = models.CharField(max_length=20, blank=True)
+    pronoun = models.CharField(max_length=3)
+    paradigm = models.CharField(max_length=25)
+    translation = models.CharField(max_length=200, blank=True)
+
+    class Meta:
+        db_table = "burger_game_phrases"
+
+class burgerSession(models.Model):
+    session_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(ModifiedUser, on_delete=models.CASCADE)
+    sessionBegin = models.DateTimeField(blank=True, null=True)
+    session_difficulty = models.CharField(blank=True,default="easy", max_length=30)
+    session_time_limit = models.IntegerField(default="300000")
+
+
+class burgerStats(models.Model):
+    sesh_id = models.ForeignKey(burgerSession, on_delete=models.CASCADE, null=True)
+    timeStamp = models.DateTimeField(blank=True, null=True)
+    prefixes = models.CharField(max_length=100)
+    suffixes = models.CharField(max_length=100)
+    verbs = models.CharField(max_length=200, null=True)
+    class Meta:
+        db_table = 'burger_stats'
+
+
+class conjugationBurgerStats(models.Model):
+    sesh_id = models.ForeignKey(burgerSession, on_delete=models.CASCADE, null=True)
+    conjugation = models.CharField(max_length=200)
+
+class verbBurgerStats(models.Model):
+    sesh_id = models.ForeignKey(burgerSession, on_delete=models.CASCADE, null=True)
+    right_verb = models.CharField(max_length=200)
+
+class playerChoseBurgerStats(models.Model):
+    sesh_id = models.ForeignKey(burgerSession, on_delete=models.CASCADE, null=True)
+    answer = models.CharField(max_length=1000, null=True)
+
+

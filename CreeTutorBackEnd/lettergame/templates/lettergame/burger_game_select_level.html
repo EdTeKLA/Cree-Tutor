@@ -1,0 +1,21 @@
+﻿{% extends 'base.html' %}
+{% load sass_tags %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% sass_src 'lettergame/scss/lettergame.scss' %}" />
+<link rel="shortcut icon" href="lettergame/invader" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 class="row justify-content-md-center">Choose your difficulty level! </h3>
+    <div class="row justify-content-md-center">
+        <a class="btn btn-primary col-lg-3" href="{% url 'lettergame:burgerGame' %}?level=easy&time_limit=500000">Easy </a>
+        <a class="btn btn-primary col-lg-3" href="{% url 'lettergame:burgerGame' %}?level=medium&time_limit=500000">Medium </a>
+        <a class="btn btn-primary col-lg-3" href="{% url 'lettergame:burgerGame' %}?level=hard&time_limit=500000">Hard  mode</a>
+        <a class="btn btn-primary col-lg-3" href="{% url 'lettergame:burgerGame' %}?level=easy&time_limit=250000">Easy time trial</a>
+        <a class="btn btn-primary col-lg-3" href="{% url 'lettergame:burgerGame' %}?level=medium&time_limit=250000">Medium time trial</a>
+        <a class="btn btn-primary col-lg-3" href="{% url 'lettergame:burgerGame' %}?level=hard&time_limit=250000">Hard time trial</a>
+    </div>
+</div>
+{% endblock content %}

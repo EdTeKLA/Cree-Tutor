@@ -3,7 +3,9 @@ File contains all the helpers needed by views in views.py
 """
 
 import random
-from .models import *
+from random import choice
+from ..models import *
+import re
 
 
 def getOptions(option, type, level):
@@ -186,3 +188,139 @@ def inv_distractors(level, onScreen, id):
     context = {'letters': list(dists), 'sound':sound, 'game':'double', 'correct':lettr}
 
     return context
+
+def reroll(level, verb, vowels):
+    reroll = False;
+    if (level == "easy" or level == "medium"):
+        for j in range(4):
+            if verb.word[0] == vowels[j]:
+                reroll = True
+    return reroll
+
+def recipe_maker(level):
+      '''
+      model querying here to get the verbs and the conjugation for the Burger Game application
+      '''
+
+
+
+      vowels = ["a", "e", "i", "o", "u"]
+
+      verb_objects = sorted(Creedictionarydotcom.objects.filter(pos="VAI"), key=lambda x: random.random())  # this is for retrieving all objects with VAI verbs
+
+      if reroll(level, verb_objects[0], vowels) == True:
+          verb_objects = sorted(Creedictionarydotcom.objects.filter(pos="VAI"), key=lambda x: random.random())
+
+      verb = verb_objects[0]
+
+      '''
+      chops the w off the verb, if there is one
+      '''
+      for j in range(4):
+          if verb_objects[j].word[-1] == "w":
+            verb_objects[j].word = verb_objects[j].word[:-1]
+
+      '''
+      Returns context for burgergame.
+      '''
+      '''
+      Below searches the verb for special rules that must be applied to in during conjugation. Inde_or_conj is so the correct joiner is used,
+      and person is so that the final e to a is used properly. 
+      '''
+      # TODO: still doesn't work right
+      # What doesn't work right? Blocker, need to walk through logic with delaney to figure out what is going on
+      # and what needs to be changed.
+
+
+      inde_or_conj = choice(list(set(["independent", "conjunct"])))
+      person = choice(list(set(["1S", "2S", "3S", "2I", "1P", "2P", "3P", "3'"])))
+      # TODO: DETERMINE WHAT verb_sperule means
+      verb_sperule = "";
+      verb_joiner = "";
+
+      if (inde_or_conj == "independent"):
+          for i in range(4):
+             verb_joiner = "h" if verb.word[0] == (vowels[i]) else ""
+
+      else:
+          verb_joiner = "final e to â" if (person == "1S" or person == "2S" or person == "2I" or person == "1P" or person == "2P") and verb.word[-1] == "e" else ""
+          for i in range(4):
+            verb_joiner = "t" if verb.word[0] == (vowels[i]) else ""
+
+      random_conjugation = sorted(recipe.objects.all(), key=lambda x: random.random())
+      conjugation = sorted(recipe.objects.filter(independent_or_conjunct=inde_or_conj).filter(pronoun=person), key=lambda x: random.random())
+
+      regex = re.compile('(S\/he )|(him\/her)|(they all)|you|the tree|s\/he|her\/his|his\/her|they ')
+
+
+      line = verb.translation  # using some string
+      new_line = regex.sub(' ', line)  # take out what we specified in regex, substitute it with something else. This example substitutes it with a space.
+      # the value at new_line is now  = 'some string"
+
+      regex = re.compile(' is ')
+      new_line = regex.sub('', new_line)
+      regex = re.compile(' goes ')
+      new_line = regex.sub(" go ", new_line)
+      prefix = conjugation[0].prefix
+      suffix = conjugation[0].suffix
+      translation = conjugation[0].translation
+      conjugation_list = [inde_or_conj, person, verb_sperule, verb_joiner, prefix, suffix, translation]
+      conjugation_dict = {
+          "inde_or_conj": inde_or_conj,
+          "person":person,
+          "verb_sperule":verb_sperule,
+          "joiner":verb_joiner,
+          "prefix":prefix,
+          "suffix":suffix,
+          "translation":translation,
+          "verb":verb.word
+      }
+
+
+      new = ""
+      if (inde_or_conj == "independent"):
+          if (conjugation_list[1] == "1S"):
+            new = "my"
+          elif (conjugation_list[1] == "2S" or conjugation_list == "2P"):
+            new = "your"
+          elif (conjugation_list[1] == "3S" or conjugation_list[1] == "3'"):
+            new = "his/her"
+          elif (conjugation_list[1] == "1P" or conjugation_list == "2I"):
+            new = "our"
+          elif (conjugation_list[1] == "3P"):
+            new = "their"
+
+      new_line = re.sub('his\/her', new, new_line)
+
+      if (inde_or_conj == "conjunct"):
+          if (conjugation_list[1] == "1P" or conjugation_list[1] == "2I" or conjugation_list[1] == "2P" or conjugation_list[1] == "3P" or conjugation_list[1] == "2S"):
+              new_line = ("ALTare " + new_line)
+          elif (conjugation_list[1] == "1S"):
+              new_line = ("ALTam " + new_line)
+          else:
+              new_line = ("is " + new_line)
+
+      # else:
+          # if (conjugation_list[1] == "1S" or conjugation_list[1] == "2S" or conjugation_list[1] == "1P" or conjugation_list[1] == "2I" or conjugation_list[1] == "2P" or conjugation_list[1] == "3P"):
+          #     regex = re.compile('.+(s)')
+          #     new_line = regex.sub('', new_line)
+
+
+      verbs = [verb.word, new_line]
+
+      prefix_distractors = [conjugation[0].prefix, random_conjugation[0].prefix, random_conjugation[1].prefix, random_conjugation[2].prefix]
+      verb_distractors = [verb_objects[0].word, verb_objects[1].word, verb_objects[2].word, verb_objects[3].word]
+      suffix_distractors = [conjugation[0].suffix, random_conjugation[0].suffix, random_conjugation[1].suffix, random_conjugation[2].suffix]
+      '''
+      conjugation_list and verb are the recipe/answer key. they will never be shown on screen. prefix_distractors,
+       verb_disctractors, and suffix_distractors WILL be expressed, and will be what shows up on the ingredients.
+      '''
+      context = {'conjugation_list': conjugation_dict,
+                 'verb': verbs,
+                 'prefix_distractors': prefix_distractors,
+                 'verb_distractors': verb_distractors,
+                 'suffix_distractors': suffix_distractors,
+                 'level' : level
+                 }
+      return context
+

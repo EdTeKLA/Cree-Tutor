@@ -41,7 +41,7 @@ function postInvaders(){
         positions.push(pos)
         hit.push(invaders[i].hit);
     }
-
+    let hit = [];
     return $.ajax({
       type:'POST',
       url: "",
