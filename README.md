@@ -64,7 +64,7 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 
 6. Create the file `CreeTutor/CreeTutorBackEnd/CreeTutorBackEnd/settings_secret.py`
 
-7. Make the contents of settings_secret.py look like this:
+7. (Make sure the slashes for the pathes match the system you are working on) Make the contents of settings_secret.py look like this:
 
        """  
        These settings must never be uploaded onto github.
