@@ -85,8 +85,10 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
     Navigate to the directory `CreeTutor` and run:
         
         pip3 install -r requirements.txt
+	
+9. From the google drive folder https://drive.google.com/drive/u/3/folders/1X34CGcXmOzAP5MIJhRtImxXsohHejEP8 download and unzip the Alphabet, Words, and LetterPairs folders, and save them in the pathes given by settings_secret.py
 
-9. Create database "cree_tutor_db" and necessary tables.
+10. Create database "cree_tutor_db" and necessary tables.
 
    **How to: using psql commands**
 
@@ -114,7 +116,7 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
    
     Right click on `Databases` and select `Create > Database...`. A pop-up box will show up and you can enter in the name of the database as `cree_tutor_db` and the owner to your username. (The owner can be changed later however it should match what is written in the `settings.py` and `settings_private.py` files)
    
-10. Once the database is working, you make check that is is working by running the following:
+11. Once the database is working, you make check that is is working by running the following:
 
         $ python manage.py dbshell
    
@@ -125,7 +127,7 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
         $ python manage.py makemigrations
         $ python manage.py migrate
 	
-11. Troubleshooting
+12. Troubleshooting
 	
 	a) If you have changed your database username in your settings_secret.py file to something other than postgres you will have problem making migrations. The error:
 	
@@ -159,24 +161,42 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 	`python3 manage.py makemigrations`, then finally
 	`python3 manage.py migrate`.
 
-12. Now populate the data using the following scripts:
+13. Now populate the data using the following scripts:
     
     In `CreeTutor/DatabaseInsertions`, run:
         
         python insertintodb.py
         python savedistractors.py
     
+    If you get a FileNotFoundError: [Errno 2], then right click the Alphabet, Words, and LetterPairs folders to then copy path and use these full paths in secrets_setting.py (this gets rid of the '...' at the beginning).
+    
     In `CreeTutor/CreeTutorBackEnd/login`, run:
         
         python insert_options_into_db.py
         
+    From the google drive folder https://drive.google.com/drive/u/3/folders/1oO5P64U-IsA2OpNrIqOc6GNWDnZjg1Oi download the srts folder and save that in `CreeTutor/CreeTutorBackEnd/shadowing/static`.
+    
     In `CreeTutor/CreeTutorBackEnd/shadowing`, run:
         
         python insert_questions_into_db.py
         python insert_srt_files_and_stats.py
         python insert_configs.py
  
- 
+ An error may occur:
+ '''
+ python3 insert_questions_into_db.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "shadowing_feedback_questions" does not exist
+LINE 1: ..., "shadowing_feedback_questions"."no_answer" FROM "shadowing...
+'''
+
+If this happens try running
+`python3 manage.py makemigrations shadowing`,
+`python3 manage.py migrate shadowing `
+
+ then try running the insert files again.
  
 ## Windows Home installation process
 
