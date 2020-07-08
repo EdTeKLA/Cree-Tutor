@@ -160,6 +160,8 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 	`python3 manage.py migrate login `,
 	`python3 manage.py makemigrations`, then finally
 	`python3 manage.py migrate`.
+	'python3 manage.py makemigrations shadowing'
+	'python3 manage.py migrate shadowing'
 
 12. Now populate the data using the following scripts:
     
