@@ -289,7 +289,7 @@ class LetterGameInsertions(InsertIntoDB):
         dict_objects = []
         entries=[]
         # Get file names and path from the records directory
-        f = open("creedictionarydotcom.txt", 'r',encoding="utf8")
+        f = open("creedictionarydotcom.txt", 'r',encoding="utf-8")
         for line in f:
             # print(line)
             line = line.replace("\n", '')
@@ -327,7 +327,7 @@ class LetterGameInsertions(InsertIntoDB):
 
     @staticmethod
     def __cycle_paradigms():
-        f = open("ai.txt", "r")
+        f = open("ai.txt", "r", encoding="utf-8")
         paradigms = []
         for line in f:
             line = line.split(",")
@@ -459,7 +459,7 @@ class LetterGameDistractorInsertions(InsertIntoDB):
         # List that will be returned
         line_dicts = []
         # Open the file
-        file = open(file_name, 'r')
+        file = open(file_name, 'r', encoding='utf-8')
         # Go through it line by line
         for line in file:
             # Clean up the line and split it on the colors
