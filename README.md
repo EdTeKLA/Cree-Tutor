@@ -64,7 +64,7 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 
 6. Create the file `CreeTutor/CreeTutorBackEnd/CreeTutorBackEnd/settings_secret.py`
 
-7. Make the contents of settings_secret.py look like this:
+7. (Make sure the slashes for the pathes match the system you are working on) Make the contents of settings_secret.py look like this:
 
        """  
        These settings must never be uploaded onto github.
@@ -82,9 +82,11 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 
 8. Install required python packages
 
-    Navigate to the directory `CreeTutor` and run:
+    a.) Navigate to the directory `CreeTutor` and run:
         
         pip3 install -r requirements.txt
+	
+ b.) From the google drive folder https://drive.google.com/drive/u/3/folders/1X34CGcXmOzAP5MIJhRtImxXsohHejEP8 download and unzip the Alphabet, Words, and LetterPairs folders, and save them in the pathes given by settings_secret.py
 
 9. Create database "cree_tutor_db" and necessary tables.
 
@@ -127,7 +129,7 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 	
 11. Troubleshooting
 	
-	If you have changed your database username in your settings_secret.py file to something other than postgres you will have problem making migrations. The error:
+	a) If you have changed your database username in your settings_secret.py file to something other than postgres you will have problem making migrations. The error:
 	
 	
 	To solve this issue, go on pgAdmin and select `Tools > Query Tool` and paste the following text editor, after changing the `[Your_DB_Username]` to your username
@@ -142,25 +144,61 @@ Current version uses Django 2.0.5, MySql 14.14, Python 3.6.4, and HTML 5
 		python manage.py makemigrations
 		python manage.py migrate
 	
+	b)   Another possible issue that may is arise will produce an error like below.
+	```
+	CT-user@creetutor-server:~/CreeTutor/CreeTutorBackEnd$ python3 manage.py migrate
+	Operations to perform:
+	  Apply all migrations: admin, auth, contenttypes, core, lettergame, sessions
+	Running migrations:
+	  Applying admin.0001_initial...Traceback (most recent call last):
+	  File "/home/CT-user/.local/lib/python3.6/site-packages/django/db/backends/utils.py", line 84, in _execute
+	    return self.cursor.execute(sql, params)
+	psycopg2.errors.UndefinedTable: relation "modified_user" does not exist
+	``` 
+	These errors can occur sometimes with Django if migrations of different apps are applied in different order on default. To rectify this, you may attempt to makemigrations and migrate for login and then try to migrate the rest as follows:
+	`python3 manage.py makemigrations login`,
+	`python3 manage.py migrate login `,
+	`python3 manage.py makemigrations`, then finally
+	`python3 manage.py migrate`.
+	'python3 manage.py makemigrations shadowing'
+	'python3 manage.py migrate shadowing'
 
-10. Now populate the data using the following scripts:
+12. Now populate the data using the following scripts:
     
     In `CreeTutor/DatabaseInsertions`, run:
         
         python insertintodb.py
         python savedistractors.py
     
+    If you get a FileNotFoundError: [Errno 2], then right click the Alphabet, Words, and LetterPairs folders to then copy path and use these full paths in secrets_setting.py (this gets rid of the '...' at the beginning).
+    
     In `CreeTutor/CreeTutorBackEnd/login`, run:
         
         python insert_options_into_db.py
         
+    From the google drive folder https://drive.google.com/drive/u/3/folders/1oO5P64U-IsA2OpNrIqOc6GNWDnZjg1Oi download the srts folder and save that in `CreeTutor/CreeTutorBackEnd/shadowing/static`.
+    
     In `CreeTutor/CreeTutorBackEnd/shadowing`, run:
         
         python insert_questions_into_db.py
         python insert_srt_files_and_stats.py
         python insert_configs.py
  
- 
+ An error may occur:
+ ```
+python3 insert_questions_into_db.py
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "shadowing_feedback_questions" does not exist
+LINE 1: ..., "shadowing_feedback_questions"."no_answer" FROM "shadowing...
+``` 
+
+If this happens try running
+`python3 manage.py makemigrations shadowing`,
+`python3 manage.py migrate shadowing `
+
+ then try running the insert files again.
  
 ## Windows Home installation process
 
