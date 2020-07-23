@@ -1,6 +1,11 @@
 $(window).resize(function() {
     // This will execute whenever the window is resized
     // deal with the drop down menu for mobile screen display
+    navBar()
+});
+
+function navBar(){
+    console.log('hello')
     if ($(window).width() < 975 ) {
         $('#small-screen-nav').show();
         $('#wide-screen-nav').hide();
@@ -9,9 +14,11 @@ $(window).resize(function() {
         $('#small-screen-nav').hide();
         $('#wide-screen-nav').show();
     }
-});
+}
 
 $(document).ready(function(){
+    // format the menu burger
+    navBar()
     /* Edit button functions for the main profile page and language page */
     // Main profile information button functionality
     // Show the profile editing form when the Edit button is clicked

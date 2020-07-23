@@ -35,15 +35,15 @@ class NameUpdateForm(forms.ModelForm):
                 # so these are hardcoded in just for now until a solution is found
                 # if we can get the first name through USER that would be great but it doesnt work 
                 # e.g. f'{username}' 
-                Column(Field('first_name', placeholder=self.user.first_name, css_class="col-10 form-control")),
-                Column(Field('last_name', placeholder=self.user.last_name, css_class="col-10 form-control")),
-                css_class="form-group row mx-3 mb-1"
+                Column(Field('first_name', placeholder=self.user.first_name, css_class="form-control mx-1 col-10")),
+                Column(Field('last_name', placeholder=self.user.last_name, css_class="form-control mx-1 col-10")),
+                css_class="form-group mx-3 mb-1 inline"
             ),
             # Enclose all the submit and cancel buttons in a div called FormActions (recommended as per crispy-form documentations)
             FormActions(
                 Submit('submit', value='Update', css_class='btn btn-primary btn-sm inline mr-1'),
                 Button('cancel', value='Cancel', css_class='text-muted btn-sm inline', css_id="name-form-cancel-button"),
-                css_class="mb-1 ml-0"
+                css_class="mt-1 mb-1 mx-1 inline"
             )
         )
     class Meta:
@@ -64,13 +64,13 @@ class GenderUpdateForm(forms.ModelForm):
         self.helper.label_class = 'sr-only'
         self.helper.field_class = 'form-inline'
         self.helper.layout = Layout(
-            Field('gender', css_class="col-12 form-control mb-1 ml-3"),
+            Field('gender', css_class="row form-control mb-1 ml-3"),
             FormActions(
                 Submit('submit', value='Update', css_class='btn btn-primary btn-sm inline mr-1'),
                 Button('cancel', value='Cancel', css_class='text-muted btn-sm inline', css_id="gender-form-cancel-button"),
                 # So far all of these have a ml-4 because I could not find a better way to format it so it would work
                 # TO DO: look into bootstrap so that this formating is more dynamic
-                css_class="inline ml-5"
+                css_class="row mt-1 mb-1 mx-1 inline"
             )
         )
     class Meta:
@@ -89,11 +89,11 @@ class AgeRangeUpdateForm(forms.ModelForm):
         self.helper.label_class = 'sr-only'
         self.helper.field_class = 'form-inline'
         self.helper.layout = Layout(
-            Field('age_range', css_class="col-12 form-control mb-1 ml-3"),
+            Field('age_range', css_class="form-control mb-1 ml-3"),
             FormActions(
                 Submit('submit', value='Update', css_class='btn btn-primary btn-sm inline mr-1'),
                 Button('cancel', value='Cancel', css_class='text-muted btn-sm inline', css_id="age-form-cancel-button"),
-                css_class="inline ml-5"
+                css_class="mt-1 mb-1 mx-1 inline"
             )
         )
     class Meta:
@@ -114,7 +114,7 @@ class EmailUpdateForm(forms.ModelForm):
         self.helper.label_class = 'sr-only'
         self.helper.field_class = 'form-inline'
         self.helper.layout = Layout(
-            Field('email', placeholder='Email', css_class="col-12 form-control mb-1 ml-3 mr-1"),
+            Field('email', placeholder='Email', css_class="form-control mb-1 ml-3 mr-1"),
             FormActions(
                 Submit('submit', value='Update', css_class='btn btn-primary btn-sm inline mr-1'),
                 Button('cancel', value='Cancel', css_class='text-muted btn-sm inline', css_id="email-form-cancel-button"),
