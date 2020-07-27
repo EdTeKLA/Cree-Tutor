@@ -44,7 +44,7 @@ class LetterGames(View):
         gamelevel = self.__get_level(level)
         session = LetterGameOrPairGameSession(
             user=request.user,
-            session_begin=strftime('%Y-%m-%d %H:%M:%S.%s%z', gmtime()),
+            session_begin=strftime('%Y-%m-%d %H:%M:%S.%z', gmtime()),
             level=gamelevel,
         )
 
