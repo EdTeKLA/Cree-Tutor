@@ -15,6 +15,7 @@ class WhichGame(View):
     """
     Renders the page to ask the user which level he/she would like to play with.
     """
+
     def get(self, request, game):
         """
         Takes a game variable and creates other variables that are needed to
@@ -23,7 +24,7 @@ class WhichGame(View):
         levels = []
 
         levels = ['learn', 'easy', 'medium', 'hard']
-        context = {'game': game, 'levels':levels}
+        context = {'game': game, 'levels': levels}
 
         return render(request, 'lettergame/level.html', context)
 
@@ -33,16 +34,18 @@ class LetterGames(View):
     Function takes in request, game, and level parameters to determine the game (single/double) and level (learn/easy/...).
     It them renders the game or saves the stats depending on the type of request.
     """
+
     def get(self, request, game, level):
         """
         Method passes appropriate parameters to getOptions and then renders the game.html template. Also creates a
         session that the games will be played in.
         """
 
+        gamelevel = self.__get_level(level)
         session = LetterGameOrPairGameSession(
             user=request.user,
             session_begin=strftime('%Y-%m-%d %H:%M:%S.%s%z', gmtime()),
-            level=GameLevels.objects.get(name=level),
+            level=gamelevel,
         )
 
         session.save()
@@ -75,11 +78,25 @@ class LetterGames(View):
             session.session_end = strftime('%Y-%m-%d %H:%M:%S.%s%z', gmtime())
             session.save()
 
-
         context['questions_left'] = request.POST['questions_left']
         context['session_id'] = request.POST['session_id']
 
         return JsonResponse(context)
+
+    def __get_level(self, level):
+        """
+        Retrieves the GameLevel object for the current level, creating it if neccesary
+        :param level:
+        :return: GameLevel object
+        """
+
+        try:
+            gameLevel = GameLevels.objects.get(level=level)
+            return gameLevel
+        except GameLevels.DoesNotExist:
+            gameLevel = GameLevels.objects.create(level=level)
+            gameLevel.save()
+            return gameLevel
 
     def __prepare_options(self, request, game, level):
         """
@@ -160,9 +177,9 @@ class Invaders(View):
             invStats.save()
         more_inv = request.POST['populate']
 
-        context = {'letters': [], 'sound':"", 'game':'single', 'correct':'', 'level':level}
+        context = {'letters': [], 'sound': "", 'game': 'single', 'correct': '', 'level': level}
 
-        if int(request.POST['numInvadersLeft']) < num +1 and more_inv == "true":
+        if int(request.POST['numInvadersLeft']) < num + 1 and more_inv == "true":
             context = inv_distractors(level, onScreen, id)
             context['level'] = level
 

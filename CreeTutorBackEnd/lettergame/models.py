@@ -74,12 +74,12 @@ from login.models import ModifiedUser
 class GameLevels(models.Model):
     """
     Class describes what level the current games may operate at.
-    - "level" is the integer id and primary key (e.g. 0)
-    - "name" is the name of the level (e.g. "easy")
+    - "level" is the level difficulty e.g. "easy", "medium", "hard"
+    - "type" is the type of the level (e.g. "sro", "syllabic)
     - "description" describes what makes it that level (e.g. "contains __ number of distractors of type __")
     """
 
-    level = models.IntegerField(primary_key=True)
+    level = models.TextField(primary_key=True)
     name = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
@@ -95,7 +95,7 @@ class LetterGameOrPairGameSession(models.Model):
     user = models.ForeignKey(ModifiedUser, on_delete=models.CASCADE)
     session_begin = models.DateTimeField(blank=True, null=True)
     session_end = models.DateTimeField(blank=True, null=True)
-    level = models.ForeignKey(GameLevels, on_delete=models.DO_NOTHING)
+    level = models.ForeignKey(GameLevels, on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'letter_game_or_pair_game_session'
@@ -266,12 +266,12 @@ class SingleLetterStats(models.Model):
 
     answer_id = models.AutoField(primary_key=True)
     user_id = models.IntegerField(blank=True, null=True)
-    level = models.ForeignKey(GameLevels, models.DO_NOTHING, null=True, db_column='level')
+    level = models.ForeignKey(GameLevels, models.CASCADE, null=True, db_column='level')
     chosen_answer = models.CharField(max_length=4, blank=True, null=True)
     correct_answer = models.CharField(max_length=4, blank=True, null=True)
     time_started = models.DateTimeField(blank=True, null=True)
     time_ended = models.DateTimeField(blank=True, null=True)
-    session = models.ForeignKey(LetterGameOrPairGameSession, on_delete=models.DO_NOTHING)
+    session = models.ForeignKey(LetterGameOrPairGameSession, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "single_letter_stats"
@@ -344,7 +344,7 @@ class DoubleLetterStats(models.Model):
 
     answer_id = models.AutoField(primary_key=True)
     user_id = models.IntegerField(blank=True, null=True)
-    level = models.ForeignKey(GameLevels, models.DO_NOTHING, null=True, db_column='level')
+    level = models.ForeignKey(GameLevels, models.CASCADE, null=True, db_column='level')
     chosen_answer = models.TextField(blank=True, null=True)
     correct_answer = models.TextField(blank=True, null=True)
     time_started = models.DateTimeField(blank=True, null=True)

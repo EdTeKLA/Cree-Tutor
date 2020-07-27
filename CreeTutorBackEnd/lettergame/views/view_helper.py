@@ -71,7 +71,7 @@ def savePostStats(request, option, whichStats, stats, whichDist, level):
     answer.time_started = startTime
     answer.time_ended = endTime
     answer.user_id = request.user.id
-    answer.level = GameLevels.objects.get(name = level)
+    answer.level = GameLevels.objects.get(level = level)
     answer.session_id = request.POST['session_id']
     answer.save()
     # For both games, the distractedby and distractors table depend on the answer_id from the _LetterStats submission
