@@ -377,96 +377,18 @@ class LanguageInfoViewOld(View):
         # Grab the user language data from database specific to this user
         user_languages = UserLanguages.objects.filter(user=request.user).order_by('language_level')
         # Set up the form names used to refer forms on in the template
-        context = {'user_languages': user_languages, }
+        context={'user_languages': user_languages,}
         return render(request, 'login/profile_language.html', context=context)
-
 
 class LanguageAutocomplete(autocomplete.Select2QuerySetView):
     '''
     Class which returns a query set of all the languages stored in the language_spoken table
     '''
-
     def get_queryset(self):
         languages_query = LanguagesSpoken.objects.all()
         if self.q:
             languages_query = languages_query.filter(language__startswith=self.q)
         return languages_query
-
-
-class LanguageEditView(View):
-    """
-    Class was created to show the language edit form.
-    Also contains a post method which accepts and saves all the information from a completed language edit form.
-    """
-
-    def get(self, request):
-        """
-        Shows the language edit form.
-        """
-        # Get all the languages
-        return render(request, "login/profile_language_form.html")
-
-    def post(self, request):
-        """
-        Method was created to update the user primary and secondary languages.
-
-        Also creates records for any languages a user knows.
-        :param request:
-        :return:
-        """
-        try:
-            # Get the user
-            user = self.request.user
-            print("user:"+str(user))
-
-            # Get all the primary languages
-            primary_languages = json.loads(
-                request.POST.getlist('primary-language')[0])
-            # Save the level of the language
-
-            ll, _ = LanguageLevels.objects.get_or_create(
-                language_level='primary')
-            print("ll:"+str(ll))
-
-            # Save them to the database if they don't exist
-
-            for primary_language in primary_languages:
-                ls = {'language': primary_language.lower()}
-                ls, _ = LanguagesSpoken.objects.get_or_create(
-                    language=primary_language.lower(), defaults=ls)
-
-                ul = UserLanguages(language_spoken=ls,
-                                   language_level=ll, user=user)
-                ul.save()
-
-            # Dealing with non-primary-languages
-            non_primary_languages = json.loads(
-                request.POST.getlist('non-primary-languages')[0])
-            # Save them to the database if they don't exist
-            non_primary_languages_objs = []
-            for non_primary_language in non_primary_languages:
-                ls = {'language': non_primary_language['language'].lower()}
-                ls, _ = LanguagesSpoken.objects.get_or_create(language=non_primary_language['language'].lower(),
-                                                              defaults=ls)
-                non_primary_languages_objs.append(ls)
-
-                ll, _ = LanguageLevels.objects.get_or_create(
-                    language_level=non_primary_language['fluency'].lower())
-
-                ul = UserLanguages(language_spoken=ls,
-                                   language_level=ll, user=user)
-                ul.save()
-
-            # Saving the status of the intake
-            user.intake_finished = True
-            print("intake finished:"+str(user.intake_finished))
-            # Save the profile
-            user.save()
-        except Exception as ex:
-            print(ex)
-            return HttpResponse('ERROR: ' + str(ex))
-        else:
-            return JsonResponse({'redirect': '/profile/language-info'})
 
 class LanguageInfoView(ListView):
     model = UserLanguages
@@ -476,35 +398,45 @@ class LanguageInfoView(ListView):
     context_object_name = 'user_languages'
     # Order the posts by the 
     ordering = ['language_level']
-
     def get_queryset(self):
         # Filter through all the languages in the user_language table to get a query of only
         # the languages spoken by this user and order it by language level (primary-1 and so on)
         user_languages = UserLanguages.objects.filter(user=self.request.user).order_by('language_level')
         return user_languages
 
-
+class LanguageEntryView(CreateView):
+    model = UserLanguages
+    template_name = 'login/profile_language_form.html'
+    # Set up the form class so that django know
+    form_class = UserLanguageUpdateForm 
+    # Link to the main language edit page after successfully adding a language to this user
+    success_url = reverse_lazy('login:profile-language-edit')
+    def form_valid(self, form):
+        '''Set up the form validation so that the user column in the userlanguage table is not empty'''
+        # Set the language entry's user to the user sending the POST request
+        form.instance.user = self.request.user
+        # Raise a success message to display on the reloaded html page
+        messages.success(self.request, f'Your language was successfully added!', extra_tags='success')
+        # apply the changes and save
+        return super().form_valid(form)
+    
 class LanguageUpdateView(UpdateView):
     model = UserLanguages
     template_name = 'login/profile_language_form.html'
-    form_class = UserLanguageUpdateForm
+    form_class = UserLanguageUpdateForm 
     success_url = reverse_lazy('login:profile-language-edit')
-
     def form_valid(self, form):
         form.instance.user = self.request.user
         messages.success(self.request, f'Your language was successfully updated!', extra_tags='success')
         return super().form_valid(form)
 
-
 class LanguageDeleteView(DeleteView):
     model = UserLanguages
     success_url = reverse_lazy('login:profile-language-edit')
-
     def delete(self, request, *args, **kwargs):
         # Set up a success message for when user's language is successfully deleted
         messages.success(self.request, f'Your languages was successfully deleted', extra_tags='success')
         return super(LanguageDeleteView, self).delete(request, *args, **kwargs)
-
 
 class ChangePasswordView(View):
     def get(self, request):
@@ -512,7 +444,7 @@ class ChangePasswordView(View):
         Render the original password change page
         """
         password_form = ChangePasswordForm(request.user)
-        return render(request, 'login/password_change_form.html', context={'password_form': password_form})
+        return render(request, 'login/password_change_form.html',context={'password_form':password_form})
 
     def post(self, request):
         """
@@ -525,14 +457,13 @@ class ChangePasswordView(View):
                 # necessary step to stay logged into the account with the password changed
                 update_session_auth_hash(request, password_form.user)
                 messages.success(request, f'Your password was successfully updated!')
-                return redirect('/profile/')
+                return redirect('profile')
             else:
-                return render(request, 'login/password_change_form.html', context={'password_form': password_form})
+                messages.error(request, f'An error has occured, please try again.')
         except Exception as ex:
             return HttpResponse('ERROR: ' + str(ex))
         else:
-            return render(request, 'login/password_change_form.html', context={'password_form': password_form})
-
+            return JsonResponse({'redirect': '/'})
 
 class ProfileDeleteView(View):
     def get(self, request):
@@ -541,40 +472,48 @@ class ProfileDeleteView(View):
         '''
         return render(request, 'login/profile_delete.html')
 
-
 class ProfileDeleteConfirmView(View):
     def get(self, request):
         '''
         Display profile delete confirmation page
         '''
         return render(request, 'login/profile_delete_confirm.html')
-
+    
     def post(self, request):
         '''
         Execute user profile deletion
         '''
-        # Due to some constraints on the system because of the user dependencies
-        # in other apps (e.g. shadowing) we are unable to delete the account fully
-        # the Django documents recommends to just set is_active to False which is
-        # what is done here.
-        # TO DO: Look into the dependencies and allow for the user and the user data
-        # to be all deleted together using user.delete()
+        try:
+            # Due to some constraints on the system because of the user dependencies
+            # in other apps (e.g. shadowing) we are unable to delete the account fully
+            # the Django documents recommends to just set is_active to False which is
+            # what is done here.
+            # TO DO: Look into the dependencies and allow for the user and the user data
+            # to be all deleted together using user.delete()
 
-        # Set the current user as the user who sent out the POST request
-        user = ModifiedUser.objects.get(pk=request.user.pk)
-        # Set the user's active state as false which disables the account
-        user.is_active = False
-        # Set the user's email and username to empty so that if this email is used again to
-        # create another account it is allowed
-        user.email = None
-        user.username = None
-        # save everything
-        user.save()
-        logout(request)
-        # redirect user to the account deletion completion page
-        messages.success(request, f'ᐃᑯᓯ (Goodbye) \n Your account was successfully deleted!')
-        return HttpResponseRedirect(reverse('login:index'))
+            # Set the current user as the user who sent out the POST request
+            user = ModifiedUser.objects.get(pk=request.user.pk)
+            # Set the user's active state as false which disables the account
+            user.is_active = False
+            # Set the user's email and username to empty so that if this email is used again to 
+            # create another account it is allowed
+            user.email = None
+            user.username = None
+            # save everything
+            user.save()
+            # redirect user to the account deltion completion page
+            return HttpResponseRedirect(reverse_lazy('login:profile-delete-complete'))
+        except Exception as ex:
+            return HttpResponse('ERROR: ' + str(ex))
+        else:
+            return JsonResponse({'redirect': '/'})
 
+class ProfileDeleteCompleteView(View):
+    def get(self, request):
+        '''
+        Display profile delete complete page
+        '''
+        return render(request, 'login/profile_delete_complete.html')
 
 # sample user profile update
 def confirm_email(request):
