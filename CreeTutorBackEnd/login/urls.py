@@ -14,13 +14,12 @@ urlpatterns = [
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('profile/language-info/', views.LanguageInfoViewOld.as_view(), name='profile-language'),
     path('profile/language-info/edit/', views.LanguageInfoView.as_view(), name='profile-language-edit'),
-    path('profile/language-info/edit/entry/', views.LanguageEntryView.as_view(), name='language-entry'),
+    path('profile/language-info/edit/entry/', views.LanguageEditView.as_view(), name='language-entry'),
     url(r'^profile/language-info/edit/(?P<pk>[0-9]+)/$', views.LanguageUpdateView.as_view(), name='language-update'),
     url(r'^profile/language-info/edit/(?P<pk>[0-9]+)/delete$', views.LanguageDeleteView.as_view(), name='language-delete'),
     url(r'^language-autocomplete/$', views.LanguageAutocomplete.as_view(), name='language-autocomplete'),
     path('profile/delete/', views.ProfileDeleteView.as_view(), name='profile-delete'),
     path('profile/delete/confirm', views.ProfileDeleteConfirmView.as_view(), name='profile-delete-confirm'),
-    path('profile/delete/complete', views.ProfileDeleteCompleteView.as_view(), name='profile-delete-complete'),
 
     # Sign up urls
     path('signup/', views.SignUp.as_view(), name='signup'),

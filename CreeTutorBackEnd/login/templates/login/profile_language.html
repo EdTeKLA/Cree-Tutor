@@ -69,15 +69,15 @@
                         <i class="far fa-question-circle" ></i>
                     </button>
                 </h5>
-                <table class="col-12 list-group-item box-display mb-3">
+                <table class="list-group-item box-display mb-3" style="width: 100%">
                     {% for language in user_languages %}
                     <tr>
                         {% if language.language_level.id == 1 %}
-                            <td class="col-3 align-text-top">
+                            <td class="align-text-top" style="width: 50%">
                                 {{language.language_spoken.language.capitalize}}
                             </td>
-                            <td class="col-9 align-content-end">
-                                <small class="text-muted"> 
+                            <td class=" align-content-end" style="width: 50%">
+                                <small class="text-muted" > 
                                     {{language.language_level|capfirst}} 
                                 </small>
                             <td>
@@ -96,10 +96,10 @@
                     {% for language in user_languages %}
                         <tr>
                         {% if language.language_level.id != 1 %}
-                            <td class="col-3 align-text-top">
+                            <td class="align-text-top" style="width: 50%">
                                 {{language.language_spoken.language.capitalize}}
                             </td>
-                            <td class="col-9 align-content-end">
+                            <td class="align-content-end" style="width: 50%">
                                 <small class="text-muted"> 
                                     {{language.language_level|capfirst}} 
                                 </small>

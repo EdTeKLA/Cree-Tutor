@@ -68,10 +68,10 @@
                 <table class="mb-3">
                     {% for language in user_languages %}
                         <tr>
-                            <td class="col-3 align-text-top">
+                            <td class="align-text-top" style="width: 30%">
                                 {{language.language_spoken.language.capitalize}}
                             </td>
-                            <td class="col-9 align-content-end">
+                            <td class="align-content-end" style="width: 50%">
                                 <small class="text-muted"> 
                                     {{language.language_level|capfirst}} 
                                 </small>
@@ -107,7 +107,7 @@
             
             <!--Go back to the previous page link-->
             <a class="text-muted" href="{% url 'login:profile-language' %}">
-                <i class="fas fa-arrow-left"></i> Go back to previous page
+                <i class="fas fa-arrow-left"></i> Go back
             </a>
         </div>
     </div>

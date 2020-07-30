@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.admin import Group
 
 from .models import ModifiedUser as User
-from .models import UserLanguages
+from .models import UserLanguages, LanguagesSpoken
 from .forms import UserAdminChangeForm
 
 
@@ -40,7 +40,7 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
-# Display the User and User languages tabs on the admin page
+admin.site.register(UserLanguages)
 admin.site.register(User, UserAdmin)
 
 # Remove Group Model from admin. We're not using it.

@@ -5,6 +5,7 @@
 
 {% block styles %}
 <link href="{% sass_src 'login/scss/login.scss' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'login/scss/login.css' %}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block scripts %}
@@ -59,7 +60,11 @@
             <!-- Profile and account information -->
             <div id="profile-content">
                 <h4>
-                    {{ user.first_name.capitalize }}'s Profile
+                    {% if user.first_name %}
+                        {{ user.first_name.capitalize }}'s Profile
+                    {% else %}
+                        Profile
+                    {% endif %}
                 </h4>
                 <hr>
                 <div>
@@ -69,54 +74,58 @@
                 <h5>Account Details</h5>
 
                 <!--The profile information-->
-                <div id="account-details"> 
-                    <table class="col-12 list-group-item box-display mb-3">
+                <div class="table-responsive" id="account-details"> 
+                    <table class="table table-hover mb-3">
+                        <tbody>
                         <tr>
-                            <td class="col-3 text-muted align-text-top">Full Name:</td>
+                            <td class="text-muted" style="width: 25%">Full Name:</td>
                             <!--Display user's full name-->
-                            <td class="col-9" id="name-details">{{user.first_name.capitalize }} {{user.last_name.capitalize}} </td>
-                            <!--Display editable form with text input for user's first and last name-->
-                            <td class="col-9" id="name-form">
-                                <form action="" method="POST" class="form-inline">
+                            <td id="name-details">{{user.first_name.capitalize }} {{user.last_name.capitalize}} </td>
+                            <!--Display editable form witd text input for user's first and last name-->
+                            <td id="name-form">
+                                <form action="" method="POST" class="col">
                                     {% csrf_token %}
                                     {% crispy name_form %}
                                 </form>
                             </td>
-                            <td><a class="small text-muted col-6" id="name-form-button">Edit</a></td>
+                            <td class="align-text-right">
+                                <a class="small text-muted" id="name-form-button">Edit</a>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="col-3 text-muted align-text-top">Gender:
+                            <td class="text-muted" style="width: 25%">Gender:
                                 <button class="custom-tooltip" data-toggle="tooltip" data-title="Your gender allows us to find out who is generally using our services.">
                                     <i class="far fa-question-circle" ></i>
                                 </button></td>
                             <!--Display user gender-->
-                            <td class="col-9" id="gender-details">{{user.gender}} </td>
-                            <!--Display editable form with dropdown menu for user gender-->
-                            <td class="col-9" id="gender-form">
-                                <form action="" method="POST" class="form-inline">
+                            <td id="gender-details">{{user.gender}} </td>
+                            <!--Display editable form witd dropdown menu for user gender-->
+                            <td id="gender-form">
+                                <form action="" method="POST" class="col">
                                     {% csrf_token %}
                                     {% crispy gender_form %}
                                 </form>
                             </td>
-                            <td><a class="small text-muted col-6" id="gender-form-button">Edit</a></td>
+                            <td class="align-text-right"><a class="small text-muted" id="gender-form-button">Edit</a></td>
                         </tr>
                         <tr>
-                            <td class="col-3 text-muted align-text-top">Age Range:
+                            <td class="text-muted align-text-top" style="width: 25%">Age Range:
                                 <button class="custom-tooltip" data-toggle="tooltip" data-title="Your age range can help us personalize your experience.">
                                     <i class="far fa-question-circle" ></i>
                                 </button></td>
                             </td>
                             <!--Display static user age range-->
-                            <td class="col-9" id="age-details">{{user.age_range}} </td>
-                            <!--Display editable form with dropdown menu for user age range-->
-                            <td class="col-9" id="age-form">
-                                <form action="" method="POST" class="form-inline">
+                            <td class="align-text-left" id="age-details">{{user.age_range}} </td>
+                            <!--Display editable form witd dropdown menu for user age range-->
+                            <td id="age-form">
+                                <form action="" method="POST" class="col">
                                     {% csrf_token %}
                                     {% crispy age_form %}
                                 </form>
                             </td>
-                            <td><a class="small text-muted col-6" id="age-form-button">Edit</a></td>
+                            <td class="align-text-right"><a class="small text-muted" id="age-form-button">Edit</a></td>
                         </tr>
+                        </tbody>
                     </table>
                 </div>
 
@@ -124,33 +133,37 @@
                 <br>
 
                 <h5>Login Details </h5>
-                <table class="col-12 list-group-item box-display mb-3">
-                    <!--Display the user's email address-->
-                    <tr id="email">
-                        <td class="col-3 text-muted">Email:</td>
-                        <td class="col-6">{{user.email}} </td>
-                        <td><a class="small text-muted col-6" id="email-form-button">Edit</a></td>
-                    </tr>
+                <div class="table-responsive"> 
+                    <table class="table table-hover mb-3">
+                        <tbody>
+                        <!--Display the user's email address-->
+                        <tr id="email">
+                            <td class="text-muted" style="width: 25%">Email:</td>
+                            <td class="align-text-left">{{user.email}} </td>
+                            <td class="align-text-right"><a class="small text-muted" id="email-form-button">Edit</a></td>
+                        </tr>
 
-                    <!--Email update form block-->
-                    <tr id="email-form">
-                        <td class="col-3 text-muted align-text-top">Email:</td>
-                        <td class="col-9">
-                            <form action="" method="POST" class="form-inline">
-                                {% csrf_token %}
-                                {% crispy email_form %}
-                            </form>
-                        </td>
-                    </tr>
+                        <!--Email update form block-->
+                        <tr id="email-form">
+                            <td class="text-muted align-text-left" style="width: 25%">Email:</td>
+                            <td class="align-text-left">
+                                <form action="" method="POST" class="col">
+                                    {% csrf_token %}
+                                    {% crispy email_form %}
+                                </form>
+                            </td>
+                        </tr>
 
-                    <!--Dispaly a random string of asterix to show a password and link the user to 
-                        the password change page -->
-                    <tr>
-                        <td class="col-3 text-muted">Password:</td>
-                        <td class="col-9"> ******* </td>
-                        <td><a class="small text-muted col-6" href="{% url 'login:password-change' %}">Edit</a></td>
-                    </tr>
-                </table>
+                        <!--Dispaly a random string of asterix to show a password and link the user to 
+                            the password change page -->
+                        <tr>
+                            <td class="text-muted" style="width: 25%">Password:</td>
+                            <td> ******* </td>
+                            <td class="align-text-right"><a class="small text-muted" id="password-button" href="{% url 'login:password-change' %}">Edit</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <br>
                 <br>
                 <!--Display when the user joined the site-->
