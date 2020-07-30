@@ -164,5 +164,11 @@ th {
 }
 a:hover {
   cursor:pointer;
-  text-decoration: underline;
+  text-decoration: underline !important;
+}
+
+#name-form-button:hover, #gender-form-button:hover, #age-form-button:hover, #email-form-button:hover, #password-button:hover {
+  text-decoration: underline !important;
+  color: #337bc3 !important;
+  cursor: pointer !important;
 }
