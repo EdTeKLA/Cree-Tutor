@@ -404,6 +404,80 @@ class LanguageInfoView(ListView):
         user_languages = UserLanguages.objects.filter(user=self.request.user).order_by('language_level')
         return user_languages
 
+class LanguageEditView(View):
+    """
+    Class was created to show the language edit form.
+    Also contains a post method which accepts and saves all the information from a completed language edit form.
+    """
+
+    def get(self, request):
+        """
+        Shows the language edit form.
+        """
+        # Get all the languages
+        return render(request, "login/profile_language_form.html")
+
+    def post(self, request):
+        """
+        Method was created to update the user primary and secondary languages.
+        Also creates records for any languages a user knows.
+        :param request:
+        :return:
+        """
+        try:
+            # Get the user
+            user = self.request.user
+            print("user:"+str(user))
+
+            # Get all the primary languages
+            primary_languages = json.loads(
+                request.POST.getlist('primary-language')[0])
+            # Save the level of the language
+
+            ll, _ = LanguageLevels.objects.get_or_create(
+                language_level='primary')
+            print("ll:"+str(ll))
+
+            # Save them to the database if they don't exist
+
+            for primary_language in primary_languages:
+                ls = {'language': primary_language.lower()}
+                ls, _ = LanguagesSpoken.objects.get_or_create(
+                    language=primary_language.lower(), defaults=ls)
+
+                ul = UserLanguages(language_spoken=ls,
+                                   language_level=ll, user=user)
+                ul.save()
+
+            # Dealing with non-primary-languages
+            non_primary_languages = json.loads(
+                request.POST.getlist('non-primary-languages')[0])
+            # Save them to the database if they don't exist
+            non_primary_languages_objs = []
+            for non_primary_language in non_primary_languages:
+                ls = {'language': non_primary_language['language'].lower()}
+                ls, _ = LanguagesSpoken.objects.get_or_create(language=non_primary_language['language'].lower(),
+                                                              defaults=ls)
+                non_primary_languages_objs.append(ls)
+
+                ll, _ = LanguageLevels.objects.get_or_create(
+                    language_level=non_primary_language['fluency'].lower())
+
+                ul = UserLanguages(language_spoken=ls,
+                                   language_level=ll, user=user)
+                ul.save()
+
+            # Saving the status of the intake
+            user.intake_finished = True
+            print("intake finished:"+str(user.intake_finished))
+            # Save the profile
+            user.save()
+        except Exception as ex:
+            print(ex)
+            return HttpResponse('ERROR: ' + str(ex))
+        else:
+            return JsonResponse({'redirect': '/profile/language-info'})
+
 class LanguageEntryView(CreateView):
     model = UserLanguages
     template_name = 'login/profile_language_form.html'
