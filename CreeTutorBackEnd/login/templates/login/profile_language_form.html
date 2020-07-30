@@ -8,8 +8,7 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'login/js/profile.js' %}"></script>
-<script src="{% static 'login/js/intake.js' %}"></script>
+<script src="{% static 'login/js/profile_language.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -29,7 +28,7 @@
             <!-- Modile profile page navigation menu -->
             <div id="small-screen-nav">
                 <button type='button' class="list-group-item" data-toggle="collapse" data-target="#menu">
-                    Menu <i class="fas fa-bars"></i>  
+                    Menu <i class="fas fa-bars"></i>
                 </button>
                 <div class='collapse' id='menu'>
                     <ul class="list-group">
@@ -49,12 +48,150 @@
             <p class='text-muted small'>
                 Note: A primary language is the language that you are most proficient in and feel most comfortable speaking.
             </p>
-            <form action="" method="POST">
+            <!--<language edit form>-->
+        <div class="col-lg-8">
+            <!-- TODO: should write something about data privacy... -->
+            <form id="language-edit-form" class="form">
                 {% csrf_token %}
-                {% crispy form %}
+                <div id="primary-language-group" class="form-group row">
+                    <label class="col-12" for="primary-language-input-group">
+                        Primary Language
+                        <button class="custom-tooltip" data-toggle="tooltip" data-title="Knowing your primary language will help us learn how other people with a similar language background learn Plains Cree.">
+                            <i class="far fa-question-circle" ></i>
+                        </button>
+                    </label>
+                    <div class="col-12">
+                        <a href="" id="primary-language-help">
+                            <small>What is my primary language?</small>
+                        </a>
+                        <div id="primary-language-help-text" class="help-text closed">
+                            <small>
+                                Your primary language is the language that you are most proficient in and feel most comfortable speaking.
+                            </small>
+                        </div>
+
+                    </div>
+                    <div id="primary-language-input-group" class="col-12">
+                        <div class="input-group">
+                            <input type="text" class="form-control primary-language" placeholder="e.g. English">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <legend class="col-12 col-form-label">
+                        Do you know more languages?
+                    </legend>
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="more-languages" id="more-languages-yes" value="yes">
+                            <label class="form-check-label" for="more-languages-yes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="more-languages" id="more-languages-no" value="no">
+                            <label class="form-check-label" for="more-languages-no">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="additional-primary-language-group" class="form-group row hidden">
+                    <label class="col-12" for="primary-language-input-group">
+                        Additional Primary Languages
+                        <button class="custom-tooltip" data-toggle="tooltip" data-title="Knowing your full language background will help us learn how other people with a similar language background learn Plains Cree.">
+                            <i class="far fa-question-circle" ></i>
+                        </button>
+                    </label>
+                    <div class="col-12">
+                        <a href="" id="additional-primary-language-help">
+                            <small>What is an additional primary language?</small>
+                        </a>
+                        <div id="additional-primary-language-help-text" class="help-text closed">
+                            <small>
+                                You may or may not have any additional primary languages depending on your language background. For example, an additional primary language could be another equal primary language (if you grew up bilingual), a language that you spoke only as a child, or a language that you only speak at home since childhood.
+                            </small>
+                        </div>
+                    </div>
+                    <div id="additional-primary-language-input-group" class="col-12">
+                        <div class="input-group">
+                            <input type="text" class="form-control additional-primary-language" placeholder="e.g. French">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary remove-additional-primary-language" type="button">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary add-additional-primary-language" type="button">
+                            Add Language
+                        </button>
+                    </div>
+                </div>
+                <div id="other-language-group" class="form-group row hidden">
+                    <label class="col-12" for="other-language-input-group">
+                        Other Languages
+                        <button class="custom-tooltip" data-toggle="tooltip" data-title="Knowing all the languages you have learned or studied before will help us learn how other people with a similar language background learn Cree.">
+                            <i class="far fa-question-circle" ></i>
+                        </button>
+                    </label>
+                    <div class="col-12">
+                        <a href="" id="other-language-help">
+                            <small>What should I include in my "Other Languages"?</small>
+                        </a>
+                        <div id="other-language-group-fluency-error" class="form-message error hidden">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>Please select a fluency level for each language.</span>
+                        </div>
+                        <div id="other-language-help-text" class="help-text closed">
+                            <small>
+                                You can include any other languages you speak that you learned after childhood or that you didn't speak at home as a child. You can add as many as you need to and specify how fluent you are in each language.
+                            </small>
+                        </div>
+
+                    </div>
+                    <div id="other-language-input-group" class="col-12">
+                        <div class="input-group">
+                            <input type="text" class="form-control other-language" placeholder="e.g. Wood Cree">
+                            <!-- TODO: decide on better options -->
+                            <div class="dropdown-wrap input-group-append" data-content="" style="color:white">
+                                <select class="dropdown">
+                                    <option value="Little experience, can use and understand basic sentences and questions">
+                                        Little experience, can use and understand basic sentences and questions
+                                    </option>
+                                    <option value="Some experience, can hold basic, casual conversations">
+                                        Some experience, can hold basic, casual conversations
+                                    </option>
+                                    <option value="Lots of experience, not quite fluent but can communicate well in the language">
+                                        Lots of experience, not quite fluent but can communicate well in the language
+                                    </option>
+                                    <option value="Fluent, no communication problems">
+                                        Fluent, no communication problems
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary remove-other-language" type="button">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary add-other-language" type="button">
+                            Add Language
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12">
+                        <button id="submit" name="submit" class="btn btn-primary">Submit</button>
+                        <a id="cancel" name="cancel" class="btn btn-outline-light text-muted" href="/profile/language-info/">Skip</a>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
 </div>
-
-{% endblock %}
+{% endblock content %}
