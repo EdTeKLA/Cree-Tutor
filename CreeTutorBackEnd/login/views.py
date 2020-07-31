@@ -47,7 +47,6 @@ class Login(View):
 class SignUp(View):
     """
     Class was created to handle the creation of new user accounts.
-
     It contains methods to verify the information submitted is correct as well.
     """
 
@@ -213,7 +212,6 @@ class IntakeView(View):
     """
     Class was created to show the intake form if the user had not completed intake. If the user has completed intake,
     it shows a page which indicates that.
-
     Also contains a post method which accepts and saves all the information from a completed intake form.
     """
 
@@ -231,7 +229,6 @@ class IntakeView(View):
     def post(self, request):
         """
         Method was created to update the user record with the first name, last name, age and gender.
-
         Also creates records for any languages a user knows.
         :param request:
         :return:
@@ -404,6 +401,22 @@ class LanguageInfoView(ListView):
         user_languages = UserLanguages.objects.filter(user=self.request.user).order_by('language_level')
         return user_languages
 
+class LanguageEntryView(CreateView):
+    model = UserLanguages
+    template_name = 'login/profile_language_form.html'
+    # Set up the form class so that django know
+    form_class = UserLanguageUpdateForm 
+    # Link to the main language edit page after successfully adding a language to this user
+    success_url = reverse_lazy('login:profile-language-edit')
+    def form_valid(self, form):
+        '''Set up the form validation so that the user column in the userlanguage table is not empty'''
+        # Set the language entry's user to the user sending the POST request
+        form.instance.user = self.request.user
+        # Raise a success message to display on the reloaded html page
+        messages.success(self.request, f'Your language was successfully added!', extra_tags='success')
+        # apply the changes and save
+        return super().form_valid(form)
+
 class LanguageEditView(View):
     """
     Class was created to show the language edit form.
@@ -478,22 +491,6 @@ class LanguageEditView(View):
         else:
             return JsonResponse({'redirect': '/profile/language-info'})
 
-class LanguageEntryView(CreateView):
-    model = UserLanguages
-    template_name = 'login/profile_language_form.html'
-    # Set up the form class so that django know
-    form_class = UserLanguageUpdateForm 
-    # Link to the main language edit page after successfully adding a language to this user
-    success_url = reverse_lazy('login:profile-language-edit')
-    def form_valid(self, form):
-        '''Set up the form validation so that the user column in the userlanguage table is not empty'''
-        # Set the language entry's user to the user sending the POST request
-        form.instance.user = self.request.user
-        # Raise a success message to display on the reloaded html page
-        messages.success(self.request, f'Your language was successfully added!', extra_tags='success')
-        # apply the changes and save
-        return super().form_valid(form)
-    
 class LanguageUpdateView(UpdateView):
     model = UserLanguages
     template_name = 'login/profile_language_form.html'
