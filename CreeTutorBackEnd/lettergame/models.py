@@ -402,6 +402,7 @@ class Lemma(models.Model):
     - "transitive" describes the transitivity of lemma, as described in class Transitive
     - "translation" contains the english translation
     - "image" contains the path to a related descriptive image
+    - "syllabics" is the syllabics transcription of the lemma
     """
 
     id = models.IntegerField(primary_key=True)
@@ -412,6 +413,7 @@ class Lemma(models.Model):
     transitive = models.ForeignKey(Transitive, models.DO_NOTHING, blank=True, null=True)
     translation = models.CharField(max_length=250, blank=True, null=True)
     image = models.CharField(max_length=250, blank=True, null=True)
+    syllabics = models.CharField(max_length=250, blank=True, null=True)
 
 
     def __str__(self):
@@ -431,6 +433,7 @@ class Word(models.Model):
     - "num_syllables" is, loosely, the number of syllables in the word
     - "lemmaID" is the integer id referring to the relevant lemma descibed in the class Lemma
     - "sound" contains the path to the recording of the word
+    - "syllabics" is the syllabics transcription of the word
     """
 
     word_id = models.IntegerField(primary_key=True, default=0)
@@ -440,6 +443,7 @@ class Word(models.Model):
     num_syllables = models.IntegerField(blank=True, null=True)
     lemmaid = models.ForeignKey(Lemma, models.DO_NOTHING, blank=True, null=True)
     sound = models.CharField(max_length=250, blank=True, null=True)
+    syllabics = models.CharField(max_length=250, blank=True, null=True)
 
     def __str__(self):
         return self.word + " " + str(self.word_id)

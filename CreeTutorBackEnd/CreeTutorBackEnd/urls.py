@@ -15,8 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
+    path('vocab_lessons/', include('vocab_lessons.urls', namespace='vocab_lessons')),
     path('', include('login.urls')),
     path('', include('home.urls')),
     path('lettergame/', include('lettergame.urls')),
@@ -25,7 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('django.contrib.auth.urls')),
     path('errorpages/', include('errorpages.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'errorpages.views.view_404'
 handler500 = 'errorpages.views.view_500'

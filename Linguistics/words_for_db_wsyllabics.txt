@@ -1,0 +1,530 @@
+acimosis	N+AN+Der/Dim+N+AN+Sg	puppy	atim	acimosis.wav	ᐊᒋᒧᓯᐢ
+acimosis	N+AN+Sg	puppy	acimosis	acimosis.wav	ᐊᒋᒧᓯᐢ
+akâmaskîhk	N+IN+Loc	the land across an ocean	akâmaskiy	akâmaskîhk.m4a	ᐊᑳᒪᐢᑮᕽ
+akâmaskîhk	Ipc	the land across an ocean	akâmaskîhk	akâmaskîhk.m4a	ᐊᑳᒪᐢᑮᕽ
+akâmihk	Ipc	the place on the other side	akâmihk	akâmihk.m4a	ᐊᑳᒥᕽ
+amiskwâciwaskahikan		Edmonton	amiskwâciwaskahikan	amiskwâciwaskahikan.m4a	ᐊᒥᐢᒁᒋᐘᐢᑲᐦᐃᑲᐣ
+anohc	Ipc	now	anohc	anohc_0.wav,anohc_1.wav	ᐊᓄᐦᐨ
+apsis		a little	apsis	ap_sis.m4a	apsis
+api	V+AI+Imp+Imm+2Sg	sit	apiw	api-2.wav,api.wav	ᐊᐱ
+apik	V+AI+Imp+Imm+2Pl	sit	apiw	apik.wav	ᐊᐱᐠ
+apitân	V+AI+Imp+Imm+12Pl	sit	apiw	apitân.wav	ᐊᐱᑖᐣ
+apiw	V+AI+Ind+Prs+3Sg	sits	apiw	apiw.wav	ᐊᐱᐤ
+apiyiwa	V+AI+Ind+Prs+4Sg/Pl	sits	apiw	apiyiwa.wav	ᐊᐱᔨᐘ
+askipwawâ		potato	askipwawâ	askipwawâ_1.wav	ᐊᐢᑭᑅᐚ
+askipwâwa	N+IN+Pl	potato	askipwâwi	askipwâwa.m4a,askipwâwa_0.wav	ᐊᐢᑭᑇᐘ
+atâwêwikamik	N+IN+Sg	store	atâwêwikamik	atâwew_kamik.wav,atâwew_kamik-2.wav	ᐊᑖᐍᐏᑲᒥᐠ
+atâwêwikamikwa	N+IN+Pl	store	atâwêwikamik	atâwew_kamikwa.wav,atâwew_kamiwa.wav	ᐊᑖᐍᐏᑲᒥᑿ
+atim	N+AN+Sg	dog	atim	atim-2.wav,atim.wav,atim_0.wav,atim_1.wav	ᐊᑎᒼ
+atimwak	N+AN+Pl	dogs	atim	atimwak-2.wav,atimwak.wav	ᐊᑎᒷᐠ
+atoskê	V+AI+Imp+Imm+2Sg	work	atoskêw	atoske.m4a	ᐊᑐᐢᑫ
+awa	NULL	this	awa	awa.wav	ᐊᐘ
+awâsis	N+AN+Sg	baby	awâsis	awâsis.m4a	ᐊᐚᓯᐢ
+awîna	Pron+Interr+Sg	who	awîna	awîna.m4a	ᐊᐑᓇ
+ayamihcikê	V+AI+Imp+Imm+2Sg	read	ayamihcikêw	ayamihcike.wav,ayamihcike-2.wav	ᐊᔭᒥᐦᒋᑫ
+ayamihcikêw	V+AI+Ind+Prs+3Sg	reads	ayamihcikêw	ayamihcikew.wav	ᐊᔭᒥᐦᒋᑫᐤ
+ayamihcikêyiwa	V+AI+Ind+Prs+4Sg/Pl	reads	ayamihcikêw	ayamihcikeyiwa.wav	ᐊᔭᒥᐦᒋᑫᔨᐘ
+ayapi	V+AI+Imp+Imm+2Sg	NULL	apiw	ayapi.m4a,ayapi.wav	ᐊᔭᐱ
+ayapi	V+AI+Imp+Imm+2Sg	NULL	apiw	ayapi.m4a,ayapi.wav	ᐊᔭᐱ
+ay ay	Ipc	NULL	ay	ay ay.m4a	ᐊᐩ ᐊᐩ
+âkayâsîmowin	N+IN+Sg	NULL	âkayâsîmowin	âkayâsîmowin.m4a	ᐋᑲᔮᓰᒧᐏᐣ
+âkâyâsiw		NULL	âkâyâsiw	âkâyâsiw.m4a	ᐋᑳᔮᓯᐤ
+âpokosîs		NULL	âpokosîs	âpokosîs_0.wav,âpokosîs_1.wav	ᐋᐳᑯᓰᐢ
+âta	Ipc	NULL	âta	âta.m4a	ᐋᑕ
+âtiht	Ipc	NULL	âtiht	âtiht_0.wav,âtiht_1.wav	ᐋᑎᐦᐟ
+âwas		NULL	âwas	âwas_0.wav,âwas_1.wav	ᐋᐘᐢ
+âyiman	N+IN+Sg	NULL	âyiman	âyiman.m4a	ᐋᔨᒪᐣ
+âyiman	V+II+Ind+Prs+3Sg	NULL	âyiman	âyiman.m4a	ᐋᔨᒪᐣ
+cacâstapiwêw	V+AI+Ind+Prs+3Sg	NULL	cacâstapiwêw	cacâstapiwew_0.wav,cacâstapiwew_1.wav	ᒐᒑᐢᑕᐱᐍᐤ
+cakêk		NULL	cakêk	cakek_0.wav,cakek_1.wav	ᒐᑫᐠ
+cêhcapiwinisa	N+IN+Der/Dim+N+IN+Pl	NULL	têhtapiwin	cehcapiwinisa.wav	ᒉᐦᒐᐱᐏᓂᓴ
+cêhcapiwinisa	N+AN+Der/Dim+N+AN+Sg+Obv	NULL	têhtapiwin	cehcapiwinisa.wav	ᒉᐦᒐᐱᐏᓂᓴ
+cêhcapiwinisa	N+IN+Pl	NULL	cêhcapiwinis	cehcapiwinisa.wav	ᒉᐦᒐᐱᐏᓂᓴ
+cêskwa	Ipc	NULL	cêskwa	ceskwa_0.wav,ceskwa_1.wav	ᒉᐢᑿ
+cikêmâ	Ipc	NULL	cikêmâ	cikemâ_0.wav,cikemâ_1.wav	ᒋᑫᒫ
+cîki	Ipc	NULL	cîki	cîki_0.wav,cîki_1.wav	ᒌᑭ
+cîscayisîpwâkanis	N+IN+Sg	NULL	cîscayisîpwâkanis	cîscayisîpwâkanis_0.wav,cîscayisîpwâkanis_1.wav	ᒌᐢᒐᔨᓰᑇᑲᓂᐢ
+cîscaysîpwâkanis		NULL	cîscaysîpwâkanis	cîscaysîpwâkanis.m4a	ᒌᐢᒐᐩᓰᑇᑲᓂᐢ
+cohkâp		NULL	cohkâp	cohkâp_0.wav,cohkâp_1.wav	ᒍᐦᑳᑊ
+côcô		NULL	côcô	côcô_0.wav,côcô_1.wav	ᒎᒎ
+ehâcimot	NULL	is storytelling	ehâcimot	ehâcimot.wav	ᐁᐦᐋᒋᒧᐟ
+ehâcimo-	NULL	are storytelling root	ehâcimo	ehâcimo.wav	ᐁᐦᐋᒋᒧ-
+êhapit	V+AI+Cnj+Prs+3Sg	NULL	apiw	ehapit.wav	ᐁᐦᐊᐱᐟ
+êhapiyan	V+AI+Cnj+Prs+2Sg	NULL	apiw	ehapiyan.wav	ᐁᐦᐊᐱᔭᐣ
+êhapiyân	V+AI+Cnj+Prs+1Sg	NULL	apiw	ehapiyân.wav	ᐁᐦᐊᐱᔮᐣ
+êhapiyit	V+AI+Cnj+Prs+4Sg/Pl	NULL	apiw	ehapiyit.wav	ᐁᐦᐊᐱᔨᐟ
+êhayamihcikêt	V+AI+Cnj+Prs+3Sg	NULL	ayamihcikêw	ehayamihciket.wav	ᐁᐦᐊᔭᒥᐦᒋᑫᐟ
+êhayamihcikêyan	V+AI+Cnj+Prs+2Sg	NULL	ayamihcikêw	ehayamihcikeyan.wav	ᐁᐦᐊᔭᒥᐦᒋᑫᔭᐣ
+êhayamihcikêyâhk	V+AI+Cnj+Prs+1Pl	NULL	ayamihcikêw	ehayamihcikeyâhk.wav	ᐁᐦᐊᔭᒥᐦᒋᑫᔮᕽ
+êhayamihcikêyân	V+AI+Cnj+Prs+1Sg	NULL	ayamihcikêw	ehayamihcikeyân.wav	ᐁᐦᐊᔭᒥᐦᒋᑫᔮᐣ
+êhayamihcikêyit	V+AI+Cnj+Prs+4Sg/Pl	NULL	ayamihcikêw	ehayamihcikeyit.wav	ᐁᐦᐊᔭᒥᐦᒋᑫᔨᐟ
+êhâ		NULL	êhâ	ehâ_0.wav,ehâ_1.wav	ᐁᐦᐋ
+êhohpiyan		NULL	êhohpiyan	ehohpiyan.wav	ᐁᐦᐅᐦᐱᔭᐣ
+êhohpît	V+AI+Cnj+Prs+3Sg	NULL	ohpîw	ehohpît.wav	ᐁᐦᐅᐦᐲᐟ
+êhohpîyân	V+AI+Cnj+Prs+1Sg	NULL	ohpîw	ehohpîyân.wav	ᐁᐦᐅᐦᐲᔮᐣ
+êhohpîyit	V+AI+Cnj+Prs+4Sg/Pl	NULL	ohpîw	ehohpîyit.wav	ᐁᐦᐅᐦᐲᔨᐟ
+êhopîyâhk		NULL	êhopîyâhk	ehopîyâhk.wav	ᐁᐦᐅᐲᔮᕽ
+êkîwêcik	V+AI+Cnj+Prs+3Pl	NULL	kîwêw	ekîwecik.wav	ᐁᑮᐍᒋᐠ
+êkîwêt	V+AI+Cnj+Prs+3Sg	NULL	kîwêw	ekîwet.wav	ᐁᑮᐍᐟ
+êkîwêyan	V+AI+Cnj+Prs+2Sg	NULL	kîwêw	ekîweyan.wav	ᐁᑮᐍᔭᐣ
+êkîwêyâhk	V+AI+Cnj+Prs+1Pl	NULL	kîwêw	ekîweyâhk.wav	ᐁᑮᐍᔮᕽ
+êkîwêyân	V+AI+Cnj+Prs+1Sg	NULL	kîwêw	ekîweyân.wav	ᐁᑮᐍᔮᐣ
+êkîwêyêk	V+AI+Cnj+Prs+2Pl	NULL	kîwêw	ekîweyek.wav	ᐁᑮᐍᔦᐠ
+êkîwêyit	V+AI+Cnj+Prs+4Sg/Pl	NULL	kîwêw	ekîweyit.wav	ᐁᑮᐍᔨᐟ
+êkosi	Ipc	NULL	êkosi	ekosi.m4a	ᐁᑯᓯ
+êkwa	Ipc	NULL	êkwa	ekwa.m4a	ᐁᑿ
+êmasinahikêcik	V+AI+Cnj+Prs+3Pl	NULL	masinahikêw	emasinahikecik.wav	ᐁᒪᓯᓇᐦᐃᑫᒋᐠ
+êmasinahikêt	V+AI+Cnj+Prs+3Sg	NULL	masinahikêw	emasinahiket.wav	ᐁᒪᓯᓇᐦᐃᑫᐟ
+êmasinahikêyahk	V+AI+Cnj+Prs+12Pl	NULL	masinahikêw	emasinahikeyahk.wav	ᐁᒪᓯᓇᐦᐃᑫᔭᕽ
+êmasinahikêyan	V+AI+Cnj+Prs+2Sg	NULL	masinahikêw	emasinahikeyan.wav	ᐁᒪᓯᓇᐦᐃᑫᔭᐣ
+êmasinahikêyân	V+AI+Cnj+Prs+1Sg	NULL	masinahikêw	emasinahikeyân.wav	ᐁᒪᓯᓇᐦᐃᑫᔮᐣ
+êmasinahikêyêk	V+AI+Cnj+Prs+2Pl	NULL	masinahikêw	emasinahikeyek.wav	ᐁᒪᓯᓇᐦᐃᑫᔦᐠ
+êmâtocik	V+AI+Cnj+Prs+3Pl	NULL	mâtow	emâtocik.wav	ᐁᒫᑐᒋᐠ
+êmâtot	V+AI+Cnj+Prs+3Sg	NULL	mâtow	emâtot.wav	ᐁᒫᑐᐟ
+êmâtoyahk	V+AI+Cnj+Prs+12Pl	NULL	mâtow	emâtoyahk.wav	ᐁᒫᑐᔭᕽ
+êmâtoyan	V+AI+Cnj+Prs+2Sg	NULL	mâtow	emâtoyan.wav,emâtoyan_0-2.wav,emâtoyan_0.wav,emâtoyan_1-2.wav,emâtoyan_1.wav	ᐁᒫᑐᔭᐣ
+êmâtoyân	V+AI+Cnj+Prs+1Sg	NULL	mâtow	emâtoyân.wav,emâtoyân_0.wav,emâtoyân_1.wav	ᐁᒫᑐᔮᐣ
+êmâtoyêk	V+AI+Cnj+Prs+2Pl	NULL	mâtow	emâtoyek.wav	ᐁᒫᑐᔦᐠ
+êmêtawêt	V+AI+Cnj+Prs+3Sg	NULL	mêtawêw	emetawet.wav	ᐁᒣᑕᐍᐟ
+êmêtawêyan	V+AI+Cnj+Prs+2Sg	NULL	mêtawêw	emetaweyan.wav	ᐁᒣᑕᐍᔭᐣ
+êmêtawêyâhk	V+AI+Cnj+Prs+1Pl	NULL	mêtawêw	emetaweyâhk.wav	ᐁᒣᑕᐍᔮᕽ
+êmêtawêyân	V+AI+Cnj+Prs+1Sg	NULL	mêtawêw	emetaweyân.wav	ᐁᒣᑕᐍᔮᐣ
+êmêtawêyit	V+AI+Cnj+Prs+4Sg/Pl	NULL	mêtawêw	emetaweyit.wav	ᐁᒣᑕᐍᔨᐟ
+êmihkwânis	N+AN+Sg	NULL	êmihkwânis	emihkwânis.m4a,emihkwânis_0.wav,emihkwânis_1.wav	ᐁᒥᐦᒁᓂᐢ
+êmihkwânis	N+AN+Der/Dim+N+AN+Sg	NULL	êmihkwân	emihkwânis.m4a,emihkwânis_0.wav,emihkwânis_1.wav	ᐁᒥᐦᒁᓂᐢ
+êminihkwêt	V+AI+Cnj+Prs+3Sg	NULL	minihkwêw	eminihkwet.wav	ᐁᒥᓂᐦᑵᐟ
+êminihkwêyahk	V+AI+Cnj+Prs+12Pl	NULL	minihkwêw	eminihkweyahk.wav	ᐁᒥᓂᐦᑵᔭᕽ
+êminihkwêyan	V+AI+Cnj+Prs+2Sg	NULL	minihkwêw	eminihkweyan.wav	ᐁᒥᓂᐦᑵᔭᐣ
+êminihkwêyân	V+AI+Cnj+Prs+1Sg	NULL	minihkwêw	eminihkweyân.wav	ᐁᒥᓂᐦᑵᔮᐣ
+êminihkwêyêk	V+AI+Cnj+Prs+2Pl	NULL	minihkwêw	eminihkweywek.wav	ᐁᒥᓂᐦᑵᔦᐠ
+êmîcisocik	V+AI+Cnj+Prs+3Pl	NULL	mîcisow	emîc_socik.wav	ᐁᒦᒋᓱᒋᐠ
+êmîcisot	V+AI+Cnj+Prs+3Sg	NULL	mîcisow	emîc_sot.wav	ᐁᒦᒋᓱᐟ
+êmîcisoyahk	V+AI+Cnj+Prs+12Pl	NULL	mîcisow	emîc_soyahk.wav	ᐁᒦᒋᓱᔭᕽ
+êmîcisoyan	V+AI+Cnj+Prs+2Sg	NULL	mîcisow	emîc_soyan.wav	ᐁᒦᒋᓱᔭᐣ
+êmîcisoyâhk	V+AI+Cnj+Prs+1Pl	NULL	mîcisow	emîc_soyâhk.wav	ᐁᒦᒋᓱᔮᕽ
+êmîcisoyân	V+AI+Cnj+Prs+1Sg	NULL	mîcisow	emîc_soyân.wav	ᐁᒦᒋᓱᔮᐣ
+êmîcisoyêk	V+AI+Cnj+Prs+2Pl	NULL	mîcisow	emîc_soyek.wav	ᐁᒦᒋᓱᔦᐠ
+ênikamocik	V+AI+Cnj+Prs+3Pl	NULL	nikamow	enikamocik.wav	ᐁᓂᑲᒧᒋᐠ
+ênikamot	V+AI+Cnj+Prs+3Sg	NULL	nikamow	enikamot.wav	ᐁᓂᑲᒧᐟ
+ênikamoyahk	V+AI+Cnj+Prs+12Pl	NULL	nikamow	enikamoyahk.wav	ᐁᓂᑲᒧᔭᕽ
+ênikamoyan	V+AI+Cnj+Prs+2Sg	NULL	nikamow	enikamoyan.wav,enikamoyan_0.wav,enikamoyan_1.wav	ᐁᓂᑲᒧᔭᐣ
+ênikamoyân	V+AI+Cnj+Prs+1Sg	NULL	nikamow	enikamoyân.wav,enikamoyân_0.wav,enikamoyân_1.wav	ᐁᓂᑲᒧᔮᐣ
+ênikamoyêk	V+AI+Cnj+Prs+2Pl	NULL	nikamow	enikamoyek.wav	ᐁᓂᑲᒧᔦᐠ
+ênipâcik	V+AI+Cnj+Prs+3Pl	NULL	nipâw	enipâcik.wav	ᐁᓂᐹᒋᐠ
+ênipât	V+AI+Cnj+Prs+3Sg	NULL	nipâw	enipât.wav	ᐁᓂᐹᐟ
+ênipâyahk	V+AI+Cnj+Prs+12Pl	NULL	nipâw	enipâyahk.wav	ᐁᓂᐹᔭᕽ
+ênipâyan	V+AI+Cnj+Prs+2Sg	NULL	nipâw	enipâyan.wav	ᐁᓂᐹᔭᐣ
+ênipâyân	V+AI+Cnj+Prs+1Sg	NULL	nipâw	enipâyân.wav	ᐁᓂᐹᔮᐣ
+ênipâyêk	V+AI+Cnj+Prs+2Pl	NULL	nipâw	enipâyek.wav	ᐁᓂᐹᔦᐠ
+ênipâyit	V+AI+Cnj+Prs+4Sg/Pl	NULL	nipâw	enipâyit.wav	ᐁᓂᐹᔨᐟ
+ênîmihitot	V+AI+Cnj+Prs+3Sg	NULL	nîmihitow	enîmihitot.wav	ᐁᓃᒥᐦᐃᑐᐟ
+ênîmihitoyan	V+AI+Cnj+Prs+2Sg	NULL	nîmihitow	enîmihitoyan.wav	ᐁᓃᒥᐦᐃᑐᔭᐣ
+ênîmihitoyân	V+AI+Cnj+Prs+1Sg	NULL	nîmihitow	enîmihitoyân.wav	ᐁᓃᒥᐦᐃᑐᔮᐣ
+ênîmihitoyit	V+AI+Cnj+Prs+4Sg/Pl	NULL	nîmihitow	enîmihitoyit.wav	ᐁᓃᒥᐦᐃᑐᔨᐟ
+ênîpawit	V+AI+Cnj+Prs+3Sg	NULL	nîpawiw	enîpawit.wav	ᐁᓃᐸᐏᐟ
+ênîpawiyan	V+AI+Cnj+Prs+2Sg	NULL	nîpawiw	enîpawiyan.wav	ᐁᓃᐸᐏᔭᐣ
+ênîpawiyân	V+AI+Cnj+Prs+1Sg	NULL	nîpawiw	enîpawiyân.wav	ᐁᓃᐸᐏᔮᐣ
+êpahpiyit		NULL	êpahpiyit	epahpiyit.wav	ᐁᐸᐦᐱᔨᐟ
+êpâhpit	V+AI+Cnj+Prs+3Sg	NULL	pâhpiw	epâhpit.wav	ᐁᐹᐦᐱᐟ
+êpâhpiyan	V+AI+Cnj+Prs+2Sg	NULL	pâhpiw	epâhpiyan.wav,epâhpiyan_0.wav,epâhpiyan_1.wav	ᐁᐹᐦᐱᔭᐣ
+êpâhpiyâhk	V+AI+Cnj+Prs+1Pl	NULL	pâhpiw	epâhpiyâhk.wav	ᐁᐹᐦᐱᔮᕽ
+êpâhpiyân	V+AI+Cnj+Prs+1Sg	NULL	pâhpiw	epâhpiyân.wav,epâhpiyân_0.wav,epâhpiyân_1.wav	ᐁᐹᐦᐱᔮᐣ
+êpihtwâyan		NULL	êpihtwâyan	epihtwâyan.wav	ᐁᐱᐦᑤᔭᐣ
+êpihtwâyit		NULL	êpihtwâyit	epihtwâyit.wav	ᐁᐱᐦᑤᔨᐟ
+êpimohtêcik	V+AI+Cnj+Prs+3Pl	NULL	pimohtêw	epimohtecik.wav	ᐁᐱᒧᐦᑌᒋᐠ
+êpimohtêt	V+AI+Cnj+Prs+3Sg	NULL	pimohtêw	epimohtet.wav	ᐁᐱᒧᐦᑌᐟ
+êpimohtêyahk	V+AI+Cnj+Prs+12Pl	NULL	pimohtêw	epimohteyahk.wav	ᐁᐱᒧᐦᑌᔭᕽ
+êpimohtêyan	V+AI+Cnj+Prs+2Sg	NULL	pimohtêw	epimohteyan.wav	ᐁᐱᒧᐦᑌᔭᐣ
+êpimohtêyâhk	V+AI+Cnj+Prs+1Pl	NULL	pimohtêw	epimohteyâhk.wav	ᐁᐱᒧᐦᑌᔮᕽ
+êpimohtêyân	V+AI+Cnj+Prs+1Sg	NULL	pimohtêw	epimohteyân.wav	ᐁᐱᒧᐦᑌᔮᐣ
+êpimohtêyêk	V+AI+Cnj+Prs+2Pl	NULL	pimohtêw	epimohteyek.wav	ᐁᐱᒧᐦᑌᔦᐠ
+êpîhtwât	V+AI+Cnj+Prs+3Sg	NULL	pîhtwâw	epîhtwât.wav	ᐁᐲᐦᑤᐟ
+êpîhtwâyâhk	V+AI+Cnj+Prs+1Pl	NULL	pîhtwâw	epîhtwâyâhk.wav	ᐁᐲᐦᑤᔮᕽ
+êpîhtwâyân	V+AI+Cnj+Prs+1Sg	NULL	pîhtwâw	epîhtwâyân.wav	ᐁᐲᐦᑤᔮᐣ
+êpîkiskwêcik	V+AI+Cnj+Prs+3Pl	NULL	pîkiskwêw	epîkiskwecik.wav	ᐁᐲᑭᐢᑵᒋᐠ
+êpîkiskwêt	V+AI+Cnj+Prs+3Sg	NULL	pîkiskwêw	epîkiskwet.wav	ᐁᐲᑭᐢᑵᐟ
+êpîkiskwêyahk	V+AI+Cnj+Prs+12Pl	NULL	pîkiskwêw	epîkiskweyahk.wav	ᐁᐲᑭᐢᑵᔭᕽ
+êpîkiskwêyâhk	V+AI+Cnj+Prs+1Pl	NULL	pîkiskwêw	epîkiskweyâhk.wav	ᐁᐲᑭᐢᑵᔮᕽ
+êpîkiskwêyân	V+AI+Cnj+Prs+1Sg	NULL	pîkiskwêw	epîkiskweyân.wav	ᐁᐲᑭᐢᑵᔮᐣ
+êpîkiskwêyêk	V+AI+Cnj+Prs+2Pl	NULL	pîkiskwêw	epîkisweyek.wav	ᐁᐲᑭᐢᑵᔦᐠ
+êpîkiskwêyan	V+AI+Cnj+Prs+2Sg	NULL	pîkiskwêw	epîskiskweyan.wav	ᐁᐲᑭᐢᑵᔭᐣ
+êsâkihiht	V+TA+Cnj+Prs+X+3Sg	NULL	sâkihêw	esâkihiht_0.wav,esâkihiht_1.wav	ᐁᓵᑭᐦᐃᐦᐟ
+êsâkihit	V+TA+Cnj+Prs+3Sg+1SgO	NULL	sâkihêw	esâkihit_0.wav,esâkihit_1.wav	ᐁᓵᑭᐦᐃᐟ
+isîyihkâs		NULL	isîyihkâs	isîyihkâs.m4a	ᐃᓰᔨᐦᑳᐢ
+isîyihkâso		NULL	isîyihkâso	isîyihkâso.m4a	ᐃᓰᔨᐦᑳᓱ
+isîyihkâta		NULL	isîyihkâta	isîyihkâta.m4a	ᐃᓰᔨᐦᑳᑕ
+isîyihkâtêw		NULL	isîyihkâtêw	isîyihkâtew.m4a	ᐃᓰᔨᐦᑳᑌᐤ
+iskwêsis	N+AN+Der/Dim+N+AN+Sg	NULL	iskwêw	iskwesis.m4a	ᐃᐢᑵᓯᐢ
+iskwêsis	N+AN+Sg	NULL	iskwêsis	iskwesis.m4a	ᐃᐢᑵᓯᐢ
+iskwêw	N+AN+Sg	NULL	iskwêw	iskwew.m4a,iskwew_0.wav,iskwew_1.wav	ᐃᐢᑵᐤ
+itamaciho		NULL	itamaciho	itamaciho.m4a	ᐃᑕᒪᒋᐦᐅ
+itohtê	V+AI+Imp+Imm+2Sg	NULL	itohtêw	itohte.m4a	ᐃᑐᐦᑌ
+itwê	V+AI+Imp+Imm+2Sg	NULL	itwêw	itwe.m4a	ᐃᑘ
+ka	Ipc	NULL	ka	ka.m4a	ᑲ
+kayâs	Ipc	NULL	kayâs	kayâs.m4a,kayâs.wav	ᑲᔮᐢ
+kihtwâm		NULL	kihtwâm	kihtwâm.m4a	ᑭᐦᑤᒼ
+kikîwân	V+AI+Ind+Prs+2Sg	NULL	kîwêw	kikîwân.wav	ᑭᑮᐚᐣ
+kikîwânâwâw	V+AI+Ind+Prs+2Pl	NULL	kîwêw	kikîwânâwâw.wav	ᑭᑮᐚᓈᐚᐤ
+kikot	N+IN+Sg+Px2Sg	NULL	mikot	kikot.wav	ᑭᑯᐟ
+kimasinahikân	V+AI+Ind+Prs+2Sg	NULL	masinahikêw	kimasinahikân.wav	ᑭᒪᓯᓇᐦᐃᑳᐣ
+kimasinahikânaw	V+AI+Ind+Prs+12Pl	NULL	masinahikêw	kimasinahikânaw.wav	ᑭᒪᓯᓇᐦᐃᑳᓇᐤ
+kimasinahikânâwâw	V+AI+Ind+Prs+2Pl	NULL	masinahikêw	kimasinahikânâwâw.wav	ᑭᒪᓯᓇᐦᐃᑳᓈᐚᐤ
+kimâton	V+AI+Ind+Prs+2Sg	NULL	mâtow	kimâton.wav	ᑭᒫᑐᐣ
+kimâtonaw	V+AI+Ind+Prs+12Pl	NULL	mâtow	kimâtonaw.wav	ᑭᒫᑐᓇᐤ
+kimâtonâwâw	V+AI+Ind+Prs+2Pl	NULL	mâtow	kimâtonâwâw.wav	ᑭᒫᑐᓈᐚᐤ
+kimêtawân	V+AI+Ind+Prs+2Sg	NULL	mêtawêw	kimetawân.wav	ᑭᒣᑕᐚᐣ
+kiminihkwân	V+AI+Ind+Prs+2Sg	NULL	minihkwêw	kiminihkwân.wav	ᑭᒥᓂᐦᒁᐣ
+kiminihkwânaw	V+AI+Ind+Prs+12Pl	NULL	minihkwêw	kiminihkwânaw.wav	ᑭᒥᓂᐦᒁᓇᐤ
+kiminihkwânâwâw	V+AI+Ind+Prs+2Pl	NULL	minihkwêw	kiminihkwânâwâw.wav	ᑭᒥᓂᐦᒁᓈᐚᐤ
+kimîcison	V+AI+Ind+Prs+2Sg	NULL	mîcisow	kimîc_son.wav	ᑭᒦᒋᓱᐣ
+kimîcisonaw	V+AI+Ind+Prs+12Pl	NULL	mîcisow	kimîc_sonaw.wav	ᑭᒦᒋᓱᓇᐤ
+kimîcisonâwâw	V+AI+Ind+Prs+2Pl	NULL	mîcisow	kimîc_sonâwâw.wav	ᑭᒦᒋᓱᓈᐚᐤ
+kinikamon	V+AI+Ind+Prs+2Sg	NULL	nikamow	kinikamon.wav	ᑭᓂᑲᒧᐣ
+kinikamon	N+IN+Sg+Px2Sg	NULL	nikamon	kinikamon.wav	ᑭᓂᑲᒧᐣ
+kinikamonaw	V+AI+Ind+Prs+12Pl	NULL	nikamow	kinikamonaw.wav	ᑭᓂᑲᒧᓇᐤ
+kinikamonâwâw	V+AI+Ind+Prs+2Pl	NULL	nikamow	kinikamonâwâw.wav	ᑭᓂᑲᒧᓈᐚᐤ
+kinipân	V+AI+Ind+Prs+2Sg	NULL	nipâw	kinipân.wav	ᑭᓂᐹᐣ
+kinipânaw	V+AI+Ind+Prs+12Pl	NULL	nipâw	kinipânaw.wav	ᑭᓂᐹᓇᐤ
+kinipânâwâw	V+AI+Ind+Prs+2Pl	NULL	nipâw	kinipânâwâw.wav	ᑭᓂᐹᓈᐚᐤ
+kinîmihiton	V+AI+Ind+Prs+2Sg	NULL	nîmihitow	kinîmihiton.wav	ᑭᓃᒥᐦᐃᑐᐣ
+kinîpawin	V+AI+Ind+Prs+2Sg	NULL	nîpawiw	kinîpawin.wav	ᑭᓃᐸᐏᐣ
+kinosêw	N+AN+Sg	NULL	kinosêw	kinosew.m4a,kinosew_0.wav,kinosew_1.wav	ᑭᓄᓭᐤ
+kipâhpin	V+AI+Ind+Prs+2Sg	NULL	pâhpiw	kipâhpin.wav	ᑭᐹᐦᐱᐣ
+kipihtwân		NULL	kipihtwân	kipihtwân.wav	ᑭᐱᐦᑤᐣ
+kipimohtân	V+AI+Ind+Prs+2Sg	NULL	pimohtêw	kipimohtân.wav	ᑭᐱᒧᐦᑖᐣ
+kipimohtânaw	V+AI+Ind+Prs+12Pl	NULL	pimohtêw	kipimohtânaw.wav	ᑭᐱᒧᐦᑖᓇᐤ
+kipimohtânâwâw	V+AI+Ind+Prs+2Pl	NULL	pimohtêw	kipimohtânâwâw.wav	ᑭᐱᒧᐦᑖᓈᐚᐤ
+kipîkiskwânaw	V+AI+Ind+Prs+12Pl	NULL	pîkiskwêw	kipîkiskwânaw.wav	ᑭᐲᑭᐢᒁᓇᐤ
+kipîkiskwânâwâw	V+AI+Ind+Prs+2Pl	NULL	pîkiskwêw	kipîkiswânâwâw.wav	ᑭᐲᑭᐢᒁᓈᐚᐤ
+kipîkiskwân	V+AI+Ind+Prs+2Sg	NULL	pîkiskwêw	kipîskiskwân.wav	ᑭᐲᑭᐢᒁᐣ
+kiskinohamâkosi	V+AI+Imp+Imm+2Sg	NULL	kiskinohamâkosiw	kiskinohamâkosi.m4a	ᑭᐢᑭᓄᐦᐊᒫᑯᓯ
+kiskîsik	N+IN+Sg+Px2Sg	NULL	miskîsik	kiskîsik.wav	ᑭᐢᑮᓯᐠ
+kitapin	V+AI+Ind+Prs+2Sg	NULL	apiw	kitapin.wav	ᑭᑕᐱᐣ
+kitapin	V+AI+Ind+Prs+2Sg	NULL	apiw	kitapin.wav	ᑭᑕᐱᐣ
+kitayamihcikân	V+AI+Ind+Prs+2Sg	NULL	ayamihcikêw	kitayamihcikân.wav	ᑭᑕᔭᒥᐦᒋᑳᐣ
+kitohpîn	V+AI+Ind+Prs+2Sg	NULL	ohpîw	kitohpîn.wav	ᑭᑐᐦᐲᐣ
+kitohpîn	V+AI+Ind+Prs+2Sg	NULL	ohpîw	kitohpîn.wav	ᑭᑐᐦᐲᐣ
+kitôn	N+IN+Sg+Px2Sg	NULL	mitôn	kitôn.wav	ᑭᑑᐣ
+kîhtawakay		NULL	kîhtawakay	kîhtawakay.wav	ᑮᐦᑕᐘᑲᐩ
+kîkwây	Pron+Interr+Sg	NULL	kîkwây	kîkwây.m4a	ᑮᒁᐩ
+kîkwây	Pron+Interr+Pl	NULL	kîkwây	kîkwây.m4a	ᑮᒁᐩ
+kîscakâsa	N+IN+Pl+Px2Sg	NULL	mîscakâsa	kîscakâsa.wav	ᑮᐢᒐᑳᓴ
+kîsta	Pron+Pers+2Sg+Incl	NULL	kîsta	kîsta-2.wav,kîsta.wav	ᑮᐢᑕ
+kîstanaw	Pron+Pers+12Pl+Incl	NULL	kîstanaw	kîstanaw-2.wav,kîstanaw.wav	ᑮᐢᑕᓇᐤ
+kîstawâw	Pron+Pers+2Pl+Incl	NULL	kîstawâw	kîstawâw-2.wav,kîstawâw.wav	ᑮᐢᑕᐚᐤ
+kîwê	V+AI+Imp+Imm+2Sg	NULL	kîwêw	kîwe-2.wav,kîwe.wav	ᑮᐍ
+kîwêk	V+AI+Imp+Imm+2Pl	NULL	kîwêw	kîwek.wav	ᑮᐍᐠ
+kîwêtân	V+AI+Imp+Imm+12Pl	NULL	kîwêw	kîwetân.wav	ᑮᐍᑖᐣ
+kîwêw	V+AI+Ind+Prs+3Sg	NULL	kîwêw	kîwew.wav	ᑮᐍᐤ
+kîwêwak	V+AI+Ind+Prs+3Pl	NULL	kîwêw	kîwewak.wav	ᑮᐍᐘᐠ
+kîwêyiwa	V+AI+Ind+Prs+4Sg/Pl	NULL	kîwêw	kîweyiwa.wav	ᑮᐍᔨᐘ
+kîya	Pron+Pers+2Sg	NULL	kiya	kîya-2.wav,kîya.wav	ᑮᔭ
+kîyanaw		NULL	kîyanaw	kîyanaw-2.wav,kîyanaw.wav	ᑮᔭᓇᐤ
+kîyawâw	Pron+Pers+2Pl	NULL	kiyawâw	kîyawâw-2.wav,kîyawâw.wav	ᑮᔭᐚᐤ
+kôhkôs		NULL	kôhkôs	kôhkôs-2.wav,kôhkôs.wav	ᑰᐦᑰᐢ
+kôhkôsak		NULL	kôhkôsak	kôhkôsak-2.wav,kôhkôsak.wav	ᑰᐦᑰᓴᐠ
+kôhkôsis		NULL	kôhkôsis	kôhkôsis.wav	ᑰᐦᑰᓯᐢ
+kôhkôsowîyan		NULL	kôhkôsowîyan	kôhkôsowîyan.m4a	ᑰᐦᑰᓱᐑᔭᐣ
+kôhkôsowîyin		NULL	kôhkôsowîyin	kôhkôsowîyin_0.wav,kôhkôsowîyin_1.wav	ᑰᐦᑰᓱᐑᔨᐣ
+ma		NULL	ma	ma.m4a	ᒪ
+mahtâminak	N+AN+Pl	NULL	mahtâmin	mahtâminak_0.wav,mahtâminak_1.wav	ᒪᐦᑖᒥᓇᐠ
+masinahikê	V+AI+Imp+Imm+2Sg	NULL	masinahikêw	masinahike-2.wav,masinahike.wav	ᒪᓯᓇᐦᐃᑫ
+masinahikêtân	V+AI+Imp+Imm+12Pl	NULL	masinahikêw	masinahiketân.wav	ᒪᓯᓇᐦᐃᑫᑖᐣ
+masinahikêw	V+AI+Ind+Prs+3Sg	NULL	masinahikêw	masinahikew.wav	ᒪᓯᓇᐦᐃᑫᐤ
+masinahikêwak	V+AI+Ind+Prs+3Pl	NULL	masinahikêw	masinahikewak.wav	ᒪᓯᓇᐦᐃᑫᐘᐠ
+maskihkiwâpohk		NULL	maskihkiwâpohk	maskihkiwâpohk.wav	ᒪᐢᑭᐦᑭᐚᐳᕽ
+maskihkiwâpoy		NULL	maskihkiwâpoy	maskihkiwâpoy.m4a,maskihkiwâpoy_0.wav,maskihkiwâpoy_1.wav	ᒪᐢᑭᐦᑭᐚᐳᐩ
+maskisin	N+IN+Sg	NULL	maskisin	maskisin-2.wav,maskisin.wav	ᒪᐢᑭᓯᐣ
+maskisina	N+IN+Pl	NULL	maskisin	maskisina-2.wav,maskisina.wav	ᒪᐢᑭᓯᓇ
+maskisinihk	N+IN+Loc	NULL	maskisin	maskisinihk.wav	ᒪᐢᑭᓯᓂᕽ
+maskisinihk	V+AI+Cnj+Prs+X+3Sg	NULL	maskisiniw	maskisinihk.wav	ᒪᐢᑭᓯᓂᕽ
+maskisinisa	N+IN+Der/Dim+N+IN+Pl	NULL	maskisin	maskisinisa.wav	ᒪᐢᑭᓯᓂᓴ
+maskisinisa	N+IN+Pl	NULL	maskisinis	maskisinisa.wav	ᒪᐢᑭᓯᓂᓴ
+matahminak		NULL	matahminak	matahminak.m4a	ᒪᑕᐦᒥᓇᐠ
+mâka	Ipc	NULL	mâka	mâka.m4a	ᒫᑲ
+mâmaskâc	Ipc	NULL	mâmaskâc	mâmaskâc.m4a	ᒫᒪᐢᑳᐨ
+mâto	V+AI+Imp+Imm+2Sg	NULL	mâtow	mâto-2.wav,mâto.wav	ᒫᑐ
+mâtow	V+AI+Ind+Prs+3Sg	NULL	mâtow	mâtow.wav	ᒫᑐᐤ
+mâtowak	V+AI+Ind+Prs+3Pl	NULL	mâtow	mâtowak.wav	ᒫᑐᐘᐠ
+mêtawê	V+AI+Imp+Imm+2Sg	NULL	mêtawêw	metawe-2.wav,metawe.wav	ᒣᑕᐍ
+mêtawêtân	V+AI+Imp+Imm+12Pl	NULL	mêtawêw	metawetân.wav	ᒣᑕᐍᑖᐣ
+mêtawêw	V+AI+Ind+Prs+3Sg	NULL	mêtawêw	metawew.wav	ᒣᑕᐍᐤ
+mêtawêyiwa	V+AI+Ind+Prs+4Sg/Pl	NULL	mêtawêw	metaweyiwa.wav	ᒣᑕᐍᔨᐘ
+micihciy	N+IN+Sg	NULL	micihciy	micihciy-2.wav,micihciy-3.wav,micihciy.wav	ᒥᒋᐦᒋᐩ
+micihciya	N+IN+Pl	NULL	micihciy	micihciya.wav	ᒥᒋᐦᒋᔭ
+micihcîsa	N+IN+Der/Dim+N+IN+Pl	NULL	micihciy	micihcîsa.wav	ᒥᒋᐦᒌᓴ
+micihcîsa	N+IN+Pl	NULL	micihcîs	micihcîsa.wav	ᒥᒋᐦᒌᓴ
+mickciy		NULL	mickciy	mickciy.m4a	mickciy
+mikot	N+IN+Sg	NULL	mikot	mikot-2.wav,mikot-3.wav,mikot.m4a,mikot.wav	ᒥᑯᐟ
+mikota	N+IN+Pl	NULL	mikot	mikota.wav	ᒥᑯᑕ
+minihkwê	V+AI+Imp+Imm+2Sg	NULL	minihkwêw	minihkwe-2.wav,minihkwe.wav	ᒥᓂᐦᑵ
+minihkwêk	V+AI+Imp+Imm+2Pl	NULL	minihkwêw	minihkwek.wav	ᒥᓂᐦᑵᐠ
+minihkwêw	V+AI+Ind+Prs+3Sg	NULL	minihkwêw	minihkwew.wav	ᒥᓂᐦᑵᐤ
+minihkwêwîyâkanis		NULL	minihkwêwîyâkanis	minihkwewîyâkanis.m4a,minihkwewîyâkanis_0.wav,minihkwewîyâkanis_1.wav	ᒥᓂᐦᑵᐑᔮᑲᓂᐢ
+minôs	N+AN+Sg	NULL	minôs	minôs-2.wav,minôs.wav	ᒥᓅᐢ
+minôsak	N+AN+Pl	NULL	minôs	minôsak-2.wav,minôsak.wav,minôsak_0.wav,minôsak_1.wav	ᒥᓅᓴᐠ
+mistêhtapiwin		NULL	mistêhtapiwin	NULL	ᒥᐢᑌᐦᑕᐱᐏᐣ
+misatâwêwikamik	N+IN+Sg	NULL	misi-atâwêwikamik	NULL	ᒥᓴᑖᐍᐏᑲᒥᐠ
+miscakasa		NULL	miscakasa	miscakasa.m4a	ᒥᐢᒐᑲᓴ
+misicisa	N+IN+Der/Dim+N+IN+Pl	NULL	misit	misicisa.wav	ᒥᓯᒋᓴ
+misicisa	N+IN+Pl	NULL	misicis	misicisa.wav	ᒥᓯᒋᓴ
+misiminihkwêwîyâkan		NULL	misiminihkwêwîyâkan	misiminihkwewîyâkan.wav	ᒥᓯᒥᓂᐦᑵᐑᔮᑲᐣ
+misiminôsak	N+AN+Pl	NULL	misi-minôs	misiminôsak.wav	ᒥᓯᒥᓅᓴᐠ
+misimôhkomân	N+IN+Sg	NULL	misi-môhkomân	misimôhkomân.wav	ᒥᓯᒨᐦᑯᒫᐣ
+misit	V+TA+Imp+Imm+2Sg+3SgO	NULL	itêw	misit-2.wav,misit-3.wav,misit.m4a,misit.wav	ᒥᓯᐟ
+misit	N+IN+Sg	NULL	misit	misit-2.wav,misit-3.wav,misit.m4a,misit.wav	ᒥᓯᐟ
+misit	Ipc	NULL	misit	misit-2.wav,misit-3.wav,misit.m4a,misit.wav	ᒥᓯᐟ
+misita	V+TI+Imp+Imm+2Sg	NULL	itam	misita.wav	ᒥᓯᑕ
+misita	N+IN+Pl	NULL	misit	misita.wav	ᒥᓯᑕ
+misitihk	V+TA+Imp+Imm+2Pl+3SgO	NULL	itêw	misitihk.wav	ᒥᓯᑎᕽ
+misitihk	N+IN+Loc	NULL	misit	misitihk.wav	ᒥᓯᑎᕽ
+miskâcisa	N+IN+Der/Dim+N+IN+Pl	NULL	miskât	miskâcisa.wav	ᒥᐢᑳᒋᓴ
+miskât	N+IN+Sg	NULL	miskât	miskât-2.wav,miskât-3.wav,miskât.wav	ᒥᐢᑳᐟ
+miskâta	N+IN+Pl	NULL	miskât	miskâta.wav	ᒥᐢᑳᑕ
+miskîsik	N+IN+Sg	NULL	miskîsik	miskîsik-2.wav,miskîsik-3.wav,miskîsik.m4a,miskîsik.wav	ᒥᐢᑮᓯᐠ
+miskîsikwa	N+IN+Pl	NULL	miskîsik	miskîsikwa.wav	ᒥᐢᑮᓯᑿ
+mispiton	N+IN+Sg	NULL	mispiton	mispiton-2.wav,mispiton-3.wav,mispiton.m4a,mispiton.wav	ᒥᐢᐱᑐᐣ
+mispitona	N+IN+Pl	NULL	mispiton	mispitona.wav	ᒥᐢᐱᑐᓇ
+mistahi	Ipc	NULL	mistahi	mistahi.m4a	ᒥᐢᑕᐦᐃ
+mistaskipwâwa		NULL	mistaskipwâwa	mistaskipwâwa.wav	ᒥᐢᑕᐢᑭᑇᐘ
+mistatim	N+AN+Sg	NULL	mistatim	mistatim-2.wav,mistatim.wav	ᒥᐢᑕᑎᒼ
+mistatimwak	N+AN+Pl	NULL	mistatim	mistatimwak-2.wav,mistatimwak.wav	ᒥᐢᑕᑎᒷᐠ
+mistikinosêw		NULL	mistikinosêw	mistikinosew.wav	ᒥᐢᑎᑭᓄᓭᐤ
+mistikwan		NULL	mistikwan	mistikwan.m4a	ᒥᐢᑎᑿᐣ
+mistikwân	N+IN+Sg	NULL	mistikwân	mistikwân-2.wav,mistikwân-3.wav,mistikwân.wav	ᒥᐢᑎᒁᐣ
+mistikwâna	N+IN+Pl	NULL	mistikwân	mistikwâna.wav	ᒥᐢᑎᒁᓇ
+mistimaskisina		NULL	mistimaskisina	mistimaskisina.wav	ᒥᐢᑎᒪᐢᑭᓯᓇ
+mitawakay		NULL	mitawakay	mitawakay.m4a	ᒥᑕᐘᑲᐩ
+mitôn	N+IN+Sg	NULL	mitôn	mitôn-2.wav,mitôn-3.wav,mitôn.m4a,mitôn.wav	ᒥᑑᐣ
+mitôna	N+IN+Pl	NULL	mitôn	mitôna.wav	ᒥᑑᓇ
+mitônihk	N+IN+Loc	NULL	mitôn	mitônihk.wav	ᒥᑑᓂᕽ
+mîciso	V+AI+Imp+Imm+2Sg	NULL	mîcisow	mîc_so.wav,mîc_so-2.wav	ᒦᒋᓱ
+mîcisok	V+AI+Imp+Imm+2Pl	NULL	mîcisow	mîc_sok.wav	ᒦᒋᓱᐠ
+mîcisow	V+AI+Ind+Prs+3Sg	NULL	mîcisow	mîc_sow.wav	ᒦᒋᓱᐤ
+mîcisowak	V+AI+Ind+Prs+3Pl	NULL	mîcisow	mîc_sowak.wav	ᒦᒋᓱᐘᐠ
+mîcimapoy		NULL	mîcimapoy	mîcimapoy_0.wav,mîcimapoy_1.wav	ᒦᒋᒪᐳᐩ
+mîcimâpoy	N+IN+Sg	NULL	mîcimâpoy	mîcimâpoy.m4a	ᒦᒋᒫᐳᐩ
+mîhtawakay		NULL	mîhtawakay	mîhtawakay-2.wav,mîhtawakay-3.wav,mîhtawakay.wav	ᒦᐦᑕᐘᑲᐩ
+mîhtawakaya		NULL	mîhtawakaya	mîhtawakaya.wav	ᒦᐦᑕᐘᑲᔭ
+mîhtawakâhk		NULL	mîhtawakâhk	mîhtawakâhk.wav	ᒦᐦᑕᐘᑳᕽ
+mîpit	N+IN+Sg	NULL	mîpit	mîpit.m4a	ᒦᐱᐟ
+mîscakâsa	N+IN+Pl	NULL	mîscakâsa	mîscakâsa-2.wav,mîscakâsa.wav	ᒦᐢᒐᑳᓴ
+mîyomaciho		NULL	mîyomaciho	mîyomaciho.m4a	ᒦᔪᒪᒋᐦᐅ
+mîywâsin		NULL	mîywâsin	mîywâsin.m4a	ᒦᔼᓯᐣ
+mostos	N+AN+Sg	NULL	mostos	mostos-2.wav,mostos.wav	ᒧᐢᑐᐢ
+mostoswak	N+AN+Pl	NULL	mostos	mostoswak-2.wav,mostoswak.wav	ᒧᐢᑐᔁᐠ
+môhkomanis		NULL	môhkomanis	môhkomanis_0.wav,môhkomanis_1.wav	ᒨᐦᑯᒪᓂᐢ
+môhkomân	N+IN+Sg	NULL	môhkomân	môhkomân-2.wav,môhkomân.m4a,môhkomân.wav	ᒨᐦᑯᒫᐣ
+môhkomâna	N+IN+Pl	NULL	môhkomân	môhkomâna-2.wav,môhkomâna.wav	ᒨᐦᑯᒫᓇ
+mônîyâw		NULL	mônîyâw	mônîyâw.m4a	ᒨᓃᔮᐤ
+napêw		NULL	napêw	napew.m4a	ᓇᐯᐤ
+nâpêsis	N+AN+Der/Dim+N+AN+Sg	NULL	nâpê-êsa	nâpesis.m4a	ᓈᐯᓯᐢ
+nâpêsis	N+AN+Sg	NULL	nâpê-êsis	nâpesis.m4a	ᓈᐯᓯᐢ
+nâpêsis	N+AN+Der/Dim+N+AN+Sg	NULL	nâpêw	nâpesis.m4a	ᓈᐯᓯᐢ
+nâpêsis	N+AN+Sg	NULL	nâpêsis	nâpesis.m4a	ᓈᐯᓯᐢ
+nâpêw	N+AN+Sg	NULL	nâpêw	nâpew.m4a	ᓈᐯᐤ
+nâspic	Ipc	NULL	nâspic	nâspic_0.wav,nâspic_1.wav	ᓈᐢᐱᐨ
+nêhiyaw	N+AN+Sg	NULL	nêhiyaw	nehiyaw.m4a	ᓀᐦᐃᔭᐤ
+nêhiyawê	V+AI+Imp+Imm+2Sg	NULL	nêhiyawêw	nehiyawe.m4a	ᓀᐦᐃᔭᐍ
+nêhiyawêwin	N+IN+Sg	NULL	nêhiyawêwin	nehiyawewin.m4a	ᓀᐦᐃᔭᐍᐏᐣ
+nêstosi	V+AI+Imp+Imm+2Sg	NULL	nêstosiw	nestosi.m4a	ᓀᐢᑐᓯ
+nicawâsimisak	N+AN+Pl+Px1Sg	NULL	-awâsimis	nicawâsimisak.m4a	ᓂᒐᐚᓯᒥᓴᐠ
+nicihciya	N+IN+Pl+Px1Sg	NULL	micihciy	nicihciya.wav	ᓂᒋᐦᒋᔭ
+nihtâ		NULL	nihtâ	nihtâ-.m4a	ᓂᐦᑖ
+nikamo	V+AI+Imp+Imm+2Sg	NULL	nikamow	nikamo.wav	ᓂᑲᒧ
+nikamok	V+AI+Imp+Imm+2Pl	NULL	nikamow	nikamok.wav	ᓂᑲᒧᐠ
+nikamotân	V+AI+Imp+Imm+12Pl	NULL	nikamow	nikamotân.wav	ᓂᑲᒧᑖᐣ
+nikamow	V+AI+Ind+Prs+3Sg	NULL	nikamow	nikamow.wav	ᓂᑲᒧᐤ
+nikamowak	V+AI+Ind+Prs+3Pl	NULL	nikamow	nikamowak.wav	ᓂᑲᒧᐘᐠ
+nikâwiy	N+AN+Sg+Px1Sg	NULL	-kâwiy	nikâwiy.m4a	ᓂᑳᐏᐩ
+nikîwân	V+AI+Ind+Prs+1Sg	NULL	kîwêw	nikîwân.wav	ᓂᑮᐚᐣ
+nikîwânân	V+AI+Ind+Prs+1Pl	NULL	kîwêw	nikîwânân.wav	ᓂᑮᐚᓈᐣ
+nikosis	N+AN+Sg+Px1Sg	NULL	-kosis	nikosis.m4a	ᓂᑯᓯᐢ
+nimasinahikân	V+AI+Ind+Prs+1Sg	NULL	masinahikêw	nimasinahikân.wav	ᓂᒪᓯᓇᐦᐃᑳᐣ
+nimâton	V+AI+Ind+Prs+1Sg	NULL	mâtow	nimâton.wav	ᓂᒫᑐᐣ
+nimêtawân	V+AI+Ind+Prs+1Sg	NULL	mêtawêw	nimetawân.wav	ᓂᒣᑕᐚᐣ
+nimêtawânân	V+AI+Ind+Prs+1Pl	NULL	mêtawêw	nimetawânân.wav	ᓂᒣᑕᐚᓈᐣ
+niminihkwân	V+AI+Ind+Prs+1Sg	NULL	minihkwêw	niminihkwân.wav	ᓂᒥᓂᐦᒁᐣ
+nimîcison	V+AI+Ind+Prs+1Sg	NULL	mîcisow	nimîcison.wav	ᓂᒦᒋᓱᐣ
+nimîcisonân	V+AI+Ind+Prs+1Pl	NULL	mîcisow	nimîcisonân.wav	ᓂᒦᒋᓱᓈᐣ
+nimosôm	N+AN+Sg+Px1Sg	NULL	-mosôm	nimsôm.m4a	ᓂᒧᓲᒼ
+ninêkihikwak		NULL	ninêkihikwak	ninekihikwak.m4a	ᓂᓀᑭᐦᐃᑿᐠ
+ninikamon	V+AI+Ind+Prs+1Sg	NULL	nikamow	ninikamon.wav	ᓂᓂᑲᒧᐣ
+ninikamon	N+IN+Sg+Px1Sg	NULL	nikamon	ninikamon.wav	ᓂᓂᑲᒧᐣ
+ninipân	V+AI+Ind+Prs+1Sg	NULL	nipâw	ninipân.wav	ᓂᓂᐹᐣ
+ninîmihiton	V+AI+Ind+Prs+1Sg	NULL	nîmihitow	ninîmihiton.wav	ᓂᓃᒥᐦᐃᑐᐣ
+ninîpawin	V+AI+Ind+Prs+1Sg	NULL	nîpawiw	ninîpawin.wav	ᓂᓃᐸᐏᐣ
+nipâ	V+AI+Imp+Imm+2Sg	NULL	nipâw	nipâ-2.wav,nipâ.wav	ᓂᐹ
+nipâhpin	V+AI+Ind+Prs+1Sg	NULL	pâhpiw	nipâhpin.wav	ᓂᐹᐦᐱᐣ
+nipâhpinân	V+AI+Ind+Prs+1Pl	NULL	pâhpiw	nipâhpinân.wav	ᓂᐹᐦᐱᓈᐣ
+nipâtân	V+AI+Imp+Imm+12Pl	NULL	nipâw	nipâtân.wav	ᓂᐹᑖᐣ
+nipâw	V+AI+Ind+Prs+3Sg	NULL	nipâw	nipâw.wav	ᓂᐹᐤ
+nipâwak	V+AI+Ind+Prs+3Pl	NULL	nipâw	nipâwak.wav	ᓂᐹᐘᐠ
+nipâyiwa	V+AI+Ind+Prs+4Sg/Pl	NULL	nipâw	nipâyiwa.wav	ᓂᐹᔨᐘ
+nipimohtân	V+AI+Ind+Prs+1Sg	NULL	pimohtêw	nipimohtân.wav	ᓂᐱᒧᐦᑖᐣ
+nipimohtânan		NULL	nipimohtânan	nipimohtânan.wav	ᓂᐱᒧᐦᑖᓇᐣ
+nipîhtwân	V+AI+Ind+Prs+1Sg	NULL	pîhtwâw	nipîhtwân.wav	ᓂᐲᐦᑤᐣ
+nipîhtwânân	V+AI+Ind+Prs+1Pl	NULL	pîhtwâw	nipîhtwânân.wav	ᓂᐲᐦᑤᓈᐣ
+nipîkiskwân	V+AI+Ind+Prs+1Sg	NULL	pîkiskwêw	nipîkiskwân.wav	ᓂᐲᑭᐢᒁᐣ
+nipîkiskwânân	V+AI+Ind+Prs+1Pl	NULL	pîkiskwêw	nipîkiskwânân.wav	ᓂᐲᑭᐢᒁᓈᐣ
+nipîy		NULL	nipîy	nipîy_0.wav,nipîy_1.wav	ᓂᐲᐩ
+nisita	N+IN+Pl+Px1Sg	NULL	misit	nisita.wav	ᓂᓯᑕ
+nisitohta	V+TI+Imp+Imm+2Sg	NULL	nisitohtam	nisitohta.m4a	ᓂᓯᑐᐦᑕ
+niskâta	N+IN+Pl+Px1Sg	NULL	miskât	niskâta.wav	ᓂᐢᑳᑕ
+nispitona	N+IN+Pl+Px1Sg	NULL	mispiton	nispitona.wav	ᓂᐢᐱᑐᓇ
+nistawêyim	V+TA+Imp+Imm+2Sg+3SgO	NULL	nistawêyimêw	nistaweyim.m4a	ᓂᐢᑕᐍᔨᒼ
+nistikwân	N+IN+Sg+Px1Sg	NULL	mistikwân	nistikwân.wav	ᓂᐢᑎᒁᐣ
+nitapin	V+AI+Ind+Prs+1Sg	NULL	apiw	nitapin.wav	ᓂᑕᐱᐣ
+nitapin	V+AI+Ind+Prs+1Sg	NULL	apiw	nitapin.wav	ᓂᑕᐱᐣ
+nitawêyihta	V+TI+Imp+Imm+2Sg	NULL	nitawêyihtam	nitaweyihta.m4a	ᓂᑕᐍᔨᐦᑕ
+nitawêyim	V+TA+Imp+Imm+2Sg+3SgO	NULL	nitawêyimêw	nitaweyim.m4a	ᓂᑕᐍᔨᒼ
+nitayamihcikân	V+AI+Ind+Prs+1Sg	NULL	ayamihcikêw	nitayamihcikân.wav	ᓂᑕᔭᒥᐦᒋᑳᐣ
+nitayamihcikânân	V+AI+Ind+Prs+1Pl	NULL	ayamihcikêw	nitayamihcikânân.wav	ᓂᑕᔭᒥᐦᒋᑳᓈᐣ
+nitânis	N+AN+Sg+Px1Sg	NULL	-tânis	nitânis.m4a	ᓂᑖᓂᐢ
+nitâwasimisak		NULL	nitâwasimisak	nitâwasimisak.m4a	ᓂᑖᐘᓯᒥᓴᐠ
+nitohpîn	V+AI+Ind+Prs+1Sg	NULL	ohpîw	nitohpîn.wav	ᓂᑐᐦᐲᐣ
+nitohpîn	V+AI+Ind+Prs+1Sg	NULL	ohpîw	nitohpîn.wav	ᓂᑐᐦᐲᐣ
+nitohpînân	V+AI+Ind+Prs+1Pl	NULL	ohpîw	nitohpînân.wav	ᓂᑐᐦᐲᓈᐣ
+nitohpînân	V+AI+Ind+Prs+1Pl	NULL	ohpîw	nitohpînân.wav	ᓂᑐᐦᐲᓈᐣ
+nitohta	V+TI+Imp+Imm+2Sg	NULL	nitohtam	nitohta.m4a	ᓂᑐᐦᑕ
+nitôtêm	N+AN+Sg+Px1Sg	NULL	-tôtêm	nitôtem.m4a	ᓂᑑᑌᒼ
+Niwînikamon	V+AI+Ind+Fut+Int+1Sg	NULL	nikamow	Niwînikamon.wav	ᓂᐑᓂᑲᒧᐣ
+nîmihito	V+AI+Imp+Imm+2Sg	NULL	nîmihitow	nîmihito-2.wav,nîmihito.wav	ᓃᒥᐦᐃᑐ
+nîmihitok	V+AI+Imp+Imm+2Pl	NULL	nîmihitow	nîmihitok.wav	ᓃᒥᐦᐃᑐᐠ
+nîmihitotân	V+AI+Imp+Imm+12Pl	NULL	nîmihitow	nîmihitotân.wav	ᓃᒥᐦᐃᑐᑖᐣ
+nîmihitow	V+AI+Ind+Prs+3Sg	NULL	nîmihitow	nîmihitow.wav	ᓃᒥᐦᐃᑐᐤ
+nîmihitoyiwa	V+AI+Ind+Prs+4Sg/Pl	NULL	nîmihitow	nîmihitoyiwa.wav	ᓃᒥᐦᐃᑐᔨᐘ
+nîpawi	V+AI+Imp+Imm+2Sg	NULL	nîpawiw	nîpawi-2.wav,nîpawi.wav	ᓃᐸᐏ
+nîpawik	V+AI+Imp+Imm+2Pl	NULL	nîpawiw	nîpawik.wav	ᓃᐸᐏᐠ
+nîpawitân	V+AI+Imp+Imm+12Pl	NULL	nîpawiw	nîpawitân.wav	ᓃᐸᐏᑖᐣ
+nîpawiw	V+AI+Ind+Prs+3Sg	NULL	nîpawiw	nîpawiw.wav	ᓃᐸᐏᐤ
+nîpit	V+TA+Imp+Imm+2Sg+3SgO	NULL	itêw	nîpit_0.wav,nîpit_1.wav	ᓃᐱᐟ
+nîpit	N+IN+Sg+Px1Sg	NULL	mîpit	nîpit_0.wav,nîpit_1.wav	ᓃᐱᐟ
+nîpîy		NULL	nîpîy	nîpîy_0.wav,nîpîy_1.wav,nîpîy_2.wav,nîpîy_3.wav	ᓃᐲᐩ
+nîsosâp	Ipc	NULL	nîsosâp	nîsosâp_0.wav,nîsosâp_1.wav	ᓃᓱᓵᑊ
+nîsosâp	Num+Ipc	NULL	nîsosâp	nîsosâp_0.wav,nîsosâp_1.wav	ᓃᓱᓵᑊ
+nîsta	Pron+Pers+1Sg+Incl	NULL	nîsta	nîsta-2.wav,nîsta.wav	ᓃᐢᑕ
+nîstanân	Pron+Pers+1Pl+Incl	NULL	nîstanân	nîstanân-2.wav,nîstanân.wav	ᓃᐢᑕᓈᐣ
+nîtisânak	N+AN+Pl+Px1Sg	NULL	-tisân	nîtisânak.m4a	ᓃᑎᓵᓇᐠ
+nîya	Pron+Pers+1Sg	NULL	niya	nîya-2.wav,nîya.wav	ᓃᔭ
+nîyanân	Pron+Pers+1Pl	NULL	niyanân	nîyanân-2.wav,nîyanân.wav,nîyanân_0.wav,nîyanân_1.wav	ᓃᔭᓈᐣ
+nîyânan		NULL	nîyânan	nîyânan_0.wav,nîyânan_1.wav	ᓃᔮᓇᐣ
+nohtâwiy	N+AN+Sg+Px1Sg	NULL	-ohtâwiy	nohtâwiy.m4a	ᓄᐦᑖᐏᐩ
+nohtê		NULL	nohtê	nohte-.m4a	ᓄᐦᑌ
+nohtêkatê		NULL	nohtêkatê	nohtekate.m4a	ᓄᐦᑌᑲᑌ
+nohtêkwasi		NULL	nohtêkwasi	nohtekwasi.m4a	ᓄᐦᑌᑿᓯ
+nôhkom	N+AN+Sg+Px1Sg	NULL	-ohkom	nôhkom.m4a	ᓅᐦᑯᒼ
+nôsisimak	N+AN+Pl+Px1Sg	NULL	-ôsisim	nôsisimak.m4a	ᓅᓯᓯᒪᐠ
+ocihciya	N+IN+Pl+Px3Sg	NULL	micihciy	ocihciya.wav	ᐅᒋᐦᒋᔭ
+ohci	Ipc	NULL	ohci	ohci.m4a	ᐅᐦᒋ
+ohpî	V+AI+Imp+Imm+2Sg	NULL	ohpîw	ohpî-2.wav,ohpî.wav,ohpî_0.wav,ohpî_1.wav,ohpî_2.wav,ohpî_3.wav	ᐅᐦᐲ
+ohpîk	V+AI+Imp+Imm+2Pl	NULL	ohpîw	ohpîk.wav	ᐅᐦᐲᐠ
+ohpîk	V+II+Cnj+Prs+3Sg	NULL	ohpîw	ohpîk.wav	ᐅᐦᐲᐠ
+ohpîw	V+AI+Ind+Prs+3Sg	NULL	ohpîw	ohpîw.wav	ᐅᐦᐲᐤ
+ohpîw	V+II+Ind+Prs+3Sg	NULL	ohpîw	ohpîw.wav	ᐅᐦᐲᐤ
+ohpîyiwa	V+AI+Ind+Prs+4Sg/Pl	NULL	ohpîw	ohpîyiwa.wav	ᐅᐦᐲᔨᐘ
+ohpîyiwa	V+II+Ind+Prs+4Pl	NULL	ohpîw	ohpîyiwa.wav	ᐅᐦᐲᔨᐘ
+ohtâwîmâw	N+AN+Sg	NULL	ohtâwîmâw	ohtâwîmâw.m4a	ᐅᐦᑖᐑᒫᐤ
+ohtâwîmâw	N+AN+Sg	NULL	-ohtâwiy	ohtâwîmâw.m4a	ᐅᐦᑖᐑᒫᐤ
+ohtâwîmâw	V+TA+Ind+Prs+X+3Sg	NULL	ohtâwîmêw	ohtâwîmâw.m4a	ᐅᐦᑖᐑᒫᐤ
+okâwîmâw	N+AN+Sg	NULL	okâwîmâw	okâwîmâw.m4a	ᐅᑳᐑᒫᐤ
+okâwîmâw	V+TA+Ind+Prs+X+3Sg	NULL	okâwîmêw	okâwîmâw.m4a	ᐅᑳᐑᒫᐤ
+okâwîmâw	N+AN+Sg	NULL	-kâwiy	okâwîmâw.m4a	ᐅᑳᐑᒫᐤ
+okot	N+IN+Sg+Px3Sg	NULL	mikot	okot.wav	ᐅᑯᐟ
+onêkihikomâw		NULL	onêkihikomâw	onekihikomâw.m4a	ᐅᓀᑭᐦᐃᑯᒫᐤ
+osita	N+IN+Pl+Px3Sg	NULL	misit	osita.wav	ᐅᓯᑕ
+oskâta	N+IN+Pl+Px3Sg	NULL	miskât	oskâta.wav	ᐅᐢᑳᑕ
+oskâtâskwak	N+AN+Pl	NULL	oskâtâsk	oskâtâskwak.m4a,oskâtâskwak_0.wav	ᐅᐢᑳᑖᐢᑿᐠ
+ospitona	N+IN+Pl+Px3Sg	NULL	mispiton	ospitona.wav	ᐅᐢᐱᑐᓇ
+ôcênas		NULL	ôcênas	ôcenas.m4a	ᐆᒉᓇᐢ
+ôcênâs	N+IN+Der/Dim+N+IN+Sg	NULL	ôtênaw	ôcenâs.m4a	ᐆᒉᓈᐢ
+ôcênâs	N+IN+Sg	NULL	ôcênâs	ôcenâs.m4a	ᐆᒉᓈᐢ
+ôhô		NULL	ôhô	ôhô_0.wav,ôhô_1.wav,ôhô_2.wav,ôhô_3.wav	ᐆᐦᐆ
+ôki	NULL	these	ôki	ôki.wav	ᐆᑭ
+ôtênaw	N+IN+Sg	NULL	ôtênaw	ôtenaw.m4a	ᐆᑌᓇᐤ
+pahkwêsikan	N+AN+Sg	NULL	pahkwêsikan	pahkwesikan.m4a,pahkwesikan_0.wav,pahkwesikan_1.wav	ᐸᐦᑵᓯᑲᐣ
+pahpiyiwa		NULL	pahpiyiwa	pahpiyiwa.wav	ᐸᐦᐱᔨᐘ
+papêskomina	N+IN+Pl	NULL	papêskomina	papeskomina.m4a,papeskomina_0.wav,papeskomina_1.wav	ᐸᐯᐢᑯᒥᓇ
+papêskomina	N+IN+Sg	NULL	papêskomina	papeskomina.m4a,papeskomina_0.wav,papeskomina_1.wav	ᐸᐯᐢᑯᒥᓇ
+pâhpi	V+AI+Imp+Imm+2Sg	NULL	pâhpiw	pâhpi-2.wav,pâhpi.wav	ᐹᐦᐱ
+pâhpiw	V+AI+Ind+Prs+3Sg	NULL	pâhpiw	pâhpiw.wav	ᐹᐦᐱᐤ
+pê		NULL	pê	pe-.m4a	ᐯ
+pêtâ	V+TI+Imp+Imm+2Sg	NULL	pêtâw	petâ_0.wav,petâ_1.wav	ᐯᑖ
+pêyakwan	V+II+Ind+Prs+3Sg	NULL	pêyakwan	peyakwan.m4a,peyakwan.wav	ᐯᔭᑿᐣ
+pêyakwan	Ipc	NULL	pêyakwan	peyakwan.m4a,peyakwan.wav	ᐯᔭᑿᐣ
+picikwâs	N+AN+Sg	NULL	picikwâs	picikwâs_0.wav,picikwâs_1.wav	ᐱᒋᒁᐢ
+pihtokwê		NULL	pihtokwê	pihtokwe.m4a,pihtokwe.wav	ᐱᐦᑐᑵ
+pihtwâ		NULL	pihtwâ	pihtwâ-2.wav,pihtwâ.wav	ᐱᐦᑤ
+pihtwâyiwa		NULL	pihtwâyiwa	pihtwâyiwa.wav	ᐱᐦᑤᔨᐘ
+pimohtê	V+AI+Imp+Imm+2Sg	NULL	pimohtêw	pimohte-2.wav,pimohte.wav	ᐱᒧᐦᑌ
+pimohtêk	V+AI+Imp+Imm+2Pl	NULL	pimohtêw	pimohtek.wav	ᐱᒧᐦᑌᐠ
+pimohtêk	V+II+Cnj+Prs+3Sg	NULL	ohtêw	pimohtek.wav	ᐱᒧᐦᑌᐠ
+pimohtêtân	V+AI+Imp+Imm+12Pl	NULL	pimohtêw	pimohtetân.wav	ᐱᒧᐦᑌᑖᐣ
+pimohtêw	V+AI+Ind+Prs+3Sg	NULL	pimohtêw	pimohtew.wav	ᐱᒧᐦᑌᐤ
+pimohtêw	V+II+Ind+Prs+3Sg	NULL	ohtêw	pimohtew.wav	ᐱᒧᐦᑌᐤ
+pimohtêwak	V+AI+Ind+Prs+3Pl	NULL	pimohtêw	pimohtewak.wav	ᐱᒧᐦᑌᐘᐠ
+pitamâ	Ipc	NULL	pitamâ	pitamâ.m4a	ᐱᑕᒫ
+pîhtwâw	V+AI+Ind+Prs+3Sg	NULL	pîhtwâw	pîhtwâw.wav	ᐲᐦᑤᐤ
+pîkiskwâs		NULL	pîkiskwâs	pîkiskwâs.m4a	ᐲᑭᐢᒁᐢ
+pîkiskwê	V+AI+Imp+Imm+2Sg	NULL	pîkiskwêw	pîkiskwe-2.wav,pîkiskwe.wav	ᐲᑭᐢᑵ
+pîkiskwêwak	V+AI+Ind+Prs+3Pl	NULL	pîkiskwêw	pîkiskwewak.wav	ᐲᑭᐢᑵᐘᐠ
+pîkiskwêw	V+AI+Ind+Prs+3Sg	NULL	pîkiskwêw	NULL	ᐲᑭᐢᑵᐤ
+pîsim	N+AN+Sg	NULL	pîsim	pîsim.m4a,pîsim_0.wav,pîsim_1.wav	ᐲᓯᒼ
+sakahikan	N+IN+Sg	NULL	sakahikan	sakahikan_0.wav	ᓴᑲᐦᐃᑲᐣ
+sakihikan		NULL	sakihikan	sakihikan_1.wav	ᓴᑭᐦᐃᑲᐣ
+sâkahikan	N+IN+Sg	NULL	sâkahikan	sâkahikan_0.wav,sâkahikan_1.wav	ᓵᑲᐦᐃᑲᐣ
+sêmâk	Ipc	NULL	sêmâk	semâk.m4a,semâk_0.wav,semâk_1.wav	ᓭᒫᐠ
+sikâk	N+AN+Sg	NULL	sikâk	sikâk_0.wav,sikâk_1.wav	ᓯᑳᐠ
+sîsîp	N+AN+Sg	NULL	sîsîp	sîsîp-2.wav,sîsîp.wav,sîsîp_0.wav,sîsîp_1.wav	ᓰᓰᑊ
+sîsîpak	N+AN+Pl	NULL	sîsîp	sîsîpak-2.wav,sîsîpak.wav	ᓰᓰᐸᐠ
+sîsîpisisak	N+AN+Der/Dim+N+AN+Pl	NULL	sîsîp	sîsîpisisak.wav	ᓰᓰᐱᓯᓴᐠ
+sîsîpisisak	N+AN+Pl	NULL	sîsîpisis	sîsîpisisak.wav	ᓰᓰᐱᓯᓴᐠ
+sîwihtâkan		NULL	sîwihtâkan	sîwihtâkan.m4a,sîwihtâkan_0.wav,sîwihtâkan_1.wav	ᓰᐏᐦᑖᑲᐣ
+sîwinikan	N+AN+Sg	NULL	sîwinikan	sîwinikan.m4a,sîwinikan_0.wav,sîwinikan_1.wav	ᓰᐏᓂᑲᐣ
+tawâw	V+II+Ind+Prs+3Sg	NULL	tawâw	tawâw.m4a,tawâw.wav	ᑕᐚᐤ
+tawâw	Ipc	NULL	tawâw	tawâw.m4a,tawâw.wav	ᑕᐚᐤ
+tânêhki	Ipc	NULL	tânêhki	tânehki.m4a	ᑖᓀᐦᑭ
+tânisi	Ipc	NULL	tânisi	tânisi.m4a,tânisi.wav	ᑖᓂᓯ
+tânisîyisi	Ipc	NULL	tânisîyisi	tânisîyisi.m4a	ᑖᓂᓰᔨᓯ
+tânispi		NULL	tânispi	tânispi.m4a	ᑖᓂᐢᐱ
+tânitê	Ipc	NULL	tânitê	tânite.m4a	ᑖᓂᑌ
+têhtapiwin	N+IN+Sg	NULL	têhtapiwin	tehtapiwin-2.wav,tehtapiwin.wav	ᑌᐦᑕᐱᐏᐣ
+têhtapiwin	N+AN+Sg	NULL	têhtapiwin	tehtapiwin-2.wav,tehtapiwin.wav	ᑌᐦᑕᐱᐏᐣ
+têhtapiwina	N+IN+Pl	NULL	têhtapiwin	tehtapiwina-2.wav,tehtapiwina.wav	ᑌᐦᑕᐱᐏᓇ
+têhtapiwina	N+AN+Sg+Obv	NULL	têhtapiwin	tehtapiwina-2.wav,tehtapiwina.wav	ᑌᐦᑕᐱᐏᓇ
+têhtapiwinihk	N+IN+Loc	NULL	têhtapiwin	tehtapiwinihk.wav	ᑌᐦᑕᐱᐏᓂᕽ
+têhtapiwinihk	N+AN+Loc	NULL	têhtapiwin	tehtapiwinihk.wav	ᑌᐦᑕᐱᐏᓂᕽ
+têpakohp	Ipc	NULL	têpakohp	tepakohp_0.wav,tepakohp_1.wav	ᑌᐸᑯᐦᑊ
+têpakohp	Num+Ipc	NULL	têpakohp	tepakohp_0.wav,tepakohp_1.wav	ᑌᐸᑯᐦᑊ
+tohtôsapoy		NULL	tohtôsapoy	tohtôsapoy_0.wav,tohtôsapoy_1.wav	ᑐᐦᑑᓴᐳᐩ
+tohtôsâpohk		NULL	tohtôsâpohk	tohtôsâpohk.wav	ᑐᐦᑑᓵᐳᕽ
+tohtôsâpoy	N+IN+Sg	NULL	tohtôsâpoy	tohtôsâpoy.m4a	ᑐᐦᑑᓵᐳᐩ
+tohtôsâpôpimiy		NULL	tohtôsâpôpimiy	tohtôsâpôpimiy.m4a,tohtôsâpôpimiy_0.wav,tohtôsâpôpimiy_1.wav	ᑐᐦᑑᓵᐴᐱᒥᐩ
+wahwâ	Ipc	NULL	wahwâ	wahwâ.m4a	ᐘᐦᐚ
+wâcistakâc	Ipc	NULL	wâcistakâc	wâcistakâc.m4a	ᐚᒋᐢᑕᑳᐨ
+wâhyaw	Ipc	NULL	wâhyaw	wâhyaw.m4a	ᐚᐦᔭᐤ
+wâpahta	V+TI+Imp+Imm+2Sg	NULL	wâpahtam	wâpahta.m4a	ᐚᐸᐦᑕ
+wâpam	V+TA+Imp+Imm+2Sg+3SgO	NULL	wâpamêw	wâpam.m4a	ᐚᐸᒼ
+wâskahikan	N+IN+Sg	NULL	wâskahikan	wâskahikan.m4a	ᐚᐢᑲᐦᐃᑲᐣ
+wâwa	N+IN+Pl	NULL	wâwi	wâwa.m4a,wâwa_0.wav,wâwa_1.wav	ᐚᐘ
+wêhcasin	V+TA+Imp+Imm+2Sg+3SgO	NULL	asinêw	wehcasin.m4a	ᐍᐦᒐᓯᐣ
+wêhcasin	V+II+Ind+Prs+3Sg	NULL	wêhcasin	wehcasin.m4a	ᐍᐦᒐᓯᐣ
+wêmistikôsiw	N+AN+Sg	NULL	wêmistikôsiw	wemistikôsiw.m4a	ᐍᒥᐢᑎᑰᓯᐤ
+wêmistikôsînâhk	N+IN+Sg	NULL	wêmistikôsînâhk	wemistikôsînâhk.m4a	ᐍᒥᐢᑎᑰᓰᓈᕽ
+wiyâs	N+IN+Sg	NULL	wiyâs	wiyâs.m4a	ᐏᔮᐢ
+wîcihihk	V+TA+Imp+Imm+2Pl+3SgO	NULL	wîcihêw	wîcihihk_0.wav,wîcihihk_1.wav	ᐑᒋᐦᐃᕽ
+wîcihik	V+TA+Imp+Imm+2Sg+3PlO	NULL	wîcihêw	wîcihik_0.wav,wîcihik_1.wav	ᐑᒋᐦᐃᐠ
+wîcihik	V+TA+Imp+Imm+2Pl+1SgO	NULL	wîcihêw	wîcihik_0.wav,wîcihik_1.wav	ᐑᒋᐦᐃᐠ
+wîcihik	V+TA+Ind+Prs+4Sg/Pl+3SgO	NULL	wîcihêw	wîcihik_0.wav,wîcihik_1.wav	ᐑᒋᐦᐃᐠ
+wîki	V+AI+Imp+Imm+2Sg	NULL	wîkiw	wîki.m4a	ᐑᑭ
+wîki	N+IN+Sg+Px3Sg	NULL	-îki	wîki.m4a	ᐑᑭ
+wîkinân		NULL	wîkinân	wîkinân.m4a	ᐑᑭᓈᐣ
+wîpac	Ipc	NULL	wîpac	wîpac.m4a	ᐑᐸᐨ
+wîsta	N+IN+Pl	NULL	wîsti	wîsta-2.wav,wîsta.wav	ᐑᐢᑕ
+wîsta	Pron+Pers+3Sg+Incl	NULL	wîsta	wîsta-2.wav,wîsta.wav	ᐑᐢᑕ
+wîstawâw	Pron+Pers+3Pl+Incl	NULL	wîstawâw	wîstawâw-2.wav,wîstawâw.wav	ᐑᐢᑕᐚᐤ
+wîya	Pron+Pers+3Sg	NULL	wiya	wîya-2.wav,wîya.wav	ᐑᔭ
+wîyawâw	Pron+Pers+3Pl	NULL	wiyawâw	wîyawâw-2.wav,wîyawâw.wav	ᐑᔭᐚᐤ
+wîyâkan		NULL	wîyâkan	wîyâkan.m4a,wîyâkan_0.wav,wîyâkan_1.wav	ᐑᔮᑲᐣ
+wîyâs		NULL	wîyâs	wîyâs_0.wav,wîyâs_1.wav	ᐑᔮᐢ
+wîyâsihk		NULL	wîyâsihk	wîyâsihk.wav	ᐑᔮᓯᕽ

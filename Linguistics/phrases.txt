@@ -1,0 +1,20 @@
+20	NULL	NULL	158	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	awa_iskwêw.wav	this_woman.png	this,woman
+442	NULL	NULL	158	NULL	0	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	ôki_iskwêwak.wav	these_women.png	these,women
+20	NULL	NULL	324	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	awa_nâpew.wav	this_man.png	this,man
+442	NULL	NULL	324	NULL	0	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	ôki_nâpew.wav	these_men.png	these,men
+20	NULL	NULL	157	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	awa_iskwêsis.wav	this_girl.png	this,girl
+442	NULL	NULL	157	NULL	0	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	ôki_iskwêsisak.wav	these_girls.png	these,girls
+20	NULL	NULL	323	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	awa_nâpesis.wav	this_boy.png	this,boy
+442	NULL	NULL	323	NULL	0	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	ôki_nâpesisak.wav	these_boys.png	these, boys
+20	NULL	NULL	21	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	awa_awâsis.wav	this_child.png	this,child
+442	NULL	NULL	21	NULL	0	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	ôki_awâsisak.wav	these_children.png	these,children
+20	NULL	NULL	158	NULL	NULL	50	NULL	3	NULL	NULL	NULL	NULL	NULL	NULL	awa_iskwêw_ehâcimot.wav	this_woman_is_storytelling.png	this,woman,is storytelling
+442	NULL	NULL	158	NULL	0	50	NULL	2	NULL	NULL	NULL	NULL	NULL	NULL	ôki_iskwêwak_ehâcimocik.wav	these_women_are_storytelling.png	these,women,are storytelling
+20	NULL	NULL	324	NULL	NULL	50	NULL	3	NULL	NULL	NULL	NULL	NULL	NULL	awa_nâpew_ehâcimot.wav	this_man_is_storytelling.png	this,man,is storytelling
+442	NULL	NULL	324	NULL	0	50	NULL	2	NULL	NULL	NULL	NULL	NULL	NULL	ôki_nâpewak_ehâcimocik.wav	these_men_are_storytelling.png	these,men,are storytelling
+20	NULL	NULL	157	NULL	NULL	50	NULL	3	NULL	NULL	NULL	NULL	NULL	NULL	awa_iskwêsis_ehâcimot.wav	this_girl_is_storytelling.png	this,girl,is storytelling
+442	NULL	NULL	157	NULL	0	50	NULL	2	NULL	NULL	NULL	NULL	NULL	NULL	ôki_iskwêsisak_ehâcimocik.wav	these_girls_are_storytelling.png	these,girls,are storytelling
+20	NULL	NULL	323	NULL	NULL	50	NULL	3	NULL	NULL	NULL	NULL	NULL	NULL	awa_nâpesis_ehâcimot.wav	this_boy_is_storytelling.png	this,boy,is storytelling
+442	NULL	NULL	323	NULL	0	50	NULL	2	NULL	NULL	NULL	NULL	NULL	NULL	ôki_nâpesisak_ehâcimocik.wav	these_boys_are_storytelling.png	these,boys,are storytelling
+20	NULL	NULL	21	NULL	NULL	50	NULL	3	NULL	NULL	NULL	NULL	NULL	NULL	awa_awâsis_ehâcimot.wav	this_child_is_storytelling.png	this,child,is storytelling
+442	NULL	NULL	21	NULL	0	50	NULL	2	NULL	NULL	NULL	NULL	NULL	NULL	ôki_awâsisak_ehâcimocik.wav	these_children_are_storytelling.png	these, children,are storytelling

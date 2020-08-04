@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'shadowing.apps.ShadowingConfig',
     'transcription.apps.TranscriptionConfig',
     'common_to_apps.apps.CommonToAppsConfig',
+    'vocab_lessons.apps.VocabLessonsConfig',
 
     # To enable autocomplete with forms
     'dal',
@@ -197,3 +198,6 @@ NO_LOGIN_URL = [
 ]
 
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/common/')
+MEDIA_URL = '/media/'

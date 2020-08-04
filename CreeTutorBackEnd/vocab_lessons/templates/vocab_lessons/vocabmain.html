@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% load sass_tags %} 
+
+{% block styles %}
+<link href="{% sass_src 'vocab_lessons/scss/vocab_lessons.scss' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block scripts %}
+<!-- <script src="{% static 'vocab_lessons/js/vocab_index.js' %}"></script> -->
+{% endblock %}
+
+{% block content %}
+<!--Display messages if there are any-->
+<div class='messages justify-content-center' id="messages">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+<div class="container">
+    <h3 class="row justify-content-md-center mb-3">Choose your vocabulary level! </h3>
+    <form class="row justify-content-md-center" action="" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" name="level" class="btn btn-primary col-lg-3 mx-2" value="1">Level 1</button>
+        <button type="submit" name="level" class="btn btn-primary col-lg-3 mx-2" value="2">Level 2</button>
+    </form>
+</div>
+{% endblock content %}

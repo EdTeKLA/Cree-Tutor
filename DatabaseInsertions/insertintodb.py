@@ -10,9 +10,12 @@ cursor = None
 
 #Set filenames
 GRAMCODE_FILENAME = 'gram_codes.txt'
-LEMMA_FILENAME = 'lemmas.txt'
+LEMMA_FILENAME = 'lemmas_wsyllabics.txt'
 # LEMMA_FILENAME = 'lemmas_REMOVE_OR_REPLACE.txt'
-WORDS_FILENAME = 'words_for_db.txt'
+WORDS_FILENAME = 'words_for_db_wsyllabics.txt'
+AFFIX_FILENAME = 'vocab_affix.txt'
+PHRASES_FILENAME = 'phrases.txt'
+VOCAB_LESSONS_FILENAME = 'vocab_lesson.txt'
 
 #Get db_root, db_pass, and filepaths from settings.py
 sys.path.append(os.path.join(os.path.dirname(sys.path[0]),'CreeTutorBackEnd'))
@@ -70,11 +73,17 @@ def dbInfo():
 
 def emptyDb():
     # THIS ORDER MATTERS. letter_pair has foreign keys that reference alphabet, and mysql will throw a key error otherwise
+    cursor.execute("delete from pair_distractor")
     cursor.execute("delete from letter_pair")
+    cursor.execute("delete from letter_distractor")
     cursor.execute("delete from alphabet")
     cursor.execute("delete from word")
     cursor.execute("delete from lemma")
     cursor.execute("delete from gram_code")
+    cursor.execute("delete from phrase")
+    cursor.execute("delete from affix")
+    
+    cursor.execute("delete from vocab_lessons")
 
 
 
@@ -154,6 +163,7 @@ def cycleWords(directory_in_str, lemma_dict):
         Be careful using atom to edit words_for_db.txt
     """
 
+    #TODO add syllabics
 
     word_id = 0
     executestring = "INSERT INTO word() VALUES"
@@ -173,7 +183,7 @@ def cycleWords(directory_in_str, lemma_dict):
         #If there aren't enough columns, print which word caused the failure
         #One will need to go through words_for_db and find out why.
         #DON"T USE ATOM FOR THIS PART! Atom hates \t.
-        if len(content_as_list) != 5:
+        if len(content_as_list) != 6:
             sys.stdout.write(
                                 "Error on line " + str(word_id) + '\n' +
                                 str(content_as_list) + '\n'
@@ -217,9 +227,10 @@ def cycleWords(directory_in_str, lemma_dict):
             #get number of syllables
             num_syllables = syllables(word)
 
+            # get the syllabics
+            syllabics = content_as_list[5]
 
-
-            add_to_executestring = "('{}', '{}', '{}', '{}', '{}', '{}', '{}'),".format(
+            add_to_executestring = "('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}'),".format(
                 word_id,
                 word,
                 translation,
@@ -227,6 +238,7 @@ def cycleWords(directory_in_str, lemma_dict):
                 audio_files,
                 lemma_dict[lemma],
                 gram_code,
+                syllabics
                 )
 
             if word_id == 3:
@@ -235,7 +247,7 @@ def cycleWords(directory_in_str, lemma_dict):
                 print("This should look like \n[97, 107, 226, 109, 97, 115, 107, 238, 104, 107]")
                 print(lemma)
                 print("This should look like \nakâmaskîhk")
-            executestring = "INSERT INTO word(word_id, word, translation, num_syllables, sound, lemmaid_id, gram_code_id) VALUES"
+            executestring = "INSERT INTO word(word_id, word, translation, num_syllables, sound, lemmaid_id, gram_code_id, syllabics) VALUES"
             executestring += add_to_executestring
             executestring = executestring.replace("\n", "")
             executestring = executestring[0:-1]
@@ -247,6 +259,183 @@ def cycleWords(directory_in_str, lemma_dict):
                 count += 1
 
             word_id +=1
+
+    #chop off the trailing comma
+    print("Number of fails: " + str(count))
+    # executestring = executestring[0:-1]
+    # #print(executestring)
+    # executestring = executestring.replace("\n", "")
+    # cursor.execute(executestring)
+    db.commit()
+    return
+
+def cycleAffix(directory_in_str):
+    """
+    Opens Linguistics/vocab_affix.txt
+    Adds entry for each line in vocab_affix.txt
+        A line looks like this:
+    awa 	ᐊᐊᐧ	     this
+    sro     syl     translation
+        Columns are seperated by tab (\t). Note that atom hates typing \t.
+        Be careful using atom to edit vocab_affix.txt
+    """
+
+
+    id = 0
+    executestring = "INSERT INTO affix() VALUES"
+    directory = directory_in_str
+
+    #read in file
+    with open(os.path.join(directory,AFFIX_FILENAME), 'r', encoding='utf-8') as readfile:
+        word_lines = readfile.readlines()
+
+    #cycle through lines
+    count = 0
+    for e in word_lines:
+        #No double characters! No other funny business!
+        content = unicodedata.normalize("NFC", e)
+        #Split the columns into a list
+        content_as_list = content.split('\t')
+        #If there aren't enough columns, print which word caused the failure
+        #One will need to go through words_for_db and find out why.
+        #DON"T USE ATOM FOR THIS PART! Atom hates \t.
+        if len(content_as_list) != 3:
+            sys.stdout.write(
+                                "Error on line " + str(id) + '\n' +
+                                str(content_as_list) + '\n'
+                                )
+            break
+        else:
+            #get the stuff, man
+            sro = content_as_list[0]
+            syl = content_as_list[1]
+            translation = content_as_list[2]
+
+            add_to_executestring = "('{}', '{}', '{}', '{}'),".format(
+                id,
+                sro,
+                syl,
+                translation
+                )
+
+            executestring = "INSERT INTO affix(id, sro, syl, translation) VALUES"
+            executestring += add_to_executestring
+            executestring = executestring.replace("\n", "")
+            executestring = executestring[0:-1]
+            try:
+                cursor.execute(executestring)
+            except Exception as ex:
+                print(executestring)
+                print(ex)
+                count += 1
+
+            id +=1
+
+    #chop off the trailing comma
+    print("Number of fails: " + str(count))
+    # executestring = executestring[0:-1]
+    # #print(executestring)
+    # executestring = executestring.replace("\n", "")
+    # cursor.execute(executestring)
+    db.commit()
+    return
+
+def cyclePhrases(directory_in_str):
+    """
+    Opens Linguistics/phrases.txt
+    Adds entry for each line in phrases.txt
+    A line looks like this:
+        awa	NULL	NULL	iskwêw	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	awa_iskwew.wav	this_woman.png
+        gram_1  gram_1_prefix   gram_1_suffix   gram_2  gram_2_prefix   gram_2_suffix   gram_3  gram_3_prefix   gram_3_suffix   gram_4  gram_4_prefix   gram_4_suffix   gram_5  gram_5_prefix   gram_5_suffix   sound   image
+    Columns are seperated by tab (\t). Note that atom hates typing \t.
+    Be careful using atom to edit phrases.txt
+    """
+
+
+    pid = 0
+    executestring = "INSERT INTO phrase() VALUES"
+    directory = directory_in_str
+
+    #read in file
+    with open(os.path.join(directory,PHRASES_FILENAME), 'r', encoding='utf-8') as readfile:
+        word_lines = readfile.readlines()
+
+    #cycle through lines
+    count = 0
+    for e in word_lines:
+        #No double characters! No other funny business!
+        content = unicodedata.normalize("NFC", e)
+        #Split the columns into a list
+        content_as_list = content.split('\t')
+        #If there aren't enough columns, print which word caused the failure
+        #One will need to go through words_for_db and find out why.
+        #DON"T USE ATOM FOR THIS PART! Atom hates \t.
+        if len(content_as_list) != 18:
+            sys.stdout.write(
+                                "Error on line " + str(pid) + '\n' +
+                                str(content_as_list) + '\n'
+                                )
+            break
+        else:
+            #get the stuff, man
+            gram_1_id = content_as_list[0]
+            gram_1_prefix_id = content_as_list[1]
+            gram_1_suffix_id = content_as_list[2]
+
+            gram_2_id = content_as_list[3]
+            gram_2_prefix_id = content_as_list[4]
+            gram_2_suffix_id = content_as_list[5]
+
+            gram_3_id = content_as_list[6]
+            gram_3_prefix_id = content_as_list[7]
+            gram_3_suffix_id = content_as_list[8]
+
+            gram_4_id = content_as_list[9]
+            gram_4_prefix_id = content_as_list[10]
+            gram_4_suffix_id = content_as_list[11]
+
+            gram_5_id = content_as_list[12]
+            gram_5_prefix_id = content_as_list[13]
+            gram_5_suffix_id = content_as_list[14]
+
+            sound = content_as_list[15]
+            image = content_as_list[16]
+            translation = content_as_list[17]
+            
+            add_to_executestring = "({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, '{}', '{}', '{}'),".format(
+                pid,
+                gram_1_id,
+                gram_1_prefix_id,
+                gram_1_suffix_id,
+                gram_2_id,
+                gram_2_prefix_id,
+                gram_2_suffix_id,
+                gram_3_id,
+                gram_3_prefix_id,
+                gram_3_suffix_id,
+                gram_4_id,
+                gram_4_prefix_id,
+                gram_4_suffix_id,
+                gram_5_id,
+                gram_5_prefix_id,
+                gram_5_suffix_id,
+                sound,
+                image,
+                translation
+                )
+
+            executestring = "INSERT INTO phrase(pid, gram_1_id, gram_1_prefix_id, gram_1_suffix_id, gram_2_id, gram_2_prefix_id, gram_2_suffix_id, gram_3_id, gram_3_prefix_id, gram_3_suffix_id, gram_4_id, gram_4_prefix_id, gram_4_suffix_id, gram_5_id, gram_5_prefix_id, gram_5_suffix_id, sound, image, translation) VALUES"
+            executestring += add_to_executestring
+            executestring = executestring.replace("\n", "")
+            executestring = executestring[0:-1]
+            try:
+                cursor.execute(executestring)
+            except Exception as ex:
+                print(executestring)
+                print(ex)
+                count += 1
+
+            pid +=1
 
     #chop off the trailing comma
     print("Number of fails: " + str(count))
@@ -296,6 +485,70 @@ def cycleWords(directory_in_str, lemma_dict):
     db.commit()
     return
 """
+
+def populateVocabLesson():
+    """
+    Opens vocab_lesson.txt
+    Adds entry for each line in vocab_lesson.txt
+    Columns are seperated by a single space.
+    """
+
+
+    id = 0
+    executestring = "INSERT INTO vocab_lessons() VALUES"
+
+    #read in file
+    with open(VOCAB_LESSONS_FILENAME, 'r', encoding='utf-8') as readfile:
+        lines = readfile.readlines()
+
+    #cycle through lines
+    count = 0
+    for e in lines:
+        #No double characters! No other funny business!
+        content = unicodedata.normalize("NFC", e)
+        #Split the columns into a list
+        content_as_list = content.split()
+        #If there aren't enough columns, print which word caused the failure
+        #One will need to go through words_for_db and find out why.
+        #DON"T USE ATOM FOR THIS PART! Atom hates \t.
+        if len(content_as_list) != 2:
+            sys.stdout.write(
+                                "Error on line " + str(id) + '\n' +
+                                str(content_as_list) + '\n'
+                                )
+            break
+        else:
+            #get the stuff, man
+            lesson_no = content_as_list[0]
+            pid = content_as_list[1]
+
+            add_to_executestring = "('{}', '{}', '{}'),".format(
+                id,
+                lesson_no,
+                pid
+            )
+
+            executestring = "INSERT INTO vocab_lessons(id, lesson_no, pid_id) VALUES"
+            executestring += add_to_executestring
+            executestring = executestring.replace("\n", "")
+            executestring = executestring[0:-1]
+            try:
+                cursor.execute(executestring)
+            except Exception as ex:
+                print(executestring)
+                print(ex)
+                count += 1
+
+            id +=1
+
+    #chop off the trailing comma
+    print("Number of fails: " + str(count))
+    # executestring = executestring[0:-1]
+    # #print(executestring)
+    # executestring = executestring.replace("\n", "")
+    # cursor.execute(executestring)
+    db.commit()
+    return
 
 def syllables(word):
     """
@@ -445,12 +698,13 @@ def cycleLemma(directory_in_str):
         # should look like ["atim","dog"]
         lemma = stripped_code[0]
         translation = stripped_code[1]
+        syllabics = stripped_code[2]
 
-
-        executestring = "INSERT INTO lemma VALUES ('{}', '{}', '{}', NULL,NULL,NULL,NULL,NULL)".format(
+        executestring = "INSERT INTO lemma VALUES ('{}', '{}', '{}', NULL,NULL,NULL,NULL,NULL,'{}')".format(
                         lemma_id,
                         lemma,
                         translation,
+                        syllabics
                         )
         #print(executestring + '\n')
         lemma_dict[lemma] = lemma_id
@@ -492,9 +746,10 @@ def main():
     print("\n")
     sound = input("Please enter the path to 'letter pair' recordings: ")
     """
-    word = settings.PATH_TO_WORD
-    alphabet = settings.PATH_TO_ALPHABET
-    sound = settings.PATH_TO_LETTERPAIR
+    my_path = os.path.join(os.path.dirname(sys.path[0]),'CreeTutorBackEnd')
+    word = my_path + my_path, settings.PATH_TO_WORD
+    alphabet = my_path + settings.PATH_TO_ALPHABET
+    sound = my_path +settings.PATH_TO_LETTERPAIR
     #path to ../Linguistics/
     linguistics = os.path.abspath(os.path.join(os.path.dirname(sys.path[0]),'Linguistics'))
 
@@ -503,10 +758,20 @@ def main():
 
     #cycle lemmas and obtain a list of added lemmas for cycleWords to use
     lemma_dict = cycleLemma(linguistics)
-
+    print('\nAdding words...')
     cycleWords(linguistics, lemma_dict)
+    print('\nAdding letters...')
     cycleLetters(alphabet)
+    print('\nAdding sounds...')
     cycleSound(sound)
+    print('\nAdding affixes...')
+    cycleAffix(linguistics)
+    print('\nAdding phrases...')
+    cyclePhrases(linguistics)
+
+    # populate the vocabulary lesson app table
+    print('\nPopulating vocab_lessons...')
+    populateVocabLesson()
 
     # addLemmaGames()
 

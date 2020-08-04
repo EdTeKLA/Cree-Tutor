@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "vocab_lessons.css",
+	"sources": [
+		"vocab_lessons.scss"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,kBAAkB,CAAC;EACf,MAAM,EAAE,GAAG,GACd;;AAED,AAAA,aAAa,CAAC,KAAK,CAAC;EAChB,MAAM,EAAE,OAAO,GAClB"
+}

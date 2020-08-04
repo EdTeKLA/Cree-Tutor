@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'vocab_lessons/scss/vocab_lessons.scss' %}" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+{{ vocab_slides| json_script:'vocab_slides' }}
+<script src="{% static 'vocab_lessons/js/vocab_lessons.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="justify-content-between">
+        <a class="col-1 btn ml-3 mr-3 mt-1 mb-3 pl-5 pr-5">
+            <div id="go-back" class="display-block grey-bold-text no-padding">
+                <img id="go-back-img" alt="Back button" src="{% static 'common/images/back_button.png' %}" />
+                <span>Back</span>
+            </div>
+        </a>
+    </div>
+    <!--Image-->
+    <div class="row mt-2">
+        <div id="image" class="col-centered">
+            <div id="vocab-img" class='largest-button-padding'></div>
+        </div>
+    </div>
+    <!--Phrase sound-->
+    <div class="row">
+        <div id="phrase-container mb-3" class="col-centered">
+            <div id="phrase"></div>
+        </div>
+    </div>
+
+    <!-- Previous and Next buttons-->
+    <div class="d-flex justify-content-center mb-3">
+        <button id="back-button" class="btn btn-light ml-3 mr-3 mt-0 pl-5 pr-5">
+            <div class="display-block no-padding centering">
+                <img alt="back button" src="{% static 'common/images/back_button.png' %}" />
+                <span id="back-text" class="white-bold-text">Back</span>
+            </div>
+        </button>
+        <button id="next-button" class="btn btn-light ml-3 mr-3 mt-0 pl-5 pr-5">
+            <div class="display-block no-padding centering">
+                <span id="next-text" class="white-bold-text">Next</span>
+                <img alt="Next button" src="{% static 'common/images/next_button.png' %}" />
+            </div>
+        </button>
+    </div>
+</div>
+{% endblock content %}

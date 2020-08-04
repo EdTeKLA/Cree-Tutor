@@ -39,9 +39,9 @@ def letter_distractors():
         line = line.split(":")
         letter = line[0].strip()
         distractor = line[1].strip()
-        type = line[2].strip()
+        t = line[2].strip()
         if len(line) == 3:
-            e = "INSERT INTO ai(distractor, type, letter) VALUES ('{}', '{}', '{}')".format(distractor, type, letter)
+            e = "INSERT INTO letter_distractor(distractor, letter, type) VALUES ('{}', '{}', '{}')".format(distractor, letter, t)
             cursor.execute(e)
 
     db.commit()
@@ -49,7 +49,7 @@ def letter_distractors():
     return
 
 def pair_distractors():
-    f.open("pair_distractor.txt", "r")
+    f = open("pair_distractor.txt", "r")
     for line in f:
         line = line.split(":")
         letter = line[0].strip()

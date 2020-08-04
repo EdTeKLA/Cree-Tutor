@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic.base import TemplateView
 from .view_helper import *
-from ..models import *
+from lettergame.models import *
 
 
 class WhichGame(View):

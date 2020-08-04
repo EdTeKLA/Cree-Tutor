@@ -12,6 +12,7 @@ askipwawâ~NULL
 askipwâwi~potato
 atâwêwikamik~store
 atoskêw~He works
+awa~this
 awâsis~A child; a tot.
 awîna~who
 ayamihcikêw~read
@@ -52,6 +53,8 @@ nikamow~s/he sings
 nipâw~s/he sleeps, s/he is asleep
 nîmihitow~s/he dances
 nîpawiw~NULL
+ehâcimot~is storytelling
+ehâcimo~are storytelling root
 êpahpiyit~NULL
 pâhpiw~NULL
 êpihtwâyan~NULL
@@ -191,6 +194,7 @@ oskâtâsk~A carrot.
 ôtênaw~town, camp-circle, settlement; city
 ôcênâs~village
 ôhô~An owl.
+ôki~these
 pahkwêsikan~bannock, bread; flour
 pahpiyiwa~NULL
 papêskomina~NULL

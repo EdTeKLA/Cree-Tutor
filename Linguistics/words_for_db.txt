@@ -18,6 +18,7 @@ atâwêwikamikwa	N+IN+Pl	store	atâwêwikamik	atâwew_kamikwa.wav,atâwew_kamiwa
 atim	N+AN+Sg	dog	atim	atim-2.wav,atim.wav,atim_0.wav,atim_1.wav
 atimwak	N+AN+Pl	dogs	atim	atimwak-2.wav,atimwak.wav
 atoskê	V+AI+Imp+Imm+2Sg	work	atoskêw	atoske.m4a
+awa	NULL	this	awa	awa.wav
 awâsis	N+AN+Sg	baby	awâsis	awâsis.m4a
 awîna	Pron+Interr+Sg	who	awîna	awîna.m4a
 ayamihcikê	V+AI+Imp+Imm+2Sg	read	ayamihcikêw	ayamihcike.wav,ayamihcike-2.wav
@@ -46,6 +47,8 @@ cîscayisîpwâkanis	N+IN+Sg	NULL	cîscayisîpwâkanis	cîscayisîpwâkanis_0.wa
 cîscaysîpwâkanis		NULL	cîscaysîpwâkanis	cîscaysîpwâkanis.m4a
 cohkâp		NULL	cohkâp	cohkâp_0.wav,cohkâp_1.wav
 côcô		NULL	côcô	côcô_0.wav,côcô_1.wav
+ehâcimot	NULL	is storytelling	ehâcimot	ehâcimot.wav
+ehâcimo-	NULL	are storytelling root	ehâcimo	ehâcimo.wav
 êhapit	V+AI+Cnj+Prs+3Sg	NULL	apiw	ehapit.wav
 êhapiyan	V+AI+Cnj+Prs+2Sg	NULL	apiw	ehapiyan.wav
 êhapiyân	V+AI+Cnj+Prs+1Sg	NULL	apiw	ehapiyân.wav
@@ -437,6 +440,7 @@ ospitona	N+IN+Pl+Px3Sg	NULL	mispiton	ospitona.wav
 ôcênâs	N+IN+Der/Dim+N+IN+Sg	NULL	ôtênaw	ôcenâs.m4a
 ôcênâs	N+IN+Sg	NULL	ôcênâs	ôcenâs.m4a
 ôhô		NULL	ôhô	ôhô_0.wav,ôhô_1.wav,ôhô_2.wav,ôhô_3.wav
+ôki	NULL	these	ôki	ôki.wav
 ôtênaw	N+IN+Sg	NULL	ôtênaw	ôtenaw.m4a
 pahkwêsikan	N+AN+Sg	NULL	pahkwêsikan	pahkwesikan.m4a,pahkwesikan_0.wav,pahkwesikan_1.wav
 pahpiyiwa		NULL	pahpiyiwa	pahpiyiwa.wav

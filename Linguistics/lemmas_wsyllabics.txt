@@ -1,0 +1,256 @@
+atim~A dog.~ᐊᑎᒼ
+acimosis~A pup or a puppy; a newborn dog.~ᐊᒋᒧᓯᐢ
+akâmaskiy~the land across the water, overseas~ᐊᑳᒪᐢᑭᐩ
+akâmaskîhk~overseas, across the ocean; in the land across the water~ᐊᑳᒪᐢᑮᕽ
+akâmihk~across the water or lake~ᐊᑳᒥᕽ
+amiskwâciwaskahikan~NULL~ᐊᒥᐢᒁᒋᐘᐢᑲᐦᐃᑲᐣ
+amiskwaciy-wâskahikan~Edmonton~ᐊᒥᐢᑿᒋᐩ ᐚᐢᑲᐦᐃᑲᐣ
+anohc~today~ᐊᓄᐦᐨ
+apsis~a little~apsis
+apiw~He sits.  Also means he is at home.~ᐊᐱᐤ
+askipwawâ~NULL~ᐊᐢᑭᑅᐚ
+askipwâwi~potato~ᐊᐢᑭᑇᐏ
+atâwêwikamik~store~ᐊᑖᐍᐏᑲᒥᐠ
+atoskêw~He works~ᐊᑐᐢᑫᐤ
+awa~this~ᐊᐘ
+awâsis~A child; a tot.~ᐊᐚᓯᐢ
+awîna~who~ᐊᐑᓇ
+ayamihcikêw~read~ᐊᔭᒥᐦᒋᑫᐤ
+ay~NULL~ᐊᐩ
+âkayâsîmowin~English~ᐋᑲᔮᓰᒧᐏᐣ
+âkâyâsiw~NULL~ᐋᑳᔮᓯᐤ
+âpokosîs~NULL~ᐋᐳᑯᓰᐢ
+âta~although, even though, in vain; on the other hand~ᐋᑕ
+âtiht~NULL~ᐋᑎᐦᐟ
+âwas~NULL~ᐋᐘᐢ
+âyiman~NULL~ᐋᔨᒪᐣ
+cacâstapiwêw~NULL~ᒐᒑᐢᑕᐱᐍᐤ
+cakêk~NULL~ᒐᑫᐠ
+têhtapiwin~chair, seat; saddle~ᑌᐦᑕᐱᐏᐣ
+cêhcapiwinis~baby chair, highchair; little chair~ᒉᐦᒐᐱᐏᓂᐢ
+cêskwa~wait, wait a minute; presently, yet; soon; in the future~ᒉᐢᑿ
+cikêmâ~of course, certainly, naturally, obviously, as might be expected, as a natural result, certain consequence; evidently; because~ᒋᑫᒫ
+cîki~close, close by, near, nearby, near to~ᒌᑭ
+cîscayisîpwâkanis~A big table fork.~ᒌᐢᒐᔨᓰᑇᑲᓂᐢ
+cîscaysîpwâkanis~NULL~ᒌᐢᒐᐩᓰᑇᑲᓂᐢ
+cohkâp~NULL~ᒍᐦᑳᑊ
+côcô~NULL~ᒎᒎ
+êhâ~NULL~ᐁᐦᐋ
+êhohpiyan~NULL~ᐁᐦᐅᐦᐱᔭᐣ
+ohpîw~NULL~ᐅᐦᐲᐤ
+êhopîyâhk~NULL~ᐁᐦᐅᐲᔮᕽ
+kîwêw~NULL~ᑮᐍᐤ
+êkosi~amen~ᐁᑯᓯ
+êkwa~and, also; then; now~ᐁᑿ
+masinahikêw~s/he writes, s/he writes things, s/he is literate; s/he owes; s/he takes employment; s/he gives credit; s/he gets credit~ᒪᓯᓇᐦᐃᑫᐤ
+mâtow~bawl~ᒫᑐᐤ
+mêtawêw~s/he plays; s/he gambles, s/he contests~ᒣᑕᐍᐤ
+êmihkwânis~NULL~ᐁᒥᐦᒁᓂᐢ
+êmihkwân~NULL~ᐁᒥᐦᒁᐣ
+minihkwêw~s/he drinks, s/he has a drink; s/he drinks s.t.; s/he drinks, s/he abuses alcohol~ᒥᓂᐦᑵᐤ
+mîcisow~s/he eats, s/he has a meal~ᒦᒋᓱᐤ
+nikamow~s/he sings~ᓂᑲᒧᐤ
+nipâw~s/he sleeps, s/he is asleep~ᓂᐹᐤ
+nîmihitow~s/he dances~ᓃᒥᐦᐃᑐᐤ
+nîpawiw~NULL~ᓃᐸᐏᐤ
+ehâcimot~is storytelling~ᐁᐦᐋᒋᒧᐟ
+ehâcimo~are storytelling root~ᐁᐦᐋᒋᒧ
+êpahpiyit~NULL~ᐁᐸᐦᐱᔨᐟ
+pâhpiw~NULL~ᐹᐦᐱᐤ
+êpihtwâyan~NULL~ᐁᐱᐦᑤᔭᐣ
+êpihtwâyit~NULL~ᐁᐱᐦᑤᔨᐟ
+pimohtêw~s/he walks, s/he walks along; s/he goes along~ᐱᒧᐦᑌᐤ
+pîhtwâw~s/he smokes; s/he smokes the pipe, s/he uses the pipe; s/he has a pipe ceremony; s/he is a nicotine addict~ᐲᐦᑤᐤ
+pîkiskwêw~s/he speaks, s/he talks, s/he use words, s/he makes a speech~ᐲᑭᐢᑵᐤ
+sâkihêw~s/he loves s.o., s/he prizes s.o., s/he is attached to s.o.~ᓵᑭᐦᐁᐤ
+isîyihkâs~NULL~ᐃᓰᔨᐦᑳᐢ
+isîyihkâso~NULL~ᐃᓰᔨᐦᑳᓱ
+isîyihkâta~NULL~ᐃᓰᔨᐦᑳᑕ
+isîyihkâtêw~NULL~ᐃᓰᔨᐦᑳᑌᐤ
+iskwêw~woman, female adult~ᐃᐢᑵᐤ
+iskwêsis~girl~ᐃᐢᑵᓯᐢ
+itamaciho~NULL~ᐃᑕᒪᒋᐦᐅ
+itohtêw~NULL~ᐃᑐᐦᑌᐤ
+itwêw~s/he says so, s/he says thus, s/he calls (it) so; it has such a meaning~ᐃᑘᐤ
+ka~(MD)~ᑲ
+kayâs~a long time ago~ᑲᔮᐢ
+kihtwâm~again~ᑭᐦᑤᒼ
+mikot~A nose; a human nose. (Plains). Alt. paswâkan (Northern).~ᒥᑯᐟ
+nikamon~A song. (Northern). Alt. nikamowin (Plains).~ᓂᑲᒧᐣ
+kinosêw~fish~ᑭᓄᓭᐤ
+kipihtwân~NULL~ᑭᐱᐦᑤᐣ
+kiskinohamâkosiw~NULL~ᑭᐢᑭᓄᐦᐊᒫᑯᓯᐤ
+miskîsik~An eye.~ᒥᐢᑮᓯᐠ
+mitôn~A mouth.~ᒥᑑᐣ
+kîhtawakay~NULL~ᑮᐦᑕᐘᑲᐩ
+kîkwây~what  Used when asking a question, i.e. : what~ᑮᒁᐩ
+mîscakâsa~NULL~ᒦᐢᒐᑳᓴ
+kîsta~NULL~ᑮᐢᑕ
+kîstanaw~NULL~ᑮᐢᑕᓇᐤ
+kîstawâw~you (pl), too; you (pl) by contrast; you yourselves~ᑮᐢᑕᐚᐤ
+kiya~you (sg)~ᑭᔭ
+kîyanaw~we/you (pl.incl)~ᑮᔭᓇᐤ
+kiyawâw~you (pl)~ᑭᔭᐚᐤ
+kôhkôs~pig~ᑰᐦᑰᐢ
+kôhkôsak~pigs~ᑰᐦᑰᓴᐠ
+kôhkôsis~little pig~ᑰᐦᑰᓯᐢ
+kôhkôsowîyan~NULL~ᑰᐦᑰᓱᐑᔭᐣ
+kôhkôsowîyin~bacon~ᑰᐦᑰᓱᐑᔨᐣ
+ma~To mean continuous action.  Means always or keeps doing~ᒪ
+mahtâmin~cob of corn~ᒪᐦᑖᒥᐣ
+maskihkiwâpohk~NULL~ᒪᐢᑭᐦᑭᐚᐳᕽ
+maskihkiwâpoy~camomile~ᒪᐢᑭᐦᑭᐚᐳᐩ
+maskisin~A low-cut footwear, i.e.: a moccasin.~ᒪᐢᑭᓯᐣ
+maskisiniw~NULL~ᒪᐢᑭᓯᓂᐤ
+maskisinis~little moccasin, childs shoe~ᒪᐢᑭᓯᓂᐢ
+matahminak~corn~ᒪᑕᐦᒥᓇᐠ
+mâka~but~ᒫᑲ
+mâmaskâc~awful~ᒫᒪᐢᑳᐨ
+micihciy~A hand.~ᒥᒋᐦᒋᐩ
+micihcîs~little hand~ᒥᒋᐦᒌᐢ
+mickciy~NULL~mickciy
+minihkwêwîyâkanis~NULL~ᒥᓂᐦᑵᐑᔮᑲᓂᐢ
+minôs~A cat.~ᒥᓅᐢ
+mistêhtapiwin~NULL~ᒥᐢᑌᐦᑕᐱᐏᐣ
+misi-atâwêwikamik~NULL~ᒥᓯ ᐊᑖᐍᐏᑲᒥᐠ
+miscakasa~NULL~ᒥᐢᒐᑲᓴ
+misit~A foot.~ᒥᓯᐟ
+misicis~A little foot~ᒥᓯᒋᐢ
+misiminihkwêwîyâkan~NULL~ᒥᓯᒥᓂᐦᑵᐑᔮᑲᐣ
+misi-minôs~large cat~ᒥᓯ ᒥᓅᐢ
+misi-môhkomân~large knife~ᒥᓯ ᒨᐦᑯᒫᐣ
+itêw~s/he says thus to s.o., s/he says thus about s.o.; s/he calls s.o. thus~ᐃᑌᐤ
+itam~He speaks of it as so.~ᐃᑕᒼ
+miskât~A leg.~ᒥᐢᑳᐟ
+mispiton~limb  A limb on a person~ᒥᐢᐱᑐᐣ
+mistahi~A lot.  A great amount.  Much.~ᒥᐢᑕᐦᐃ
+mistaskipwâwa~NULL~ᒥᐢᑕᐢᑭᑇᐘ
+mistatim~An aged horse; an old nag.~ᒥᐢᑕᑎᒼ
+mistikinosêw~NULL~ᒥᐢᑎᑭᓄᓭᐤ
+mistikwan~NULL~ᒥᐢᑎᑿᐣ
+mistikwân~A head.~ᒥᐢᑎᒁᐣ
+mistimaskisina~NULL~ᒥᐢᑎᒪᐢᑭᓯᓇ
+mitawakay~NULL~ᒥᑕᐘᑲᐩ
+mîcimapoy~soup~ᒦᒋᒪᐳᐩ
+mîcimâpoy~soup~ᒦᒋᒫᐳᐩ
+mîhtawakay~NULL~ᒦᐦᑕᐘᑲᐩ
+mîhtawakaya~NULL~ᒦᐦᑕᐘᑲᔭ
+mîhtawakâhk~NULL~ᒦᐦᑕᐘᑳᕽ
+mîpit~A tooth.~ᒦᐱᐟ
+mîyomaciho~NULL~ᒦᔪᒪᒋᐦᐅ
+mîywâsin~it looks very fine, it is attractive~ᒦᔼᓯᐣ
+mostos~A cow.~ᒧᐢᑐᐢ
+môhkomanis~little knife~ᒨᐦᑯᒪᓂᐢ
+môhkomân~A knife.~ᒨᐦᑯᒫᐣ
+mônîyâw~NULL~ᒨᓃᔮᐤ
+napêw~man~ᓇᐯᐤ
+nâpê-êsa~NULL~ᓈᐯ ᐁᓴ
+nâpê-êsis~NULL~ᓈᐯ ᐁᓯᐢ
+nâpêw~man, male adult, male being; husband~ᓈᐯᐤ
+nâpêsis~boy, little boy~ᓈᐯᓯᐢ
+nâspic~forever, for good, beyond return, beyond reach; continuous~ᓈᐢᐱᐨ
+nêhiyaw~Cree, Cree man, Cree Indian, Indian~ᓀᐦᐃᔭᐤ
+nêhiyawêw~s/he speaks Cree~ᓀᐦᐃᔭᐍᐤ
+nêhiyawêwin~the Cree language; speaking Cree~ᓀᐦᐃᔭᐍᐏᐣ
+nêstosiw~NULL~ᓀᐢᑐᓯᐤ
+-awâsimis~NULL~-ᐊᐚᓯᒥᐢ
+nihtâ~NULL~ᓂᐦᑖ
+-kâwiy~NULL~-ᑳᐏᐩ
+-kosis~NULL~-ᑯᓯᐢ
+-mosôm~NULL~-ᒧᓲᒼ
+ninêkihikwak~NULL~ᓂᓀᑭᐦᐃᑿᐠ
+nipimohtânan~NULL~ᓂᐱᒧᐦᑖᓇᐣ
+nipîy~Water; aqua.~ᓂᐲᐩ
+nisitohtam~NULL~ᓂᓯᑐᐦᑕᒼ
+nistawêyimêw~NULL~ᓂᐢᑕᐍᔨᒣᐤ
+nitawêyihtam~NULL~ᓂᑕᐍᔨᐦᑕᒼ
+nitawêyimêw~NULL~ᓂᑕᐍᔨᒣᐤ
+-tânis~NULL~-ᑖᓂᐢ
+nitâwasimisak~NULL~ᓂᑖᐘᓯᒥᓴᐠ
+nitohtam~NULL~ᓂᑐᐦᑕᒼ
+-tôtêm~NULL~-ᑑᑌᒼ
+nîpîy~A leaf.~ᓃᐲᐩ
+nîsosâp~twelve~ᓃᓱᓵᑊ
+nîsta~I, too; I by contrast; I myself~ᓃᐢᑕ
+nîstanân~we, too; we by contrast; we ourselves~ᓃᐢᑕᓈᐣ
+-tisân~NULL~-ᑎᓵᐣ
+niya~I am~ᓂᔭ
+niyanân~NULL~ᓂᔭᓈᐣ
+nîyânan~five~ᓃᔮᓇᐣ
+-ohtâwiy~NULL~-ᐅᐦᑖᐏᐩ
+nohtê~NULL~ᓄᐦᑌ
+nohtêkatê~NULL~ᓄᐦᑌᑲᑌ
+nohtêkwasi~NULL~ᓄᐦᑌᑿᓯ
+-ohkom~NULL~-ᐅᐦᑯᒼ
+-ôsisim~NULL~-ᐆᓯᓯᒼ
+ohci~from there, thence, out of; with, by means of; because of; for; from then; about~ᐅᐦᒋ
+ohtâwîmâw~A father. Var. opâpâmâw.~ᐅᐦᑖᐑᒫᐤ
+ohtâwîmêw~s/he regards s.o. as his/her own father~ᐅᐦᑖᐑᒣᐤ
+okâwîmâw~A mother (generic).~ᐅᑳᐑᒫᐤ
+okâwîmêw~s/he regards s.o. as his/her own mother~ᐅᑳᐑᒣᐤ
+onêkihikomâw~NULL~ᐅᓀᑭᐦᐃᑯᒫᐤ
+oskâtâsk~A carrot.~ᐅᐢᑳᑖᐢᐠ
+ôcênas~village~ᐆᒉᓇᐢ
+ôtênaw~town, camp-circle, settlement; city~ᐆᑌᓇᐤ
+ôcênâs~village~ᐆᒉᓈᐢ
+ôhô~An owl.~ᐆᐦᐆ
+ôki~these~ᐆᑭ
+pahkwêsikan~bannock, bread; flour~ᐸᐦᑵᓯᑲᐣ
+pahpiyiwa~NULL~ᐸᐦᐱᔨᐘ
+papêskomina~NULL~ᐸᐯᐢᑯᒥᓇ
+pê~NULL~ᐯ
+pêtâw~s/he brings s.t., s/he brings s.t. hither~ᐯᑖᐤ
+pêyakwan~NULL~ᐯᔭᑿᐣ
+picikwâs~apple~ᐱᒋᒁᐢ
+pihtokwê~NULL~ᐱᐦᑐᑵ
+pihtwâ~NULL~ᐱᐦᑤ
+pihtwâyiwa~NULL~ᐱᐦᑤᔨᐘ
+ohtêw~it boils~ᐅᐦᑌᐤ
+pitamâ~for now, just a while; in the meantime, first, prior to doing anything else~ᐱᑕᒫ
+pîkiskwâs~NULL~ᐲᑭᐢᒁᐢ
+pîsim~sun  Or a month~ᐲᓯᒼ
+sakahikan~A nail.~ᓴᑲᐦᐃᑲᐣ
+sakihikan~NULL~ᓴᑭᐦᐃᑲᐣ
+sâkahikan~lake~ᓵᑲᐦᐃᑲᐣ
+sêmâk~right now, right away, at once, immediately~ᓭᒫᐠ
+sikâk~skunk~ᓯᑳᐠ
+sîsîp~A duck.~ᓰᓰᑊ
+sîsîpisis~A duckling.~ᓰᓰᐱᓯᐢ
+sîwihtâkan~salt~ᓰᐏᐦᑖᑲᐣ
+sîwinikan~Sugar. (Plains). Alt. sesipâskwat (Northern).~ᓰᐏᓂᑲᐣ
+tawâw~it has an opening~ᑕᐚᐤ
+tânêhki~NULL~ᑖᓀᐦᑭ
+tânisi~how, in what way; hello, how are you~ᑖᓂᓯ
+tânisîyisi~NULL~ᑖᓂᓰᔨᓯ
+tânispi~NULL~ᑖᓂᐢᐱ
+tânitê~NULL~ᑖᓂᑌ
+têpakohp~NULL~ᑌᐸᑯᐦᑊ
+tohtôsapoy~milk~ᑐᐦᑑᓴᐳᐩ
+tohtôsâpohk~NULL~ᑐᐦᑑᓵᐳᕽ
+tohtôsâpoy~milk~ᑐᐦᑑᓵᐳᐩ
+tohtôsâpôpimiy~butter~ᑐᐦᑑᓵᐴᐱᒥᐩ
+wahwâ~NULL~ᐘᐦᐚ
+wâcistakâc~An exclamation of surprise or disappointment, i.e.: wow, how about that! or oh, my goodness!~ᐚᒋᐢᑕᑳᐨ
+wâhyaw~afar~ᐚᐦᔭᐤ
+wâpahtam~to see (NI)~ᐚᐸᐦᑕᒼ
+wâpamêw~to see (NA)~ᐚᐸᒣᐤ
+wâskahikan~a house~ᐚᐢᑲᐦᐃᑲᐣ
+wâwi~An egg.~ᐚᐏ
+asinêw~s/he holds s.o. (pl) together in a bunch (e.g. money)~ᐊᓯᓀᐤ
+wêhcasin~it is easy, it is simple; it is cheap in price~ᐍᐦᒐᓯᐣ
+wêmistikôsiw~Frenchman, French Canadian, white man~ᐍᒥᐢᑎᑰᓯᐤ
+wêmistikôsînâhk~NULL~ᐍᒥᐢᑎᑰᓰᓈᕽ
+wiyâs~meat~ᐏᔮᐢ
+wîcihêw~NULL~ᐑᒋᐦᐁᐤ
+wîkiw~S/he lives or inhabits there; s/he dwells there; s/he resides there; s/he has a home there.~ᐑᑭᐤ
+-îki~NULL~-ᐄᑭ
+wîkinân~NULL~ᐑᑭᓈᐣ
+wîpac~Soon. (Plains). Alt. kîyipa (Northern).~ᐑᐸᐨ
+wîsti~beaver lodge; muskrat house~ᐑᐢᑎ
+wîsta~he, too; she, too; he, by contrast; she, by contrast~ᐑᐢᑕ
+wîstawâw~they, too; they, by contrast; they themselves~ᐑᐢᑕᐚᐤ
+wiya~this, that; as for, by contrast~ᐏᔭ
+wiyawâw~by contrast~ᐏᔭᐚᐤ
+wîyâkan~NULL~ᐑᔮᑲᐣ
+wîyâs~meat~ᐑᔮᐢ
+wîyâsihk~NULL~ᐑᔮᓯᕽ
